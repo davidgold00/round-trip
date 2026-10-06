@@ -97,6 +97,21 @@ KEYWORD_RULES: list[tuple[str, re.Pattern]] = [
 
 MONEY_HINT = re.compile(r"\$\s?[0-9][0-9,.]*\s*(trillion|billion|million|bn|m\b|b\b)?", re.I)
 
+# A size hint: a dollar figure, or a capacity figure, which is how most of these
+# deals are announced when no dollar value is given.
+SIZE_HINT = re.compile(
+    r"\$\s?[0-9]|\b[0-9.]+\s?(gigawatt|GW|megawatt|MW)\b|\bgigawatts?\b", re.I)
+
+# Corporate-citizenship and product-marketing language that uses the same verbs
+# as financing language. "5 ways Amazon is investing in Connecticut" and
+# "Amazon in the community" both fire the investment rule and are not edges.
+NOISE = re.compile(
+    r"\bin the community\b|\bways .{0,20}is investing in\b|\bphilanthrop|\bdonat"
+    r"|\bvolunteer|\bscholarship|\bworkforce (development|training)\b|\bSTEM\b"
+    r"|\bsustainab|\bcarbon[- ]free\b|\bwater (positive|replenish)"
+    r"|\bappoints?\b|\bboard of directors\b|\bcorporate fellow\b"
+    r"|\bcustomer story\b|\bcase study\b|\bhow .{0,40}\buses\b", re.I)
+
 
 # ---------------------------------------------------------------------------
 # Fetchers
@@ -525,7 +540,24 @@ def run(skip_network: bool = False) -> dict:
         items += fetch_ir_feeds(ua, cfg)
         items += fetch_gdelt(cfg, ua)
     else:
-        LOG.info("skip_network set, using whatever is already cached")
+        # Re-tag what is already stored rather than doing nothing. This is what
+        # makes --skip-network useful: the tagging rules can be tuned offline
+        # against the real corpus without hitting any feed again.
+        if FEED_CSV.exists():
+            with open(FEED_CSV) as fh:
+                for r in csv.DictReader(fh):
+                    items.append({
+                        "title": r.get("title", ""), "url": r.get("url", ""),
+                        "raw_date": r.get("date", ""),
+                        "publisher": r.get("publisher", ""),
+                        "source_kind": r.get("source_kind", ""),
+                        "snippet": r.get("snippet", ""),
+                        "entities": r.get("entities", ""),
+                        "accession_no": r.get("accession_no", ""),
+                        "items_reported": r.get("items_reported", ""),
+                        "financing_item": r.get("financing_item", ""),
+                    })
+        LOG.info("skip_network set, re-tagging %d cached items", len(items))
 
     amap = alias_map()
     tagger = Tagger(cfg)
@@ -556,15 +588,22 @@ def run(skip_network: bool = False) -> dict:
         kw = bool(it["tags"])
         sem = float(sc) >= tagger.threshold
         n_ent = len([e for e in it["entities"].split(";") if e])
+        blob_all = f"{it['title']} {it.get('snippet', '')}"
+        sized = bool(SIZE_HINT.search(blob_all))
+        noisy = bool(NOISE.search(blob_all))
         if it["source_kind"] == "edgar_8k":
             # An Item 1.01, 1.02, 2.03 or 3.02 8-K is financing-relevant by
             # definition, whatever the headline text looks like.
             it["financing_relevant"] = bool(
                 str(it.get("financing_item", "")).lower() == "true" or kw or sem)
         elif it["source_kind"] == "ir_rss":
-            it["financing_relevant"] = bool(kw or sem)
+            # A company blog uses the same verbs for community giving as for
+            # financing, so a release needs a counterparty or a size as well as
+            # the verb, and obvious citizenship or marketing copy is excluded.
+            it["financing_relevant"] = bool(
+                (kw or sem) and (n_ent >= 2 or sized) and not noisy)
         else:
-            it["financing_relevant"] = bool(kw and (sem or n_ent >= 2))
+            it["financing_relevant"] = bool(kw and (sem or n_ent >= 2) and not noisy)
 
     cleaned = dedupe(cleaned, float(cfg["news"]["dedupe_threshold"]))
     cleaned.sort(key=lambda i: (i["date"], i["source_kind"]), reverse=True)
@@ -613,6 +652,14 @@ def run(skip_network: bool = False) -> dict:
 
     payload = {
         "as_of": today(),
+        "corpus_note": (
+            "The feed corpus accumulates. Most newsrooms expose only their ten or "
+            "twenty most recent items, so an item that drops out of a feed is kept "
+            "from the previous run rather than lost. Clearing "
+            "data/interim/news_items.csv therefore shrinks history to whatever the "
+            "feeds currently expose. Review decisions in ledger/news_candidates.csv "
+            "are keyed by URL and survive regardless, and a promoted edge lives in "
+            "the ledger permanently."),
         "tagger_mode": tagger.mode,
         "similarity_threshold": tagger.threshold,
         "counts": {

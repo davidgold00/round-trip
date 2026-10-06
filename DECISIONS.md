@@ -410,3 +410,14 @@ Format: `[date] [phase] decision -- rationale`
   never the ledger payload, and a fresh clone would have served a dashboard that
   could not load its own ledger. -- Now guarded by a test that reads the fetch
   calls out of `site/app.js` and asserts every file they ask for exists.
+* `2026-10-06 P6` **Relevance gate tightened for company feeds, and
+  `--skip-network` now re-tags the stored corpus.** A corporate blog uses the
+  same verbs for community giving as for financing: "5 ways Amazon is investing
+  in Connecticut" and "Amazon in the community" both fired the investment rule.
+  A release now needs the verb AND either a second entity or a size hint
+  (dollars or gigawatts), and an explicit noise pattern excludes citizenship,
+  appointments and customer stories. Flagged items fell from 23 to 14 and the
+  survivors are dominated by actual Item 1.01, 2.03 and 3.02 8-Ks.
+  `--skip-network` re-tags what is already stored instead of doing nothing,
+  which is how the rules were tuned without touching a feed. -- A monitor whose
+  queue is mostly press-office copy will not get read.

@@ -128,3 +128,53 @@ def test_media_items_get_the_t3_tier_and_releases_get_t2():
     assert news_candidates([{**base, "source_kind": "gdelt"}])[0]["evidence_tier"] == "T3"
     assert news_candidates([{**base, "source_kind": "ir_rss"}])[0]["evidence_tier"] == "T2"
     assert news_candidates([{**base, "source_kind": "edgar_8k"}])[0]["evidence_tier"] == "T1"
+
+
+def _tag(items):
+    """Run the relevance gate the way src.news.run does, without any network."""
+    from src.news import NOISE, SIZE_HINT
+    t = Tagger(load_config())
+    amap = alias_map()
+    out = []
+    scores = t.similarity([f"{i['title']} {i.get('snippet','')}" for i in items])
+    for i, sc in zip(items, scores):
+        blob = f"{i['title']} {i.get('snippet','')}"
+        kw = bool(t.keyword_tags(blob))
+        sem = float(sc) >= t.threshold
+        n_ent = len(detect_entities(blob, amap))
+        sized = bool(SIZE_HINT.search(blob))
+        noisy = bool(NOISE.search(blob))
+        if i["source_kind"] == "edgar_8k":
+            rel = bool(str(i.get("financing_item", "")).lower() == "true" or kw or sem)
+        elif i["source_kind"] == "ir_rss":
+            rel = bool((kw or sem) and (n_ent >= 2 or sized) and not noisy)
+        else:
+            rel = bool(kw and (sem or n_ent >= 2) and not noisy)
+        out.append(rel)
+    return out
+
+
+def test_corporate_citizenship_copy_is_not_flagged():
+    """These all fire the investment keyword and none of them is an edge."""
+    noise = [
+        {"title": "5 ways Amazon is investing in Connecticut", "source_kind": "ir_rss"},
+        {"title": "Amazon in the community: what is happening in Seattle", "source_kind": "ir_rss"},
+        {"title": "AMD Appoints Tim Ryan to Board of Directors", "source_kind": "ir_rss"},
+        {"title": "How Cooley is accelerating IPO work with ChatGPT", "source_kind": "ir_rss"},
+    ]
+    assert not any(_tag(noise))
+
+
+def test_a_real_financing_release_is_still_flagged():
+    real = [{"title": "AMD and Anthropic Announce Strategic Partnership to Deploy Up to "
+                      "2 Gigawatts of AMD Instinct MI450 Series GPUs",
+             "snippet": "AMD has committed to make a strategic equity investment of up "
+                        "to $5 billion in Anthropic.",
+             "source_kind": "ir_rss"}]
+    assert all(_tag(real))
+
+
+def test_a_financing_item_8k_is_flagged_whatever_the_headline_says():
+    item = [{"title": "Oracle files 8-K", "snippet": "", "source_kind": "edgar_8k",
+             "financing_item": "true"}]
+    assert all(_tag(item))

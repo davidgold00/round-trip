@@ -94,3 +94,15 @@ In order of value:
   `edges.csv` through `python -m src.review batch`.
 * `outputs/audit.md` is the self-audit, including the two corrections it forced.
 * `outputs/changelog.md` is rewritten by every `make refresh`.
+
+## A property worth knowing about the news corpus
+
+`data/interim/news_items.csv` accumulates. Most newsrooms expose only their ten
+or twenty most recent items, so an item that falls out of a feed is carried over
+from the previous run rather than lost. Deleting that file shrinks the corpus to
+whatever the feeds expose today. Review decisions live in
+`ledger/news_candidates.csv`, are keyed by URL, and survive a rebuild; a promoted
+edge lives in `ledger/edges.csv` permanently and is unaffected either way.
+
+`python -m src.news --skip-network` re-tags the stored corpus without touching a
+single feed, which is how the relevance rules were tuned.
