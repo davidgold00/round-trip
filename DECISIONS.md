@@ -327,3 +327,45 @@ Format: `[date] [phase] decision -- rationale`
   recipient's documented external funding, rather than naming a tranche by hand.
   -- Keeps the scenario reproducible as the ledger changes, instead of hardcoding
   today's largest deal.
+* `2026-10-05 P4` **News monitor sources 8-K events from the submissions API, not
+  the browse-edgar Atom feed.** The Atom feed titles every entry "8-K - Current
+  report"; the submissions API carries the Item codes, so Item 1.01 material
+  agreements and Item 2.03 and 3.02 financings can be surfaced by name. The Atom
+  feed is still fetched as a freshness probe. -- A financing monitor that cannot
+  see which item was reported is not a financing monitor. (An Atom namespace bug
+  was also fixed: ElementTree needs the namespace map handed to `find`, and
+  without it every Atom title came back empty and the feed looked like zero items.)
+* `2026-10-05 P4` **GDELT queries are batched four entities at a time with a six
+  second gap.** Fifteen one-per-entity queries were rate limited with HTTP 429.
+  -- Free API, so stay well inside its limits rather than hammering it.
+* `2026-10-05 P4` **An IR feed's `pubDate` is treated as a crawl date, not an
+  evidence date.** The AMD and Anthropic release arrived in the feed stamped
+  2026-10-05 but the release itself is dated 2026-07-22, and the ledger records
+  the release date. -- The as-of date has to be the date of the evidence.
+* `2026-10-05 P5` **Three edge-colour families, not nine edge types.** A network
+  graph is an all-pairs colour form, and the validated categorical palette clears
+  the all-pairs colour-vision and normal-vision separation floors only for its
+  first three slots. Edge types fold into equity and warrants, credit, and
+  committed demand; conditionality is carried by a dash pattern rather than a
+  fourth hue. Validator run on both the light and dark steps, all checks pass.
+  -- Honest colour beats a nine-hue rainbow nobody can distinguish.
+* `2026-10-05 P5` **Non-supplier funding of the private labs is recorded under an
+  aggregate node, `Financial investors`.** Before this, Anthropic's only recorded
+  funders were suppliers, so the CENTRAL denominator contained nothing but
+  suppliers and every supplier's share was overstated by construction. Anthropic's
+  Series G and Series H releases give round totals but no per-investor amounts, so
+  attributing a figure to any individual fund would be invention; the aggregate
+  carries the total net of the supplier money the release itself identifies, as a
+  range where the release is imprecise. Adding it moved the ecosystem CENTRAL from
+  3.1% to 1.7%. -- The denominator's composition is as important as the numerator's,
+  and a denominator made only of suppliers guarantees a flattering answer.
+* `2026-10-05 P5` **The three readings are reported by name and the headline range
+  is their min and max, because they are not guaranteed to nest.** LOWER divides
+  i's funding by j's commitment to i; CENTRAL divides it by j's whole documented
+  funding. When i funded j heavily relative to that one commitment but j has many
+  other funders, LOWER exceeds CENTRAL. Amazon and Anthropic is exactly that case:
+  LOWER 5.0% against CENTRAL 4.7%. -- Both answers are correct answers to different
+  questions. Forcing an order would have meant discarding one of them. The
+  dashboard flags any supplier whose readings are not nested, and
+  `tests/test_metrics.py` has a toy graph (A funds B with 10, C funds B with 90,
+  B commits 10 to A) whose LOWER is 1.0 and CENTRAL is 0.1 by hand.

@@ -1,0 +1,921 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+  <feed xmlns="http://www.w3.org/2005/Atom">
+    <author>
+      <email>webmaster@sec.gov</email>
+      <name>Webmaster</name>
+    </author>
+    <company-info>
+      <addresses>
+        <address type="mailing">
+          <city>SANTA CLARA</city>
+          <state>CA</state>
+          <street1>2485 AUGUSTINE DRIVE</street1>
+          <zip>95054</zip>
+        </address>
+        <address type="business">
+          <city>SANTA CLARA</city>
+          <phone>(408) 749-4000</phone>
+          <state>CA</state>
+          <street1>2485 AUGUSTINE DRIVE</street1>
+          <zip>95054</zip>
+        </address>
+      </addresses>
+      <assigned-sic>3674</assigned-sic>
+      <assigned-sic-desc>SEMICONDUCTORS &amp;amp; RELATED DEVICES</assigned-sic-desc>
+      <assigned-sic-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;SIC=3674&amp;owner=include&amp;count=40</assigned-sic-href>
+      <cik>0000002488</cik>
+      <cik-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0000002488&amp;owner=include&amp;count=40</cik-href>
+      <conformed-name>ADVANCED MICRO DEVICES INC</conformed-name>
+      <fiscal-year-end>1226</fiscal-year-end>
+      <state-location>CA</state-location>
+      <state-location-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;State=CA&amp;owner=include&amp;count=40</state-location-href>
+      <state-of-incorporation>DE</state-of-incorporation>
+    </company-info>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-26-000182</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2026-09-28</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248826000182/0000002488-26-000182-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>261417444</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>item 3.02</items-desc>
+        <size>149 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-26-000182&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-26-000182</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248826000182/0000002488-26-000182-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2026-09-28 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-26-000182 &lt;b&gt;Size:&lt;/b&gt; 149 KB&lt;br&gt;Item 3.02: Unregistered Sales of Equity Securities</summary>
+      <title>8-K  - Current report</title>
+      <updated>2026-09-28T16:16:47-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-26-000163</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2026-08-19</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248826000163/0000002488-26-000163-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>261295395</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 5.02 and 9.01</items-desc>
+        <size>204 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-26-000163&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-26-000163</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248826000163/0000002488-26-000163-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2026-08-19 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-26-000163 &lt;b&gt;Size:&lt;/b&gt; 204 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2026-08-19T16:16:56-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0001193125-26-354029</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2026-08-17</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000119312526354029/0001193125-26-354029-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>261286689</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 1.01, 2.03and9.01</items-desc>
+        <size>849 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0001193125-26-354029&amp;xbrl_type=f</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0001193125-26-354029</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000119312526354029/0001193125-26-354029-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2026-08-17 &lt;b&gt;AccNo:&lt;/b&gt; 0001193125-26-354029 &lt;b&gt;Size:&lt;/b&gt; 849 KB&lt;br&gt;Item 1.01: Entry into a Material Definitive Agreement&lt;br&gt;Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2026-08-17T16:05:40-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-26-000121</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2026-08-04</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248826000121/0000002488-26-000121-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>261238953</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>4 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-26-000121&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-26-000121</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248826000121/0000002488-26-000121-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2026-08-04 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-26-000121 &lt;b&gt;Size:&lt;/b&gt; 4 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2026-08-04T16:16:24-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-26-000115</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2026-07-01</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248826000115/0000002488-26-000115-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>261145567</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>item 5.02</items-desc>
+        <size>171 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-26-000115&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-26-000115</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248826000115/0000002488-26-000115-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2026-07-01 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-26-000115 &lt;b&gt;Size:&lt;/b&gt; 171 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers</summary>
+      <title>8-K  - Current report</title>
+      <updated>2026-07-01T16:27:26-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0001193125-26-226746</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2026-05-15</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000119312526226746/0001193125-26-226746-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>26987535</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 1.01, 1.02, 2.03, 5.02, 5.07and9.01</items-desc>
+        <size>1 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0001193125-26-226746&amp;xbrl_type=f</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0001193125-26-226746</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000119312526226746/0001193125-26-226746-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2026-05-15 &lt;b&gt;AccNo:&lt;/b&gt; 0001193125-26-226746 &lt;b&gt;Size:&lt;/b&gt; 1 MB&lt;br&gt;Item 1.01: Entry into a Material Definitive Agreement&lt;br&gt;Item 1.02: Termination of a Material Definitive Agreement&lt;br&gt;Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers&lt;br&gt;Item 5.07: Submission of Matters to a Vote of Security Holders&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2026-05-15T16:12:53-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-26-000072</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2026-05-05</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248826000072/0000002488-26-000072-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>26943417</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>3 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-26-000072&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-26-000072</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248826000072/0000002488-26-000072-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2026-05-05 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-26-000072 &lt;b&gt;Size:&lt;/b&gt; 3 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2026-05-05T16:16:06-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-26-000045</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2026-02-24</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248826000045/0000002488-26-000045-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>26667419</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 1.01, 3.02, 7.01and9.01</items-desc>
+        <size>420 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-26-000045&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-26-000045</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248826000045/0000002488-26-000045-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2026-02-24 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-26-000045 &lt;b&gt;Size:&lt;/b&gt; 420 KB&lt;br&gt;Item 1.01: Entry into a Material Definitive Agreement&lt;br&gt;Item 3.02: Unregistered Sales of Equity Securities&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2026-02-24T07:01:06-05:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-26-000029</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2026-02-17</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248826000029/0000002488-26-000029-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>26641792</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>item 5.02</items-desc>
+        <size>174 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-26-000029&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-26-000029</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248826000029/0000002488-26-000029-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2026-02-17 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-26-000029 &lt;b&gt;Size:&lt;/b&gt; 174 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers</summary>
+      <title>8-K  - Current report</title>
+      <updated>2026-02-17T16:21:24-05:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-26-000014</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2026-02-03</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248826000014/0000002488-26-000014-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>26593165</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>5 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-26-000014&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-26-000014</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248826000014/0000002488-26-000014-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2026-02-03 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-26-000014 &lt;b&gt;Size:&lt;/b&gt; 5 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2026-02-03T16:16:18-05:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-26-000002</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2026-01-20</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248826000002/0000002488-26-000002-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>26543086</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 5.02 and 9.01</items-desc>
+        <size>199 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-26-000002&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-26-000002</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248826000002/0000002488-26-000002-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2026-01-20 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-26-000002 &lt;b&gt;Size:&lt;/b&gt; 199 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2026-01-20T16:19:32-05:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-25-000182</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-12-15</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248825000182/0000002488-25-000182-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>251571704</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 5.02 and 9.01</items-desc>
+        <size>200 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-25-000182&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-25-000182</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248825000182/0000002488-25-000182-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-12-15 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-25-000182 &lt;b&gt;Size:&lt;/b&gt; 200 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-12-15T16:12:11-05:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-25-000163</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-11-04</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248825000163/0000002488-25-000163-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>251449302</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>4 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-25-000163&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-25-000163</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248825000163/0000002488-25-000163-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-11-04 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-25-000163 &lt;b&gt;Size:&lt;/b&gt; 4 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-11-04T16:16:10-05:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0001193125-25-250803</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-10-27</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000119312525250803/0001193125-25-250803-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>251417642</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.01, 7.01and9.01</items-desc>
+        <size>166 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0001193125-25-250803&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0001193125-25-250803</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000119312525250803/0001193125-25-250803-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-10-27 &lt;b&gt;AccNo:&lt;/b&gt; 0001193125-25-250803 &lt;b&gt;Size:&lt;/b&gt; 166 KB&lt;br&gt;Item 2.01: Completion of Acquisition or Disposition of Assets&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-10-27T08:49:27-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0001193125-25-230895</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-10-06</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000119312525230895/0001193125-25-230895-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>251375588</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 1.01, 3.02, 7.01and9.01</items-desc>
+        <size>359 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0001193125-25-230895&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0001193125-25-230895</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000119312525230895/0001193125-25-230895-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-10-06 &lt;b&gt;AccNo:&lt;/b&gt; 0001193125-25-230895 &lt;b&gt;Size:&lt;/b&gt; 359 KB&lt;br&gt;Item 1.01: Entry into a Material Definitive Agreement&lt;br&gt;Item 3.02: Unregistered Sales of Equity Securities&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-10-06T07:04:49-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-25-000147</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-08-25</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248825000147/0000002488-25-000147-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>251250942</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>item 5.02</items-desc>
+        <size>151 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-25-000147&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-25-000147</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248825000147/0000002488-25-000147-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-08-25 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-25-000147 &lt;b&gt;Size:&lt;/b&gt; 151 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-08-25T16:07:00-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-25-000106</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-08-05</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248825000106/0000002488-25-000106-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>251185216</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>4 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-25-000106&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-25-000106</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248825000106/0000002488-25-000106-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-08-05 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-25-000106 &lt;b&gt;Size:&lt;/b&gt; 4 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-08-05T16:16:31-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-25-000099</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-07-02</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248825000099/0000002488-25-000099-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>251101162</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>item 5.02</items-desc>
+        <size>174 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-25-000099&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-25-000099</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248825000099/0000002488-25-000099-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-07-02 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-25-000099 &lt;b&gt;Size:&lt;/b&gt; 174 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-07-02T16:14:22-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K/A" />
+      <content type="text/xml">
+        <accession-number>0000002488-25-000089</accession-number>
+        <act>34</act>
+        <amend>[Amend]</amend>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-06-03</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248825000089/0000002488-25-000089-index.htm</filing-href>
+        <filing-type>8-K/A</filing-type>
+        <film-number>251019946</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 5.07 and 9.01</items-desc>
+        <size>193 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-25-000089&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-25-000089</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248825000089/0000002488-25-000089-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-06-03 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-25-000089 &lt;b&gt;Size:&lt;/b&gt; 193 KB&lt;br&gt;Item 5.07: Submission of Matters to a Vote of Security Holders&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K/A [Amend]  - Current report</title>
+      <updated>2025-06-03T16:26:04-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0001193125-25-122121</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-05-19</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000119312525122121/0001193125-25-122121-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>25961518</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 1.01, 7.01and9.01</items-desc>
+        <size>950 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0001193125-25-122121&amp;xbrl_type=r</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0001193125-25-122121</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000119312525122121/0001193125-25-122121-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-05-19 &lt;b&gt;AccNo:&lt;/b&gt; 0001193125-25-122121 &lt;b&gt;Size:&lt;/b&gt; 950 KB&lt;br&gt;Item 1.01: Entry into a Material Definitive Agreement&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-05-19T07:50:48-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-25-000064</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-05-16</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248825000064/0000002488-25-000064-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>25959359</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 5.07 and 9.01</items-desc>
+        <size>229 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-25-000064&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-25-000064</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248825000064/0000002488-25-000064-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-05-16 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-25-000064 &lt;b&gt;Size:&lt;/b&gt; 229 KB&lt;br&gt;Item 5.07: Submission of Matters to a Vote of Security Holders&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-05-16T16:12:37-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-25-000045</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-05-06</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248825000045/0000002488-25-000045-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>25917502</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>4 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-25-000045&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-25-000045</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248825000045/0000002488-25-000045-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-05-06 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-25-000045 &lt;b&gt;Size:&lt;/b&gt; 4 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-05-06T16:16:45-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-25-000039</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-04-16</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248825000039/0000002488-25-000039-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>25841350</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>item 8.01</items-desc>
+        <size>163 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-25-000039&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-25-000039</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248825000039/0000002488-25-000039-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-04-16 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-25-000039 &lt;b&gt;Size:&lt;/b&gt; 163 KB&lt;br&gt;Item 8.01: Other Events</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-04-16T09:03:30-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0001193125-25-067902</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-03-31</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000119312525067902/0001193125-25-067902-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>25789096</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.01, 2.03, 3.02, 7.01and9.01</items-desc>
+        <size>1 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0001193125-25-067902&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0001193125-25-067902</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000119312525067902/0001193125-25-067902-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-03-31 &lt;b&gt;AccNo:&lt;/b&gt; 0001193125-25-067902 &lt;b&gt;Size:&lt;/b&gt; 1 MB&lt;br&gt;Item 2.01: Completion of Acquisition or Disposition of Assets&lt;br&gt;Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant&lt;br&gt;Item 3.02: Unregistered Sales of Equity Securities&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-03-31T08:37:51-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0001193125-25-061366</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-03-24</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000119312525061366/0001193125-25-061366-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>25764372</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 1.01, 2.03, 8.01and9.01</items-desc>
+        <size>444 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0001193125-25-061366&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0001193125-25-061366</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000119312525061366/0001193125-25-061366-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-03-24 &lt;b&gt;AccNo:&lt;/b&gt; 0001193125-25-061366 &lt;b&gt;Size:&lt;/b&gt; 444 KB&lt;br&gt;Item 1.01: Entry into a Material Definitive Agreement&lt;br&gt;Item 2.03: Creation of a Direct Financial Obligation or an Obligation under an Off-Balance Sheet Arrangement of a Registrant&lt;br&gt;Item 8.01: Other Events&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-03-24T16:17:24-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0001193125-25-052173</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-03-12</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000119312525052173/0001193125-25-052173-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>25729653</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 1.01 and 9.01</items-desc>
+        <size>387 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0001193125-25-052173&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0001193125-25-052173</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000119312525052173/0001193125-25-052173-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-03-12 &lt;b&gt;AccNo:&lt;/b&gt; 0001193125-25-052173 &lt;b&gt;Size:&lt;/b&gt; 387 KB&lt;br&gt;Item 1.01: Entry into a Material Definitive Agreement&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-03-11T20:14:01-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-25-000026</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-02-24</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248825000026/0000002488-25-000026-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>25658239</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>item 5.02</items-desc>
+        <size>163 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-25-000026&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-25-000026</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248825000026/0000002488-25-000026-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-02-24 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-25-000026 &lt;b&gt;Size:&lt;/b&gt; 163 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-02-24T17:20:12-05:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-25-000009</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2025-02-04</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248825000009/0000002488-25-000009-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>25588437</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>5 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-25-000009&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-25-000009</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248825000009/0000002488-25-000009-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2025-02-04 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-25-000009 &lt;b&gt;Size:&lt;/b&gt; 5 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2025-02-04T16:17:17-05:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-24-000172</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2024-11-18</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248824000172/0000002488-24-000172-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>241471734</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 5.02 and 9.01</items-desc>
+        <size>243 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-24-000172&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-24-000172</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248824000172/0000002488-24-000172-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2024-11-18 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-24-000172 &lt;b&gt;Size:&lt;/b&gt; 243 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2024-11-18T16:17:24-05:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-24-000161</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2024-10-29</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248824000161/0000002488-24-000161-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>241405944</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>4 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-24-000161&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-24-000161</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248824000161/0000002488-24-000161-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2024-10-29 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-24-000161 &lt;b&gt;Size:&lt;/b&gt; 4 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2024-10-29T16:16:49-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0001193125-24-202457</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2024-08-19</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000119312524202457/0001193125-24-202457-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>241218207</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 1.01, 3.02, 7.01and9.01</items-desc>
+        <size>888 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0001193125-24-202457&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0001193125-24-202457</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000119312524202457/0001193125-24-202457-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2024-08-19 &lt;b&gt;AccNo:&lt;/b&gt; 0001193125-24-202457 &lt;b&gt;Size:&lt;/b&gt; 888 KB&lt;br&gt;Item 1.01: Entry into a Material Definitive Agreement&lt;br&gt;Item 3.02: Unregistered Sales of Equity Securities&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2024-08-19T06:22:30-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-24-000121</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2024-07-30</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248824000121/0000002488-24-000121-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>241157659</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>4 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-24-000121&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-24-000121</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248824000121/0000002488-24-000121-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2024-07-30 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-24-000121 &lt;b&gt;Size:&lt;/b&gt; 4 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2024-07-30T16:17:15-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-24-000115</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2024-07-22</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248824000115/0000002488-24-000115-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>241131660</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 5.02 and 9.01</items-desc>
+        <size>194 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-24-000115&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-24-000115</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248824000115/0000002488-24-000115-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2024-07-22 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-24-000115 &lt;b&gt;Size:&lt;/b&gt; 194 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2024-07-22T16:13:32-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-24-000109</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2024-07-02</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248824000109/0000002488-24-000109-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>241095794</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>item 5.02</items-desc>
+        <size>179 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-24-000109&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-24-000109</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248824000109/0000002488-24-000109-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2024-07-02 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-24-000109 &lt;b&gt;Size:&lt;/b&gt; 179 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers</summary>
+      <title>8-K  - Current report</title>
+      <updated>2024-07-02T16:24:40-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-24-000076</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2024-05-13</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248824000076/0000002488-24-000076-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>24939408</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>item 5.07</items-desc>
+        <size>179 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-24-000076&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-24-000076</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248824000076/0000002488-24-000076-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2024-05-13 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-24-000076 &lt;b&gt;Size:&lt;/b&gt; 179 KB&lt;br&gt;Item 5.07: Submission of Matters to a Vote of Security Holders</summary>
+      <title>8-K  - Current report</title>
+      <updated>2024-05-13T16:23:38-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-24-000054</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2024-04-30</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248824000054/0000002488-24-000054-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>24897486</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>4 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-24-000054&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-24-000054</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248824000054/0000002488-24-000054-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2024-04-30 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-24-000054 &lt;b&gt;Size:&lt;/b&gt; 4 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2024-04-30T16:16:31-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0001628280-24-005593</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2024-02-20</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000162828024005593/0001628280-24-005593-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>24654016</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 5.02, 5.03and9.01</items-desc>
+        <size>397 KB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0001628280-24-005593&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0001628280-24-005593</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000162828024005593/0001628280-24-005593-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2024-02-20 &lt;b&gt;AccNo:&lt;/b&gt; 0001628280-24-005593 &lt;b&gt;Size:&lt;/b&gt; 397 KB&lt;br&gt;Item 5.02: Departure of Directors or Certain Officers; Election of Directors; Appointment of Certain Officers: Compensatory Arrangements of Certain Officers&lt;br&gt;Item 5.03: Amendments to Articles of Incorporation or Bylaws; Change in Fiscal Year&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2024-02-20T16:32:26-05:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-24-000009</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2024-01-30</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248824000009/0000002488-24-000009-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>24578374</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>6 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-24-000009&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-24-000009</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248824000009/0000002488-24-000009-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2024-01-30 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-24-000009 &lt;b&gt;Size:&lt;/b&gt; 6 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2024-01-30T16:16:19-05:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-23-000192</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2023-10-31</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248823000192/0000002488-23-000192-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>231364741</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>4 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-23-000192&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-23-000192</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248823000192/0000002488-23-000192-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2023-10-31 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-23-000192 &lt;b&gt;Size:&lt;/b&gt; 4 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2023-10-31T16:16:56-04:00</updated>
+    </entry>
+    <entry>
+      <category label="form type" scheme="https://www.sec.gov/" term="8-K" />
+      <content type="text/xml">
+        <accession-number>0000002488-23-000135</accession-number>
+        <act>34</act>
+        <file-number>001-07882</file-number>
+        <file-number-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;filenum=001-07882&amp;owner=include&amp;count=40</file-number-href>
+        <filing-date>2023-08-01</filing-date>
+        <filing-href>https://www.sec.gov/Archives/edgar/data/2488/000000248823000135/0000002488-23-000135-index.htm</filing-href>
+        <filing-type>8-K</filing-type>
+        <film-number>231131941</film-number>
+        <form-name>Current report</form-name>
+        <items-desc>items 2.02, 7.01and9.01</items-desc>
+        <size>4 MB</size>
+        <xbrl_href>https://www.sec.gov/cgi-bin/viewer?action=view&amp;cik=2488&amp;accession_number=0000002488-23-000135&amp;xbrl_type=v</xbrl_href>
+      </content>
+      <id>urn:tag:sec.gov,2008:accession-number=0000002488-23-000135</id>
+      <link href="https://www.sec.gov/Archives/edgar/data/2488/000000248823000135/0000002488-23-000135-index.htm" rel="alternate" type="text/html" />
+      <summary type="html"> &lt;b&gt;Filed:&lt;/b&gt; 2023-08-01 &lt;b&gt;AccNo:&lt;/b&gt; 0000002488-23-000135 &lt;b&gt;Size:&lt;/b&gt; 4 MB&lt;br&gt;Item 2.02: Results of Operations and Financial Condition&lt;br&gt;Item 7.01: Regulation FD Disclosure&lt;br&gt;Item 9.01: Financial Statements and Exhibits</summary>
+      <title>8-K  - Current report</title>
+      <updated>2023-08-01T16:16:57-04:00</updated>
+    </entry>
+    <id>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0000002488</id>
+    <link href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0000002488&amp;type=8-K&amp;owner=include&amp;start=0&amp;count=40" rel="alternate" type="text/html" />
+    <link href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0000002488&amp;type=8-K&amp;owner=include&amp;start=0&amp;count=40&amp;output=atom" rel="self" type="application/atom+xml" />
+    <link href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0000002488&amp;type=8-K%25&amp;datea=&amp;dateb=&amp;owner=include&amp;count=40&amp;output=atom&amp;start=40" rel="next" type="application/atom+xml" />
+    <title>ADVANCED MICRO DEVICES INC  (0000002488)</title>
+    <updated>2026-10-05T23:42:46-04:00</updated>
+  </feed>

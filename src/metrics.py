@@ -50,7 +50,7 @@ def backlog_table(edges: pd.DataFrame, backlog: pd.DataFrame,
     # the ecosystem denominator and inflate the headline percentage.
     suppliers = sorted(
         set(edges.loc[edges.edge_type.isin(DEMAND_TYPES), "target_node"])
-        | set(backlog.loc[backlog.metric.isin(pref), "node"]))
+        | (set(backlog.loc[backlog.metric.isin(pref), "node"]) if len(backlog) else set()))
     for node in suppliers:
         sub = backlog[backlog.node == node]
         chosen = None
@@ -84,7 +84,10 @@ def backlog_table(edges: pd.DataFrame, backlog: pd.DataFrame,
                 "quote_snippet": "",
                 "flag": "backlog_from_edges", "confidence": "low",
             })
-    return pd.DataFrame(rows)
+    cols = ["node", "basis", "as_of_date", "backlog_low", "backlog_high",
+            "evidence_tier", "source_url", "accession_no", "quote_snippet",
+            "flag", "confidence"]
+    return pd.DataFrame(rows, columns=cols)
 
 
 # ----------------------------------------------------------------------------
@@ -282,7 +285,7 @@ def round_trip_exposure(D: pd.DataFrame, Prov: pd.DataFrame,
                 contrib[j] = {"D": d, "prov": p, "rte": v}
             total += v
         rows.append({"supplier": i, "rte": min(1.0, total), "contributions": contrib})
-    return pd.DataFrame(rows)
+    return pd.DataFrame(rows, columns=["supplier", "rte", "contributions"])
 
 
 def network_financed_share(D: pd.DataFrame, L: pd.DataFrame, P: pd.DataFrame,
@@ -317,7 +320,8 @@ def network_financed_share(D: pd.DataFrame, L: pd.DataFrame, P: pd.DataFrame,
                 detail[j] = funders
         rows.append({"supplier": i, "network_financed_share": min(1.0, total),
                      "financiers_by_customer": detail})
-    return pd.DataFrame(rows)
+    return pd.DataFrame(rows, columns=["supplier", "network_financed_share",
+                                       "financiers_by_customer"])
 
 
 def ecosystem_total(rte: pd.DataFrame, backlog: pd.DataFrame, bound: str) -> dict:
@@ -423,8 +427,9 @@ def compute(edges: pd.DataFrame | None = None,
     # Nodes include every disclosed-backlog supplier even if no edge touches it.
     # Oracle is the case that matters: $664bn of RPO and not one named customer.
     pref_metrics = {"rpo", "contracted_backlog", "revenue_ttm"}
-    nodes = sorted(set(e.source_node) | set(e.target_node)
-                   | set(backlog_rows.loc[backlog_rows.metric.isin(pref_metrics), "node"]))
+    bl_nodes = (set(backlog_rows.loc[backlog_rows.metric.isin(pref_metrics), "node"])
+                if len(backlog_rows) else set())
+    nodes = sorted(set(e.source_node) | set(e.target_node) | bl_nodes)
     res = MetricResult(nodes=nodes)
     if not nodes:
         res.warnings.append("no edges survive the tier gate")
@@ -519,13 +524,29 @@ def to_json(res: MetricResult, edges: pd.DataFrame, cfg: dict) -> dict:
                                              if s["named_customer_share"] == 0.0],
     }
 
+    # The three readings are not guaranteed to be ordered. LOWER asks "what share
+    # of what j promised to pay i did i itself hand to j?"; CENTRAL asks "what
+    # share of j's whole documented funding came from i?". When i funded j heavily
+    # relative to that one commitment but j has many other funders, LOWER exceeds
+    # CENTRAL. That is informative, not an error, so all three are reported by name
+    # and the headline RANGE is the min and max across them.
+    for sup in suppliers:
+        vals = [sup["rte_low"], sup["rte_central"], sup["rte_high"]]
+        sup["rte_range_min"] = min(vals)
+        sup["rte_range_max"] = max(vals)
+        sup["bounds_unordered"] = not (sup["rte_low"] <= sup["rte_central"]
+                                       <= sup["rte_high"] + 1e-12)
     suppliers.sort(key=lambda s: -s["rte_central"])
+    eco = dict(res.ecosystem)
+    eco_vals = [eco[b]["rte"] for b in ("LOWER", "CENTRAL", "UPPER")]
+    eco["RANGE"] = {"min": min(eco_vals), "max": max(eco_vals),
+                    "ordered": eco_vals == sorted(eco_vals)}
     return {
         "coverage": coverage,
         "as_of": cfg["project"]["as_of"],
         "generated": pd.Timestamp.utcnow().isoformat(),
         "tier_gate": cfg["tiers"]["headline_allowed"],
-        "ecosystem": res.ecosystem,
+        "ecosystem": eco,
         "suppliers": suppliers,
         "backlog": bl.to_dict(orient="records") if bl is not None else [],
         "convergence": res.convergence,

@@ -1,0 +1,37 @@
+# Third reviewed batch: promotions arising from the news monitor's review queue.
+# Each was opened and read before promotion. Note the date correction: the IR RSS
+# feed carried a crawl date of 2026-10-05, but the release itself is dated
+# 2026-07-22, and the release date is what the ledger records.
+edges:
+  - from_candidate: n_cb2411b50e1fb7
+    as_of_date: "2026-07-22"
+    source_node: AMD
+    target_node: Anthropic
+    edge_type: equity_investment
+    amount_usd_low: 0
+    amount_usd_high: 5000000000
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Committed to invest up to this amount; no closing or tranche schedule disclosed."
+    evidence_tier: T2
+    source_url: https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus
+    accession_no: ""
+    quote_snippet: "AMD has committed to make a strategic equity investment of up to $5 billion in Anthropic"
+    notes: "Surfaced by the news monitor from AMD's IR feed, then read and verified. Announced alongside Anthropic deploying up to 2 gigawatts of MI450 GPUs, so it is a supplier funding its own buyer. The RSS feed reported the crawl date 2026-10-05; the release is dated 2026-07-22 and that is the date recorded."
+
+  - as_of_date: "2026-07-22"
+    source_node: Anthropic
+    target_node: AMD
+    edge_type: purchase_commitment
+    amount_usd_low: 0
+    amount_usd_high: 0
+    amount_basis: notional
+    status: announced
+    conditions_text: ""
+    evidence_tier: T2
+    source_url: https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus
+    accession_no: ""
+    quote_snippet: "Anthropic to deploy up to 2 gigawatts of MI450 Series GPUs in AMD Helios rack-scale solutions"
+    notes: "AMOUNT ZERO: gigawatts only, no dollar value disclosed by either party, and AMD discloses no product backlog. The matching leg of the AMD equity commitment above, and unmeasurable in dollars for the same reason as the OpenAI 6 gigawatt agreement."
+
+rejections: []

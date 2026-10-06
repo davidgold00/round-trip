@@ -1,0 +1,44 @@
+# Fourth reviewed batch: non-supplier funding of the private labs.
+#
+# WHY THIS MATTERS. The CENTRAL provenance bound divides a supplier's funding of
+# a lab by that lab's DOCUMENTED external funding. If the only funding edges in
+# the ledger are the ones suppliers disclose, that denominator contains nothing
+# but suppliers, and every supplier's share is overstated by construction. The
+# SoftBank to OpenAI edge already guards against this on the OpenAI side. These
+# rows do the same on the Anthropic side.
+#
+# The counterparty is recorded as a single aggregate node because the releases
+# name dozens of funds without per-fund amounts. Attributing a figure to any one
+# of them would be invention. The aggregate carries the round total net of the
+# supplier money the release itself identifies, as a range where the release is
+# imprecise.
+edges:
+  - as_of_date: "2026-05-28"
+    source_node: Financial investors
+    target_node: Anthropic
+    edge_type: equity_investment
+    amount_usd_low: 50000000000
+    amount_usd_high: 50000000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T2
+    source_url: https://www.anthropic.com/news/series-h
+    accession_no: ""
+    quote_snippet: "$65 billion in Series H funding at a $965 billion post-money valuation"
+    notes: "Series H total $65bn. The release separately identifies $15bn of previously committed hyperscaler investment, including $5bn from Amazon, so $50bn is recorded here as non-supplier money. Led by Altimeter, Dragoneer, Greenoaks and Sequoia; co-led by Capital Group, Coatue, D1, GIC, ICONIQ and XN."
+
+  - as_of_date: "2026-02-12"
+    source_node: Financial investors
+    target_node: Anthropic
+    edge_type: equity_investment
+    amount_usd_low: 15000000000
+    amount_usd_high: 30000000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T2
+    source_url: https://www.anthropic.com/news/anthropic-raises-30-billion-series-g-funding-380-billion-post-money-valuation
+    accession_no: ""
+    quote_snippet: "$30 billion in Series G funding at a $380 billion post-money valuation"
+    notes: "RANGE ON PURPOSE. Series G total $30bn, co-led by D.E. Shaw Ventures, Dragoneer, Founders Fund, ICONIQ and MGX with GIC and Coatue. The release says the round included a portion of the previously announced Microsoft and NVIDIA investments but does not say how large that portion is, so the non-supplier share is bounded between $15bn and the full $30bn."

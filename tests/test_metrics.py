@@ -50,13 +50,60 @@ def test_two_hop_lower_is_zero_central_is_alpha_squared(cfg):
     assert row["rte_high"] == pytest.approx(1.0), "multi-hop link counts for UPPER"
 
 
-def test_lower_bound_never_exceeds_central_never_exceeds_upper(cfg):
-    for maker in (toy.perfect_round_trip, toy.half_funded, toy.two_hop):
+def test_bounds_are_nested_when_the_buyer_has_no_other_funder(cfg):
+    """With a single funder the three readings must nest.
+
+    They are not guaranteed to nest in general: LOWER divides i's funding by
+    j's commitment to i, while CENTRAL divides it by j's whole documented
+    funding. When j has many funders besides i, LOWER can exceed CENTRAL. The
+    headline range is therefore min to max across the three, which
+    test_range_brackets_all_three_readings checks.
+    """
+    for maker in (toy.perfect_round_trip, toy.two_hop):
         e, b = maker()
         res = compute(e, b, cfg)
         for _, r in res.rte.iterrows():
             assert r["rte_low"] <= r["rte_central"] + 1e-12
             assert r["rte_central"] <= r["rte_high"] + 1e-12
+
+
+def test_lower_may_exceed_central_when_the_buyer_has_other_funders(cfg):
+    """A funds B with 10 and B commits 10 back; C also funds B with 90.
+
+    LOWER sees 10 of funding against a 10 commitment, so 1.0.
+    CENTRAL sees A as 10 of B's 100 documented funding, so 0.1.
+    Both are correct answers to different questions.
+    """
+    e, b = toy.frames(
+        [toy.edge("A", "B", "equity_investment", 10),
+         toy.edge("C", "B", "equity_investment", 90),
+         toy.edge("B", "A", "purchase_commitment", 10)],
+        [toy.backlog("A", 10)])
+    res = compute(e, b, cfg)
+    r = res.rte.set_index("supplier").loc["A"]
+    assert r["rte_low"] == pytest.approx(1.0)
+    assert r["rte_central"] == pytest.approx(0.1)
+    assert r["rte_low"] > r["rte_central"]
+
+
+def test_range_brackets_all_three_readings(cfg):
+    import json
+    from pathlib import Path
+    from src.metrics import to_json
+    from src.ledger import load_backlog, load_edges
+    e, b = load_edges(), load_backlog()
+    if e.empty:
+        pytest.skip("no ledger yet")
+    res = compute(e, b, cfg)
+    payload = to_json(res, e, cfg)
+    for s in payload["suppliers"]:
+        vals = [s["rte_low"], s["rte_central"], s["rte_high"]]
+        assert s["rte_range_min"] == pytest.approx(min(vals))
+        assert s["rte_range_max"] == pytest.approx(max(vals))
+    eco = payload["ecosystem"]
+    evals = [eco[k]["rte"] for k in ("LOWER", "CENTRAL", "UPPER")]
+    assert eco["RANGE"]["min"] == pytest.approx(min(evals))
+    assert eco["RANGE"]["max"] == pytest.approx(max(evals))
 
 
 def test_status_weight_scales_amounts(cfg):
@@ -112,6 +159,10 @@ def test_real_ledger_bounds_are_ordered_and_in_range():
         pytest.skip("run `make build` first")
     m = json.loads(p.read_text())
     eco = m["ecosystem"]
-    assert 0.0 <= eco["LOWER"]["rte"] <= eco["CENTRAL"]["rte"] <= eco["UPPER"]["rte"] <= 1.0
+    for k in ("LOWER", "CENTRAL", "UPPER"):
+        assert 0.0 <= eco[k]["rte"] <= 1.0
+    assert eco["RANGE"]["min"] <= eco["CENTRAL"]["rte"] <= eco["RANGE"]["max"]
     for s in m["suppliers"]:
-        assert 0.0 <= s["rte_low"] <= s["rte_central"] <= s["rte_high"] <= 1.0
+        for k in ("rte_low", "rte_central", "rte_high"):
+            assert 0.0 <= s[k] <= 1.0
+        assert s["rte_range_min"] <= s["rte_central"] <= s["rte_range_max"]

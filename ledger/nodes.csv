@@ -5,6 +5,7 @@ Amazon,0001018724,AMZN,true,both,seed hypothesis list
 Anthropic,,,false,buyer,seed hypothesis list
 Broadcom,0001730168,AVGO,true,supplier,seed hypothesis list
 CoreWeave,0001769628,CRWV,true,both,seed hypothesis list
+Financial investors,,,false,investor,"Aggregate node, not a company. Holds the non-supplier portion of private-lab funding rounds, which the releases report as a total without per-investor amounts. It exists so the CENTRAL provenance denominator is not composed entirely of suppliers."
 Meta,0001326801,META,true,buyer,seed hypothesis list
 Microsoft,0000789019,MSFT,true,both,seed hypothesis list
 Nebius,0001513845,NBIS,true,both,seed hypothesis list

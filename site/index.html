@@ -1,0 +1,357 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Round-Trip AI</title>
+<meta name="description" content="How much AI infrastructure backlog depends on customers whose funding traces back to the seller. Built from SEC filings and company releases.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Ctext y='13' font-size='13'%3E%F0%9F%94%81%3C/text%3E%3C/svg%3E">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<header class="top">
+  <div class="inner">
+    <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Theme</button>
+    <h1>Round-Trip AI: Who Is Financing Their Own Customers?</h1>
+    <p class="sub" id="subline">Loading ledger&hellip;</p>
+    <nav class="tabs" role="tablist" aria-label="Sections">
+      <button role="tab" id="tab-headline"   aria-selected="true"  aria-controls="panel-headline">Headline</button>
+      <button role="tab" id="tab-graph"      aria-selected="false" aria-controls="panel-graph">Money flow</button>
+      <button role="tab" id="tab-suppliers"  aria-selected="false" aria-controls="panel-suppliers">Suppliers</button>
+      <button role="tab" id="tab-cycles"     aria-selected="false" aria-controls="panel-cycles">Cycles</button>
+      <button role="tab" id="tab-stress"     aria-selected="false" aria-controls="panel-stress">Stress lab</button>
+      <button role="tab" id="tab-news"       aria-selected="false" aria-controls="panel-news">News</button>
+      <button role="tab" id="tab-ledger"     aria-selected="false" aria-controls="panel-ledger">Ledger</button>
+      <button role="tab" id="tab-method"     aria-selected="false" aria-controls="panel-method">Methodology</button>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+<!-- ================= HEADLINE ================= -->
+<section class="panel active" id="panel-headline" role="tabpanel" aria-labelledby="tab-headline">
+  <div class="card hero">
+    <h2>Ecosystem round-trip exposure</h2>
+    <div class="figure" id="heroFigure">&mdash;</div>
+    <p class="range" id="heroRange"></p>
+    <p class="sentence" id="heroSentence"></p>
+    <p class="caveat" id="heroCaveat"></p>
+    <p class="asof" id="heroAsOf"></p>
+    <details class="sources"><summary>Show sources</summary>
+      <div id="heroSources"></div></details>
+  </div>
+
+  <div class="tiles" id="heroTiles"></div>
+
+  <div class="grid2" style="margin-top:16px">
+    <div class="card">
+      <h2>Bounds by supplier</h2>
+      <p class="lede">Each bar spans the LOWER to UPPER range. The dot is CENTRAL.
+        A supplier at zero is one whose exposure cannot be measured, not one that
+        has none.</p>
+      <div id="boundsChart"></div>
+      <details class="sources"><summary>Show sources</summary>
+        <div id="boundsSources"></div></details>
+    </div>
+    <div class="card">
+      <h2>What the denominator can see</h2>
+      <p class="lede">Share of disclosed backlog that can be tied to a named
+        customer at all, weighted by backlog size.</p>
+      <div id="coverageChart"></div>
+      <div id="coverageNote" class="warn"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Reconstructed history</h2>
+    <p class="lede">Each point recomputes the headline from evidence dated on or
+      before that date. It is a reconstruction, not a log of past runs.</p>
+    <div id="historyChart"></div>
+    <div class="warn" id="historyNote"></div>
+  </div>
+
+  <div class="card">
+    <h2>What this cannot see</h2>
+    <p class="lede">Specific, checkable gaps. The headline is a floor on what is
+      visible, not a measurement of what exists.</p>
+    <div id="cannotSee"></div>
+  </div>
+</section>
+
+<!-- ================= GRAPH ================= -->
+<section class="panel" id="panel-graph" role="tabpanel" aria-labelledby="tab-graph">
+  <div class="card">
+    <h2>Money flow</h2>
+    <p class="lede">Arrows point the way the money goes: funder to recipient, and
+      buyer to seller. A round trip is therefore a loop. Thickness is dollars on
+      the CENTRAL weighting. Dashed means conditional or a letter of intent.
+      Click any edge for its quote and source.</p>
+    <div class="controls">
+      <div class="control">
+        <label>Evidence tiers</label>
+        <div class="btnrow" id="tierToggles"></div>
+      </div>
+      <div class="control">
+        <label>Edge families</label>
+        <div class="btnrow" id="familyToggles"></div>
+      </div>
+      <div class="control">
+        <label>View</label>
+        <div class="btnrow">
+          <button class="btn" id="viewForce" aria-pressed="true">Force</button>
+          <button class="btn" id="viewSankey" aria-pressed="false">Sankey</button>
+        </div>
+      </div>
+      <div class="control">
+        <label><input type="checkbox" id="showUndisclosed" checked> Show edges with no disclosed amount</label>
+        <span class="note">Drawn hairline. Real agreements, no dollar figure.</span>
+      </div>
+    </div>
+    <svg id="graph" role="img" aria-label="Directed graph of funding and demand edges"></svg>
+    <div class="legend" id="graphLegend"></div>
+    <div id="edgeDetail" style="margin-top:14px"></div>
+  </div>
+</section>
+
+<!-- ================= SUPPLIERS ================= -->
+<section class="panel" id="panel-suppliers" role="tabpanel" aria-labelledby="tab-suppliers">
+  <div class="grid3" id="supplierCards"></div>
+</section>
+
+<!-- ================= CYCLES ================= -->
+<section class="panel" id="panel-cycles" role="tabpanel" aria-labelledby="tab-cycles">
+  <div class="card">
+    <h2>Circular loops</h2>
+    <p class="lede">Enumerated with Johnson's algorithm up to length
+      <span id="cycLen"></span>. The bottleneck is the narrowest leg, which is the
+      most that can actually circulate around the loop.</p>
+    <div id="cyclesList"></div>
+  </div>
+  <div class="card">
+    <h2>Which nodes the structure depends on</h2>
+    <p class="lede">PageRank over funding flows, and betweenness over the combined
+      graph. A high funding PageRank means the money converges on that node.</p>
+    <div class="grid2">
+      <div><h3>Funding PageRank</h3><div id="prChart"></div></div>
+      <div><h3>Betweenness</h3><div id="btChart"></div></div>
+    </div>
+    <p class="note" id="sccNote"></p>
+  </div>
+</section>
+
+<!-- ================= STRESS ================= -->
+<section class="panel" id="panel-stress" role="tabpanel" aria-labelledby="tab-stress">
+  <div class="card">
+    <h2>Stress lab</h2>
+    <p class="lede">Recomputes in your browser. The engine is a line-for-line port
+      of the Python model and is tested against it for equality on every preset.</p>
+    <div class="controls">
+      <div class="control" style="flex:1 1 100%">
+        <label>Scenario preset</label>
+        <div class="btnrow" id="scenarioBtns"></div>
+      </div>
+    </div>
+    <div class="controls">
+      <div class="control">
+        <label for="sShock">Funding shock <output id="oShock"></output></label>
+        <input type="range" id="sShock" min="0" max="100" step="5" value="50">
+      </div>
+      <div class="control">
+        <label for="sPass">Pass-through <output id="oPass"></output></label>
+        <input type="range" id="sPass" min="0" max="100" step="5" value="60">
+      </div>
+      <div class="control">
+        <label for="sCap">Capacity to invest <output id="oCap"></output></label>
+        <input type="range" id="sCap" min="0" max="100" step="5" value="50">
+      </div>
+      <div class="control">
+        <label for="sLoi">LOI weight <output id="oLoi"></output></label>
+        <input type="range" id="sLoi" min="0" max="100" step="5" value="25">
+      </div>
+      <div class="control">
+        <label for="sCond">Conditional weight <output id="oCond"></output></label>
+        <input type="range" id="sCond" min="0" max="100" step="5" value="50">
+      </div>
+      <div class="control">
+        <label for="sBound">Attribution bound</label>
+        <select id="sBound">
+          <option value="low">LOWER</option>
+          <option value="central" selected>CENTRAL</option>
+          <option value="high">UPPER</option>
+        </select>
+      </div>
+    </div>
+    <div class="tiles" id="stressTiles"></div>
+    <div style="margin-top:16px"><div id="stressChart"></div></div>
+    <div class="legend" id="stressLegend"></div>
+    <p class="note" id="stressShockNote"></p>
+    <div id="parityNote" class="warn"></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>Monte Carlo</h2>
+      <p class="lede">Precomputed in Python over <span id="mcDraws"></span> draws of
+        pass-through, capacity to invest, LOI weight, conditional weight and the
+        attribution bound. Bars span the 10th to 90th percentile; the dot is the
+        median.</p>
+      <div id="mcChart"></div>
+    </div>
+    <div class="card">
+      <h2>What drives the answer</h2>
+      <p class="lede">One parameter at a time, swung across its configured range.
+        Longer bar means the result depends more on that assumption.</p>
+      <div id="tornadoChart"></div>
+      <div class="warn" id="tornadoNote"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Second and third methods</h2>
+    <p class="lede">The cascade is cross-checked against Eisenberg-Noe clearing and
+      DebtRank. Where they disagree is shown, not reconciled away.</p>
+    <div class="tablewrap"><table id="methodTable"></table></div>
+    <div class="warn" id="baselineNote"></div>
+  </div>
+</section>
+
+<!-- ================= NEWS ================= -->
+<section class="panel" id="panel-news" role="tabpanel" aria-labelledby="tab-news">
+  <div class="card">
+    <h2>Candidate edge review queue</h2>
+    <p class="lede">Flagged items are <strong>unverified</strong>. They are never
+      counted in any metric until a reviewer promotes them with a verbatim quote
+      through the review command line.</p>
+    <div class="tablewrap"><table id="queueTable"></table></div>
+  </div>
+  <div class="card">
+    <h2>Financing events timeline</h2>
+    <p class="lede">Ledger edges by evidence date. Height is the dollar amount on
+      the CENTRAL weighting; zero-amount edges are drawn as ticks.</p>
+    <div id="timelineChart"></div>
+  </div>
+  <div class="card">
+    <h2>Feed</h2>
+    <p class="lede" id="newsLede"></p>
+    <div class="controls">
+      <div class="control"><label for="newsSearch">Search</label>
+        <input type="search" id="newsSearch" placeholder="headline, publisher, entity"></div>
+      <div class="control"><label for="newsSource">Source</label>
+        <select id="newsSource"><option value="">All</option></select></div>
+      <div class="control"><label><input type="checkbox" id="newsFlagged"> Flagged only</label></div>
+    </div>
+    <div class="tablewrap"><table id="newsTable"></table></div>
+    <p class="note" id="newsNote"></p>
+  </div>
+</section>
+
+<!-- ================= LEDGER ================= -->
+<section class="panel" id="panel-ledger" role="tabpanel" aria-labelledby="tab-ledger">
+  <div class="card">
+    <h2>Ledger explorer</h2>
+    <p class="lede">Every edge behind every number. Click a column heading to sort.</p>
+    <div class="controls">
+      <div class="control"><label for="ledSearch">Search</label>
+        <input type="search" id="ledSearch" placeholder="node, type, quote, accession"></div>
+      <div class="control"><label for="ledTier">Tier</label>
+        <select id="ledTier"><option value="">All</option><option>T1</option><option>T2</option><option>T3</option></select></div>
+      <div class="control"><label for="ledStatus">Status</label>
+        <select id="ledStatus"><option value="">All</option></select></div>
+      <div class="control"><label for="ledFamily">Family</label>
+        <select id="ledFamily"><option value="">All</option></select></div>
+    </div>
+    <p class="note" id="ledCount"></p>
+    <div class="tablewrap"><table id="ledgerTable"></table></div>
+  </div>
+  <div class="card">
+    <h2>Backlog denominators</h2>
+    <p class="lede">The disclosed figures each supplier share is divided by.</p>
+    <div class="tablewrap"><table id="backlogTable"></table></div>
+  </div>
+  <div class="card">
+    <h2>Ledger validation</h2>
+    <div id="validation"></div>
+  </div>
+</section>
+
+<!-- ================= METHOD ================= -->
+<section class="panel" id="panel-method" role="tabpanel" aria-labelledby="tab-method">
+  <div class="card">
+    <h2>What is being measured</h2>
+    <p>The question is narrow on purpose. For each seller of AI infrastructure,
+      what share of its own disclosed backlog is owed by a customer whose funding
+      traces back to that same seller? Not "is there a bubble", not "is the
+      backlog real". Just: how much of the promise to pay was financed by the
+      party being paid.</p>
+    <h3>The headline formula</h3>
+    <p class="mono">RTE(i) = sum over customers j of D[i,j] &times; Provenance(i&rarr;j)</p>
+    <p><strong>D[i,j]</strong> is the share of seller i's disclosed backlog that
+      customer j has committed. The denominator is i's own disclosed figure, in a
+      fixed preference order: tagged remaining performance obligations, then a
+      quoted contracted-backlog number, then trailing revenue. Nothing is inferred.</p>
+    <p><strong>Provenance(i&rarr;j)</strong> is how much of j's funding came from i,
+      on three readings:</p>
+    <ul class="tight">
+      <li><strong>LOWER</strong>: dollars i demonstrably handed j, divided by what
+        j promised to pay i, capped at 1. Direct edges only. No multi-hop.</li>
+      <li><strong>CENTRAL</strong>: i's share of j's <em>documented</em> external
+        funding, with funding that reaches j through intermediaries traced back
+        and discounted one factor of <span class="mono">alpha</span> per hop.</li>
+      <li><strong>UPPER</strong>: if i funded j at all under T1 or T2 evidence,
+        the whole of j's commitment to i counts. This answers a different
+        question: how much backlog sits with customers who are not
+        funding-independent of the seller.</li>
+    </ul>
+    <h3>Why bounds instead of a number</h3>
+    <p>Because the denominator is unknowable. OpenAI, Anthropic and xAI file
+      nothing, so their total external funding is only ever a documented subset.
+      A single point estimate of "i's share of j's funding" would silently assume
+      the documented subset is the whole, which inflates every supplier's share.
+      LOWER and UPPER bracket that ignorance instead of hiding it.</p>
+    <h3>Evidence tiers</h3>
+    <p>T1 is an SEC filing, T2 a company release or investor relations page, T3 a
+      media report, T4 unverified. <strong>The headline admits T1 and T2 only.</strong>
+      T3 appears in a labelled sensitivity view. T4 never enters the ledger at
+      all; the review command refuses it. Every row carries a source link, a
+      verbatim quote under 25 words, and an accession number if it is T1.</p>
+    <h3>Binding versus not</h3>
+    <p>Status is one of definitive, conditional, non-binding letter of intent,
+      announced, or reported. Each carries an explicit weight per bound, set in
+      configuration before any result was computed, and varied in the stress lab.
+      A letter of intent is never counted at full weight by default.</p>
+    <h3>Direction convention</h3>
+    <p>Money-flow. An arrow starts at whoever pays. Funding edges run funder to
+      recipient; purchase and capacity edges run buyer to seller. A round trip is
+      therefore a two-cycle, which is asserted in the test suite.</p>
+    <h3>Limitations, plainly</h3>
+    <div id="limitations"></div>
+    <h3>What would change my mind</h3>
+    <div id="changeMyMind"></div>
+    <h3>Pre-registration</h3>
+    <p>Every definition above was written into <span class="mono">DECISIONS.md</span>
+      before any number was computed, and is amended only by a dated entry that
+      says why. Two implementation bugs were found and fixed after
+      pre-registration, both logged: a multi-hop double-count caught by a toy
+      graph whose answer is 50% by hand, and the direction of the bound-correct
+      denominator.</p>
+    <p>This is analysis, not investment advice. There are no price targets and no
+      recommendations here.</p>
+  </div>
+  <div class="card">
+    <h2>Parameters in force</h2>
+    <div class="tablewrap"><table id="paramTable"></table></div>
+  </div>
+</section>
+
+<footer class="foot wrap">
+  <p id="footNote"></p>
+</footer>
+</main>
+
+<div class="tooltip" id="tip" role="status" aria-live="polite"></div>
+<script src="vendor/d3.min.js"></script>
+<script src="cascade.js"></script>
+<script src="app.js"></script>
+</body>
+</html>

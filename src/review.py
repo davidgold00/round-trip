@@ -30,25 +30,45 @@ LOG = get_logger("review")
 
 LEDGER = ROOT / "ledger"
 CAND = LEDGER / "candidates.csv"
+NEWS_CAND = LEDGER / "news_candidates.csv"
 EDGES = LEDGER / "edges.csv"
 BACKLOG = LEDGER / "backlog.csv"
 
 
-def read_candidates() -> list[dict]:
-    if not CAND.exists():
+def _read(path: Path) -> list[dict]:
+    if not path.exists():
         return []
-    with open(CAND) as fh:
+    with open(path) as fh:
         return list(csv.DictReader(fh))
 
 
+def read_candidates() -> list[dict]:
+    """Both queues: filing-derived candidates and news-monitor candidates.
+
+    A candidate id beginning with `n_` comes from the news monitor and lives in
+    ledger/news_candidates.csv; `c_` ids come from the filing extractor. The
+    review commands accept either, so a reviewer never has to know which file a
+    candidate is in.
+    """
+    rows = _read(CAND)
+    for r in _read(NEWS_CAND):
+        r.setdefault("queue", "news")
+        rows.append(r)
+    return rows
+
+
 def write_candidates(rows: list[dict]) -> None:
-    if not rows:
-        return
-    fields = list(rows[0].keys())
-    with open(CAND, "w", newline="") as fh:
-        w = csv.DictWriter(fh, fieldnames=fields)
-        w.writeheader()
-        w.writerows(rows)
+    """Write each row back to the queue it came from, keyed by id prefix."""
+    for path, subset in ((CAND, [r for r in rows if not r["candidate_id"].startswith("n_")]),
+                         (NEWS_CAND, [r for r in rows if r["candidate_id"].startswith("n_")])):
+        if not subset:
+            continue
+        existing = _read(path)
+        fields = list(existing[0].keys()) if existing else list(subset[0].keys())
+        with open(path, "w", newline="") as fh:
+            w = csv.DictWriter(fh, fieldnames=fields, extrasaction="ignore")
+            w.writeheader()
+            w.writerows(subset)
 
 
 def check_quote(quote: str) -> None:

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+  <feed xmlns="http://www.w3.org/2005/Atom">
+    <author>
+      <email>webmaster@sec.gov</email>
+      <name>Webmaster</name>
+    </author>
+    <company-info>
+      <addresses>
+        <address type="mailing">
+          <city>LONDON</city>
+          <street1>LEVEL 5, 16 NEW BURLINGTON PLACE</street1>
+          <zip>W16 2HX</zip>
+        </address>
+        <address type="business">
+          <city>LONDON</city>
+          <phone>44-0-208-740-7575</phone>
+          <street1>LEVEL 5, 16 NEW BURLINGTON PLACE</street1>
+          <zip>W16 2HX</zip>
+        </address>
+      </addresses>
+      <assigned-sic>7372</assigned-sic>
+      <assigned-sic-desc>SERVICES-PREPACKAGED SOFTWARE</assigned-sic-desc>
+      <assigned-sic-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;SIC=7372&amp;owner=include&amp;count=40</assigned-sic-href>
+      <cik>0002110365</cik>
+      <cik-href>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0002110365&amp;owner=include&amp;count=40</cik-href>
+      <conformed-name>NSCALE Ltd</conformed-name>
+      <fiscal-year-end>1231</fiscal-year-end>
+      <formerly-names count="1">
+        <names>
+          <date>2026-02-17</date>
+          <name>DSNS HOLDINGS Ltd</name>
+        </names>
+      </formerly-names>
+      <state-of-incorporation>X0</state-of-incorporation>
+    </company-info>
+    <id>https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0002110365</id>
+    <link href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0002110365&amp;type=8-K&amp;owner=include&amp;start=0&amp;count=40" rel="alternate" type="text/html" />
+    <link href="https://www.sec.gov/cgi-bin/browse-edgar?action=getcompany&amp;CIK=0002110365&amp;type=8-K&amp;owner=include&amp;start=0&amp;count=40&amp;output=atom" rel="self" type="application/atom+xml" />
+    <title>NSCALE Ltd  (0002110365)</title>
+    <updated>2026-10-05T23:42:49-04:00</updated>
+  </feed>
