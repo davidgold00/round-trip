@@ -1,0 +1,266 @@
+# DECISIONS.md
+
+Decision log for "Round-Trip AI: Who Is Financing Their Own Customers?"
+
+Every ambiguity resolved without asking the user is recorded here with a one-line
+rationale. Entries are append-only. Metric definitions in Part A are
+pre-registered: they were written before any number was computed, and they are
+changed only by a dated amendment entry in Part C that explains why.
+
+Pre-registration timestamp: 2026-10-05 (repository initialisation, Phase 0,
+before any ingestion or computation).
+
+---
+
+## Part A. Pre-registered metric definitions
+
+These definitions are frozen. Implementation lives in `src/metrics.py` and is
+tested against toy graphs in `tests/test_metrics.py`.
+
+### A.0 Notation
+
+* Nodes are companies. `i` indexes suppliers (sellers of compute, chips, or
+  cloud capacity). `j` indexes counterparties (buyers, usually AI labs or
+  neoclouds). A node can be both.
+* Edges are directed and carry a dollar range `[low, high]`, a basis, a status,
+  and an evidence tier.
+* **Direction convention (money-flow):** an edge points from the party that pays
+  or commits the money to the party that receives it.
+  * `equity_investment`, `convertible_or_debt`, `loan_or_guarantee`, `warrants`,
+    `vendor_financing`: funder -> recipient.
+  * `purchase_commitment`, `cloud_capacity_contract`, `lease`, `offtake_or_rpo`:
+    buyer -> seller. The buyer is the payer, so the arrow starts at the buyer.
+  * Consequence: a round trip appears as a 2-cycle, `i -> j` (funding) and
+    `j -> i` (purchase). This is asserted in `tests/test_direction.py`.
+* Two edge families are derived from the above and used separately by the
+  metrics:
+  * **Funding edges** F-family: `equity_investment`, `convertible_or_debt`,
+    `loan_or_guarantee`, `warrants`, `vendor_financing`.
+  * **Demand edges** D-family: `purchase_commitment`, `cloud_capacity_contract`,
+    `offtake_or_rpo`, `lease`.
+
+### A.1 Status weighting
+
+Each edge is multiplied by a status weight `w(status)` before entering any
+metric. Defaults, exposed in `config.yaml` and varied in sensitivity analysis:
+
+| status | low | central | high | rationale |
+|---|---|---|---|---|
+| `definitive` | 1.00 | 1.00 | 1.00 | signed and binding |
+| `conditional` | 0.25 | 0.50 | 0.80 | tranches gated on milestones or deployment |
+| `LOI_nonbinding` | 0.05 | 0.25 | 0.60 | letters of intent frequently resize or lapse |
+| `announced` | 0.30 | 0.60 | 0.90 | announced by a party but binding terms not disclosed |
+| `reported` | 0.00 | 0.25 | 0.60 | third party report only; excluded from headline by tier rule anyway |
+
+The LOWER bound of the headline metric uses the `low` column, CENTRAL uses
+`central`, UPPER uses `high`.
+
+### A.2 Evidence tier gate
+
+* T1 = SEC filing (10-K, 10-Q, 8-K, S-1, proxy, exhibits).
+* T2 = company press release or investor relations page.
+* T3 = reputable media report.
+* T4 = unverified or rumor.
+
+The **headline metric admits T1 and T2 only**. T3 is computed in a separately
+labelled sensitivity view. T4 is never counted anywhere. Enforced by
+`src/metrics.py::filter_tiers` and asserted in `tests/test_tiers.py`.
+
+### A.3 Amount normalisation to an annual comparable basis
+
+Edges carry `amount_basis` in {`notional`, `per-year`, `cumulative`, `RPO`}.
+Metrics operate on a single comparable basis, chosen as **total contract value
+(TCV)**, because disclosed RPO and announced deal headlines are both
+multi-year totals and comparing a per-year figure against them would understate
+demand edges.
+
+* `notional`, `cumulative`, `RPO`: used as given.
+* `per-year`: multiplied by the contract term in years, where
+  `term_years = max(1, (term_end - term_start) / 365.25)`. If the term is
+  unknown, `per-year` amounts are multiplied by the config default
+  `assumed_term_years` (default 5, sensitivity 3 to 8) and the row is flagged
+  `term_assumed`.
+
+### A.4 Backlog dependency matrix D
+
+For supplier `i` and counterparty `j`:
+
+```
+D[i, j] = weighted_demand_edges(j -> i) / disclosed_backlog(i)
+```
+
+* Numerator: sum over D-family edges from `j` to `i` of
+  `w(status) * amount`, on the TCV basis of A.3.
+* Denominator `disclosed_backlog(i)`: the supplier's own disclosed backlog
+  measure, in strict preference order, taken only from that supplier's filings
+  or releases:
+  1. XBRL `RevenueRemainingPerformanceObligation` (latest period), else
+  2. a stated contracted-backlog or RPO figure quoted from a filing or release,
+     recorded in `ledger/backlog.csv`, else
+  3. the sum of that supplier's own inbound D-family edges in the ledger. This
+     case is flagged `backlog_from_edges` and the supplier's row is marked
+     low-confidence, because the denominator is then composed of the same
+     observations as the numerator and the share is mechanically inflated.
+* If the numerator for a named customer is only available as an aggregate (for
+  example "two customers accounted for 77% of revenue"), the row is recorded as
+  a **bounded range** `[0, aggregate]` per unnamed member and flagged
+  `aggregate_only`. No point estimate is produced from an aggregate.
+* `D[i, j]` is clipped to `[0, 1]`. Sum over `j` of `D[i, j]` may exceed 1 only
+  when the ledger records more committed demand than the supplier discloses as
+  backlog; this is surfaced as a data-quality warning, not silently rescaled.
+
+### A.5 Funding provenance matrix F and the three bounds
+
+For counterparty `j`, `documented_external_funding(j)` is the sum of
+`w(status) * amount` over all F-family edges pointing into `j` in the ledger.
+This is a **documented** total, not `j`'s true total funding, and for private
+companies it is certainly an undercount. That undercount is the reason the
+CENTRAL estimate is bracketed rather than reported alone.
+
+Three provenance measures, all in `[0, 1]`:
+
+```
+Provenance_LOWER(i -> j)   = min(1, funding(i -> j) / commitment(j -> i))
+Provenance_CENTRAL(i -> j) = funding(i -> j) / documented_external_funding(j)
+Provenance_UPPER(i -> j)   = 1 if funding(i -> j) > 0 else 0
+```
+
+* LOWER answers "what fraction of what j promised to pay i did i itself
+  demonstrably hand to j?" It is the conservative reading: only dollars with a
+  documented path from i to j count, and they are capped at the size of the
+  commitment. If `commitment(j -> i)` is zero the term is zero.
+* CENTRAL is pro-rata attribution: i's share of j's documented external funding.
+  It is the headline number.
+* UPPER is the maximal reading: if i funded j at all under T1 or T2 evidence,
+  the whole of j's commitment to i is treated as funding-dependent. It answers
+  "how much backlog sits with customers who are not funding-independent of the
+  seller?"
+
+### A.6 Multi-hop provenance
+
+Direct F alone misses funding that reaches `j` through an intermediary (for
+example supplier -> neocloud -> lab, or supplier -> SPV -> lab). Let `S` be the
+column-stochastic share matrix with `S[i, j] = ` i's share of j's documented
+external funding (the CENTRAL direct measure). Ultimate provenance is the
+absorbing-random-walk / Leontief solution:
+
+```
+P = S (I - S)^-1  equivalently  P = sum_{k>=1} S^k
+```
+
+computed as `P = S @ inv(I - S)` when the spectral radius of `S` is below 1, and
+otherwise by truncated Neumann series with damping (see below).
+
+* Cycles are real here (a lab funds nothing upstream, but a supplier funds a
+  neocloud which funds a lab which buys from the supplier, and chip vendors
+  also invest in each other's customers), so `S` can have a spectral radius at
+  or above 1. Treatment: a damping factor `alpha` (default 0.85, config
+  `multihop.alpha`) is applied, `S_d = alpha * S`, guaranteeing convergence, and
+  the series is truncated at `max_hops` (default 6) with the residual reported.
+  Damping is documented as an assumption, not a modelling nicety: it means
+  funding traced through more than a few intermediaries is discounted.
+* `Provenance_multihop(i -> j) = min(1, P[i, j])`, used only in the CENTRAL and
+  UPPER views. LOWER stays strictly direct, by design, because a multi-hop path
+  is weaker evidence than a direct one.
+* Convergence (residual of the truncated series) is reported in
+  `outputs/metrics.json` and shown on the methodology page.
+
+### A.7 Headline metric: Round-Trip Exposure
+
+For supplier `i`, for each bound `b` in {LOWER, CENTRAL, UPPER}:
+
+```
+RTE_b(i) = sum_j  D_b[i, j] * Provenance_b(i -> j)
+```
+
+reported as a percentage of supplier `i`'s disclosed backlog. The
+ecosystem-level total is the backlog-weighted mean:
+
+```
+RTE_b(ecosystem) = sum_i backlog(i) * RTE_b(i) / sum_i backlog(i)
+```
+
+Headline sentence template, fixed now so results cannot reshape the framing:
+
+> "Roughly X% (range L to U) of disclosed backlog depends on a counterparty
+> whose funding traces back to the seller."
+
+### A.8 Structure analysis
+
+* Strongly connected components on the combined (F plus D) directed graph.
+* Simple cycles via Johnson's algorithm (`networkx.simple_cycles`), capped at
+  length `max_cycle_len` (default 6) to keep enumeration finite and readable.
+* **Cycle bottleneck** = the minimum weighted edge amount along the cycle, using
+  the CENTRAL status weights and the TCV basis. It is the most dollars that can
+  actually circulate around that loop, since the loop is only as wide as its
+  narrowest leg.
+* PageRank on the funding subgraph (F-family) with weights = CENTRAL amounts,
+  and betweenness centrality on the combined graph, to identify nodes the
+  structure depends on.
+
+### A.9 Stress test (Phase 3) pre-registration
+
+* Shock: node `j`'s new external funding falls by `x%`, or a named tranche fails.
+* Propagation: `j`'s ability to honour commitments scales by
+  `1 - passthrough * x`, where `passthrough` in [0, 1] (default 0.6) is the
+  fraction of a funding shortfall that converts into reduced purchasing rather
+  than being absorbed by cash on hand, slower deployment, or substitute
+  financing.
+* Second round: supplier `i` loses demand, and `i`'s own outbound funding and
+  purchases shrink by `capacity_to_invest * (revenue loss / revenue)`, default
+  `capacity_to_invest = 0.5`. Iterate to a fixed point, tolerance 1e-9, cap 200
+  iterations, report the iteration count and residual.
+* Monte Carlo (default 20,000 draws) over `passthrough`, LOI conversion
+  probability, conditional-tranche realisation, and the attribution bound
+  (LOWER/CENTRAL/UPPER sampled as a discrete mixture). Report median and the
+  10th to 90th percentile band of "share of each supplier's backlog at risk".
+* Cross-validation against a second method, Eisenberg-Noe clearing with
+  commitments treated as obligations, plus DebtRank. Disagreements are reported,
+  not reconciled away.
+
+---
+
+## Part B. Decision log
+
+Format: `[date] [phase] decision -- rationale`
+
+* `2026-10-05 P0` **SEC_USER_AGENT read from `.env` rather than the shell.** The
+  variable was absent from the environment but present in `.env`. Treated as set
+  because the user supplied it in the project; `src/sec_client.py` loads `.env`
+  itself and still hard-fails if the value is missing or looks like a
+  placeholder. -- Honours the stop condition's intent without a spurious halt.
+* `2026-10-05 P0` **Ledger stored as CSV, not YAML.** CSV diffs row-by-row in
+  git, loads directly into pandas, and is editable by a reviewer without a YAML
+  parser. -- Reviewability is the binding constraint, and the schema is flat.
+* `2026-10-05 P0` **Amounts stored as a `[low, high]` pair on every row, never a
+  single point.** A single disclosed figure is stored as `low == high`. -- Makes
+  ranges the default representation so a point estimate can never leak into the
+  headline by accident.
+* `2026-10-05 P0` **TCV chosen as the common basis** rather than annualised
+  run-rate. -- Announced deal headlines and disclosed RPO are both multi-year
+  totals; annualising would require inventing term lengths for both sides.
+* `2026-10-05 P0` **`sentence-transformers` is not installed in this
+  environment, so news tagging uses the TF-IDF plus keyword-rule path.** The
+  embedding path is implemented and selected automatically if the package and
+  model are present. -- The task requires a working free pipeline, and the
+  fallback was specified for exactly this case.
+* `2026-10-05 P0` **Separate `ledger/backlog.csv` for supplier denominators.**
+  Backlog is a node attribute, not an edge, and forcing it into the edge table
+  would require self-edges. -- Keeps the edge schema honest and the denominator
+  independently auditable.
+* `2026-10-05 P0` **Damping `alpha = 0.85` for multi-hop provenance.** The
+  funding graph contains genuine cycles, so the Leontief inverse is not
+  guaranteed to exist. -- Standard PageRank-style regularisation, and discounting
+  long funding chains is substantively correct, not just numerically convenient.
+* `2026-10-05 P1` **Private-company nodes carry no filings and are never
+  assigned a point estimate.** Every metric touching OpenAI, Anthropic, xAI, or
+  any other non-filer is produced as a range, and the dashboard labels them.
+  -- Required by honesty rule 4.
+* `2026-10-05 P1` **Candidate extraction never auto-promotes.**
+  `src/extract.py` writes only to `ledger/candidates.csv`; promotion requires
+  `python -m src.review` and the recording of a quote. -- Required by the brief;
+  also enforced by `tests/test_no_autopromote.py`.
+* `2026-10-05 P2` **`D[i,j]` is clipped at 1 but row sums are not rescaled.** If
+  ledger demand exceeds disclosed backlog, that is a finding about disclosure,
+  not an error to normalise away. -- Rescaling would hide the most interesting
+  data-quality signal in the dataset.

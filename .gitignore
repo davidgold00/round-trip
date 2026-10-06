@@ -1,0 +1,19 @@
+# Secrets
+.env
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Large / regenerable raw caches (kept out of git; rebuildable via `make ingest`)
+data/raw/companyfacts/*.json
+data/raw/filings/**
+data/raw/submissions/*.json
+data/cache/
+
+# OS
+.DS_Store

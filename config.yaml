@@ -1,0 +1,62 @@
+# Round-Trip AI configuration. All parameters that move the answer live here.
+# Pre-registered defaults; see DECISIONS.md Part A.
+
+project:
+  title: "Round-Trip AI: Who Is Financing Their Own Customers?"
+  as_of: "2026-10-05"
+
+sec:
+  user_agent_env: SEC_USER_AGENT
+  max_requests_per_second: 5
+  cache_dir: data/raw
+  retries: 5
+  backoff_base_seconds: 1.0
+  timeout_seconds: 30
+  since: "2023-01-01"
+
+# Status weights. Columns feed the LOWER / CENTRAL / UPPER bounds respectively.
+status_weights:
+  definitive:     {low: 1.00, central: 1.00, high: 1.00}
+  conditional:    {low: 0.25, central: 0.50, high: 0.80}
+  LOI_nonbinding: {low: 0.05, central: 0.25, high: 0.60}
+  announced:      {low: 0.30, central: 0.60, high: 0.90}
+  reported:       {low: 0.00, central: 0.25, high: 0.60}
+
+tiers:
+  headline_allowed: [T1, T2]
+  sensitivity_allowed: [T1, T2, T3]
+  never: [T4]
+
+amounts:
+  basis_tcv: [notional, cumulative, RPO]
+  assumed_term_years: 5
+  assumed_term_years_sensitivity: [3, 8]
+
+multihop:
+  alpha: 0.85
+  max_hops: 6
+
+structure:
+  max_cycle_len: 6
+
+stress:
+  passthrough: 0.60
+  passthrough_range: [0.30, 0.90]
+  capacity_to_invest: 0.50
+  capacity_to_invest_range: [0.20, 0.80]
+  loi_conversion: 0.25
+  loi_conversion_range: [0.05, 0.60]
+  conditional_realisation: 0.50
+  conditional_realisation_range: [0.25, 0.80]
+  fixed_point_tol: 1.0e-9
+  max_iter: 200
+  monte_carlo_draws: 20000
+  random_seed: 20261005
+
+news:
+  gdelt_enabled: true
+  gdelt_max_records: 75
+  lookback_days: 45
+  embed_model: "sentence-transformers/all-MiniLM-L6-v2"
+  similarity_threshold: 0.42
+  dedupe_threshold: 0.90
