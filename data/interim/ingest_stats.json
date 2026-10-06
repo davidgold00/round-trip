@@ -1,0 +1,194 @@
+{
+  "as_of": "2026-10-05",
+  "http": {
+    "hits": 41,
+    "misses": 596,
+    "errors": 0,
+    "bytes": 409518545
+  },
+  "requests": 596,
+  "nodes": {
+    "AMD": {
+      "submissions": true,
+      "companyfacts": true,
+      "facts": 1162,
+      "filings_listed": 70,
+      "docs_fetched": 70,
+      "docs_failed": 0,
+      "forms": {
+        "8-K": 45,
+        "424B5": 4,
+        "10-Q": 11,
+        "DEF 14A": 4,
+        "10-K": 4,
+        "8-K/A": 2
+      },
+      "sec_name": "ADVANCED MICRO DEVICES INC",
+      "sic": "Semiconductors & Related Devices",
+      "fiscal_year_end": "1226"
+    },
+    "Alphabet": {
+      "submissions": true,
+      "companyfacts": true,
+      "facts": 1099,
+      "filings_listed": 76,
+      "docs_fetched": 76,
+      "docs_failed": 0,
+      "forms": {
+        "8-K": 41,
+        "424B5": 19,
+        "10-Q": 10,
+        "DEF 14A": 3,
+        "10-K": 3
+      },
+      "sec_name": "Alphabet Inc.",
+      "sic": "Services-Computer Programming, Data Processing, Etc.",
+      "fiscal_year_end": "1231"
+    },
+    "Amazon": {
+      "submissions": true,
+      "companyfacts": true,
+      "facts": 1603,
+      "filings_listed": 70,
+      "docs_fetched": 70,
+      "docs_failed": 0,
+      "forms": {
+        "8-K": 39,
+        "424B5": 12,
+        "10-Q": 11,
+        "DEF 14A": 4,
+        "10-K": 4
+      },
+      "sec_name": "AMAZON COM INC",
+      "sic": "Retail-Catalog & Mail-Order Houses",
+      "fiscal_year_end": "1231"
+    },
+    "Broadcom": {
+      "submissions": true,
+      "companyfacts": true,
+      "facts": 646,
+      "filings_listed": 67,
+      "docs_fetched": 67,
+      "docs_failed": 0,
+      "forms": {
+        "10-Q": 12,
+        "8-K": 41,
+        "DEF 14A": 4,
+        "424B5": 6,
+        "10-K": 3,
+        "8-K/A": 1
+      },
+      "sec_name": "Broadcom Inc.",
+      "sic": "Semiconductors & Related Devices",
+      "fiscal_year_end": "1101"
+    },
+    "CoreWeave": {
+      "submissions": true,
+      "companyfacts": true,
+      "facts": 136,
+      "filings_listed": 32,
+      "docs_fetched": 32,
+      "docs_failed": 0,
+      "forms": {
+        "8-K": 26,
+        "424B5": 1,
+        "10-Q": 3,
+        "DEF 14A": 1,
+        "10-K": 1
+      },
+      "sec_name": "CoreWeave, Inc.",
+      "sic": "Services-Prepackaged Software",
+      "fiscal_year_end": "1231"
+    },
+    "Meta": {
+      "submissions": true,
+      "companyfacts": true,
+      "facts": 956,
+      "filings_listed": 33,
+      "docs_fetched": 33,
+      "docs_failed": 0,
+      "forms": {
+        "10-Q": 7,
+        "8-K": 22,
+        "DEF 14A": 2,
+        "10-K": 2
+      },
+      "sec_name": "Meta Platforms, Inc.",
+      "sic": "Services-Computer Programming, Data Processing, Etc.",
+      "fiscal_year_end": "1231"
+    },
+    "Microsoft": {
+      "submissions": true,
+      "companyfacts": true,
+      "facts": 1486,
+      "filings_listed": 53,
+      "docs_fetched": 53,
+      "docs_failed": 0,
+      "forms": {
+        "8-K": 34,
+        "10-K": 4,
+        "10-Q": 11,
+        "DEF 14A": 3,
+        "8-K/A": 1
+      },
+      "sec_name": "MICROSOFT CORP",
+      "sic": "Services-Prepackaged Software",
+      "fiscal_year_end": "0630"
+    },
+    "Nebius": {
+      "submissions": true,
+      "companyfacts": true,
+      "facts": 135,
+      "filings_listed": 98,
+      "docs_fetched": 98,
+      "docs_failed": 0,
+      "forms": {
+        "6-K": 91,
+        "20-F": 4,
+        "424B5": 3
+      },
+      "sec_name": "Nebius Group N.V.",
+      "sic": "Services-Computer Programming, Data Processing, Etc.",
+      "fiscal_year_end": null
+    },
+    "Nvidia": {
+      "submissions": true,
+      "companyfacts": true,
+      "facts": 1263,
+      "filings_listed": 59,
+      "docs_fetched": 59,
+      "docs_failed": 0,
+      "forms": {
+        "8-K": 38,
+        "10-Q": 11,
+        "424B5": 2,
+        "DEF 14A": 4,
+        "10-K": 4
+      },
+      "sec_name": "NVIDIA CORP",
+      "sic": "Semiconductors & Related Devices",
+      "fiscal_year_end": "0131"
+    },
+    "Oracle": {
+      "submissions": true,
+      "companyfacts": true,
+      "facts": 728,
+      "filings_listed": 58,
+      "docs_fetched": 58,
+      "docs_failed": 0,
+      "forms": {
+        "DEF 14A": 4,
+        "8-K": 32,
+        "10-Q": 11,
+        "424B5": 5,
+        "10-K": 4,
+        "8-K/A": 2
+      },
+      "sec_name": "ORACLE CORP",
+      "sic": "Services-Prepackaged Software",
+      "fiscal_year_end": "0531"
+    }
+  },
+  "xbrl_rows": 9214,
+  "filing_docs": 616
+}

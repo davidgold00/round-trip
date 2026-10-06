@@ -1,0 +1,567 @@
+# Reviewed promotions. Each entry was checked by the analyst against the source
+# document text before being written here. `from_candidate` links an entry to an
+# extractor candidate; entries without it are manual additions found by reading
+# the filing directly or by reading a company press release (T2).
+#
+# Applied with: python -m src.review batch ledger/promotions.yaml
+# Direction convention: money-flow. Funder -> recipient for funding edges,
+# buyer -> seller for demand edges. See DECISIONS.md A.0.
+
+backlog:
+  # ---- supplier denominators, strict preference order rpo > contracted_backlog ----
+  - node: Oracle
+    as_of_date: "2026-08-31"
+    metric: rpo
+    amount_usd_low: 664000000000
+    amount_usd_high: 664000000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1341439/000119312526389274/orcl-20260831.htm
+    accession_no: 0001193125-26-389274
+    quote_snippet: "Remaining performance obligations were $664 billion as of August 31, 2026"
+    notes: "10-Q Q1 FY2027. Oracle does not name any customer anywhere in its filings."
+
+  - node: Microsoft
+    as_of_date: "2026-06-30"
+    metric: rpo
+    amount_usd_low: 678000000000
+    amount_usd_high: 684000000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/789019/000119312526323660/msft-20260630.htm
+    accession_no: 0001193125-26-323660
+    quote_snippet: "Commercial remaining performance obligation increased 84% to $678 billion"
+    notes: "Low = commercial RPO as quoted. High = total RPO 684.0bn from XBRL RevenueRemainingPerformanceObligation, same filing."
+
+  - node: Alphabet
+    as_of_date: "2026-06-30"
+    metric: rpo
+    amount_usd_low: 513900000000
+    amount_usd_high: 519500000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1652044/000165204426000071/goog-20260630.htm
+    accession_no: 0001652044-26-000071
+    quote_snippet: "we had $519.5 billion of remaining performance obligations, of which $513.9 billion related to Google Cloud"
+    notes: "Low = Google Cloud portion, the relevant AI infrastructure backlog. High = group total."
+
+  - node: Amazon
+    as_of_date: "2026-06-30"
+    metric: contracted_backlog
+    amount_usd_low: 496000000000
+    amount_usd_high: 496000000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+    accession_no: 0001018724-26-000026
+    quote_snippet: "those commitments not yet recognized were approximately $496 billion as of June 30, 2026"
+    notes: "Amazon does not tag RPO in XBRL after 2020; it discloses unrecognised contract commitments, primarily AWS. Weighted average remaining life 6.4 years."
+
+  - node: Broadcom
+    as_of_date: "2026-08-02"
+    metric: rpo
+    amount_usd_low: 179200000000
+    amount_usd_high: 179200000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1730168/000173016826000080/avgo-20260802.htm
+    accession_no: 0001730168-26-000080
+    quote_snippet: "the remaining performance obligations under these contracts as of August 2, 2026 were approximately $179.2 billion"
+    notes: "Includes a long-term custom AI accelerator contract. Broadcom names no customer and gives no split."
+
+  - node: CoreWeave
+    as_of_date: "2026-06-30"
+    metric: rpo
+    amount_usd_low: 103700000000
+    amount_usd_high: 103700000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm
+    accession_no: 0001769628-26-000366
+    quote_snippet: "As of June 30, 2026, the Company had $103.7 billion of unsatisfied RPO"
+    notes: "41% expected to be recognised within 24 months."
+
+  - node: Nebius
+    as_of_date: "2025-12-31"
+    metric: rpo
+    amount_usd_low: 21333000000
+    amount_usd_high: 21333000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm
+    accession_no: 0001104659-26-052948
+    quote_snippet: "the aggregate transaction price allocated to the RPO was $21,333.0"
+    notes: "20-F, figures in millions. Predates the March 2026 Meta agreement, so this denominator lags the demand edges."
+
+  # ---- recorded but deliberately NOT used as a denominator ----
+  - node: Nvidia
+    as_of_date: "2026-07-26"
+    metric: rpo_software_only
+    amount_usd_low: 3200000000
+    amount_usd_high: 3200000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm
+    accession_no: 0001045810-26-000075
+    quote_snippet: "RevenueRemainingPerformanceObligation tagged at $3.2 billion as of July 26, 2026"
+    notes: "NOT used as Nvidia's backlog. Nvidia sells data centre systems on purchase orders and discloses no product backlog; this RPO covers software and services only. Metric name is outside the denominator preference list on purpose."
+
+  - node: AMD
+    as_of_date: "2026-06-27"
+    metric: rpo_software_only
+    amount_usd_low: 222000000
+    amount_usd_high: 222000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/2488/000000248826000123/amd-20260627.htm
+    accession_no: 0000002488-26-000123
+    quote_snippet: "RevenueRemainingPerformanceObligation tagged at $222 million as of June 27, 2026"
+    notes: "NOT used as AMD's backlog, same reason as Nvidia. AMD's 6 gigawatt OpenAI purchase agreement carries no disclosed dollar value."
+
+edges:
+  # =========================================================================
+  # FUNDING EDGES (funder -> recipient)
+  # =========================================================================
+  - from_candidate: c_888d0e317b97d3
+    as_of_date: "2025-10-29"
+    source_node: Microsoft
+    target_node: OpenAI
+    edge_type: equity_investment
+    amount_usd_low: 13000000000
+    amount_usd_high: 13000000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/789019/000119312525256321/msft-20250930.htm
+    accession_no: 0001193125-25-256321
+    quote_snippet: "our $13 billion of total funding commitments to OpenAI as an investment under the equity method"
+    notes: "Extractor had tagged the $250bn Azure purchase as an equity investment; corrected on review. Microsoft holds about 27% of the OpenAI PBC on an as-converted diluted basis."
+
+  - as_of_date: "2025-09-22"
+    source_node: Nvidia
+    target_node: OpenAI
+    edge_type: equity_investment
+    amount_usd_low: 0
+    amount_usd_high: 100000000000
+    amount_basis: notional
+    status: LOI_nonbinding
+    conditions_text: "Letter of intent. Investment staged progressively as each gigawatt of NVIDIA systems is deployed."
+    evidence_tier: T2
+    source_url: https://nvidianews.nvidia.com/news/openai-and-nvidia-announce-strategic-partnership-to-deploy-10gw-of-nvidia-systems
+    accession_no: ""
+    quote_snippet: "NVIDIA intends to invest up to $100 billion in OpenAI as the new NVIDIA systems are deployed"
+    notes: "Corroborated at T1 without an amount: Nvidia 10-Q acc 0001045810-25-000230 says it entered a letter of intent with an opportunity to invest in OpenAI. Largest single LOI in the ledger, so the LOI weight dominates sensitivity."
+
+  - as_of_date: "2025-11-19"
+    source_node: Nvidia
+    target_node: Anthropic
+    edge_type: equity_investment
+    amount_usd_low: 0
+    amount_usd_high: 10000000000
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Agreement subject to certain closing conditions."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1045810/000104581025000230/nvda-20251026.htm
+    accession_no: 0001045810-25-000230
+    quote_snippet: "we entered into an agreement, subject to certain closing conditions, to invest up to $10 billion in Anthropic"
+    notes: "Anthropic's Series G release says a portion of the previously announced Microsoft and NVIDIA investments participated in that round."
+
+  - as_of_date: "2025-11-18"
+    source_node: Microsoft
+    target_node: Anthropic
+    edge_type: equity_investment
+    amount_usd_low: 0
+    amount_usd_high: 5000000000
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Committing to invest up to this amount; no closing disclosed."
+    evidence_tier: T2
+    source_url: https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships
+    accession_no: ""
+    quote_snippet: "NVIDIA and Microsoft are committing to invest up to $10 billion and up to $5 billion respectively in Anthropic"
+    notes: "Announced jointly with Anthropic's $30bn Azure purchase commitment, which is the matching demand edge."
+
+  - as_of_date: "2026-07-31"
+    source_node: Amazon
+    target_node: Anthropic
+    edge_type: equity_investment
+    amount_usd_low: 10000000000
+    amount_usd_high: 10000000000
+    amount_basis: cumulative
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+    accession_no: 0001018724-26-000026
+    quote_snippet: "In Q2 2026, we invested $5.0 billion in Anthropic Series G nonvoting preferred stock"
+    notes: "Two $5.0bn tranches in the same filing: Series G plus Series H via the option to participate in subsequent financings. Covers only 2026 cash; Amazon's earlier convertible notes are carried at fair value, not cost, so they are recorded separately and not added here."
+
+  - as_of_date: "2026-07-31"
+    source_node: Amazon
+    target_node: Anthropic
+    edge_type: vendor_financing
+    amount_usd_low: 0
+    amount_usd_high: 15000000000
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Nothing drawable at inception. Capacity becomes available only as Amazon reaches compute delivery milestones under the amended AWS commercial arrangement. Expires 30 months after an Anthropic liquidity event."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+    accession_no: 0001018724-26-000026
+    quote_snippet: "a financing arrangement to make available to Anthropic an aggregate facility not to exceed $20.0 billion"
+    notes: "Headline facility is $20.0bn; the same filing says the Series H investment reduced availability to $15.0bn, which is the figure recorded. This is the clearest vendor-financing instrument in the dataset: availability is explicitly gated on the seller delivering compute."
+
+  - as_of_date: "2026-04-30"
+    source_node: Amazon
+    target_node: OpenAI
+    edge_type: equity_investment
+    amount_usd_low: 15000000000
+    amount_usd_high: 15000000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1018724/000101872426000014/amzn-20260331.htm
+    accession_no: 0001018724-26-000014
+    quote_snippet: "In Q1 2026, we invested $15.0 billion in Series C Preferred Stock of OpenAI"
+    notes: ""
+
+  - from_candidate: c_3d2271851e81cd
+    as_of_date: "2026-02-27"
+    source_node: Amazon
+    target_node: OpenAI
+    edge_type: equity_investment
+    amount_usd_low: 0
+    amount_usd_high: 35000000000
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Amazon may purchase at its sole discretion; obligated to buy any remainder on the earlier of OpenAI meeting specified milestones or an OpenAI public listing."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1018724/000110465926021050/tm266339d1_8k.htm
+    accession_no: 0001104659-26-021050
+    quote_snippet: "Amazon Sub agreed to purchase shares of OpenAI's Series C Preferred Stock with an aggregate purchase price of $35.0 billion"
+    notes: "8-K Item 1.01, equity commitment letter agreement. Amazon guaranteed the obligations of its subsidiary."
+
+  - as_of_date: "2026-08-26"
+    source_node: Nvidia
+    target_node: OpenAI
+    edge_type: loan_or_guarantee
+    amount_usd_low: 0
+    amount_usd_high: 105000000000
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Each guarantee becomes effective only on commencement of the applicable lease, across nine construction phases, first expected in fiscal 2029. Terminates if OpenAI achieves a satisfactory credit rating."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm
+    accession_no: 0001045810-26-000075
+    quote_snippet: "we entered into guarantees, capped at a total of $105 billion, to provide credit support"
+    notes: "Credit support to SB Energy Corp affiliates on behalf of an OpenAI affiliate, covering about 4.25 gigawatts of IT load at the PORTS campus in Pike County, Ohio. In exchange the site exclusively hosts NVIDIA AI infrastructure. Nvidia holds an option to support a further 3.8 gigawatts."
+
+  - as_of_date: "2026-01-31"
+    source_node: Nvidia
+    target_node: CoreWeave
+    edge_type: equity_investment
+    amount_usd_low: 2000000000
+    amount_usd_high: 2000000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm
+    accession_no: 0001769628-26-000366
+    quote_snippet: "a securities purchase agreement with NVIDIA Corporation for a private placement for aggregate gross proceeds of $2.0 billion"
+    notes: "About 23 million Class A shares at $87.20. CoreWeave's proxy states NVIDIA beneficially owns more than 5% of its capital stock."
+
+  - as_of_date: "2026-03-11"
+    source_node: Nvidia
+    target_node: Nebius
+    edge_type: warrants
+    amount_usd_low: 2000000000
+    amount_usd_high: 2000000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1513845/000110465926026163/tm268532d1_6k.htm
+    accession_no: 0001104659-26-026163
+    quote_snippet: "a pre-funded Class A ordinary shares purchase warrant in a private placement for aggregate gross proceeds of approximately $2 billion"
+    notes: "Pre-funded, exercise price $0.0001 for 21,065,936 shares, so the cash is received up front. Economically an equity injection by the GPU supplier into its own customer."
+
+  - as_of_date: "2026-02-04"
+    source_node: AMD
+    target_node: OpenAI
+    edge_type: warrants
+    amount_usd_low: 0
+    amount_usd_high: 0
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Vests in tranches on AMD Instinct GPU purchase milestones by OpenAI plus AMD stock price and stock performance thresholds; each vested tranche needs further technical and commercial conditions before exercise."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/2488/000000248826000018/amd-20251227.htm
+    accession_no: 0000002488-26-000018
+    quote_snippet: "we issued to OpenAI a warrant to purchase up to 160 million shares of AMD's common stock at $0.01 per share"
+    notes: "AMOUNT RECORDED AS ZERO ON PURPOSE. The instrument is share-denominated and AMD discloses no dollar value, stating the warrant had no impact on its financial statements. It therefore contributes nothing to the dollar-weighted bounds but does count as a funding LINK for the UPPER bound. Issued alongside a 6 gigawatt product purchase agreement."
+
+  - as_of_date: "2026-05-06"
+    source_node: AMD
+    target_node: Meta
+    edge_type: warrants
+    amount_usd_low: 0
+    amount_usd_high: 0
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Vests in tranches on AMD Instinct GPU purchase milestones by Meta and specified AMD stock price targets; further technical and commercial conditions before exercise."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/2488/000000248826000076/amd-20260328.htm
+    accession_no: 0000002488-26-000076
+    quote_snippet: "In October 2025 and February 2026, the Company issued warrants to OpenAI OpCo, LLC and Meta Platforms, Inc."
+    notes: "Same zero-dollar treatment as the OpenAI warrant. Exercisable through February 23, 2031."
+
+  - as_of_date: "2026-10-01"
+    source_node: SoftBank
+    target_node: OpenAI
+    edge_type: equity_investment
+    amount_usd_low: 64600000000
+    amount_usd_high: 64600000000
+    amount_basis: cumulative
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T2
+    source_url: https://group.softbank/en/news/press/20261001
+    accession_no: ""
+    quote_snippet: "SBG's cumulative investment in OpenAI totals USD 64.6 billion, and its ownership interest is approximately 13%"
+    notes: "Third and final $10.0bn tranche of the $30.0bn follow-on executed 1 October 2026. SoftBank is a pure financial funder here with no compute to sell to OpenAI, so this edge is what keeps supplier provenance shares honest: it is the single largest non-supplier funding line in the ledger."
+
+  # =========================================================================
+  # DEMAND EDGES (buyer -> seller)
+  # =========================================================================
+  - as_of_date: "2025-10-29"
+    source_node: OpenAI
+    target_node: Microsoft
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 250000000000
+    amount_usd_high: 250000000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/789019/000119312525256321/msft-20250930.htm
+    accession_no: 0001193125-25-256321
+    quote_snippet: "OpenAI has contracted to purchase an incremental $250 billion of Azure services"
+    notes: "Disclosed in a subsequent-events note alongside the new definitive Microsoft and OpenAI agreement. Microsoft simultaneously gave up its right of first refusal to be OpenAI's compute provider."
+
+  - from_candidate: c_7519188a368469
+    as_of_date: "2026-07-31"
+    source_node: OpenAI
+    target_node: Amazon
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 138000000000
+    amount_usd_high: 138000000000
+    amount_basis: notional
+    status: announced
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+    accession_no: 0001018724-26-000026
+    quote_snippet: "an expansion of the existing $38.0 billion multi-year commitment with OpenAI by $100.0 billion over 8.0 years"
+    notes: "Extractor had captured Amazon's whole $496bn backlog figure from the surrounding sentence; corrected on review to the OpenAI-specific $38.0bn plus $100.0bn. Includes obligations tied to the performance of AWS chips."
+    term_start: "2026-01-01"
+    term_end: "2034-01-01"
+
+  - from_candidate: c_cc0d40a8b47dbe
+    as_of_date: "2026-07-31"
+    source_node: Anthropic
+    target_node: Amazon
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 100000000000
+    amount_usd_high: 100000000000
+    amount_basis: notional
+    status: announced
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1018724/000101872426000026/amzn-20260630.htm
+    accession_no: 0001018724-26-000026
+    quote_snippet: "AWS and Anthropic announced an expansion of the existing multi-year commitment by more than $100.0 billion over 10.0 years"
+    notes: "Recorded as a FLOOR. The filing says more than $100.0bn and gives no upper figure, and the pre-existing commitment size is not disclosed, so low equals high equals the floor. Anthropic's own release of 20 April 2026 states it is committing more than $100 billion over ten years to AWS, securing up to 5GW."
+    term_start: "2026-01-01"
+    term_end: "2036-01-01"
+
+  - as_of_date: "2025-11-18"
+    source_node: Anthropic
+    target_node: Microsoft
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 30000000000
+    amount_usd_high: 30000000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T2
+    source_url: https://www.anthropic.com/news/microsoft-nvidia-anthropic-announce-strategic-partnerships
+    accession_no: ""
+    quote_snippet: "Anthropic has committed to purchase $30 billion of Azure compute capacity"
+    notes: "Announced the same day as the Microsoft and NVIDIA investment commitments into Anthropic, which makes this the tightest two-sided round trip in the ledger after the AWS and Anthropic pair."
+
+  - as_of_date: "2025-10-23"
+    source_node: Anthropic
+    target_node: Alphabet
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 20000000000
+    amount_usd_high: 90000000000
+    amount_basis: notional
+    status: announced
+    conditions_text: ""
+    evidence_tier: T2
+    source_url: https://www.anthropic.com/news/expanding-our-use-of-google-cloud-tpus-and-services
+    accession_no: ""
+    quote_snippet: "up to one million TPUs, dramatically increasing its compute resources, worth tens of billions of dollars"
+    notes: "WIDE RANGE ON PURPOSE. The only figure given is the phrase tens of billions of dollars, which this project reads as $20bn to $90bn. No point estimate is defensible. Over a gigawatt expected online in 2026."
+
+  - as_of_date: "2026-04-06"
+    source_node: Anthropic
+    target_node: Broadcom
+    edge_type: purchase_commitment
+    amount_usd_low: 0
+    amount_usd_high: 0
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Consumption of the expanded capacity is dependent on Anthropic's continued commercial success."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1730168/000119312526144028/d87999d8k.htm
+    accession_no: 0001193125-26-144028
+    quote_snippet: "Anthropic, beginning in 2027, will access through Broadcom approximately 3.5 gigawatts of next generation TPU-based AI compute capacity"
+    notes: "AMOUNT ZERO: 8-K Item 8.01 gives gigawatts but no dollars, and Broadcom's $179.2bn RPO is not broken out by customer. This is the single largest measurement gap in the dataset. The conditionality language is unusually explicit about the customer's ability to pay."
+
+  - as_of_date: "2025-10-13"
+    source_node: OpenAI
+    target_node: Broadcom
+    edge_type: purchase_commitment
+    amount_usd_low: 0
+    amount_usd_high: 0
+    amount_basis: notional
+    status: announced
+    conditions_text: ""
+    evidence_tier: T2
+    source_url: https://investors.broadcom.com/news-releases/news-release-details/openai-and-broadcom-announce-strategic-collaboration-deploy-10
+    accession_no: ""
+    quote_snippet: "OpenAI and Broadcom announce strategic collaboration to deploy 10 gigawatts of OpenAI-designed AI accelerators"
+    notes: "AMOUNT ZERO: no dollar value disclosed by either party. Racks targeted to start in the second half of 2026 and complete by end of 2029."
+
+  - from_candidate: c_6041cf40d371d2
+    as_of_date: "2026-08-12"
+    source_node: OpenAI
+    target_node: CoreWeave
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 6500000000
+    amount_usd_high: 6500000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm
+    accession_no: 0001769628-26-000366
+    quote_snippet: "OpenAI committed to pay us up to approximately $6.5 billion through May 31, 2031"
+    notes: "Order form under a May 2025 master services agreement."
+    term_start: "2025-09-01"
+    term_end: "2031-05-31"
+
+  - from_candidate: c_789962f2dc0f99
+    as_of_date: "2026-08-12"
+    source_node: Meta
+    target_node: CoreWeave
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 21000000000
+    amount_usd_high: 21000000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1769628/000176962826000366/crwv-20260630.htm
+    accession_no: 0001769628-26-000366
+    quote_snippet: "Meta Platforms, Inc. initially committed to pay us up to approximately $21.0 billion"
+    notes: "Includes an exercised option for additional capacity through April 2032."
+    term_start: "2026-03-01"
+    term_end: "2032-12-20"
+
+  - as_of_date: "2026-04-22"
+    source_node: Nvidia
+    target_node: CoreWeave
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 385900000
+    amount_usd_high: 385900000
+    amount_basis: cumulative
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1769628/000176962826000191/crwv-20260422.htm
+    accession_no: 0001769628-26-000191
+    quote_snippet: "NVIDIA has paid us an aggregate of approximately $326.3 million and $59.6 million, respectively"
+    notes: "Related-party disclosure in CoreWeave's proxy: NVIDIA buys CoreWeave's own infrastructure services under an April 2023 master services agreement. Amount is FY2025 plus Q1 2026 cash actually paid, so it is historical rather than forward backlog. Small in dollars, important in structure: the chip supplier is simultaneously an equity holder, a supplier and a customer of the same company."
+
+  - as_of_date: "2026-04-30"
+    source_node: Microsoft
+    target_node: Nebius
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 17400000000
+    amount_usd_high: 19400000000
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Subject to satisfaction of deployment and availability of the GPU clusters. Microsoft may terminate individual tranches on specified delivery delays or repeated availability failures."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1513845/000110465926052948/nbis-20251231x20f.htm
+    accession_no: 0001104659-26-052948
+    quote_snippet: "the total contract value is estimated to be up to about $17.4 billion through 2031"
+    notes: "High end of $19.4bn is the figure Nebius gives if Microsoft acquires the additional services and capacity contemplated by the agreement (424B5 of 12 November 2025). Nebius states the obligations commence only once it confirms it has secured any additional financing required."
+    term_start: "2025-09-07"
+    term_end: "2031-12-31"
+
+  - as_of_date: "2026-03-16"
+    source_node: Meta
+    target_node: Nebius
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 12000000000
+    amount_usd_high: 12000000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1513845/000110465926027886/tm268879d1_6k.htm
+    accession_no: 0001104659-26-027886
+    quote_snippet: "These Orders have a total contract value of $12 billion"
+    notes: "Firm orders for dedicated GPU capacity clusters, five year duration, deployments in tranches starting early 2027."
+    term_start: "2027-01-01"
+    term_end: "2032-01-01"
+
+  - as_of_date: "2026-03-16"
+    source_node: Meta
+    target_node: Nebius
+    edge_type: offtake_or_rpo
+    amount_usd_low: 0
+    amount_usd_high: 15000000000
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Meta is obligated to buy only the capacity Nebius fails to sell to third parties, for the remainder of five years from initial deployment."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1513845/000110465926027886/tm268879d1_6k.htm
+    accession_no: 0001104659-26-027886
+    quote_snippet: "Meta is obligated to purchase such unsold capacity. This Order has a potential total contract value of up to $15 billion"
+    notes: "A pure backstop: it converts into revenue only if Nebius cannot sell the capacity elsewhere, so its expected value moves inversely with genuine third-party demand. Recorded separately from the $12bn firm orders so the two are never conflated."
+    term_start: "2027-01-01"
+    term_end: "2032-01-01"
+
+  - as_of_date: "2025-11-12"
+    source_node: Meta
+    target_node: Nebius
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 2900000000
+    amount_usd_high: 2900000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1513845/000110465925110025/tm2530771-1_424b5.htm
+    accession_no: 0001104659-25-110025
+    quote_snippet: "The total contract value is approximately $2.9 billion"
+    notes: "The earlier November 2025 Meta agreement for two dedicated GPU clusters, separate from the March 2026 agreement."
+    term_start: "2025-12-01"
+    term_end: "2030-12-01"
+
+rejections:
+  - candidate_id: c_98af430522c833
+    reason: "False positive. The $180bn figure is Alphabet's own 2026 capital expenditure guidance in a 424B5 use-of-proceeds section; the phrase 'scale AI infrastructure' was matched as the company name Scale AI. No edge."
+  - candidate_id: c_fdaa9d97ab4b51
+    reason: "False positive. $229.7bn is the carrying value of Amazon's total equity investments in private companies, not a warrant position in Anthropic. Amazon does hold Anthropic warrants but discloses no amount."
+  - candidate_id: c_bf671a9b1ebad0
+    reason: "Superseded. Same Amazon aggregate-backlog sentence as c_7519188a368469 but from the prior quarter; the OpenAI-specific figures are recorded from the later filing."

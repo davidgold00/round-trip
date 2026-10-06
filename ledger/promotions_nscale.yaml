@@ -1,0 +1,107 @@
+# Second reviewed promotions batch: the discovered node Nscale Limited.
+# Every row below was read directly in the S-1 text at
+# https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm
+backlog:
+  - node: Nscale
+    as_of_date: "2026-06-30"
+    metric: rpo
+    amount_usd_low: 56400000000
+    amount_usd_high: 56400000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm
+    accession_no: 0001193125-26-395475
+    quote_snippet: "remaining performance obligations for contracts accounted for as service contracts under ASC 606 were $56.4 billion as of June 30, 2026"
+    notes: "S-1. Up from $34.5bn at 31 December 2025. Predates the 25 August 2026 Anthropic agreements, so this denominator lags the demand edges and the dependency row sum exceeds 1."
+
+edges:
+  - as_of_date: "2026-09-18"
+    source_node: Nvidia
+    target_node: Nscale
+    edge_type: warrants
+    amount_usd_low: 60000000
+    amount_usd_high: 60000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm
+    accession_no: 0001193125-26-395475
+    quote_snippet: "NVIDIA received warrants to acquire up to 9,476,700 of our Series B preferred shares with an aggregate value of $60,000,000"
+    notes: "Exercise price $0.01 per warrant share. Granted in consideration for the Ward County lease guarantee. NVIDIA became a holder of more than 5% of Nscale's share capital through the Series B."
+
+  - as_of_date: "2026-09-18"
+    source_node: Nvidia
+    target_node: Nscale
+    edge_type: loan_or_guarantee
+    amount_usd_low: 860340000
+    amount_usd_high: 860340000
+    amount_basis: notional
+    status: definitive
+    conditions_text: "Guarantee of lease obligations; additional contingently exercisable warrants are issuable if Nscale defaults on a lease NVIDIA guarantees."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm
+    accession_no: 0001193125-26-395475
+    quote_snippet: "NVIDIA agreed to guarantee up to $860,340,000 of our obligations under the lease agreement for the facility in Ward County, Texas"
+    notes: "The supplier is underwriting its customer's property obligations, which is credit support rather than a sale."
+
+  - as_of_date: "2026-09-15"
+    source_node: Nvidia
+    target_node: Nscale
+    edge_type: convertible_or_debt
+    amount_usd_low: 1000000000
+    amount_usd_high: 1000000000
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Convertible into ordinary shares, or Non-Voting Shares in NVIDIA's case, automatically upon completion of the IPO."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm
+    accession_no: 0001193125-26-395475
+    quote_snippet: "a further $1.0 billion of unsecured convertible loan notes or Non-Voting Shares that will be issued to NVIDIA"
+    notes: "Part of a minimum $3.1bn subscription agreement dated 15 September 2026, three days before the S-1 was filed."
+
+  - as_of_date: "2026-09-18"
+    source_node: Nvidia
+    target_node: Nscale
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 1200000000
+    amount_usd_high: 1200000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm
+    accession_no: 0001193125-26-395475
+    quote_snippet: "we provide reserved GPU cluster capacity with initial service terms ranging from 12 to 48 months, for an aggregate amount of $1.2 billion"
+    notes: "DEMAND edge: Nvidia is the buyer here, under a July 2025 master cloud services agreement. Nvidia therefore funds Nscale three ways and is simultaneously its supplier and its customer."
+
+  - as_of_date: "2026-09-18"
+    source_node: Microsoft
+    target_node: Nscale
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 43800000000
+    amount_usd_high: 43800000000
+    amount_basis: notional
+    status: conditional
+    conditions_text: "Subject to the satisfaction of delivery and availability of service requirements. Excludes optional extensions."
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm
+    accession_no: 0001193125-26-395475
+    quote_snippet: "statements of work with Microsoft that provide for payments to us of up to approximately $43.8 billion through December 2033"
+    notes: "Entered between September 2025 and April 2026. Nscale's largest customer was 52% of revenue for the six months to 30 June 2026 and 73% for 2025."
+    term_start: "2025-09-01"
+    term_end: "2033-12-31"
+
+  - as_of_date: "2026-08-25"
+    source_node: Anthropic
+    target_node: Nscale
+    edge_type: cloud_capacity_contract
+    amount_usd_low: 44600000000
+    amount_usd_high: 44600000000
+    amount_basis: notional
+    status: definitive
+    conditions_text: ""
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm
+    accession_no: 0001193125-26-395475
+    quote_snippet: "The Anthropic Services Agreements provide for aggregate payments to us of up to approximately $44.6 billion"
+    notes: "Dedicated GPU infrastructure at the Monarch Compute Campus to support NVIDIA Vera Rubin NVL72 deployment. Signed after the 30 June 2026 RPO date."

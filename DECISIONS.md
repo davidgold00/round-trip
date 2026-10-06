@@ -264,3 +264,47 @@ Format: `[date] [phase] decision -- rationale`
   ledger demand exceeds disclosed backlog, that is a finding about disclosure,
   not an error to normalise away. -- Rescaling would hide the most interesting
   data-quality signal in the dataset.
+* `2026-10-05 P1` **Discovered node `Nscale` added with its CIK taken from the
+  EDGAR archive path of its S-1 rather than from `company_tickers.json`.** It has
+  filed but is not yet listed, so the ticker file cannot resolve it. -- The CIK
+  still comes from SEC data, which is what the no-memory rule requires.
+* `2026-10-05 P1` **Nvidia's and AMD's tagged `RevenueRemainingPerformanceObligation`
+  is recorded in `ledger/backlog.csv` under the metric name `rpo_software_only`,
+  which is deliberately outside the denominator preference list.** Both sell data
+  centre systems on purchase orders and disclose no product backlog; their tagged
+  RPO covers software and services ($3.2bn and $222m). Using it as a denominator
+  would produce a nonsense share. -- Visible and auditable in the ledger, but never
+  used as a denominator.
+* `2026-10-05 P2` **Clarification, not an amendment: bound-correct denominators.**
+  A LOWER bound on a share is the smallest numerator over the LARGEST denominator,
+  so the `low` bound divides by `backlog_high` and the `high` bound divides by
+  `backlog_low`. This is what DECISIONS A.4's own wording implies; the code now
+  states it explicitly. -- Caught during implementation, before any result was read.
+* `2026-10-05 P2` **UPPER provenance is defined on funding LINKS, not funding
+  dollars.** The AMD warrants issued to OpenAI and Meta are share-denominated with
+  no disclosed dollar value, so they are recorded at zero dollars. A dollar test
+  would make them invisible even to the maximal bound. -- A.5 already defines UPPER
+  as "i has any T1/T2 funding link to j"; `link_matrix` implements that literally.
+* `2026-10-05 P2` **Supplier universe includes every node with a disclosed backlog
+  figure, even with no named customer.** Oracle discloses $664bn of RPO and names
+  no customer anywhere in its filings. Dropping it would shrink the ecosystem
+  denominator and inflate the headline. -- Its Round-Trip Exposure is reported as
+  zero *measurable*, not zero.
+* `2026-10-05 P2` **Added a clearly-labelled SECONDARY metric,
+  `network_financed_share`, alongside the pre-registered headline.** The headline
+  asks "is the seller financing its own buyer?" and is zero for CoreWeave, Nebius
+  and Nscale by construction, because they finance nobody. The secondary metric
+  asks "is the buyer financed by somebody with compute to sell?" and is 27% to 87%
+  for those three. -- An addition, not a change: the headline definition in Part A
+  is untouched, and the dashboard labels which is which.
+* `2026-10-05 P2` **Alphabet is NOT recorded as an Anthropic investor.** Alphabet
+  names Anthropic nowhere in any filing retrieved, and no Alphabet or Anthropic
+  release found states an Alphabet investment amount. Alphabet's non-marketable
+  securities rose from $68.7bn to $131.5bn in the first half of 2026 with no
+  attribution. -- Honesty rule 1: background knowledge decides what to look for, it
+  never substitutes for evidence. Logged instead as a known gap.
+* `2026-10-05 P2` **An attribution-coverage figure is reported next to the
+  headline.** 79% of the disclosed backlog in the covered universe cannot be tied
+  to any named customer. -- A round-trip share computed over the attributable fifth
+  would be read as though it described the whole, so the denominator's blindness is
+  reported as a first-class number.
