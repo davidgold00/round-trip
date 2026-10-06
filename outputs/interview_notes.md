@@ -115,7 +115,7 @@ on the measurement side.**
 On stress: the widest parameter swing is bigger than half the base result.
 Pass-through, which is how much of a funding shortfall converts into less
 buying rather than being absorbed by cash on hand, is worth 5.9 percentage
-points on its own against a base of 5.8%. The Monte Carlo band is 3.4% to 8.5%.
+points on its own against a base of 5.7%. The Monte Carlo band is 3.4% to 8.5%.
 That band is mostly me, not the data. The dashboard says so in those words.
 
 On measurement: I am reporting on the fifth of the backlog that has a name on

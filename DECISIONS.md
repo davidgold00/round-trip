@@ -386,3 +386,14 @@ Format: `[date] [phase] decision -- rationale`
   captures only contracts longer than one year, which is not how either company
   sells its data centre products. -- Found by sampling, which is the point of
   sampling.
+* `2026-10-06 P6` **IR feeds are clipped to the lookback window and then to a
+  hard per-feed cap of 60 items.** OpenAI's newsroom feed returns its entire
+  history, over 1,200 entries, which swamped the corpus and the deduplication
+  step. -- One verbose publisher should not dominate a monitor built to spot
+  financing events.
+* `2026-10-06 P6` **News review decisions are keyed by item URL, not by the
+  generated candidate id.** The id is a hash of the URL and is stable, but
+  rebuilding `ledger/news_candidates.csv` from scratch loses the decision
+  history, which happened once during development. The URL is the durable key
+  and the file is the review record. -- A rejection with a reason is as much a
+  research output as a promotion.

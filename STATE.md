@@ -11,12 +11,21 @@ ledger. 62 tests pass.
 
 ## Headline as of the last run
 
-* Ecosystem round-trip exposure **1.7% central, range 1.4% to 18.2%**. About
-  $47 billion of $2.7 trillion of disclosed backlog.
+* Ecosystem round-trip exposure **1.72% central, range 1.39% to 18.22%**.
+  $46.7 billion of $2.72 trillion of disclosed backlog.
 * **79.3%** of that backlog universe names no customer in any filing. Broadcom
   and Oracle name none at all.
 * 38 ledger edges: 28 T1 (SEC filings), 10 T2 (company releases), 0 T3, 0 T4.
-  5 edges are recorded at zero dollars because no party disclosed an amount.
+  By status: 19 definitive, 13 conditional, 5 announced, 1 non-binding letter of
+  intent. 5 edges are recorded at zero dollars because no party disclosed one.
+* Nine circular loops, every one a genuine round trip. One strongly connected
+  component: AMD, Amazon, Anthropic, Microsoft, OpenAI.
+* Stress: Monte Carlo median 5.65% of backlog at risk, 10th to 90th percentile
+  3.35% to 8.47%. Pass-through dominates the tornado at 5.9 percentage points
+  against a base of 5.7%, so the stress answer is assumption-dominated and the
+  dashboard says so.
+* Eisenberg-Noe no-shock baseline 11.36%: unshocked, committed purchases in this
+  network already exceed documented external funding.
 
 ## What is done
 
@@ -48,6 +57,8 @@ ledger. 62 tests pass.
   rose from $68.7bn to $131.5bn in the first half of 2026 with no attribution.
 * **`SEC_USER_AGENT` lives in `.env`, which is gitignored.** A fresh clone must
   recreate it from `.env.example` before `make ingest`.
+* **GDELT rate-limits repeat runs from one address** and can return zero items.
+  The pipeline logs it and continues; EDGAR and the IR feeds carry the monitor.
 * **Only one pipeline snapshot exists so far.** The trend panel is therefore
   driven by reconstructed vintages, which recompute the headline from evidence
   dated on or before each quarter end and are labelled as reconstructions.

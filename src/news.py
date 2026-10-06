@@ -233,7 +233,18 @@ def fetch_edgar_8k(client: SecClient, cfg: dict) -> list[dict]:
     return out
 
 
-def fetch_ir_feeds(ua: str) -> list[dict]:
+def fetch_ir_feeds(ua: str, cfg: dict | None = None) -> list[dict]:
+    """Recent items only.
+
+    Some newsrooms publish their entire history in one document (OpenAI's feed
+    returns well over a thousand entries). Each feed is therefore clipped to the
+    lookback window and then to a hard per-feed cap, so one verbose publisher
+    cannot dominate the corpus or the deduplication step.
+    """
+    cfg = cfg or load_config()
+    lookback = int(cfg["news"].get("lookback_days", 45))
+    cap = int(cfg["news"].get("max_items_per_feed", 60))
+    cutoff = (dt.date.today() - dt.timedelta(days=lookback)).isoformat()
     s = _session(ua)
     out: list[dict] = []
     for name, url in IR_FEEDS.items():
@@ -243,12 +254,19 @@ def fetch_ir_feeds(ua: str) -> list[dict]:
                 LOG.info("IR feed %-18s unreachable, HTTP %s (skipped)", name, r.status_code)
                 continue
             items = parse_feed(r.content, publisher=f"{name} IR", source_kind="ir_rss")
+            total = len(items)
+            dated = [(normalise_date(i.get("raw_date", "")), i) for i in items]
+            recent = [i for d, i in dated if d and d >= cutoff]
+            undated = [i for d, i in dated if not d]
+            items = (recent + undated)[:cap]
+            if total > len(items):
+                LOG.debug("%s: clipped %d items to %d", name, total, len(items))
             node = FEED_NODE.get(name, name)
             for it in items:
                 it["entities"] = node
                 it["publisher"] = f"{node} IR"
             out.extend(items)
-            LOG.info("IR feed %-18s %3d items", name, len(items))
+            LOG.info("IR feed %-18s %3d items (of %d published)", name, len(items), total)
         except requests.RequestException as exc:
             LOG.info("IR feed %s failed: %s", name, type(exc).__name__)
     return out
@@ -465,7 +483,7 @@ def run(skip_network: bool = False) -> dict:
     items: list[dict] = []
     if not skip_network:
         items += fetch_edgar_8k(client, cfg)
-        items += fetch_ir_feeds(ua)
+        items += fetch_ir_feeds(ua, cfg)
         items += fetch_gdelt(cfg, ua)
     else:
         LOG.info("skip_network set, using whatever is already cached")

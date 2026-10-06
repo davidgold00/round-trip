@@ -57,6 +57,7 @@ news:
   gdelt_enabled: true
   gdelt_max_records: 75
   lookback_days: 45
+  max_items_per_feed: 60   # some newsrooms publish their whole history in one feed
   embed_model: "sentence-transformers/all-MiniLM-L6-v2"
   similarity_threshold: 0.42
   dedupe_threshold: 0.90
