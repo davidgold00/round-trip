@@ -271,27 +271,30 @@ def main() -> None:
 
     if not args.skip_ingest:
         from . import ingest
-        LOG.info("step 1/5 ingest")
+        LOG.info("step 1/6 ingest")
         ingest.ingest()
     if not args.skip_extract:
         from . import extract
-        LOG.info("step 2/5 extract candidates")
+        LOG.info("step 2/6 extract candidates")
         extract.run()
     news_payload = None
     if not args.skip_news:
         from . import news
-        LOG.info("step 3/5 news monitor")
+        LOG.info("step 3/6 news monitor")
         news.run()
         p = OUTPUTS / "news.json"
         if p.exists():
             news_payload = json.loads(p.read_text())
 
-    LOG.info("step 4/5 metrics")
+    LOG.info("step 4/6 metrics")
     from . import metrics as metrics_mod
     metrics_mod.main()
-    LOG.info("step 5/5 stress")
+    LOG.info("step 5/6 stress")
     from . import stress as stress_mod
     stress_mod.main()
+    LOG.info("step 6/6 site data")
+    from . import site_data as site_mod
+    site_mod.build()
 
     new_edges = load_edges()
     snapshot(new_edges, day)

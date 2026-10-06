@@ -101,3 +101,23 @@ def test_committed_snapshots_still_reproduce_their_own_metrics():
             assert fresh.ecosystem[bound]["rte"] == pytest.approx(
                 stored["ecosystem"][bound]["rte"], abs=1e-9), (
                 f"{sp.name} no longer reproduces its stored {bound} figure")
+
+
+def test_refresh_builds_every_file_the_dashboard_fetches():
+    """site/index.html fetches five JSON files; all five must exist after a refresh.
+
+    `src/site_data.py` was once missing from the refresh pipeline, so a clean
+    `make refresh` produced a dashboard that could not load its own ledger.
+    """
+    import re
+    site = ROOT / "site"
+    html = (site / "index.html").read_text()
+    app = (site / "app.js").read_text()
+    wanted = set(re.findall(r'fetch\("(data/[^"]+)"\)', app))
+    assert wanted, "no data fetches found in app.js"
+    for rel in sorted(wanted):
+        assert (site / rel).exists(), f"{rel} is fetched by the dashboard but not built"
+    import src.refresh as refresh_mod
+    src = refresh_mod.__file__
+    text = open(src).read()
+    assert "site_data" in text, "refresh must build the dashboard payload"

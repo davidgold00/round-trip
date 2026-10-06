@@ -17,3 +17,8 @@ data/cache/
 
 # OS
 .DS_Store
+
+# OS and tooling cruft
+.DS_Store
+**/.DS_Store
+.pytest_cache/

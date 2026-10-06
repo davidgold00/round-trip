@@ -397,3 +397,16 @@ Format: `[date] [phase] decision -- rationale`
   history, which happened once during development. The URL is the durable key
   and the file is the review record. -- A rejection with a reason is as much a
   research output as a promotion.
+* `2026-10-06 P6` **RSS date parsing extended to two-digit years and several
+  other shapes.** AMD's investor feed stamps items `Mon, 28 Sep 26 16:05:00
+  -0400`. The parser did not cover `%y`, so every AMD item fell through to the
+  "use today" fallback and months-old releases sorted to the top of the
+  timeline. `normalise_date` now returns an empty string when it genuinely
+  cannot parse, so the caller's fallback is a real fallback rather than a silent
+  default. -- Covered by a parametrised test over every date shape these feeds
+  actually emit.
+* `2026-10-06 P6` **`src/site_data.py` added to the refresh pipeline.** It was
+  missing, so a clean `make refresh` wrote the metrics and stress payloads but
+  never the ledger payload, and a fresh clone would have served a dashboard that
+  could not load its own ledger. -- Now guarded by a test that reads the fetch
+  calls out of `site/app.js` and asserts every file they ask for exists.

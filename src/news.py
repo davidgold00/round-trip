@@ -158,11 +158,34 @@ def parse_feed(raw: bytes, publisher: str, source_kind: str) -> list[dict]:
     return items
 
 
+MONTHS = {m: i for i, m in enumerate(
+    ["jan", "feb", "mar", "apr", "may", "jun",
+     "jul", "aug", "sep", "oct", "nov", "dec"], start=1)}
+
+DATE_FORMATS = (
+    "%a, %d %b %Y %H:%M:%S %z", "%a, %d %b %Y %H:%M:%S %Z",
+    "%a, %d %b %Y %H:%M:%S", "%a, %d %b %Y %H:%M %z",
+    # AMD's investor feed uses a two-digit year: "Mon, 28 Sep 26 16:05:00 -0400".
+    # Missing this made every AMD item fall back to today's date, which put
+    # months-old releases at the top of the timeline.
+    "%a, %d %b %y %H:%M:%S %z", "%a, %d %b %y %H:%M:%S %Z",
+    "%a, %d %b %y %H:%M:%S",
+    "%d %b %Y %H:%M:%S %z", "%d %b %Y",
+    "%Y-%m-%dT%H:%M:%S%z", "%Y-%m-%dT%H:%M:%SZ", "%Y-%m-%dT%H:%M:%S",
+    "%Y-%m-%d %H:%M:%S", "%Y-%m-%d", "%Y%m%dT%H%M%SZ", "%Y%m%d%H%M%S",
+)
+
+
 def normalise_date(raw: str) -> str:
+    """Parse the many date shapes RSS and Atom feeds use. Empty string if unknown.
+
+    Returning an empty string matters: the caller falls back to today only when
+    this cannot parse, and a silent fallback dates old items as new.
+    """
     raw = (raw or "").strip()
-    for fmt in ("%a, %d %b %Y %H:%M:%S %z", "%a, %d %b %Y %H:%M:%S %Z",
-                "%Y-%m-%dT%H:%M:%S%z", "%Y-%m-%dT%H:%M:%SZ", "%Y-%m-%d",
-                "%a, %d %b %Y %H:%M %z"):
+    if not raw:
+        return ""
+    for fmt in DATE_FORMATS:
         try:
             return dt.datetime.strptime(raw, fmt).date().isoformat()
         except (ValueError, TypeError):
@@ -170,6 +193,22 @@ def normalise_date(raw: str) -> str:
     m = re.search(r"(\d{4})-(\d{2})-(\d{2})", raw)
     if m:
         return m.group(0)
+    m = re.search(r"\b(\d{1,2})\s+([A-Za-z]{3})[a-z]*\s+(\d{2,4})\b", raw)
+    if m:
+        day, mon, year = int(m.group(1)), MONTHS.get(m.group(2).lower()), int(m.group(3))
+        if mon:
+            if year < 100:
+                year += 2000
+            try:
+                return dt.date(year, mon, day).isoformat()
+            except ValueError:
+                pass
+    m = re.search(r"\b(\d{8})\b", raw)       # GDELT seendate, e.g. 20261005T...
+    if m:
+        try:
+            return dt.datetime.strptime(m.group(1), "%Y%m%d").date().isoformat()
+        except ValueError:
+            pass
     return ""
 
 
