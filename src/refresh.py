@@ -49,6 +49,7 @@ def diff_edges(old: pd.DataFrame, new: pd.DataFrame) -> dict:
         "added": [{"edge_id": e, "source": n.loc[e, "source_node"],
                    "target": n.loc[e, "target_node"],
                    "edge_type": n.loc[e, "edge_type"],
+                   "amount_usd_low": float(n.loc[e, "amount_usd_low"]),
                    "amount_usd_high": float(n.loc[e, "amount_usd_high"]),
                    "status": n.loc[e, "status"], "tier": n.loc[e, "evidence_tier"],
                    "as_of": n.loc[e, "as_of_date"]} for e in added],
@@ -84,7 +85,13 @@ def write_changelog(diff: dict, deltas: dict, news: dict | None, stamp: str) -> 
     lines += ["## New ledger edges", ""]
     if diff["added"]:
         for a in diff["added"]:
-            amt = fmt_usd(a["amount_usd_high"]) if a["amount_usd_high"] else "no disclosed amount"
+            lo, hi = a.get("amount_usd_low", 0.0), a["amount_usd_high"]
+            if not hi:
+                amt = "no disclosed amount"
+            elif lo == hi:
+                amt = fmt_usd(hi)
+            else:
+                amt = f"{fmt_usd(lo)} to {fmt_usd(hi)}"
             lines.append(f"* `{a['as_of']}` {a['source']} to {a['target']} "
                          f"[{a['edge_type']}] {amt}, {a['status']}, {a['tier']}")
     else:

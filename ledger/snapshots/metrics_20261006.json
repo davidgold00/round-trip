@@ -10,7 +10,7 @@
     ]
   },
   "as_of": "2026-10-05",
-  "generated": "2026-10-06T03:47:52.500622+00:00",
+  "generated": "2026-10-06T04:23:33.147175+00:00",
   "tier_gate": [
     "T1",
     "T2"
@@ -22,21 +22,26 @@
       "backlog_at_risk": 38000000000.0
     },
     "CENTRAL": {
-      "rte": 0.030619544583682403,
+      "rte": 0.01717456002679425,
       "backlog_total": 2718333000000.0,
-      "backlog_at_risk": 83234118486.79514
+      "backlog_at_risk": 46686173281.3157
     },
     "UPPER": {
       "rte": 0.1821913318658243,
       "backlog_total": 2712533000000.0,
       "backlog_at_risk": 494200000000.0
+    },
+    "RANGE": {
+      "min": 0.013949392338773474,
+      "max": 0.1821913318658243,
+      "ordered": true
     }
   },
   "suppliers": [
     {
       "supplier": "Amazon",
       "rte_low": 0.05040322580645161,
-      "rte_central": 0.11700887614837327,
+      "rte_central": 0.04652721463710505,
       "rte_high": 0.43185483870967745,
       "backlog_low": 496000000000.0,
       "backlog_high": 496000000000.0,
@@ -58,8 +63,8 @@
         {
           "customer": "Anthropic",
           "D": 0.12096774193548387,
-          "provenance": 0.7333333333333333,
-          "rte": 0.08870967741935483,
+          "provenance": 0.1506849315068493,
+          "rte": 0.01822801590808661,
           "is_private": true
         }
       ],
@@ -70,6 +75,7 @@
         "Anthropic": [
           "AMD",
           "Amazon",
+          "Financial investors",
           "Microsoft",
           "Nvidia"
         ],
@@ -80,12 +86,15 @@
           "Nvidia",
           "SoftBank"
         ]
-      }
+      },
+      "rte_range_min": 0.04652721463710505,
+      "rte_range_max": 0.43185483870967745,
+      "bounds_unordered": true
     },
     {
       "supplier": "Microsoft",
       "rte_low": 0.019005847953216373,
-      "rte_central": 0.03700105127342438,
+      "rte_central": 0.03466765759370278,
       "rte_high": 0.41297935103244837,
       "backlog_low": 678000000000.0,
       "backlog_high": 684000000000.0,
@@ -107,8 +116,8 @@
         {
           "customer": "Anthropic",
           "D": 0.04405286343612335,
-          "provenance": 0.06666666666666667,
-          "rte": 0.0029368575624082235,
+          "provenance": 0.0136986301369863,
+          "rte": 0.0006034638826866212,
           "is_private": true
         }
       ],
@@ -119,6 +128,7 @@
         "Anthropic": [
           "AMD",
           "Amazon",
+          "Financial investors",
           "Microsoft",
           "Nvidia"
         ],
@@ -129,7 +139,10 @@
           "Nvidia",
           "SoftBank"
         ]
-      }
+      },
+      "rte_range_min": 0.019005847953216373,
+      "rte_range_max": 0.41297935103244837,
+      "bounds_unordered": false
     },
     {
       "supplier": "Alphabet",
@@ -161,10 +174,14 @@
         "Anthropic": [
           "AMD",
           "Amazon",
+          "Financial investors",
           "Microsoft",
           "Nvidia"
         ]
-      }
+      },
+      "rte_range_min": 0.0,
+      "rte_range_max": 0.0,
+      "bounds_unordered": false
     },
     {
       "supplier": "Broadcom",
@@ -184,7 +201,10 @@
       "named_customer_share": 0,
       "unattributable_share": 1.0,
       "network_financed_share": 0.0,
-      "financiers_by_customer": {}
+      "financiers_by_customer": {},
+      "rte_range_min": 0.0,
+      "rte_range_max": 0.0,
+      "bounds_unordered": false
     },
     {
       "supplier": "CoreWeave",
@@ -237,7 +257,10 @@
           "Nvidia",
           "SoftBank"
         ]
-      }
+      },
+      "rte_range_min": 0.0,
+      "rte_range_max": 0.0,
+      "bounds_unordered": false
     },
     {
       "supplier": "Nebius",
@@ -276,7 +299,10 @@
         "Meta": [
           "AMD"
         ]
-      }
+      },
+      "rte_range_min": 0.0,
+      "rte_range_max": 0.0,
+      "bounds_unordered": false
     },
     {
       "supplier": "Nscale",
@@ -322,10 +348,14 @@
         "Anthropic": [
           "AMD",
           "Amazon",
+          "Financial investors",
           "Microsoft",
           "Nvidia"
         ]
-      }
+      },
+      "rte_range_min": 0.0,
+      "rte_range_max": 0.0,
+      "bounds_unordered": false
     },
     {
       "supplier": "Oracle",
@@ -345,7 +375,10 @@
       "named_customer_share": 0,
       "unattributable_share": 1.0,
       "network_financed_share": 0.0,
-      "financiers_by_customer": {}
+      "financiers_by_customer": {},
+      "rte_range_min": 0.0,
+      "rte_range_max": 0.0,
+      "bounds_unordered": false
     }
   ],
   "backlog": [
@@ -508,6 +541,7 @@
       "Anthropic",
       "Broadcom",
       "CoreWeave",
+      "Financial investors",
       "Meta",
       "Microsoft",
       "Nebius",
@@ -555,19 +589,11 @@
       },
       {
         "nodes": [
-          "Anthropic",
-          "Amazon"
+          "Amazon",
+          "Anthropic"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "Anthropic",
-            "target": "Amazon",
-            "amount": 60000000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          },
           {
             "source": "Amazon",
             "target": "Anthropic",
@@ -575,6 +601,14 @@
             "edge_types": [
               "equity_investment",
               "vendor_financing"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "Amazon",
+            "amount": 60000000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
             ]
           }
         ],
@@ -773,21 +807,13 @@
       },
       {
         "nodes": [
-          "AMD",
           "OpenAI",
           "Amazon",
-          "Anthropic"
+          "Anthropic",
+          "AMD"
         ],
         "length": 4,
         "legs": [
-          {
-            "source": "AMD",
-            "target": "OpenAI",
-            "amount": 0.0,
-            "edge_types": [
-              "warrants"
-            ]
-          },
           {
             "source": "OpenAI",
             "target": "Amazon",
@@ -812,6 +838,14 @@
             "edge_types": [
               "purchase_commitment"
             ]
+          },
+          {
+            "source": "AMD",
+            "target": "OpenAI",
+            "amount": 0.0,
+            "edge_types": [
+              "warrants"
+            ]
           }
         ],
         "bottleneck_usd": 0.0,
@@ -819,25 +853,25 @@
       },
       {
         "nodes": [
-          "AMD",
-          "Anthropic"
+          "Anthropic",
+          "AMD"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "AMD",
-            "target": "Anthropic",
-            "amount": 1250000000.0,
-            "edge_types": [
-              "equity_investment"
-            ]
-          },
           {
             "source": "Anthropic",
             "target": "AMD",
             "amount": 0.0,
             "edge_types": [
               "purchase_commitment"
+            ]
+          },
+          {
+            "source": "AMD",
+            "target": "Anthropic",
+            "amount": 1250000000.0,
+            "edge_types": [
+              "equity_investment"
             ]
           }
         ],
@@ -875,19 +909,11 @@
       },
       {
         "nodes": [
-          "Anthropic",
-          "Amazon"
+          "Amazon",
+          "Anthropic"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "Anthropic",
-            "target": "Amazon",
-            "amount": 60000000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          },
           {
             "source": "Amazon",
             "target": "Anthropic",
@@ -895,6 +921,14 @@
             "edge_types": [
               "equity_investment",
               "vendor_financing"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "Amazon",
+            "amount": 60000000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
             ]
           }
         ],
@@ -1093,21 +1127,13 @@
       },
       {
         "nodes": [
-          "AMD",
           "OpenAI",
           "Amazon",
-          "Anthropic"
+          "Anthropic",
+          "AMD"
         ],
         "length": 4,
         "legs": [
-          {
-            "source": "AMD",
-            "target": "OpenAI",
-            "amount": 0.0,
-            "edge_types": [
-              "warrants"
-            ]
-          },
           {
             "source": "OpenAI",
             "target": "Amazon",
@@ -1132,6 +1158,14 @@
             "edge_types": [
               "purchase_commitment"
             ]
+          },
+          {
+            "source": "AMD",
+            "target": "OpenAI",
+            "amount": 0.0,
+            "edge_types": [
+              "warrants"
+            ]
           }
         ],
         "bottleneck_usd": 0.0,
@@ -1139,25 +1173,25 @@
       },
       {
         "nodes": [
-          "AMD",
-          "Anthropic"
+          "Anthropic",
+          "AMD"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "AMD",
-            "target": "Anthropic",
-            "amount": 1250000000.0,
-            "edge_types": [
-              "equity_investment"
-            ]
-          },
           {
             "source": "Anthropic",
             "target": "AMD",
             "amount": 0.0,
             "edge_types": [
               "purchase_commitment"
+            ]
+          },
+          {
+            "source": "AMD",
+            "target": "Anthropic",
+            "amount": 1250000000.0,
+            "edge_types": [
+              "equity_investment"
             ]
           }
         ],
@@ -1166,34 +1200,36 @@
       }
     ],
     "pagerank_funding": {
-      "OpenAI": 0.2715441835366273,
-      "Anthropic": 0.16012314570876132,
-      "CoreWeave": 0.07273179940785761,
-      "Nebius": 0.07273179940785761,
-      "Nscale": 0.0719909435742626,
-      "Nvidia": 0.07017562567292675,
-      "Microsoft": 0.07017562567292675,
-      "AMD": 0.07017562567292675,
-      "Amazon": 0.07017562567292675,
-      "SoftBank": 0.07017562567292675
+      "OpenAI": 0.24034217274097325,
+      "Anthropic": 0.19451879478112946,
+      "CoreWeave": 0.06437438830592074,
+      "Nebius": 0.06437438830592074,
+      "Nscale": 0.06371866074551354,
+      "Nvidia": 0.06211193252009042,
+      "Microsoft": 0.06211193252009042,
+      "AMD": 0.06211193252009042,
+      "Financial investors": 0.06211193252009042,
+      "Amazon": 0.06211193252009042,
+      "SoftBank": 0.06211193252009042
     },
     "betweenness": {
-      "Anthropic": 0.17803030303030304,
-      "OpenAI": 0.14204545454545456,
-      "Microsoft": 0.08017676767676768,
-      "AMD": 0.051767676767676775,
-      "Amazon": 0.03472222222222223,
-      "Meta": 0.013257575757575758,
+      "Anthropic": 0.21474358974358973,
+      "OpenAI": 0.125,
+      "Microsoft": 0.07799145299145299,
+      "AMD": 0.05555555555555556,
+      "Amazon": 0.03311965811965812,
+      "Meta": 0.01282051282051282,
       "Nvidia": 0.0,
       "CoreWeave": 0.0,
       "Nebius": 0.0,
       "Nscale": 0.0,
       "Broadcom": 0.0,
       "Alphabet": 0.0,
+      "Financial investors": 0.0,
       "SoftBank": 0.0
     },
-    "n_edges": 27,
-    "n_nodes": 13
+    "n_edges": 28,
+    "n_nodes": 14
   },
   "structure_sensitivity_T3": {
     "cycles": [
@@ -1226,19 +1262,11 @@
       },
       {
         "nodes": [
-          "Anthropic",
-          "Amazon"
+          "Amazon",
+          "Anthropic"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "Anthropic",
-            "target": "Amazon",
-            "amount": 60000000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          },
           {
             "source": "Amazon",
             "target": "Anthropic",
@@ -1246,6 +1274,14 @@
             "edge_types": [
               "equity_investment",
               "vendor_financing"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "Amazon",
+            "amount": 60000000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
             ]
           }
         ],
@@ -1444,21 +1480,13 @@
       },
       {
         "nodes": [
-          "AMD",
           "OpenAI",
           "Amazon",
-          "Anthropic"
+          "Anthropic",
+          "AMD"
         ],
         "length": 4,
         "legs": [
-          {
-            "source": "AMD",
-            "target": "OpenAI",
-            "amount": 0.0,
-            "edge_types": [
-              "warrants"
-            ]
-          },
           {
             "source": "OpenAI",
             "target": "Amazon",
@@ -1483,6 +1511,14 @@
             "edge_types": [
               "purchase_commitment"
             ]
+          },
+          {
+            "source": "AMD",
+            "target": "OpenAI",
+            "amount": 0.0,
+            "edge_types": [
+              "warrants"
+            ]
           }
         ],
         "bottleneck_usd": 0.0,
@@ -1490,19 +1526,11 @@
       },
       {
         "nodes": [
-          "AMD",
-          "Anthropic"
+          "Anthropic",
+          "AMD"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "AMD",
-            "target": "Anthropic",
-            "amount": 1250000000.0,
-            "edge_types": [
-              "equity_investment"
-            ]
-          },
           {
             "source": "Anthropic",
             "target": "AMD",
@@ -1510,24 +1538,33 @@
             "edge_types": [
               "purchase_commitment"
             ]
+          },
+          {
+            "source": "AMD",
+            "target": "Anthropic",
+            "amount": 1250000000.0,
+            "edge_types": [
+              "equity_investment"
+            ]
           }
         ],
         "bottleneck_usd": 0.0,
         "is_round_trip": true
       }
     ],
-    "n_edges": 27,
+    "n_edges": 28,
     "pagerank_funding": {
-      "OpenAI": 0.2715441835366273,
-      "Anthropic": 0.16012314570876132,
-      "CoreWeave": 0.07273179940785761,
-      "Nebius": 0.07273179940785761,
-      "Nscale": 0.0719909435742626,
-      "Nvidia": 0.07017562567292675,
-      "Microsoft": 0.07017562567292675,
-      "AMD": 0.07017562567292675,
-      "Amazon": 0.07017562567292675,
-      "SoftBank": 0.07017562567292675
+      "OpenAI": 0.24034217274097325,
+      "Anthropic": 0.19451879478112946,
+      "CoreWeave": 0.06437438830592074,
+      "Nebius": 0.06437438830592074,
+      "Nscale": 0.06371866074551354,
+      "Nvidia": 0.06211193252009042,
+      "Microsoft": 0.06211193252009042,
+      "AMD": 0.06211193252009042,
+      "Financial investors": 0.06211193252009042,
+      "Amazon": 0.06211193252009042,
+      "SoftBank": 0.06211193252009042
     }
   },
   "status_weights": {
@@ -1571,9 +1608,9 @@
         "backlog_at_risk": 38000000000.0
       },
       "CENTRAL": {
-        "rte": 0.030619544583682403,
+        "rte": 0.01717456002679425,
         "backlog_total": 2718333000000.0,
-        "backlog_at_risk": 83234118486.79514
+        "backlog_at_risk": 46686173281.3157
       },
       "UPPER": {
         "rte": 0.1821913318658243,
@@ -1591,7 +1628,7 @@
       {
         "supplier": "Amazon",
         "rte_low": 0.05040322580645161,
-        "rte_central": 0.11700887614837327,
+        "rte_central": 0.04652721463710505,
         "rte_high": 0.43185483870967745
       },
       {
@@ -1609,7 +1646,7 @@
       {
         "supplier": "Microsoft",
         "rte_low": 0.019005847953216373,
-        "rte_central": 0.03700105127342438,
+        "rte_central": 0.03466765759370278,
         "rte_high": 0.41297935103244837
       },
       {
@@ -1642,17 +1679,17 @@
   "ledger_validation": [],
   "edge_counts_by_tier": {
     "T1": 28,
-    "T2": 8
+    "T2": 10
   },
   "edge_counts_by_status": {
-    "definitive": 17,
+    "definitive": 19,
     "conditional": 13,
     "announced": 5,
     "LOI_nonbinding": 1
   },
   "edge_counts_by_type": {
     "cloud_capacity_contract": 14,
-    "equity_investment": 10,
+    "equity_investment": 12,
     "warrants": 4,
     "purchase_commitment": 3,
     "loan_or_guarantee": 2,

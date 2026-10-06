@@ -1,0 +1,26 @@
+# Corrections arising from the Phase 6 self-audit (outputs/audit.md).
+# The audit found two backlog rows whose quote_snippet paraphrased an XBRL tag
+# instead of quoting the filing. Both are replaced with verbatim text, and the
+# metric name and note are corrected at the same time.
+backlog:
+  - node: Nvidia
+    as_of_date: "2026-07-26"
+    metric: rpo_long_term_contracts_only
+    amount_usd_low: 3200000000
+    amount_usd_high: 3200000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/1045810/000104581026000075/nvda-20260726.htm
+    accession_no: 0001045810-26-000075
+    quote_snippet: "revenue related to remaining performance obligations from contracts greater than one year in length was $3.2 billion"
+    notes: "NOT used as Nvidia's backlog, and the metric name is outside the denominator preference list on purpose. This figure covers only contracts longer than one year. Nvidia sells data centre systems on purchase orders and discloses no product backlog at all."
+
+  - node: AMD
+    as_of_date: "2026-06-27"
+    metric: rpo_long_term_contracts_only
+    amount_usd_low: 222000000
+    amount_usd_high: 222000000
+    evidence_tier: T1
+    source_url: https://www.sec.gov/Archives/edgar/data/2488/000000248826000123/amd-20260627.htm
+    accession_no: 0000002488-26-000123
+    quote_snippet: "the aggregate transaction price allocated to remaining performance obligations under contracts with an original expected duration of more than one year was $222 million"
+    notes: "NOT used as AMD's backlog. Correction from the self-audit: AMD states this covers development and engineering services, IP licensing AND product revenue, so calling it software-only was wrong. It is still not a product backlog, because it captures only contracts longer than one year and AMD's 6 gigawatt OpenAI purchase agreement carries no disclosed dollar value."

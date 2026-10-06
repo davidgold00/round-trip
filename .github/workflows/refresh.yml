@@ -1,0 +1,79 @@
+# Daily refresh. DISABLED BY DEFAULT.
+#
+# To enable:
+#   1. Uncomment the `schedule` block below.
+#   2. Add a repository secret named SEC_USER_AGENT containing a real contact
+#      string of the form "Your Name your.email@domain.com". The SEC requires
+#      automated clients to identify themselves, and the pipeline refuses to run
+#      without it.
+#
+# Cost: this fits inside the GitHub Actions free tier for public repositories.
+# A cold run takes roughly fifteen minutes, nearly all of it waiting on the SEC
+# rate limit; the cached run is much shorter.
+#
+# It commits regenerated data and the changelog. It never promotes a candidate
+# edge: promotion needs a human reading a source and recording a quote, so the
+# ledger itself is only ever changed by a person.
+
+name: refresh
+
+on:
+  workflow_dispatch:
+  # schedule:
+  #   - cron: "20 6 * * *"   # 06:20 UTC daily
+
+permissions:
+  contents: write
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: pip
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Restore the SEC cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            data/raw/submissions
+            data/raw/companyfacts
+            data/raw/filings
+          key: sec-cache-${{ github.run_id }}
+          restore-keys: sec-cache-
+
+      - name: Refresh
+        env:
+          SEC_USER_AGENT: ${{ secrets.SEC_USER_AGENT }}
+        run: make refresh
+
+      - name: Test
+        run: make test
+
+      - name: Commit the regenerated data
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ledger/ site/data/ outputs/ data/interim/
+          if git diff --staged --quiet; then
+            echo "nothing changed"
+          else
+            git commit -m "refresh: $(date -u +%Y-%m-%d)
+
+          $(head -40 outputs/changelog.md)"
+            git push
+          fi
+
+      - name: Upload the changelog
+        uses: actions/upload-artifact@v4
+        with:
+          name: changelog
+          path: outputs/changelog.md

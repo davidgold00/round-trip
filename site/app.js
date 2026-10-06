@@ -846,7 +846,7 @@ function renderMethodTable() {
      <tbody>${rows}
      <tr><td><em>No shock, baseline</em></td><td class="num">${pct(base.cascade)}</td>
        <td class="num">0.0%</td><td class="num">${pct(base.debt_rank)}</td>
-       <td class="num">&mdash;</td><td>&mdash;</td></tr></tbody>`;
+       <td class="num">n/a</td><td>n/a</td></tr></tbody>`;
 }
 
 /* ================= NEWS ================= */
@@ -869,7 +869,7 @@ function renderNews() {
       <td><span class="pill ${r.status === "promoted" ? "def" : "cond"}">${esc(r.status)}</span></td>
       <td><a href="${esc(r.url)}" target="_blank" rel="noopener">${esc(r.title || r.publisher)}</a>
         <div class="note">${esc(r.publisher)}${r.tags ? " &middot; " + esc(r.tags) : ""}</div></td>
-      <td class="mono">${esc(r.amount_hint) || "&mdash;"}</td></tr>`).join("")
+      <td class="mono">${esc(r.amount_hint) || "none"}</td></tr>`).join("")
       : '<tr><td colspan="6" class="note">Queue is empty.</td></tr>') + "</tbody>";
 
   const srcs = Array.from(new Set(n.items.map(i => i.source_kind))).sort();
@@ -895,7 +895,7 @@ function renderNews() {
             ? ' <span class="pill cond">flagged</span>' : ""}</td>
         <td class="note">${esc(String(i.entities).split(";").filter(Boolean).join(", "))}</td>
         <td class="note">${esc(String(i.tags).split(";").filter(Boolean).join(", "))}</td>
-        <td class="num">${i.score ? (+i.score).toFixed(2) : "&mdash;"}</td></tr>`).join("") +
+        <td class="num">${i.score ? (+i.score).toFixed(2) : "n/a"}</td></tr>`).join("") +
       "</tbody>";
   };
   document.getElementById("newsSearch").oninput = draw;

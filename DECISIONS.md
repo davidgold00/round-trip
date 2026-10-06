@@ -369,3 +369,20 @@ Format: `[date] [phase] decision -- rationale`
   dashboard flags any supplier whose readings are not nested, and
   `tests/test_metrics.py` has a toy graph (A funds B with 10, C funds B with 90,
   B commits 10 to A) whose LOWER is 1.0 and CENTRAL is 0.1 by hand.
+* `2026-10-06 P6` **GDELT batching widened to six entities per query with a
+  twelve second gap.** Four-entity batches at six seconds still drew HTTP 429 on
+  a second run from the same address. The pipeline degrades gracefully, logging
+  and continuing, so a throttled GDELT never blocks a refresh. -- Free API, so
+  back off rather than retry harder.
+* `2026-10-06 P6` **Two self-audit corrections applied, both logged in
+  `outputs/audit.md`.** The audit found two backlog rows whose `quote_snippet`
+  paraphrased an XBRL tag instead of quoting the filing, which breaks this
+  project's own rule; both were replaced with verbatim text. Fetching those
+  quotes then exposed a substantive error: AMD's remaining performance
+  obligations figure explicitly includes product revenue, so the annotation
+  "covers software and services only" was wrong. The metric was renamed
+  `rpo_long_term_contracts_only` for both Nvidia and AMD and the notes rewritten.
+  The conclusion is unchanged and now rests on the right reason: the figure
+  captures only contracts longer than one year, which is not how either company
+  sells its data centre products. -- Found by sampling, which is the point of
+  sampling.

@@ -10,7 +10,7 @@
     ]
   },
   "as_of": "2026-10-05",
-  "generated": "2026-10-06T04:09:40.761757+00:00",
+  "generated": "2026-10-06T04:23:33.147175+00:00",
   "tier_gate": [
     "T1",
     "T2"
@@ -562,25 +562,25 @@
     "cycles": [
       {
         "nodes": [
-          "Amazon",
-          "OpenAI"
+          "OpenAI",
+          "Amazon"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "Amazon",
-            "target": "OpenAI",
-            "amount": 23750000000.0,
-            "edge_types": [
-              "equity_investment"
-            ]
-          },
           {
             "source": "OpenAI",
             "target": "Amazon",
             "amount": 82800000000.0,
             "edge_types": [
               "cloud_capacity_contract"
+            ]
+          },
+          {
+            "source": "Amazon",
+            "target": "OpenAI",
+            "amount": 23750000000.0,
+            "edge_types": [
+              "equity_investment"
             ]
           }
         ],
@@ -617,52 +617,6 @@
       },
       {
         "nodes": [
-          "Amazon",
-          "Anthropic",
-          "Microsoft",
-          "OpenAI"
-        ],
-        "length": 4,
-        "legs": [
-          {
-            "source": "Amazon",
-            "target": "Anthropic",
-            "amount": 13750000000.0,
-            "edge_types": [
-              "equity_investment",
-              "vendor_financing"
-            ]
-          },
-          {
-            "source": "Anthropic",
-            "target": "Microsoft",
-            "amount": 30000000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          },
-          {
-            "source": "Microsoft",
-            "target": "OpenAI",
-            "amount": 13000000000.0,
-            "edge_types": [
-              "equity_investment"
-            ]
-          },
-          {
-            "source": "OpenAI",
-            "target": "Amazon",
-            "amount": 82800000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          }
-        ],
-        "bottleneck_usd": 13000000000.0,
-        "is_round_trip": true
-      },
-      {
-        "nodes": [
           "Microsoft",
           "OpenAI"
         ],
@@ -690,29 +644,86 @@
       },
       {
         "nodes": [
-          "Amazon",
-          "OpenAI",
           "Microsoft",
+          "OpenAI",
+          "Amazon",
           "Anthropic"
         ],
         "length": 4,
         "legs": [
           {
-            "source": "Amazon",
+            "source": "Microsoft",
             "target": "OpenAI",
-            "amount": 23750000000.0,
+            "amount": 13000000000.0,
             "edge_types": [
               "equity_investment"
             ]
           },
           {
             "source": "OpenAI",
-            "target": "Microsoft",
-            "amount": 250000000000.0,
+            "target": "Amazon",
+            "amount": 82800000000.0,
             "edge_types": [
               "cloud_capacity_contract"
             ]
           },
+          {
+            "source": "Amazon",
+            "target": "Anthropic",
+            "amount": 13750000000.0,
+            "edge_types": [
+              "equity_investment",
+              "vendor_financing"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "Microsoft",
+            "amount": 30000000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
+            ]
+          }
+        ],
+        "bottleneck_usd": 13000000000.0,
+        "is_round_trip": true
+      },
+      {
+        "nodes": [
+          "Microsoft",
+          "Anthropic"
+        ],
+        "length": 2,
+        "legs": [
+          {
+            "source": "Microsoft",
+            "target": "Anthropic",
+            "amount": 1250000000.0,
+            "edge_types": [
+              "equity_investment"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "Microsoft",
+            "amount": 30000000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
+            ]
+          }
+        ],
+        "bottleneck_usd": 1250000000.0,
+        "is_round_trip": true
+      },
+      {
+        "nodes": [
+          "Microsoft",
+          "Anthropic",
+          "Amazon",
+          "OpenAI"
+        ],
+        "length": 4,
+        "legs": [
           {
             "source": "Microsoft",
             "target": "Anthropic",
@@ -728,82 +739,25 @@
             "edge_types": [
               "cloud_capacity_contract"
             ]
-          }
-        ],
-        "bottleneck_usd": 1250000000.0,
-        "is_round_trip": true
-      },
-      {
-        "nodes": [
-          "Microsoft",
-          "Anthropic"
-        ],
-        "length": 2,
-        "legs": [
+          },
           {
-            "source": "Microsoft",
-            "target": "Anthropic",
-            "amount": 1250000000.0,
+            "source": "Amazon",
+            "target": "OpenAI",
+            "amount": 23750000000.0,
             "edge_types": [
               "equity_investment"
             ]
           },
           {
-            "source": "Anthropic",
+            "source": "OpenAI",
             "target": "Microsoft",
-            "amount": 30000000000.0,
+            "amount": 250000000000.0,
             "edge_types": [
               "cloud_capacity_contract"
             ]
           }
         ],
         "bottleneck_usd": 1250000000.0,
-        "is_round_trip": true
-      },
-      {
-        "nodes": [
-          "Amazon",
-          "Anthropic",
-          "AMD",
-          "OpenAI"
-        ],
-        "length": 4,
-        "legs": [
-          {
-            "source": "Amazon",
-            "target": "Anthropic",
-            "amount": 13750000000.0,
-            "edge_types": [
-              "equity_investment",
-              "vendor_financing"
-            ]
-          },
-          {
-            "source": "Anthropic",
-            "target": "AMD",
-            "amount": 0.0,
-            "edge_types": [
-              "purchase_commitment"
-            ]
-          },
-          {
-            "source": "AMD",
-            "target": "OpenAI",
-            "amount": 0.0,
-            "edge_types": [
-              "warrants"
-            ]
-          },
-          {
-            "source": "OpenAI",
-            "target": "Amazon",
-            "amount": 82800000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          }
-        ],
-        "bottleneck_usd": 0.0,
         "is_round_trip": true
       },
       {
@@ -845,6 +799,52 @@
             "amount": 250000000000.0,
             "edge_types": [
               "cloud_capacity_contract"
+            ]
+          }
+        ],
+        "bottleneck_usd": 0.0,
+        "is_round_trip": true
+      },
+      {
+        "nodes": [
+          "OpenAI",
+          "Amazon",
+          "Anthropic",
+          "AMD"
+        ],
+        "length": 4,
+        "legs": [
+          {
+            "source": "OpenAI",
+            "target": "Amazon",
+            "amount": 82800000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
+            ]
+          },
+          {
+            "source": "Amazon",
+            "target": "Anthropic",
+            "amount": 13750000000.0,
+            "edge_types": [
+              "equity_investment",
+              "vendor_financing"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "AMD",
+            "amount": 0.0,
+            "edge_types": [
+              "purchase_commitment"
+            ]
+          },
+          {
+            "source": "AMD",
+            "target": "OpenAI",
+            "amount": 0.0,
+            "edge_types": [
+              "warrants"
             ]
           }
         ],
@@ -882,25 +882,25 @@
     "round_trip_cycles": [
       {
         "nodes": [
-          "Amazon",
-          "OpenAI"
+          "OpenAI",
+          "Amazon"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "Amazon",
-            "target": "OpenAI",
-            "amount": 23750000000.0,
-            "edge_types": [
-              "equity_investment"
-            ]
-          },
           {
             "source": "OpenAI",
             "target": "Amazon",
             "amount": 82800000000.0,
             "edge_types": [
               "cloud_capacity_contract"
+            ]
+          },
+          {
+            "source": "Amazon",
+            "target": "OpenAI",
+            "amount": 23750000000.0,
+            "edge_types": [
+              "equity_investment"
             ]
           }
         ],
@@ -937,52 +937,6 @@
       },
       {
         "nodes": [
-          "Amazon",
-          "Anthropic",
-          "Microsoft",
-          "OpenAI"
-        ],
-        "length": 4,
-        "legs": [
-          {
-            "source": "Amazon",
-            "target": "Anthropic",
-            "amount": 13750000000.0,
-            "edge_types": [
-              "equity_investment",
-              "vendor_financing"
-            ]
-          },
-          {
-            "source": "Anthropic",
-            "target": "Microsoft",
-            "amount": 30000000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          },
-          {
-            "source": "Microsoft",
-            "target": "OpenAI",
-            "amount": 13000000000.0,
-            "edge_types": [
-              "equity_investment"
-            ]
-          },
-          {
-            "source": "OpenAI",
-            "target": "Amazon",
-            "amount": 82800000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          }
-        ],
-        "bottleneck_usd": 13000000000.0,
-        "is_round_trip": true
-      },
-      {
-        "nodes": [
           "Microsoft",
           "OpenAI"
         ],
@@ -1010,29 +964,86 @@
       },
       {
         "nodes": [
-          "Amazon",
-          "OpenAI",
           "Microsoft",
+          "OpenAI",
+          "Amazon",
           "Anthropic"
         ],
         "length": 4,
         "legs": [
           {
-            "source": "Amazon",
+            "source": "Microsoft",
             "target": "OpenAI",
-            "amount": 23750000000.0,
+            "amount": 13000000000.0,
             "edge_types": [
               "equity_investment"
             ]
           },
           {
             "source": "OpenAI",
-            "target": "Microsoft",
-            "amount": 250000000000.0,
+            "target": "Amazon",
+            "amount": 82800000000.0,
             "edge_types": [
               "cloud_capacity_contract"
             ]
           },
+          {
+            "source": "Amazon",
+            "target": "Anthropic",
+            "amount": 13750000000.0,
+            "edge_types": [
+              "equity_investment",
+              "vendor_financing"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "Microsoft",
+            "amount": 30000000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
+            ]
+          }
+        ],
+        "bottleneck_usd": 13000000000.0,
+        "is_round_trip": true
+      },
+      {
+        "nodes": [
+          "Microsoft",
+          "Anthropic"
+        ],
+        "length": 2,
+        "legs": [
+          {
+            "source": "Microsoft",
+            "target": "Anthropic",
+            "amount": 1250000000.0,
+            "edge_types": [
+              "equity_investment"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "Microsoft",
+            "amount": 30000000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
+            ]
+          }
+        ],
+        "bottleneck_usd": 1250000000.0,
+        "is_round_trip": true
+      },
+      {
+        "nodes": [
+          "Microsoft",
+          "Anthropic",
+          "Amazon",
+          "OpenAI"
+        ],
+        "length": 4,
+        "legs": [
           {
             "source": "Microsoft",
             "target": "Anthropic",
@@ -1048,82 +1059,25 @@
             "edge_types": [
               "cloud_capacity_contract"
             ]
-          }
-        ],
-        "bottleneck_usd": 1250000000.0,
-        "is_round_trip": true
-      },
-      {
-        "nodes": [
-          "Microsoft",
-          "Anthropic"
-        ],
-        "length": 2,
-        "legs": [
+          },
           {
-            "source": "Microsoft",
-            "target": "Anthropic",
-            "amount": 1250000000.0,
+            "source": "Amazon",
+            "target": "OpenAI",
+            "amount": 23750000000.0,
             "edge_types": [
               "equity_investment"
             ]
           },
           {
-            "source": "Anthropic",
+            "source": "OpenAI",
             "target": "Microsoft",
-            "amount": 30000000000.0,
+            "amount": 250000000000.0,
             "edge_types": [
               "cloud_capacity_contract"
             ]
           }
         ],
         "bottleneck_usd": 1250000000.0,
-        "is_round_trip": true
-      },
-      {
-        "nodes": [
-          "Amazon",
-          "Anthropic",
-          "AMD",
-          "OpenAI"
-        ],
-        "length": 4,
-        "legs": [
-          {
-            "source": "Amazon",
-            "target": "Anthropic",
-            "amount": 13750000000.0,
-            "edge_types": [
-              "equity_investment",
-              "vendor_financing"
-            ]
-          },
-          {
-            "source": "Anthropic",
-            "target": "AMD",
-            "amount": 0.0,
-            "edge_types": [
-              "purchase_commitment"
-            ]
-          },
-          {
-            "source": "AMD",
-            "target": "OpenAI",
-            "amount": 0.0,
-            "edge_types": [
-              "warrants"
-            ]
-          },
-          {
-            "source": "OpenAI",
-            "target": "Amazon",
-            "amount": 82800000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          }
-        ],
-        "bottleneck_usd": 0.0,
         "is_round_trip": true
       },
       {
@@ -1165,6 +1119,52 @@
             "amount": 250000000000.0,
             "edge_types": [
               "cloud_capacity_contract"
+            ]
+          }
+        ],
+        "bottleneck_usd": 0.0,
+        "is_round_trip": true
+      },
+      {
+        "nodes": [
+          "OpenAI",
+          "Amazon",
+          "Anthropic",
+          "AMD"
+        ],
+        "length": 4,
+        "legs": [
+          {
+            "source": "OpenAI",
+            "target": "Amazon",
+            "amount": 82800000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
+            ]
+          },
+          {
+            "source": "Amazon",
+            "target": "Anthropic",
+            "amount": 13750000000.0,
+            "edge_types": [
+              "equity_investment",
+              "vendor_financing"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "AMD",
+            "amount": 0.0,
+            "edge_types": [
+              "purchase_commitment"
+            ]
+          },
+          {
+            "source": "AMD",
+            "target": "OpenAI",
+            "amount": 0.0,
+            "edge_types": [
+              "warrants"
             ]
           }
         ],
@@ -1235,25 +1235,25 @@
     "cycles": [
       {
         "nodes": [
-          "Amazon",
-          "OpenAI"
+          "OpenAI",
+          "Amazon"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "Amazon",
-            "target": "OpenAI",
-            "amount": 23750000000.0,
-            "edge_types": [
-              "equity_investment"
-            ]
-          },
           {
             "source": "OpenAI",
             "target": "Amazon",
             "amount": 82800000000.0,
             "edge_types": [
               "cloud_capacity_contract"
+            ]
+          },
+          {
+            "source": "Amazon",
+            "target": "OpenAI",
+            "amount": 23750000000.0,
+            "edge_types": [
+              "equity_investment"
             ]
           }
         ],
@@ -1290,52 +1290,6 @@
       },
       {
         "nodes": [
-          "Amazon",
-          "Anthropic",
-          "Microsoft",
-          "OpenAI"
-        ],
-        "length": 4,
-        "legs": [
-          {
-            "source": "Amazon",
-            "target": "Anthropic",
-            "amount": 13750000000.0,
-            "edge_types": [
-              "equity_investment",
-              "vendor_financing"
-            ]
-          },
-          {
-            "source": "Anthropic",
-            "target": "Microsoft",
-            "amount": 30000000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          },
-          {
-            "source": "Microsoft",
-            "target": "OpenAI",
-            "amount": 13000000000.0,
-            "edge_types": [
-              "equity_investment"
-            ]
-          },
-          {
-            "source": "OpenAI",
-            "target": "Amazon",
-            "amount": 82800000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          }
-        ],
-        "bottleneck_usd": 13000000000.0,
-        "is_round_trip": true
-      },
-      {
-        "nodes": [
           "Microsoft",
           "OpenAI"
         ],
@@ -1363,29 +1317,86 @@
       },
       {
         "nodes": [
-          "Amazon",
-          "OpenAI",
           "Microsoft",
+          "OpenAI",
+          "Amazon",
           "Anthropic"
         ],
         "length": 4,
         "legs": [
           {
-            "source": "Amazon",
+            "source": "Microsoft",
             "target": "OpenAI",
-            "amount": 23750000000.0,
+            "amount": 13000000000.0,
             "edge_types": [
               "equity_investment"
             ]
           },
           {
             "source": "OpenAI",
-            "target": "Microsoft",
-            "amount": 250000000000.0,
+            "target": "Amazon",
+            "amount": 82800000000.0,
             "edge_types": [
               "cloud_capacity_contract"
             ]
           },
+          {
+            "source": "Amazon",
+            "target": "Anthropic",
+            "amount": 13750000000.0,
+            "edge_types": [
+              "equity_investment",
+              "vendor_financing"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "Microsoft",
+            "amount": 30000000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
+            ]
+          }
+        ],
+        "bottleneck_usd": 13000000000.0,
+        "is_round_trip": true
+      },
+      {
+        "nodes": [
+          "Microsoft",
+          "Anthropic"
+        ],
+        "length": 2,
+        "legs": [
+          {
+            "source": "Microsoft",
+            "target": "Anthropic",
+            "amount": 1250000000.0,
+            "edge_types": [
+              "equity_investment"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "Microsoft",
+            "amount": 30000000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
+            ]
+          }
+        ],
+        "bottleneck_usd": 1250000000.0,
+        "is_round_trip": true
+      },
+      {
+        "nodes": [
+          "Microsoft",
+          "Anthropic",
+          "Amazon",
+          "OpenAI"
+        ],
+        "length": 4,
+        "legs": [
           {
             "source": "Microsoft",
             "target": "Anthropic",
@@ -1401,82 +1412,25 @@
             "edge_types": [
               "cloud_capacity_contract"
             ]
-          }
-        ],
-        "bottleneck_usd": 1250000000.0,
-        "is_round_trip": true
-      },
-      {
-        "nodes": [
-          "Microsoft",
-          "Anthropic"
-        ],
-        "length": 2,
-        "legs": [
+          },
           {
-            "source": "Microsoft",
-            "target": "Anthropic",
-            "amount": 1250000000.0,
+            "source": "Amazon",
+            "target": "OpenAI",
+            "amount": 23750000000.0,
             "edge_types": [
               "equity_investment"
             ]
           },
           {
-            "source": "Anthropic",
+            "source": "OpenAI",
             "target": "Microsoft",
-            "amount": 30000000000.0,
+            "amount": 250000000000.0,
             "edge_types": [
               "cloud_capacity_contract"
             ]
           }
         ],
         "bottleneck_usd": 1250000000.0,
-        "is_round_trip": true
-      },
-      {
-        "nodes": [
-          "Amazon",
-          "Anthropic",
-          "AMD",
-          "OpenAI"
-        ],
-        "length": 4,
-        "legs": [
-          {
-            "source": "Amazon",
-            "target": "Anthropic",
-            "amount": 13750000000.0,
-            "edge_types": [
-              "equity_investment",
-              "vendor_financing"
-            ]
-          },
-          {
-            "source": "Anthropic",
-            "target": "AMD",
-            "amount": 0.0,
-            "edge_types": [
-              "purchase_commitment"
-            ]
-          },
-          {
-            "source": "AMD",
-            "target": "OpenAI",
-            "amount": 0.0,
-            "edge_types": [
-              "warrants"
-            ]
-          },
-          {
-            "source": "OpenAI",
-            "target": "Amazon",
-            "amount": 82800000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          }
-        ],
-        "bottleneck_usd": 0.0,
         "is_round_trip": true
       },
       {
@@ -1518,6 +1472,52 @@
             "amount": 250000000000.0,
             "edge_types": [
               "cloud_capacity_contract"
+            ]
+          }
+        ],
+        "bottleneck_usd": 0.0,
+        "is_round_trip": true
+      },
+      {
+        "nodes": [
+          "OpenAI",
+          "Amazon",
+          "Anthropic",
+          "AMD"
+        ],
+        "length": 4,
+        "legs": [
+          {
+            "source": "OpenAI",
+            "target": "Amazon",
+            "amount": 82800000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
+            ]
+          },
+          {
+            "source": "Amazon",
+            "target": "Anthropic",
+            "amount": 13750000000.0,
+            "edge_types": [
+              "equity_investment",
+              "vendor_financing"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "AMD",
+            "amount": 0.0,
+            "edge_types": [
+              "purchase_commitment"
+            ]
+          },
+          {
+            "source": "AMD",
+            "target": "OpenAI",
+            "amount": 0.0,
+            "edge_types": [
+              "warrants"
             ]
           }
         ],

@@ -1,7 +1,7 @@
 # Coverage report
 
-Generated 2026-10-05. Source: SEC EDGAR only.
-HTTP cache hits 41, fetches 596, errors 0, total requests 596.
+Generated 2026-10-06. Source: SEC EDGAR only.
+HTTP cache hits 638, fetches 2, errors 0, total requests 2.
 
 ## Filer coverage
 
@@ -15,6 +15,7 @@ HTTP cache hits 41, fetches 596, errors 0, total requests 596.
 | Meta | Meta Platforms, Inc. | yes | yes | 956 | 33 | 33 | 0 |
 | Microsoft | MICROSOFT CORP | yes | yes | 1486 | 53 | 53 | 0 |
 | Nebius | Nebius Group N.V. | yes | yes | 135 | 98 | 98 | 0 |
+| Nscale | NSCALE Ltd | yes | yes | 0 | 1 | 1 | 0 |
 | Nvidia | NVIDIA CORP | yes | yes | 1263 | 59 | 59 | 0 |
 | Oracle | ORACLE CORP | yes | yes | 728 | 58 | 58 | 0 |
 
@@ -30,6 +31,7 @@ HTTP cache hits 41, fetches 596, errors 0, total requests 596.
 | Meta | 0 | 0 | 49 | 38 | 0 | 128 | 25 | 58 | 414 | 196 | 48 |
 | Microsoft | 37 | 2 | 0 | 16 | 0 | 230 | 37 | 457 | 476 | 165 | 66 |
 | Nebius | 1 | 0 | 0 | 7 | 0 | 19 | 7 | 12 | 55 | 24 | 10 |
+| Nscale | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
 | Nvidia | 31 | 3 | 20 | 0 | 0 | 90 | 30 | 220 | 471 | 308 | 90 |
 | Oracle | 33 | 11 | 17 | 0 | 0 | 137 | 12 | 44 | 213 | 247 | 14 |
 
@@ -58,6 +60,11 @@ company press release, and is reported as a range:
 * Microsoft: no `concentration` XBRL observations found
 * Nebius: no `purchase_obligations` XBRL observations found
 * Nebius: no `concentration` XBRL observations found
+* Nscale: no `rpo` XBRL observations found
+* Nscale: no `purchase_obligations` XBRL observations found
+* Nscale: no `related_party` XBRL observations found
+* Nscale: no `concentration` XBRL observations found
+* Nscale: no `leases_not_commenced` XBRL observations found
 * Nvidia: no `related_party` XBRL observations found
 * Nvidia: no `concentration` XBRL observations found
 * Oracle: no `related_party` XBRL observations found

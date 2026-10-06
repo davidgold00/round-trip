@@ -42,15 +42,23 @@ NEWS_FIELDS = ["item_id", "date", "publisher", "source_kind", "title", "url",
                "financing_item"]
 
 # Company IR / newsroom feeds that publish an RSS or Atom document.
+# Verified reachable at build time. A feed that 404s or 403s is logged and
+# skipped; it never fails a refresh. Anthropic and SoftBank publish no feed that
+# responds, so their announcements reach the ledger through a counterparty's
+# filing or through GDELT instead.
 IR_FEEDS = {
     "Nvidia": "https://nvidianews.nvidia.com/releases.xml",
     "AMD": "https://ir.amd.com/rss/news-releases.xml",
+    "Broadcom": "https://investors.broadcom.com/rss/news-releases.xml",
     "Microsoft": "https://news.microsoft.com/feed/",
-    "Amazon": "https://press.aboutamazon.com/rss/news-releases.xml",
-    "Anthropic": "https://www.anthropic.com/rss.xml",
+    "Amazon": "https://www.aboutamazon.com/news/feed",
     "Alphabet": "https://blog.google/rss/",
+    "Alphabet DeepMind": "https://blog.google/technology/google-deepmind/rss/",
     "Meta": "https://about.fb.com/news/feed/",
+    "OpenAI": "https://openai.com/news/rss.xml",
 }
+# The feed key is a display name; this maps it to a canonical ledger node.
+FEED_NODE = {"Alphabet DeepMind": "Alphabet"}
 
 # Financing-relevant concept phrases. These seed both the keyword rules and the
 # semantic reference set.
@@ -232,13 +240,15 @@ def fetch_ir_feeds(ua: str) -> list[dict]:
         try:
             r = s.get(url, timeout=20)
             if r.status_code != 200:
-                LOG.info("IR feed %s -> HTTP %s", name, r.status_code)
+                LOG.info("IR feed %-18s unreachable, HTTP %s (skipped)", name, r.status_code)
                 continue
             items = parse_feed(r.content, publisher=f"{name} IR", source_kind="ir_rss")
+            node = FEED_NODE.get(name, name)
             for it in items:
-                it["entities"] = name
+                it["entities"] = node
+                it["publisher"] = f"{node} IR"
             out.extend(items)
-            LOG.info("IR feed %-10s %3d items", name, len(items))
+            LOG.info("IR feed %-18s %3d items", name, len(items))
         except requests.RequestException as exc:
             LOG.info("IR feed %s failed: %s", name, type(exc).__name__)
     return out
@@ -256,11 +266,11 @@ def fetch_gdelt(cfg: dict, ua: str) -> list[dict]:
     # is spaced out. Fifteen one-per-entity queries got rate limited.
     verbs = ("invest OR commitment OR warrant OR guarantee OR backlog "
              "OR gigawatt OR funding OR valuation")
-    batch = 4
+    batch = 6
     groups = [names[i:i + batch] for i in range(0, len(names), batch)]
     queries = [f'({" OR ".join(chr(34) + g + chr(34) for g in grp)}) ({verbs})'
                for grp in groups]
-    gap = 6.0
+    gap = 12.0   # GDELT 429s on anything faster from a single IP
     out: list[dict] = []
     span = int(cfg["news"].get("lookback_days", 45))
     maxrec = int(cfg["news"].get("gdelt_max_records", 75))

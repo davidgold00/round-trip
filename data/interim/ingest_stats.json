@@ -1,12 +1,12 @@
 {
-  "as_of": "2026-10-05",
+  "as_of": "2026-10-06",
   "http": {
-    "hits": 41,
-    "misses": 596,
+    "hits": 638,
+    "misses": 2,
     "errors": 0,
-    "bytes": 409518545
+    "bytes": 7959925
   },
-  "requests": 596,
+  "requests": 2,
   "nodes": {
     "AMD": {
       "submissions": true,
@@ -151,6 +151,20 @@
       "sic": "Services-Computer Programming, Data Processing, Etc.",
       "fiscal_year_end": null
     },
+    "Nscale": {
+      "submissions": true,
+      "companyfacts": true,
+      "facts": 0,
+      "filings_listed": 1,
+      "docs_fetched": 1,
+      "docs_failed": 0,
+      "forms": {
+        "S-1": 1
+      },
+      "sec_name": "NSCALE Ltd",
+      "sic": "Services-Prepackaged Software",
+      "fiscal_year_end": "1231"
+    },
     "Nvidia": {
       "submissions": true,
       "companyfacts": true,
@@ -190,5 +204,5 @@
     }
   },
   "xbrl_rows": 9214,
-  "filing_docs": 616
+  "filing_docs": 617
 }

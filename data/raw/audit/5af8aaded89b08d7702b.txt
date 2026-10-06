@@ -1,0 +1,1039 @@
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+OpenAI and NVIDIA Announce Strategic Partnership to Deploy 10 Gigawatts of NVIDIA Systems | NVIDIA Newsroom
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+ 
+
+
+
+
+
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ Artificial Intelligence Computing Leadership from NVIDIA
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ PLATFORMS
+ 
+
+ 
+ Autonomous Machines
+ 
+ 
+
+ 
+ Cloud & Data Center
+ 
+ 
+
+ 
+ Deep Learning & Ai
+ 
+ 
+
+ 
+ Design & Pro Visualization
+ 
+ 
+
+ 
+ Healthcare
+ 
+ 
+
+ 
+ High Performance Computing
+ 
+ 
+
+ 
+ Self-Driving Cars
+ 
+ 
+
+ 
+ Gaming & Entertainment
+ 
+ 
+
+ 
+ 
+ 
+ other links
+ 
+ 
+
+
+ Developers
+
+
+ Industries
+
+
+ Shop
+
+
+ Drivers
+
+
+ Support
+
+
+ About NVIDIA
+
+ 
+ 
+
+
+ View All Products
+
+
+ GPU TECHNOLOGY CONFERENCE
+
+
+ NVIDIA Blog
+
+
+ Community
+
+
+ Careers
+
+
+ TECHNOLOGIES
+
+ 
+ 
+
+
+ 
+ 
+ 
+
+
+ 
+
+ 
+
+
+ 
+
+
+
+ 
+ 
+ 
+ 
+ 
+ Newsroom
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ NVIDIA in Brief
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Exec Bios
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ NVIDIA Blog
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Podcast
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Media Assets
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ In the News
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Press Contacts
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Online Press Kits
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ NVIDIA in Brief
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Exec Bios
+
+ 
+ 
+ 
+ 
+ 
+ 
+ NVIDIA Blog
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Podcast
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Media Assets
+
+ 
+ 
+ 
+ 
+ 
+ 
+ In the News
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Press Contacts
+
+ 
+ 
+ 
+ 
+ 
+ 
+ Online Press Kits
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ Press Release
+ 
+ 
+ 
+
+ Share
+ 
+ 
+
+ 
+ 
+ Tweet
+ 
+ 
+ Twitter
+ 
+ 
+ 
+ 
+ 
+ Share
+ 
+ 
+ LinkedIn
+ 
+ 
+ 
+ 
+ 
+ Share
+ 
+ 
+ Facebook
+ 
+ 
+ 
+ 
+ 
+ Email
+ 
+ 
+ 
+ 
+ 
+
+
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ ic_arrow-back-to-top
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ OpenAI and NVIDIA Announce Strategic Partnership to Deploy 10 Gigawatts of NVIDIA Systems
+ 
+ 
+ September 22, 2025
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ News 
+ 
+ 
+ Strategic partnership enables OpenAI to build and deploy at least 10 gigawatts of AI data centers with NVIDIA systems representing millions of GPUs for OpenAI’s next-generation AI infrastructure. 
+ To support the partnership, NVIDIA intends to invest up to $100 billion in OpenAI progressively as each gigawatt is deployed. 
+ The first gigawatt of NVIDIA systems will be deployed in the second half of 2026 on the NVIDIA Vera Rubin platform. 
+ 
+ 
+OpenAI and NVIDIA today announced a letter of intent for a landmark strategic partnership to deploy at least 10 gigawatts of NVIDIA systems for OpenAI’s next-generation AI infrastructure to train and run its next generation of models on the path to deploying superintelligence. To support this deployment including data center and power capacity, NVIDIA intends to invest up to $100 billion in OpenAI as the new NVIDIA systems are deployed. The first phase is targeted to come online in the second half of 2026 using the NVIDIA Vera Rubin platform. 
+ 
+“NVIDIA and OpenAI have pushed each other for a decade, from the first DGX supercomputer to the breakthrough of ChatGPT,” said Jensen Huang, founder and CEO of NVIDIA. “This investment and infrastructure partnership mark the next leap forward — deploying 10 gigawatts to power the next era of intelligence.” 
+ 
+“Everything starts with compute,” said Sam Altman, cofounder and CEO of OpenAI. “Compute infrastructure will be the basis for the economy of the future, and we will utilize what we’re building with NVIDIA to both create new AI breakthroughs and empower people and businesses with them at scale.” 
+ 
+“We’ve been working closely with NVIDIA since the early days of OpenAI,” said Greg Brockman, cofounder and president of OpenAI. “We’ve utilized their platform to create AI systems that hundreds of millions of people use every day. We’re excited to deploy 10 gigawatts of compute with NVIDIA to push back the frontier of intelligence and scale the benefits of this technology to everyone.” 
+ 
+OpenAI will work with NVIDIA as a preferred strategic compute and networking partner for its AI factory growth plans. OpenAI and NVIDIA will work together to co-optimize their roadmaps for OpenAI’s model and infrastructure software and NVIDIA’s hardware and software. 
+ 
+This partnership complements the deep work OpenAI and NVIDIA are already doing with a broad network of collaborators, including Microsoft, Oracle, SoftBank and Stargate partners, focused on building the world’s most advanced AI infrastructure. 
+ 
+OpenAI has grown to over 700 million weekly active users and strong adoption across global enterprises, small businesses and developers. This partnership will help OpenAI advance its mission to build artificial general intelligence that benefits all of humanity. 
+ 
+NVIDIA and OpenAI look forward to finalizing the details of this new phase of strategic partnership in the coming weeks. 
+
+ 
+ 
+
+ 
+ 
+ 
+ About OpenAI 
+OpenAI is an AI research and deployment company. Our mission is to ensure that artificial general intelligence benefits all of humanity. 
+ 
+About NVIDIA 
+NVIDIA (NASDAQ: NVDA) is the world leader in AI and accelerated computing. 
+ 
+Certain statements in this press release including, but not limited to, statements as to: NVIDIA’s intent to invest up to $100 billion in OpenAI; the timeline for deployment; the investment and infrastructure partnership marking the next leap forward—deploying 10 gigawatts to power the next era of intelligence; the benefits, impact, performance, and availability of NVIDIA’s products, services, and technologies; expectations with respect to NVIDIA’s third party arrangements, including with its collaborators and partners; expectations with respect to technology developments; and other statements that are not historical facts are forward-looking statements within the meaning of Section 27A of the Securities Act of 1933, as amended, and Section 21E of the Securities Exchange Act of 1934, as amended, which are subject to the “safe harbor” created by those sections based on management’s beliefs and assumptions and on information currently available to management and are subject to risks and uncertainties that could cause results to be materially different than expectations. Important factors that could cause actual results to differ materially include: global economic and political conditions; NVIDIA’s reliance on third parties to manufacture, assemble, package and test NVIDIA’s products; the impact of technological development and competition; development of new products and technologies or enhancements to NVIDIA’s existing product and technologies; market acceptance of NVIDIA’s products or NVIDIA’s partners’ products; design, manufacturing or software defects; changes in consumer preferences or demands; changes in industry standards and interfaces; unexpected loss of performance of NVIDIA’s products or technologies when integrated into systems; and changes in applicable laws and regulations, as well as other factors detailed from time to time in the most recent reports NVIDIA files with the Securities and Exchange Commission, or SEC, including, but not limited to, its annual report on Form 10-K and quarterly reports on Form 10-Q. Copies of reports filed with the SEC are posted on the company’s website and are available from NVIDIA without charge. These forward-looking statements are not guarantees of future performance and speak only as of the date hereof, and, except as required by law, NVIDIA disclaims any obligation to update these forward-looking statements to reflect future events or circumstances. 
+
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Media Contacts
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Corporate Communications
+ 
+ NVIDIA Corporation 
+ 
+ 
+ press@nvidia.com
+ 
+ 
+
+ 
+ 
+ 
+ OpenAI 
+ 
+ 
+ 
+ 
+ press@openai.com
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ Downloads
+ 
+ 
+ 
+ 
+ 
+ 
+ Download Press Release
+ 
+ 
+ 
+ 
+ 
+ Download Attachments
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ More Images
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ OpenAI and NVIDIA
+ 
+ 
+ Download / File Link
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+
+ 
+ 
+
+
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ More News
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ NVIDIA Announces a $150 Billion Share Repurchase Authorization Increase
+ 
+ 
+ 
+ September 28, 2026
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ NVIDIA Launches Open Agent Safety Platform to Secure Agents From Testing to Deployment
+ 
+ 
+ 
+ September 28, 2026
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ NVIDIA Expands Open Source CUDA-Q Platform for Fault-Tolerant Quantum Computing
+ 
+ 
+ 
+ September 14, 2026
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ NVIDIA and Palantir Bring Sovereign Intelligence to Critical Supply Chains
+ 
+ 
+ 
+ September 10, 2026
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ NVIDIA Expands AI Infrastructure Capacity in Partnership With Australia’s Data Center Ecosystem
+ 
+ 
+ 
+ September 9, 2026
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ About OpenAI 
+OpenAI is an AI research and deployment company. Our mission is to ensure that artificial general intelligence benefits all of humanity. 
+ 
+About NVIDIA 
+NVIDIA (NASDAQ: NVDA) is the world leader in AI and accelerated computing. 
+ 
+Certain statements in this press release including, but not limited to, statements as to: NVIDIA’s intent to invest up to $100 billion in OpenAI; the timeline for deployment; the investment and infrastructure partnership marking the next leap forward—deploying 10 gigawatts to power the next era of intelligence; the benefits, impact, performance, and availability of NVIDIA’s products, services, and technologies; expectations with respect to NVIDIA’s third party arrangements, including with its collaborators and partners; expectations with respect to technology developments; and other statements that are not historical facts are forward-looking statements within the meaning of Section 27A of the Securities Act of 1933, as amended, and Section 21E of the Securities Exchange Act of 1934, as amended, which are subject to the “safe harbor” created by those sections based on management’s beliefs and assumptions and on information currently available to management and are subject to risks and uncertainties that could cause results to be materially different than expectations. Important factors that could cause actual results to differ materially include: global economic and political conditions; NVIDIA’s reliance on third parties to manufacture, assemble, package and test NVIDIA’s products; the impact of technological development and competition; development of new products and technologies or enhancements to NVIDIA’s existing product and technologies; market acceptance of NVIDIA’s products or NVIDIA’s partners’ products; design, manufacturing or software defects; changes in consumer preferences or demands; changes in industry standards and interfaces; unexpected loss of performance of NVIDIA’s products or technologies when integrated into systems; and changes in applicable laws and regulations, as well as other factors detailed from time to time in the most recent reports NVIDIA files with the Securities and Exchange Commission, or SEC, including, but not limited to, its annual report on Form 10-K and quarterly reports on Form 10-Q. Copies of reports filed with the SEC are posted on the company’s website and are available from NVIDIA without charge. These forward-looking statements are not guarantees of future performance and speak only as of the date hereof, and, except as required by law, NVIDIA disclaims any obligation to update these forward-looking statements to reflect future events or circumstances. 
+
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Media Contacts
+ 
+ 
+ 
+ Global contacts for media inquiries.
+ All Contacts
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Stay Informed
+ 
+ 
+ 
+ Newsroom updates delivered to your inbox.
+ Subscribe
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+
+ 
+
+ 
+
+
+ 
+ 
+
+ 
+ 
+ 
+ 
+ 
+ Corporate Information
+ 
+ About NVIDIA
+ Corporate Overview
+ Technologies
+ NVIDIA Research
+ Investors
+ Social Responsibility
+ NVIDIA Foundation
+ 
+ 
+ 
+ Get Involved
+ 
+ Forums
+ Careers
+ Developer Home
+ Join the Developer Program
+ NVIDIA Partner Network
+ NVIDIA Inception
+ Resources for Venture Capitalists
+ Venture Capital (NVentures)
+ Technical Training
+ Training for IT Professionals
+ Professional Services for Data Science
+ 
+ 
+ 
+ News & Events
+ 
+ Newsroom
+ NVIDIA Blog
+ NVIDIA Technical Blog
+ Webinars
+ Stay Informed
+ Events Calendar
+ NVIDIA GTC
+ NVIDIA On-Demand
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Sign Up for NVIDIA News 
+ 
+ 
+ 
+ Subscribe
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ Follow NVIDIA
+ 
+ Facebook
+ 
+ 
+
+ 
+ 
+ LinkedIn
+ 
+ 
+ Instagram
+ 
+ 
+ YouTube
+ 
+ 
+ 
+ 
+ 
+ 
+
+ 
+ 
+ 
+ 
+ NVIDIA
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ USA - United States
+ 
+ 
+ 
+ 
+ 
+ Privacy Policy
+ 
+ 
+ Your Privacy Choices
+ 
+ 
+ Manage Cookie Settings
+ 
+ 
+ Terms of Service
+ 
+ 
+ Accessibility
+ 
+ 
+ Corporate Policies
+ 
+ 
+ Product Security
+ 
+ 
+ Contact
+ 
+ 
+ Copyright © 2026 NVIDIA Corporation
+ 
+ 
+
+
+
+ 
+
+
+ 
+
+ 
+
+ 
+ 
