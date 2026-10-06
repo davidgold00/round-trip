@@ -1,0 +1,820 @@
+{
+  "as_of": "2026-10-05",
+  "config": {
+    "passthrough": 0.6,
+    "passthrough_range": [
+      0.3,
+      0.9
+    ],
+    "capacity_to_invest": 0.5,
+    "capacity_to_invest_range": [
+      0.2,
+      0.8
+    ],
+    "loi_conversion": 0.25,
+    "loi_conversion_range": [
+      0.05,
+      0.6
+    ],
+    "conditional_realisation": 0.5,
+    "conditional_realisation_range": [
+      0.25,
+      0.8
+    ],
+    "fixed_point_tol": 1e-09,
+    "max_iter": 200,
+    "monte_carlo_draws": 20000,
+    "random_seed": 20261005
+  },
+  "network": {
+    "nodes": [
+      "AMD",
+      "Alphabet",
+      "Amazon",
+      "Anthropic",
+      "Broadcom",
+      "CoreWeave",
+      "Meta",
+      "Microsoft",
+      "Nebius",
+      "Nscale",
+      "Nvidia",
+      "OpenAI",
+      "Oracle",
+      "SoftBank"
+    ],
+    "suppliers": [
+      "Alphabet",
+      "Amazon",
+      "Broadcom",
+      "CoreWeave",
+      "Microsoft",
+      "Nebius",
+      "Nscale",
+      "Oracle"
+    ],
+    "buyers": [
+      "Anthropic",
+      "Meta",
+      "Microsoft",
+      "Nvidia",
+      "OpenAI"
+    ],
+    "backlog_usd": {
+      "Alphabet": 516700000000.0,
+      "Amazon": 496000000000.0,
+      "Broadcom": 179200000000.0,
+      "CoreWeave": 103700000000.0,
+      "Microsoft": 681000000000.0,
+      "Nebius": 21333000000.0,
+      "Nscale": 56400000000.0,
+      "Oracle": 664000000000.0
+    },
+    "external_funding_usd": {
+      "Anthropic": 17500000000.0,
+      "CoreWeave": 2000000000.0,
+      "Nebius": 2000000000.0,
+      "Nscale": 1420340000.0,
+      "OpenAI": 140100000000.0
+    }
+  },
+  "baseline_no_shock": {
+    "cascade": 0.0,
+    "eisenberg_noe": 0.13953567295370198,
+    "debt_rank": 0.0,
+    "note": "Cascade and DebtRank are shock-relative and start at zero by construction. Eisenberg-Noe is a level measure: it asks whether the network can clear its commitments out of documented funding, and its unshocked value of 14.0% says it cannot. The gap between the methods under a shock is therefore mostly this standing level, not a disagreement about how the shock propagates. Read Eisenberg-Noe minus its own baseline when comparing."
+  },
+  "scenarios": {
+    "lab_raise_falls_50": {
+      "label": "Lab raise falls 50%",
+      "description": "Every private AI lab in the ledger raises half of what it planned.",
+      "shock": {
+        "OpenAI": 0.5,
+        "Anthropic": 0.5
+      },
+      "passthrough": 0.6,
+      "capacity_to_invest": 0.5,
+      "cascade": {
+        "converged": true,
+        "iterations": 7,
+        "residual": 2.7347168973790303e-10,
+        "residual_history": [
+          0.0383367379565156,
+          0.001745181756384051,
+          7.628691356287298e-05,
+          3.320654729854766e-06,
+          1.444778700010474e-07,
+          6.285762133018125e-09,
+          2.7347168973790303e-10
+        ],
+        "funding_loss": {
+          "AMD": 0.0,
+          "Alphabet": 0.0,
+          "Amazon": 0.0,
+          "Anthropic": 0.5401616783182962,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.0,
+          "Meta": 0.0,
+          "Microsoft": 0.0,
+          "Nebius": 0.0,
+          "Nscale": 0.0,
+          "Nvidia": 0.0,
+          "OpenAI": 0.5135943260387849,
+          "Oracle": 0.0,
+          "SoftBank": 0.0
+        },
+        "honour": {
+          "AMD": 1.0,
+          "Alphabet": 1.0,
+          "Amazon": 1.0,
+          "Anthropic": 0.6759029930090223,
+          "Broadcom": 1.0,
+          "CoreWeave": 1.0,
+          "Meta": 1.0,
+          "Microsoft": 1.0,
+          "Nebius": 1.0,
+          "Nscale": 1.0,
+          "Nvidia": 1.0,
+          "OpenAI": 0.6918434043767291,
+          "Oracle": 1.0,
+          "SoftBank": 1.0
+        },
+        "backlog_at_risk_share": {
+          "Alphabet": 0.020699054055936254,
+          "Amazon": 0.09064755350214816,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.019315505029423925,
+          "Microsoft": 0.12740390472180185,
+          "Nebius": 0.0,
+          "Nscale": 0.256289477159532,
+          "Oracle": 0.0
+        },
+        "backlog_at_risk_usd": {
+          "Alphabet": 10695201230.702263,
+          "Amazon": 44961186537.06549,
+          "Broadcom": 0.0,
+          "CoreWeave": 2003017871.551261,
+          "Microsoft": 86762059115.54706,
+          "Nebius": 0.0,
+          "Nscale": 14454726511.797604,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.058446184211670776,
+        "ecosystem_at_risk_usd": 158876191266.66367
+      },
+      "eisenberg_noe": {
+        "iterations": 2,
+        "converged": true,
+        "backlog_at_risk_share": {
+          "Alphabet": 0.05919877522721992,
+          "Amazon": 0.2308112033891971,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.25079232755849656,
+          "Microsoft": 0.30183291697499665,
+          "Nebius": 0.6696588868940754,
+          "Nscale": 0.6283627050408407,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.15684290131751696
+      },
+      "debt_rank": {
+        "rounds": 3,
+        "backlog_at_risk_share": {
+          "Alphabet": 0.03193342365008709,
+          "Amazon": 0.1439516129032258,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.0313404050144648,
+          "Microsoft": 0.20558002936857564,
+          "Nebius": 0.08865777294290048,
+          "Nscale": 0.47521635892148595,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.09558929642297787
+      },
+      "method_disagreement": {
+        "cascade_vs_eisenberg_noe": -0.09839671710584619,
+        "cascade_vs_eisenberg_noe_excess_over_baseline": 0.04113895584785579,
+        "cascade_vs_debt_rank": -0.03714311221130709,
+        "eisenberg_noe_excess_over_baseline": 0.017307228363814986
+      }
+    },
+    "single_tranche_fails": {
+      "label": "Single tranche fails",
+      "description": "One named conditional tranche does not close. Modelled as the largest conditional funding edge going to zero, which here is the loss of that share of the recipient's documented funding.",
+      "shock": {
+        "OpenAI": 0.7494646680942184
+      },
+      "passthrough": 0.6,
+      "capacity_to_invest": 0.5,
+      "cascade": {
+        "converged": true,
+        "iterations": 7,
+        "residual": 2.687619432562016e-10,
+        "residual_history": [
+          0.03538646977326028,
+          0.0017044541640185151,
+          7.492337595582654e-05,
+          3.2632351636766033e-06,
+          1.419886154208072e-07,
+          6.1775047299761354e-09,
+          2.687619432562016e-10
+        ],
+        "funding_loss": {
+          "AMD": 0.0,
+          "Alphabet": 0.0,
+          "Amazon": 0.0,
+          "Anthropic": 0.03716925898328039,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.0,
+          "Meta": 0.0,
+          "Microsoft": 0.0,
+          "Nebius": 0.0,
+          "Nscale": 0.0,
+          "Nvidia": 0.0,
+          "OpenAI": 0.764033225597454,
+          "Oracle": 0.0,
+          "SoftBank": 0.0
+        },
+        "honour": {
+          "AMD": 1.0,
+          "Alphabet": 1.0,
+          "Amazon": 1.0,
+          "Anthropic": 0.9776984446100317,
+          "Broadcom": 1.0,
+          "CoreWeave": 1.0,
+          "Meta": 1.0,
+          "Microsoft": 1.0,
+          "Nebius": 1.0,
+          "Nscale": 1.0,
+          "Nvidia": 1.0,
+          "OpenAI": 0.5415800646415276,
+          "Oracle": 1.0,
+          "SoftBank": 1.0
+        },
+        "backlog_at_risk_share": {
+          "Alphabet": 0.001424330032647479,
+          "Amazon": 0.07922432252233791,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.028734132881678597,
+          "Microsoft": 0.1692717041135347,
+          "Nebius": 0.0,
+          "Nscale": 0.017635627134620285,
+          "Oracle": 0.0
+        },
+        "backlog_at_risk_usd": {
+          "Alphabet": 735951327.8689524,
+          "Amazon": 39295263971.079605,
+          "Broadcom": 0.0,
+          "CoreWeave": 2979729579.8300705,
+          "Microsoft": 115274030501.31714,
+          "Nebius": 0.0,
+          "Nscale": 994649370.3925841,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.05859459630239869,
+        "ecosystem_at_risk_usd": 159279624750.48834
+      },
+      "eisenberg_noe": {
+        "iterations": 2,
+        "converged": true,
+        "backlog_at_risk_share": {
+          "Alphabet": 0.05719817291023953,
+          "Amazon": 0.23733917221938255,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.2546662343852182,
+          "Microsoft": 0.3231415673594251,
+          "Nebius": 0.6696588868940754,
+          "Nscale": 0.6077264218456409,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.16271164146087164
+      },
+      "debt_rank": {
+        "rounds": 3,
+        "backlog_at_risk_share": {
+          "Alphabet": 0.0,
+          "Amazon": 0.1251122470125026,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.04697705248420848,
+          "Microsoft": 0.27513387228128433,
+          "Nebius": 0.1186533363796848,
+          "Nscale": 0.10683389721560509,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.09669530013884108
+      },
+      "method_disagreement": {
+        "cascade_vs_eisenberg_noe": -0.10411704515847295,
+        "cascade_vs_eisenberg_noe_excess_over_baseline": 0.03541862779522903,
+        "cascade_vs_debt_rank": -0.03810070383644239,
+        "eisenberg_noe_excess_over_baseline": 0.02317596850716966
+      }
+    },
+    "lab_cannot_refinance": {
+      "label": "Lab cannot refinance debt",
+      "description": "The most funding-dependent lab loses all new external funding. Debt and convertible facilities are not rolled.",
+      "shock": {
+        "OpenAI": 1.0
+      },
+      "passthrough": 0.8,
+      "capacity_to_invest": 0.5,
+      "cascade": {
+        "converged": true,
+        "iterations": 7,
+        "residual": 2.3113216895964683e-10,
+        "residual_history": [
+          0.06295421479661922,
+          0.002472658135117628,
+          9.71188072620005e-05,
+          3.814543785909952e-06,
+          1.4982416594866432e-07,
+          5.884656706367508e-09,
+          2.3113216895964683e-10
+        ],
+        "funding_loss": {
+          "AMD": 0.0,
+          "Alphabet": 0.0,
+          "Amazon": 0.0,
+          "Anthropic": 0.06552796222273959,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.0,
+          "Meta": 0.0,
+          "Microsoft": 0.0,
+          "Nebius": 0.0,
+          "Nscale": 0.0,
+          "Nvidia": 0.0,
+          "OpenAI": 1.0,
+          "Oracle": 0.0,
+          "SoftBank": 0.0
+        },
+        "honour": {
+          "AMD": 1.0,
+          "Alphabet": 1.0,
+          "Amazon": 1.0,
+          "Anthropic": 0.9475776302218083,
+          "Broadcom": 1.0,
+          "CoreWeave": 1.0,
+          "Meta": 1.0,
+          "Microsoft": 1.0,
+          "Nebius": 1.0,
+          "Nscale": 1.0,
+          "Nvidia": 1.0,
+          "OpenAI": 0.19999999999999996,
+          "Oracle": 1.0,
+          "SoftBank": 1.0
+        },
+        "backlog_at_risk_share": {
+          "Alphabet": 0.0033480514857370356,
+          "Amazon": 0.13988980279574897,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.05014464802314368,
+          "Microsoft": 0.29599511173765897,
+          "Nebius": 0.0,
+          "Nscale": 0.041454569008995565,
+          "Oracle": 0.0
+        },
+        "backlog_at_risk_usd": {
+          "Alphabet": 1729938202.6803262,
+          "Amazon": 69385342186.6915,
+          "Broadcom": 0.0,
+          "CoreWeave": 5200000000.0,
+          "Microsoft": 201572671093.34576,
+          "Nebius": 0.0,
+          "Nscale": 2338037692.10735,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.1030874396826382,
+        "ecosystem_at_risk_usd": 280225989174.82495
+      },
+      "eisenberg_noe": {
+        "iterations": 3,
+        "converged": true,
+        "backlog_at_risk_share": {
+          "Alphabet": 0.05719817291023953,
+          "Amazon": 0.2614865154212307,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.2637330606634966,
+          "Microsoft": 0.37624389905814143,
+          "Nebius": 0.7474334559613314,
+          "Nscale": 0.6838870349929265,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.18295736686074673
+      },
+      "debt_rank": {
+        "rounds": 3,
+        "backlog_at_risk_share": {
+          "Alphabet": 0.0,
+          "Amazon": 0.16693548387096774,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.0626808100289296,
+          "Microsoft": 0.3671071953010279,
+          "Nebius": 0.15831745168375083,
+          "Nscale": 0.1425469428562502,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.1290191576138251
+      },
+      "method_disagreement": {
+        "cascade_vs_eisenberg_noe": -0.07986992717810854,
+        "cascade_vs_eisenberg_noe_excess_over_baseline": 0.05966574577559344,
+        "cascade_vs_debt_rank": -0.0259317179311869,
+        "eisenberg_noe_excess_over_baseline": 0.043421693907044756
+      }
+    },
+    "hyperscaler_capex_cut_20": {
+      "label": "One hyperscaler cuts capex 20%",
+      "description": "The largest hyperscaler buyer in the ledger cuts spending 20%. Hits the neoclouds whose backlog it dominates.",
+      "shock": {
+        "Meta": 0.2
+      },
+      "passthrough": 1.0,
+      "capacity_to_invest": 0.5,
+      "cascade": {
+        "converged": true,
+        "iterations": 1,
+        "residual": 0.0,
+        "residual_history": [
+          0.0
+        ],
+        "funding_loss": {
+          "AMD": 0.0,
+          "Alphabet": 0.0,
+          "Amazon": 0.0,
+          "Anthropic": 0.0,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.0,
+          "Meta": 0.2,
+          "Microsoft": 0.0,
+          "Nebius": 0.0,
+          "Nscale": 0.0,
+          "Nvidia": 0.0,
+          "OpenAI": 0.0,
+          "Oracle": 0.0,
+          "SoftBank": 0.0
+        },
+        "honour": {
+          "AMD": 1.0,
+          "Alphabet": 1.0,
+          "Amazon": 1.0,
+          "Anthropic": 1.0,
+          "Broadcom": 1.0,
+          "CoreWeave": 1.0,
+          "Meta": 0.8,
+          "Microsoft": 1.0,
+          "Nebius": 1.0,
+          "Nscale": 1.0,
+          "Nvidia": 1.0,
+          "OpenAI": 1.0,
+          "Oracle": 1.0,
+          "SoftBank": 1.0
+        },
+        "backlog_at_risk_share": {
+          "Alphabet": 0.0,
+          "Amazon": 0.0,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.04050144648023143,
+          "Microsoft": 0.0,
+          "Nebius": 0.17484648197628083,
+          "Nscale": 0.0,
+          "Oracle": 0.0
+        },
+        "backlog_at_risk_usd": {
+          "Alphabet": 0.0,
+          "Amazon": 0.0,
+          "Broadcom": 0.0,
+          "CoreWeave": 4199999999.999999,
+          "Microsoft": 0.0,
+          "Nebius": 3729999999.999999,
+          "Nscale": 0.0,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.002917229051775481,
+        "ecosystem_at_risk_usd": 7929999999.999998
+      },
+      "eisenberg_noe": {
+        "iterations": 2,
+        "converged": true,
+        "backlog_at_risk_share": {
+          "Alphabet": 0.05719817291023953,
+          "Amazon": 0.20634319378180233,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.2430278876954965,
+          "Microsoft": 0.2549784276483589,
+          "Nebius": 0.6696588868940754,
+          "Nscale": 0.6077264218456409,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.13953567295370198
+      },
+      "debt_rank": {
+        "rounds": 2,
+        "backlog_at_risk_share": {
+          "Alphabet": 0.0,
+          "Amazon": 0.0,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.040501446480231434,
+          "Microsoft": 0.0,
+          "Nebius": 0.1748464819762809,
+          "Nscale": 0.0,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.0029172290517754814
+      },
+      "method_disagreement": {
+        "cascade_vs_eisenberg_noe": -0.13661844390192648,
+        "cascade_vs_eisenberg_noe_excess_over_baseline": 0.002917229051775481,
+        "cascade_vs_debt_rank": -4.336808689942018e-19,
+        "eisenberg_noe_excess_over_baseline": 0.0
+      }
+    },
+    "chip_supply_shock": {
+      "label": "Chip supply shock raises costs",
+      "description": "Costs rise so every buyer gets 15% less compute per dollar; modelled as a uniform 15% funding shortfall across all buyers, with high pass-through because the contracts are priced in dollars, not in delivered capacity.",
+      "shock": {
+        "Anthropic": 0.15,
+        "Meta": 0.15,
+        "Microsoft": 0.15,
+        "Nvidia": 0.15,
+        "OpenAI": 0.15
+      },
+      "passthrough": 0.85,
+      "capacity_to_invest": 0.5,
+      "cascade": {
+        "converged": true,
+        "iterations": 7,
+        "residual": 9.395227373865112e-10,
+        "residual_history": [
+          0.016293113631519113,
+          0.0010507448491562932,
+          6.506902887748467e-05,
+          4.012505840395031e-06,
+          2.4732098174995443e-07,
+          1.5243519474461564e-08,
+          9.395227373865112e-10
+        ],
+        "funding_loss": {
+          "AMD": 0.0,
+          "Alphabet": 0.0,
+          "Amazon": 0.0,
+          "Anthropic": 0.16741320351941724,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.0,
+          "Meta": 0.15,
+          "Microsoft": 0.15,
+          "Nebius": 0.0,
+          "Nscale": 0.0,
+          "Nvidia": 0.15,
+          "OpenAI": 0.15588145533441738,
+          "Oracle": 0.0,
+          "SoftBank": 0.0
+        },
+        "honour": {
+          "AMD": 1.0,
+          "Alphabet": 1.0,
+          "Amazon": 1.0,
+          "Anthropic": 0.8576987770084954,
+          "Broadcom": 1.0,
+          "CoreWeave": 1.0,
+          "Meta": 0.8725,
+          "Microsoft": 0.8725,
+          "Nebius": 1.0,
+          "Nscale": 1.0,
+          "Nvidia": 0.8725,
+          "OpenAI": 0.8675007629657452,
+          "Oracle": 1.0,
+          "SoftBank": 1.0
+        },
+        "backlog_at_risk_share": {
+          "Alphabet": 0.00908833047942646,
+          "Amazon": 0.03933268186678745,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.03459929884978453,
+          "Microsoft": 0.054910199630409454,
+          "Nebius": 0.1664498664041625,
+          "Nscale": 0.1647497259826437,
+          "Oracle": 0.0
+        },
+        "backlog_at_risk_usd": {
+          "Alphabet": 4695940358.719652,
+          "Amazon": 19509010205.926575,
+          "Broadcom": 0.0,
+          "CoreWeave": 3587947290.7226553,
+          "Microsoft": 37393845948.30884,
+          "Nebius": 3550874999.9999986,
+          "Nscale": 9291884545.421104,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.02870490971823497,
+        "ecosystem_at_risk_usd": 78029503349.09882
+      },
+      "eisenberg_noe": {
+        "iterations": 2,
+        "converged": true,
+        "backlog_at_risk_share": {
+          "Alphabet": 0.0580484288949562,
+          "Amazon": 0.2167420978649451,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.2463277746372715,
+          "Microsoft": 0.2748915856121799,
+          "Nebius": 0.6696588868940754,
+          "Nscale": 0.6164968422036007,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.14689124500832337
+      },
+      "debt_rank": {
+        "rounds": 2,
+        "backlog_at_risk_share": {
+          "Alphabet": 0.009580027095026127,
+          "Amazon": 0.04318548387096774,
+          "Broadcom": 0.0,
+          "CoreWeave": 0.04033640308582449,
+          "Microsoft": 0.2116740088105727,
+          "Nebius": 0.19582337224019125,
+          "Nscale": 0.1800531914893617,
+          "Oracle": 0.0
+        },
+        "ecosystem_at_risk_share": 0.06954092269048714
+      },
+      "method_disagreement": {
+        "cascade_vs_eisenberg_noe": -0.1181863352900884,
+        "cascade_vs_eisenberg_noe_excess_over_baseline": 0.021349337663613573,
+        "cascade_vs_debt_rank": -0.04083601297225217,
+        "eisenberg_noe_excess_over_baseline": 0.007355572054621395
+      }
+    }
+  },
+  "monte_carlo": {
+    "draws": 20000,
+    "ecosystem": {
+      "p10": 0.03386138964609571,
+      "median": 0.05760529545114936,
+      "p90": 0.08769843230241334,
+      "mean": 0.05969441202576854,
+      "min": 0.022697819746778477,
+      "max": 0.12085987765717146
+    },
+    "suppliers": {
+      "Alphabet": {
+        "p10": 0.003277359746068228,
+        "median": 0.02069353094263003,
+        "p90": 0.05875137373441351,
+        "mean": 0.02475294979493642,
+        "min": 0.0017551696028914013,
+        "max": 0.09150051847949295
+      },
+      "Amazon": {
+        "p10": 0.040383871558155274,
+        "median": 0.08494646960498267,
+        "p90": 0.1539453221558953,
+        "mean": 0.0918266485651046,
+        "min": 0.02180683181103228,
+        "max": 0.22719044107304776
+      },
+      "Broadcom": {
+        "p10": 0.0,
+        "median": 0.0,
+        "p90": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "CoreWeave": {
+        "p10": 0.011523398759950981,
+        "median": 0.019396675269169023,
+        "p90": 0.027362890663985135,
+        "mean": 0.019433760322127683,
+        "min": 0.009466327516229528,
+        "max": 0.03071177925828892
+      },
+      "Microsoft": {
+        "p10": 0.07584049200814239,
+        "median": 0.12794597059318702,
+        "p90": 0.18081064867330246,
+        "mean": 0.1282332723159341,
+        "min": 0.061905976484297055,
+        "max": 0.20610742594583356
+      },
+      "Nebius": {
+        "p10": 0.0,
+        "median": 0.0,
+        "p90": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "Nscale": {
+        "p10": 0.14984659119844437,
+        "median": 0.2567439759434703,
+        "p90": 0.3688713010496615,
+        "mean": 0.2586591364873856,
+        "min": 0.12017362041404521,
+        "max": 0.45906365325253257
+      },
+      "Oracle": {
+        "p10": 0.0,
+        "median": 0.0,
+        "p90": 0.0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      }
+    },
+    "driver_correlation": {
+      "passthrough": 0.8644517613018906,
+      "bound": 0.47538810153018873,
+      "capacity_to_invest": 0.05733997114199283,
+      "loi": -0.006757484242855866,
+      "conditional": 0.002683567544811582
+    },
+    "grid": {
+      "loi": [
+        0.05,
+        0.1,
+        0.15,
+        0.2,
+        0.25,
+        0.3,
+        0.35,
+        0.39999999999999997,
+        0.44999999999999996,
+        0.49999999999999994,
+        0.5499999999999999,
+        0.6
+      ],
+      "conditional": [
+        0.25,
+        0.3,
+        0.35,
+        0.4,
+        0.45,
+        0.5,
+        0.55,
+        0.6000000000000001,
+        0.65,
+        0.7,
+        0.75,
+        0.8
+      ]
+    }
+  },
+  "tornado": [
+    {
+      "parameter": "passthrough",
+      "low_value": 0.3,
+      "high_value": 0.9,
+      "low_result": 0.028583243401725703,
+      "high_result": 0.08967801855158285,
+      "base_result": 0.058446184211670776,
+      "swing": 0.061094775149857145
+    },
+    {
+      "parameter": "attribution_bound",
+      "low_value": "LOWER",
+      "high_value": "UPPER",
+      "low_result": 0.04634828550578068,
+      "high_result": 0.07329781966666443,
+      "base_result": 0.058446184211670776,
+      "swing": 0.026949534160883755
+    },
+    {
+      "parameter": "capacity_to_invest",
+      "low_value": 0.2,
+      "high_value": 0.8,
+      "low_result": 0.056917335527157595,
+      "high_result": 0.06006068067048514,
+      "base_result": 0.058446184211670776,
+      "swing": 0.003143345143327543
+    },
+    {
+      "parameter": "LOI_weight",
+      "low_value": 0.05,
+      "high_value": 0.6,
+      "low_result": 0.0585279998200345,
+      "high_result": 0.058328421034215545,
+      "base_result": 0.058446184211670776,
+      "swing": 0.00019957878581895738
+    },
+    {
+      "parameter": "conditional_weight",
+      "low_value": 0.25,
+      "high_value": 0.8,
+      "low_result": 0.058544296114481705,
+      "high_result": 0.05836872842728795,
+      "base_result": 0.058446184211670776,
+      "swing": 0.00017556768719375476
+    },
+    {
+      "parameter": "assumed_term_years",
+      "low_value": 3,
+      "high_value": 8,
+      "low_result": 0.058446184211670776,
+      "high_result": 0.058446184211670776,
+      "base_result": 0.058446184211670776,
+      "swing": 0.0
+    }
+  ],
+  "assumption_dominated": true,
+  "assumption_note": "The widest parameter swing is larger than half the base result, so the answer is driven as much by assumptions as by data."
+}

@@ -308,3 +308,22 @@ Format: `[date] [phase] decision -- rationale`
   to any named customer. -- A round-trip share computed over the attributable fifth
   would be read as though it described the whole, so the denominator's blindness is
   reported as a first-class number.
+* `2026-10-05 P2` **Multi-hop series double-count fixed, and the direct term is
+  left undamped.** The first implementation computed `P = sum_k (alpha S)^k` and
+  then added `S` again, so a direct funding edge was counted roughly 1.85 times.
+  The series is now `P = sum_k d_k S^k` with `d_1 = 1` and `d_k = alpha^(k-1)` for
+  `k >= 2`. -- A.6 never said to add S back; and a directly documented edge is the
+  strongest evidence available, so discounting it by alpha would be perverse. Caught
+  by the `half_funded` toy graph, whose answer is 50% by hand.
+* `2026-10-05 P3` **Eisenberg-Noe is reported against its own no-shock baseline.**
+  Unshocked, the clearing model already puts 14.0% of disclosed backlog in
+  shortfall, because in this network committed purchases exceed documented
+  external funding before any shock. Comparing raw Eisenberg-Noe numbers against
+  the cascade would read that standing level as shock propagation. -- The
+  disagreement is reported as excess over baseline, and the level itself is
+  reported as a finding in its own right.
+* `2026-10-05 P3` **"Single tranche fails" is parameterised as the largest
+  conditional or LOI funding edge going to zero**, converted into a share of the
+  recipient's documented external funding, rather than naming a tranche by hand.
+  -- Keeps the scenario reproducible as the ledger changes, instead of hardcoding
+  today's largest deal.

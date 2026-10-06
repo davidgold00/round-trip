@@ -179,21 +179,38 @@ def share_matrix(Fm: pd.DataFrame) -> pd.DataFrame:
 
 
 def multihop(S: pd.DataFrame, alpha: float, max_hops: int) -> tuple[pd.DataFrame, dict]:
-    """Damped Leontief / absorbing walk: P = sum_{k=1..max_hops} (alpha*S)^k."""
-    A = (alpha * S.values).astype(float)
-    n = A.shape[0]
-    term = np.eye(n)
+    """Damped Leontief / absorbing walk over the funding share matrix.
+
+        P = sum_{k=1..max_hops} d_k * S^k,    d_1 = 1,  d_k = alpha^(k-1) for k >= 2
+
+    The direct term carries full weight because a directly documented funding
+    edge is the strongest evidence available; each additional intermediary is
+    discounted by `alpha`. The series already contains the direct term, so
+    callers must NOT add S back on top of it.
+
+    Damping also guarantees convergence: the funding graph contains genuine
+    cycles, so the undamped Leontief inverse is not guaranteed to exist.
+    """
+    Sv = S.values.astype(float)
+    n = Sv.shape[0]
     P = np.zeros((n, n))
+    term = np.eye(n)
     residual = float("inf")
     for k in range(1, max_hops + 1):
-        term = term @ A
-        P += term
-        residual = float(np.abs(term).sum())
+        term = term @ Sv
+        d = 1.0 if k == 1 else alpha ** (k - 1)
+        contribution = d * term
+        P += contribution
+        residual = float(np.abs(contribution).sum())
+    A = alpha * Sv
     rho = float(max(abs(np.linalg.eigvals(A)))) if n else 0.0
     closed = None
     if rho < 1 - 1e-9:
         try:
-            closed = np.linalg.inv(np.eye(n) - A) @ A
+            # Closed form of the same series: S + (1/alpha) * (sum_{k>=2} A^k)
+            inv = np.linalg.inv(np.eye(n) - A)
+            tail = (inv @ A @ A) / alpha if alpha > 0 else np.zeros((n, n))
+            closed = Sv + tail
         except np.linalg.LinAlgError:
             closed = None
     info = {
@@ -236,9 +253,8 @@ def provenance(Fm: pd.DataFrame, C: pd.DataFrame, S: pd.DataFrame,
                 out.loc[i, j] = min(1.0, fund / commit) if commit > 0 else 0.0
         return out
     if bound == "central":
-        direct = S.copy()
-        combined = direct.add(P, fill_value=0.0).clip(upper=1.0)
-        return combined
+        # P already includes the undamped direct term (see multihop docstring).
+        return P.clip(upper=1.0)
     # high: any documented funding link, direct or multi-hop, counts fully
     direct = L if L is not None else (Fm > 0).astype(float)
     link = (direct > 0) | (P > 1e-12)
