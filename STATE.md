@@ -2,7 +2,7 @@
 
 Resume file. A new session should read this first, then `DECISIONS.md`.
 
-**Last updated:** 2026-10-06, end of Phase 6.
+**Last updated:** 2026-10-07, end of Phase 6. All phases complete.
 
 ## Status: complete and running
 
