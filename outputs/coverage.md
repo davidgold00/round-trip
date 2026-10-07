@@ -1,7 +1,7 @@
 # Coverage report
 
 Generated 2026-10-06. Source: SEC EDGAR only.
-HTTP cache hits 638, fetches 2, errors 0, total requests 2.
+HTTP cache hits 640, fetches 0, errors 0, total requests 0.
 
 ## Filer coverage
 

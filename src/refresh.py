@@ -79,6 +79,12 @@ def metric_deltas(old: dict | None, new: dict) -> dict:
     return out
 
 
+def _queue_breakdown(news: dict) -> str:
+    from collections import Counter
+    c = Counter(q.get("status", "pending") for q in news.get("review_queue", []))
+    return ", ".join(f"{n} {k}" for k, n in sorted(c.items())) or "empty"
+
+
 def write_changelog(diff: dict, deltas: dict, news: dict | None, stamp: str) -> Path:
     lines = [f"# What changed since the last refresh", "",
              f"Refresh run {stamp}.", ""]
@@ -131,8 +137,9 @@ def write_changelog(diff: dict, deltas: dict, news: dict | None, stamp: str) -> 
                   f"financing-relevant",
                   f"* by source: {c.get('by_source', {})}",
                   f"* tagger: {news.get('tagger_mode', 'unknown')}",
-                  f"* review queue depth: {len(news.get('review_queue', []))} "
-                  f"(all unverified until promoted with a quote)"]
+                  f"* review queue: {len(news.get('review_queue', []))} entries "
+                  f"({_queue_breakdown(news)}). A flagged item counts toward "
+                  f"nothing until a reviewer promotes it with a verbatim quote."]
     lines.append("")
     p = OUTPUTS / "changelog.md"
     p.write_text("\n".join(lines))

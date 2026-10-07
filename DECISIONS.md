@@ -421,3 +421,12 @@ Format: `[date] [phase] decision -- rationale`
   `--skip-network` re-tags what is already stored instead of doing nothing,
   which is how the rules were tuned without touching a feed. -- A monitor whose
   queue is mostly press-office copy will not get read.
+* `2026-10-07 P6` **Mobile layout verified by measurement, not by screenshot.**
+  Headless screenshots at a 390px window appeared to clip, which looked like
+  horizontal overflow. An in-page probe reports `documentElement.scrollWidth` of
+  390 against a 390px viewport, with the only elements past the edge being tab
+  buttons inside the deliberately scrollable tab strip. The clipping was a
+  headless device-scale artifact. Defensive CSS was kept anyway: `min-width: 0`
+  on grid children, `overflow-wrap: anywhere` in cards, a width cap on the page
+  wrappers, and a shorter graph at phone width. -- Screenshots show what a
+  renderer did; `scrollWidth` says what the layout is.

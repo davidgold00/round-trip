@@ -13,6 +13,8 @@ venv/
 data/raw/companyfacts/*.json
 data/raw/filings/**
 data/raw/submissions/*.json
+data/raw/news/**
+data/raw/audit/**
 data/cache/
 
 # OS

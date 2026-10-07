@@ -11,7 +11,7 @@ help:
 	@echo "  make build    compute exposure metrics -> outputs/ + site/data/"
 	@echo "  make stress   run cascade stress test + monte carlo -> outputs/"
 	@echo "  make news     pull EDGAR atom / GDELT / RSS, tag, dedupe"
-	@echo "  make refresh  ingest + extract + news + build + stress + snapshot + changelog"
+	@echo "  make refresh  ingest + extract + news + build + stress + site data + snapshot + changelog"
 	@echo "  make test     run the test suite"
 	@echo "  make audit    re-verify a random sample of 20 ledger edges"
 	@echo "  make serve    serve the static dashboard at http://localhost:8765"

@@ -1,12 +1,12 @@
 {
   "as_of": "2026-10-06",
   "http": {
-    "hits": 638,
-    "misses": 2,
+    "hits": 640,
+    "misses": 0,
     "errors": 0,
-    "bytes": 7959925
+    "bytes": 0
   },
-  "requests": 2,
+  "requests": 0,
   "nodes": {
     "AMD": {
       "submissions": true,

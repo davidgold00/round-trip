@@ -10,7 +10,7 @@
     ]
   },
   "as_of": "2026-10-05",
-  "generated": "2026-10-06T04:23:33.147175+00:00",
+  "generated": "2026-10-06T04:49:40.971173+00:00",
   "tier_gate": [
     "T1",
     "T2"
@@ -562,25 +562,25 @@
     "cycles": [
       {
         "nodes": [
-          "OpenAI",
-          "Amazon"
+          "Amazon",
+          "OpenAI"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "OpenAI",
-            "target": "Amazon",
-            "amount": 82800000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          },
           {
             "source": "Amazon",
             "target": "OpenAI",
             "amount": 23750000000.0,
             "edge_types": [
               "equity_investment"
+            ]
+          },
+          {
+            "source": "OpenAI",
+            "target": "Amazon",
+            "amount": 82800000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
             ]
           }
         ],
@@ -807,13 +807,21 @@
       },
       {
         "nodes": [
+          "AMD",
           "OpenAI",
           "Amazon",
-          "Anthropic",
-          "AMD"
+          "Anthropic"
         ],
         "length": 4,
         "legs": [
+          {
+            "source": "AMD",
+            "target": "OpenAI",
+            "amount": 0.0,
+            "edge_types": [
+              "warrants"
+            ]
+          },
           {
             "source": "OpenAI",
             "target": "Amazon",
@@ -838,14 +846,6 @@
             "edge_types": [
               "purchase_commitment"
             ]
-          },
-          {
-            "source": "AMD",
-            "target": "OpenAI",
-            "amount": 0.0,
-            "edge_types": [
-              "warrants"
-            ]
           }
         ],
         "bottleneck_usd": 0.0,
@@ -853,25 +853,25 @@
       },
       {
         "nodes": [
-          "Anthropic",
-          "AMD"
+          "AMD",
+          "Anthropic"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "Anthropic",
-            "target": "AMD",
-            "amount": 0.0,
-            "edge_types": [
-              "purchase_commitment"
-            ]
-          },
           {
             "source": "AMD",
             "target": "Anthropic",
             "amount": 1250000000.0,
             "edge_types": [
               "equity_investment"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "AMD",
+            "amount": 0.0,
+            "edge_types": [
+              "purchase_commitment"
             ]
           }
         ],
@@ -882,25 +882,25 @@
     "round_trip_cycles": [
       {
         "nodes": [
-          "OpenAI",
-          "Amazon"
+          "Amazon",
+          "OpenAI"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "OpenAI",
-            "target": "Amazon",
-            "amount": 82800000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          },
           {
             "source": "Amazon",
             "target": "OpenAI",
             "amount": 23750000000.0,
             "edge_types": [
               "equity_investment"
+            ]
+          },
+          {
+            "source": "OpenAI",
+            "target": "Amazon",
+            "amount": 82800000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
             ]
           }
         ],
@@ -1127,13 +1127,21 @@
       },
       {
         "nodes": [
+          "AMD",
           "OpenAI",
           "Amazon",
-          "Anthropic",
-          "AMD"
+          "Anthropic"
         ],
         "length": 4,
         "legs": [
+          {
+            "source": "AMD",
+            "target": "OpenAI",
+            "amount": 0.0,
+            "edge_types": [
+              "warrants"
+            ]
+          },
           {
             "source": "OpenAI",
             "target": "Amazon",
@@ -1158,14 +1166,6 @@
             "edge_types": [
               "purchase_commitment"
             ]
-          },
-          {
-            "source": "AMD",
-            "target": "OpenAI",
-            "amount": 0.0,
-            "edge_types": [
-              "warrants"
-            ]
           }
         ],
         "bottleneck_usd": 0.0,
@@ -1173,25 +1173,25 @@
       },
       {
         "nodes": [
-          "Anthropic",
-          "AMD"
+          "AMD",
+          "Anthropic"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "Anthropic",
-            "target": "AMD",
-            "amount": 0.0,
-            "edge_types": [
-              "purchase_commitment"
-            ]
-          },
           {
             "source": "AMD",
             "target": "Anthropic",
             "amount": 1250000000.0,
             "edge_types": [
               "equity_investment"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "AMD",
+            "amount": 0.0,
+            "edge_types": [
+              "purchase_commitment"
             ]
           }
         ],
@@ -1235,25 +1235,25 @@
     "cycles": [
       {
         "nodes": [
-          "OpenAI",
-          "Amazon"
+          "Amazon",
+          "OpenAI"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "OpenAI",
-            "target": "Amazon",
-            "amount": 82800000000.0,
-            "edge_types": [
-              "cloud_capacity_contract"
-            ]
-          },
           {
             "source": "Amazon",
             "target": "OpenAI",
             "amount": 23750000000.0,
             "edge_types": [
               "equity_investment"
+            ]
+          },
+          {
+            "source": "OpenAI",
+            "target": "Amazon",
+            "amount": 82800000000.0,
+            "edge_types": [
+              "cloud_capacity_contract"
             ]
           }
         ],
@@ -1480,13 +1480,21 @@
       },
       {
         "nodes": [
+          "AMD",
           "OpenAI",
           "Amazon",
-          "Anthropic",
-          "AMD"
+          "Anthropic"
         ],
         "length": 4,
         "legs": [
+          {
+            "source": "AMD",
+            "target": "OpenAI",
+            "amount": 0.0,
+            "edge_types": [
+              "warrants"
+            ]
+          },
           {
             "source": "OpenAI",
             "target": "Amazon",
@@ -1511,14 +1519,6 @@
             "edge_types": [
               "purchase_commitment"
             ]
-          },
-          {
-            "source": "AMD",
-            "target": "OpenAI",
-            "amount": 0.0,
-            "edge_types": [
-              "warrants"
-            ]
           }
         ],
         "bottleneck_usd": 0.0,
@@ -1526,25 +1526,25 @@
       },
       {
         "nodes": [
-          "Anthropic",
-          "AMD"
+          "AMD",
+          "Anthropic"
         ],
         "length": 2,
         "legs": [
-          {
-            "source": "Anthropic",
-            "target": "AMD",
-            "amount": 0.0,
-            "edge_types": [
-              "purchase_commitment"
-            ]
-          },
           {
             "source": "AMD",
             "target": "Anthropic",
             "amount": 1250000000.0,
             "edge_types": [
               "equity_investment"
+            ]
+          },
+          {
+            "source": "Anthropic",
+            "target": "AMD",
+            "amount": 0.0,
+            "edge_types": [
+              "purchase_commitment"
             ]
           }
         ],
