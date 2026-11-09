@@ -33,7 +33,7 @@ eval/results/
 
 # Evaluation traces and detailed runtime JSON are reproducible local artifacts
 eval/traces/
-eval/RESULTS.json
+eval/RESULTS*.json
 eval/VALIDATION.json
 
 # Detailed evaluation traces are local; cassettes are opt-in versioned files.

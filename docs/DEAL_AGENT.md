@@ -201,8 +201,9 @@ The model receives untrusted source text and a strict schema, with no browser,
 shell, Python execution or publication tools. Only loopback Ollama is supported;
 cloud model tags are rejected and there is no hosted fallback.
 
-The gold corpus contains 17 positive and 8 negative saved passages, with four
-uncertain labels: Microsoft 2023, Nvidia/OpenAI 2025 and the two Oracle cases.
+The gold corpus contains 17 positive and 8 negative saved passages, with five
+uncertain labels: Microsoft 2023, Nvidia/OpenAI 2025, the two Oracle cases and
+the Nscale/Nvidia warrant financing direction.
 The two Amazon instrument labels were corrected to convertible debt with SEC
 supplements included in the input. CoreWeave's residual-capacity purchase/date
 was resolved from its 8-K. See `../eval/gold/README.md` and manifest adjudications.
@@ -284,3 +285,21 @@ fetcher. SEC throttling is per local command, not coordinated across machines.
 Prompt/model changes do not invalidate production chunk checkpoints; use eval or
 a separate experiment database. Full source coverage, real local model accuracy,
 and visual browser QA must be completed before stronger portfolio claims.
+
+### Opt-in prompt v2
+
+V1 remains the default and its files are unchanged. Set `deal_agent.prompt_version`
+to `v2` in config, or use `eval --prompt-version v2`. V2 emphasizes financial
+roles, unrelated dollar amounts, unspecified investment instruments, multi-party
+payers, bounds, continuous quotations and fixed-identity repair. It has not been
+measured and is not claimed to be better. The warrant case remains uncertain;
+matching the ledger's convention does not prove it is inferable from a short quote.
+
+```bash
+make agent-bench AGENT_BENCH_ARGS="--models qwen2.5:7b-instruct llama3.1:8b --prompt-versions v1 v2"
+```
+
+This runs one rules baseline and all four model/prompt combinations, each with
+its own recording and prompt hashes. Both models must be pulled first. Use the
+same uncertainty policy for all columns. Production checkpoints are not cleared
+when switching prompts; use eval or a separate state database for experiments.

@@ -1,3 +1,135 @@
+# Morning summary
+
+2026-11-09, America/Detroit. Work stayed on `feature/deal-extraction-agent`.
+Eleven items are done, item 5 is partial, and item 13 is skipped under its gate.
+The reviewed ledger's original financial fields, existing promotions, metric
+formulas and stress logic are unchanged. The original `make refresh` path is
+regression-tested against pinned main `ceedd24` with identical cached acquisition
+inputs and all analysis/stress/export steps running.
+
+| Item | Status | Result |
+|---|---|---|
+| 1. Rules baseline | done | Same gold reader, verifier and scorer; real results committed |
+| 2. Record/replay | done | Exact request matching, live recordings, synthetic retry/queue tests |
+| 3. Local benchmark | done | `make agent-bench`; preflight and two-model comparison |
+| 4. Uncertain labels | done | Three original cases resolved; four original cases remain uncertain |
+| 5. Harder cases | partial | Eight additions, three hard negatives, two post-June deals; three full-length passages still missing |
+| 6. Ledger agreement | done | Eight confirmed links, zero direction/type conflicts; strict option |
+| 7. One promotion path | done | Reviewed YAML adapter, original batch application and audit |
+| 8. Reuse ingestion | done | Stored news/cached filing input, explicit own-fetcher fallback |
+| 9. Pending panel | done | Read-only News card, existing styling; visual browser QA remains manual |
+| 10. README diet | done | Short overview; original sections preserved; detailed agent guide moved |
+| 11. Interview notes | done | Illustrative gold walkthrough and five honest Q&As |
+| 12. Prompt v2 | done | Opt-in, v1 unchanged/default, model/prompt cross-comparison |
+| 13. CI regression job | skipped | P5 gate unmet because item 5 remains partial |
+
+## Measured baseline
+
+The saved corpus has 17 positive and 8 negative passages, with five uncertain
+document labels. Sources overlap; these are not independent observations.
+
+| Metric | Rules, all 25 passages | Rules, 20 certain passages | Local LLM |
+|---|---:|---:|---:|
+| Edge precision | 15.4% | 10.0% | Not measured |
+| Edge recall | 11.8% | 8.3% | Not measured |
+| Matched amount accuracy | 100% on 2 edges | 100% on 1 edge | Not measured |
+| Final verification pass rate | 53.8% | 50.0% | Not measured |
+
+Inclusive counts: 2 true positives, 11 false positives, 15 false negatives.
+Certain-only counts: 1 true positive, 9 false positives, 11 false negatives.
+The amount sample is too small to support a general accuracy claim. LLM model
+accuracy and v2 performance are **Not measured**. Synthetic cassettes never
+produce model metrics. Full reports are in `eval/RESULTS.md` and
+`eval/RESULTS-certain.md`; scored inputs and counts are explicit.
+
+## Every changed gold label
+
+| Document | Change | Resolving evidence or remaining issue |
+|---|---|---|
+| `amazon_anthropic_2023` | equity_investment -> debt_or_loan; uncertain -> false | Amazon 10-Q `0001018724-23-000018` explicitly identifies a convertible note |
+| `amazon_anthropic_2024` | equity_investment -> debt_or_loan; uncertain -> false | Amazon 10-K `0001018724-25-000004` identifies the third convertible note; saved exact clause plus sentence location |
+| `nvidia_coreweave_2025` | uncertain -> false; type/amount unchanged | 8-K `0001769628-25-000047` establishes residual-capacity purchases; Sept 15 disclosure versus Sept 9 execution |
+| `nscale_nvidia_warrants` (new case) | uncertain false -> true; direction/type unchanged | Short receipt quote cannot establish the ledger's financing direction; issuer/holder direction differs from financial support |
+
+Amazon instrument supplements are included in the input itself, with separate
+primary-source attribution. Amount caps/new commitments are unchanged. Exact
+spans, URLs, accessions and adjudication notes are in `eval/gold/manifest.json`.
+Remaining uncertain cases: `microsoft_openai_2023`, `nvidia_openai_2025`,
+`oracle_openai_2024`, `oracle_openai_2025`, and `nscale_nvidia_warrants`.
+
+## What to verify by hand
+
+- Add three intact multi-paragraph primary-source passages. The eight verified
+  additions are short spans; full-document coverage is still missing. Do not
+  present stitched snippets as full filings or quote full-document accuracy.
+- Check the four label edits/flags above and the five remaining uncertain cases.
+  Three harder negatives describe parallel merger cases or separate fines;
+  they do not assert financing between the tracked companies they co-mention.
+- Run actual local models before claiming precision/recall, model superiority or
+  a v2 improvement. Validate inclusive and certain-only results separately.
+- View News in light/dark and at phone width. No browser binary was installed
+  here, so automated visual QA could not run. No stylesheet or stress engine changed.
+- Live SEC discovery still needs your contact-valued `SEC_USER_AGENT`. Reuse
+  caches and run one SEC-fetching command at a time. Source snippets and feed
+  dates require original-source review before choosing dates and legal status.
+
+## Exact local VS Code commands
+
+Activate the repository's Python 3.12 environment with dependencies installed.
+
+```bash
+ollama pull qwen2.5:7b-instruct
+```
+
+Start the Ollama app, or run `ollama serve` in a separate terminal, then:
+
+```bash
+make agent-bench
+```
+
+Optional two-model/two-prompt experiment, after pulling the second model:
+
+```bash
+ollama pull llama3.1:8b
+make agent-bench AGENT_BENCH_ARGS="--models qwen2.5:7b-instruct llama3.1:8b --prompt-versions v1 v2"
+make agent-bench AGENT_BENCH_ARGS="--exclude-uncertain --output eval/results/certain-comparison.md"
+```
+
+Use stored ingestion, then review candidates:
+
+```bash
+python -m deal_agent run --source news
+python -m deal_agent review list
+python -m deal_agent review --actor "David Gold"
+```
+
+Approval exports a reviewed YAML and prints its path; it does not write the ledger.
+Inspect it and apply through the original mechanism, replacing the placeholder:
+
+```bash
+python -m src.review batch PATH_PRINTED_BY_REVIEW
+python -m deal_agent publish
+python -m deal_agent export-pending
+```
+
+`run --source fetch` explicitly selects the fallback fetcher. For a stale export,
+use `review reopen ID --actor "David Gold" --reason "..."`, then review again;
+old exports/audits are retained. Applied approvals cannot be reopened.
+See `docs/AGENT_REVIEW.md` and `docs/DEAL_AGENT.md` for the full workflow.
+
+## Verification
+
+Full pytest and `python -m deal_agent eval --validate-only` passed after every
+committed item. Final suite: 171 tests. Strict ledger validation has eight matches,
+zero mismatches and zero ambiguous links. Rules were measured on both uncertainty
+policies; LLM was not run. Synthetic replay covers verification failure/repair,
+reconciliation, queue insertion and idempotency. Original refresh headline parity,
+original financial fields/promotions and browser/Python stress parity pass.
+V1 prompt bytes match the initial feature commit exactly. JavaScript syntax,
+Python compilation, diff whitespace and introduced em-dash checks pass.
+
+---
+
 # Agent progress
 
 ## 1. Rules baseline: done
@@ -188,3 +320,31 @@
 - Verified full pytest and validate-only; checked appended text for em dashes.
 - Manual: run the benchmark before replacing any Not measured statement or
   describing model/prompt quality in an interview.
+
+## 12. Prompt v2: done, offline experiment only
+
+- Added separate v2 triage/extract/retry prompts covering unrelated dollars,
+  financial roles, unspecified instruments, multi-party payers, caps/floors,
+  warrant value versus exercise/guarantee amounts, continuous quotes and fixed
+  identity on repair. V1 files are byte-for-byte unchanged and remain default.
+- Configuration and `eval/run --prompt-version` select the version. Benchmark
+  `--prompt-versions v1 v2` crosses every selected local model with both versions,
+  with distinct cassettes and active prompt hashes. No v2 performance claim.
+- Corrected rules report provenance to provider=rules and no prompt hashes;
+  added actual scored-input counts to both individual and combined reports.
+- Offline review exposed an additional gold ambiguity: `nscale_nvidia_warrants`
+  now has label_uncertain=true. Its saved receipt quote establishes issuer/holder,
+  not the reviewed ledger's financial-support direction. Expected direction/type
+  remain unchanged, and strict-ledger still passes. This is a new uncertainty flag,
+  not a change to the reviewed ledger. Five document labels are now uncertain.
+- Reran real inclusive and uncertainty-excluded rules baselines, refreshed the
+  validation report, and tested version selection, v1 immutability, prompt hashes,
+  two-model/two-prompt orchestration and the existing synthetic replay fixture.
+- Verified full pytest and `eval --validate-only`. Local model accuracy and the
+  v1/v2 comparison remain Not measured. Manual: run the recorded benchmark locally.
+
+## 13. Branch CI regression job: skipped
+
+- The user explicitly gated P5 on completion of every earlier item. Item 5 still
+  lacks three full-length primary-source passages, so this gate is not satisfied.
+  No workflow was added or enabled. Revisit after the corpus coverage gap is closed.

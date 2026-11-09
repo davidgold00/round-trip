@@ -51,7 +51,8 @@ def comparison(reports, output):
         columns.append("Local LLM")
     lines = ["# Deal extraction evaluation", "", "## Rules baseline versus local LLM", "",
              f"Gold manifest SHA-256: `{reports[0]['manifest_sha256']}`.",
-             f"Excluded uncertain documents: {reports[0]['exclude_uncertain']}.", "",
+             f"Excluded uncertain documents: {reports[0]['exclude_uncertain']}.",
+             f"Scored inputs: {reports[0].get('scored_documents', 'see detailed report')} documents.", "",
              "| Metric | " + " | ".join(columns) + " |",
              "|---|" + "---:|" * len(columns)]
     for metric in METRICS:
@@ -71,19 +72,23 @@ def comparison(reports, output):
     atomic_write(output.with_suffix(".json"), json.dumps({"reports": reports}, indent=2) + "\n")
 
 
-def benchmark(cfg, *, models=None, exclude_uncertain=False, output=None):
+def benchmark(cfg, *, models=None, prompt_versions=None, exclude_uncertain=False, output=None):
     models = models or [cfg["deal_agent"]["model"]]
     if len(set(models)) != len(models):
         raise ValueError("Choose distinct models for comparison")
+    prompt_versions = prompt_versions or [cfg["deal_agent"].get("prompt_version", "v1")]
+    if len(set(prompt_versions)) != len(prompt_versions) or any(v not in {"v1", "v2"} for v in prompt_versions):
+        raise ValueError("Choose distinct prompt versions from v1 and v2")
     preflight(cfg["deal_agent"], models)
     root = cfg["_root"]
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
     directory = root / "eval/results" / stamp
     reports = []
-    for extractor, model in [("rules", models[0]), *[("llm", m) for m in models]]:
+    for extractor, model, version in [("rules", models[0], "v1"), *[("llm", m, v) for m in models for v in prompt_versions]]:
         current = deepcopy(cfg)
         current["deal_agent"]["model"] = model
-        name = "rules" if extractor == "rules" else re.sub(r"[^A-Za-z0-9_.-]", "_", model)
+        current["deal_agent"]["prompt_version"] = version
+        name = "rules" if extractor == "rules" else re.sub(r"[^A-Za-z0-9_.-]", "_", model) + "-" + version
         trace = Trace(directory / "traces", model)
         cassette = root / "eval/cassettes" / stamp / f"{name}.json"
         with tempfile.TemporaryDirectory(prefix="roundtrip-bench-") as td:

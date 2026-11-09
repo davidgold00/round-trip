@@ -1,9 +1,11 @@
 # Deal extraction evaluation
 
 Status: **labels_only**. Model: `qwen2.5:7b-instruct`.
-Run: `7f938c24a8f24ce884c746d1aadbb689`. Generated: 2026-11-09T07:37:44.346506+00:00.
+Run: `2f4c2c19ab1b485db748962ae07083f0`. Generated: 2026-11-09T07:48:14.696201+00:00.
 
-Gold corpus: 17 positive and 8 negative documents; 4 uncertain labels. 0 structural label failures.
+Gold corpus: 17 positive and 8 negative documents; 5 uncertain labels. 0 structural label failures.
+
+Scored inputs after uncertainty policy: 0 documents. Validate-only does not run an extractor.
 
 The corpus contains short, attributed excerpts, not full filings. It is a small smoke benchmark; scores do not establish full-document or out-of-time accuracy. Uncertain labels remain identified in manifest.json.
 

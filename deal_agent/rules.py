@@ -29,7 +29,7 @@ RULE_TYPES = {
 class Rules:
     def __init__(self, pipeline):
         self.resolver, self.trace, self.agent = pipeline.resolver, pipeline.trace, pipeline.agent
-        self.provider = SimpleNamespace(model="original-rules")
+        self.provider = SimpleNamespace(model="original-rules", mode="rules")
         self.cfg = pipeline.cfg
 
     def process_text(self, text, meta):

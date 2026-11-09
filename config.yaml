@@ -65,6 +65,7 @@ news:
 # Optional agentic extractor. Existing make refresh stays rules-only.
 # All model execution is on loopback Ollama; no keys or paid services.
 deal_agent:
+  prompt_version: v1
   model: qwen2.5:7b-instruct
   ollama_url: http://127.0.0.1:11434
   llm_timeout_seconds: 300

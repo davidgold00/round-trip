@@ -1,9 +1,11 @@
 # Deal extraction evaluation
 
 Status: **complete**. Model: `original-rules`.
-Run: `62b4d96cdb6a4ec988cf14b8cd9fe6e5`. Generated: 2026-11-09T07:16:17.440862+00:00.
+Run: `af0f9c4760ad456ea86b34179efb7321`. Generated: 2026-11-09T07:48:13.837183+00:00.
 
-Gold corpus: 17 positive and 8 negative documents; 4 uncertain labels. 0 structural label failures.
+Gold corpus: 17 positive and 8 negative documents; 5 uncertain labels. 0 structural label failures.
+
+Scored inputs after uncertainty policy: 25 documents. Validate-only does not run an extractor.
 
 The corpus contains short, attributed excerpts, not full filings. It is a small smoke benchmark; scores do not establish full-document or out-of-time accuracy. Uncertain labels remain identified in manifest.json.
 

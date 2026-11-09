@@ -2,8 +2,9 @@
 
 ## Rules baseline versus local LLM
 
-Gold manifest SHA-256: `92fda0a8c8e5738ffe1f62a12aa1f5fd3a25dc2e2786bd2204bb7b1648aa3aac`.
+Gold manifest SHA-256: `a80c6c97b7f64b6744563b000811cefa64e9ce56976f52c8ba60288ed9e15d9c`.
 Excluded uncertain documents: False.
+Scored inputs: 25 documents.
 
 | Metric | Rules baseline | Local LLM |
 |---|---:|---:|
@@ -22,4 +23,4 @@ This is a small curated corpus, not a representative accuracy estimate. Syntheti
 ### Rules baseline
 
 Status: complete. Counts: `{"amounts_scored": 2, "edge_fn": 15, "edge_fp": 11, "edge_tp": 2, "numeric_amounts_scored": 2, "predictions": 13}`.
-Run: `62b4d96cdb6a4ec988cf14b8cd9fe6e5`. Provider: `ollama`.
+Run: `af0f9c4760ad456ea86b34179efb7321`. Provider: `rules`.

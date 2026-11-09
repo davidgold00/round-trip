@@ -1,7 +1,7 @@
 # Source-backed benchmark corpus
 
 The manifest records provenance, SHA-256, expected edges, uncertainty and optional
-reviewed-ledger ids. There are 17 positive and 8 negative saved passages, with four
+reviewed-ledger ids. There are 17 positive and 8 negative saved passages, with five
 uncertain document labels. The source URL is attribution, not extra model input.
 Labels apply only to the saved text. Blank lines separate non-adjacent spans;
 editorial attribution in the Amazon supplements is explicitly marked.
@@ -29,6 +29,8 @@ Generic cloud-services and compute-capacity types are distinct in edge scoring.
 The Amazon 2023 and 2024 instrument corrections include separately attributed SEC
 supplements in the input itself. `label_review` records the adjudication evidence.
 Microsoft 2023, Nvidia/OpenAI 2025 and the two Oracle arrangements remain uncertain.
+The short Nscale/Nvidia warrant span also leaves the financial-support direction
+uncertain: warrant issuance and financing direction are different conventions.
 Run both inclusive and `--exclude-uncertain` comparisons before relying on scores.
 
 ```bash

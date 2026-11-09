@@ -157,9 +157,10 @@ def evaluate(
         "run_id": pipeline.trace.run_id,
         "model": pipeline.provider.model,
         "manifest_sha256": digest(manifest_path.read_bytes()),
+        "prompt_version": pipeline.agent.get("prompt_version", "v1") if extractor == "llm" else None,
         "prompt_hashes": {
             p.name: digest(p.read_bytes())
-            for p in (Path(__file__).parent / "prompts" / "v1").glob("*.txt")
+            for p in ((Path(__file__).parent / "prompts" / pipeline.agent.get("prompt_version", "v1")).glob("*.txt") if extractor == "llm" else [])
         },
         "settings": {
             k: pipeline.agent[k]
@@ -172,6 +173,9 @@ def evaluate(
                 "confidence_warning_threshold",
             )
         },
+        "scored_documents": len(records),
+        "scored_positives": sum(row["gold_relevant"] for row in records),
+        "scored_negatives": sum(not row["gold_relevant"] for row in records),
         "documents": len(manifest["documents"]),
         "positives": sum(d["relevant"] for d in manifest["documents"]),
         "negatives": sum(not d["relevant"] for d in manifest["documents"]),
@@ -191,6 +195,8 @@ def evaluate(
         "",
         f"Gold corpus: {report['positives']} positive and {report['negatives']} negative documents; "
         f"{report['uncertain']} uncertain labels. {len(label_failures)} structural label failures.",
+        "",
+        f"Scored inputs after uncertainty policy: {len(records)} documents. Validate-only does not run an extractor.",
         "",
         "The corpus contains short, attributed excerpts, not full filings. It is a small smoke benchmark; "
         "scores do not establish full-document or out-of-time accuracy. Uncertain labels remain identified in manifest.json.",

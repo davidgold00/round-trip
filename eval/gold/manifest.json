@@ -1,7 +1,7 @@
 {
   "version": 1,
   "curated_on": "2026-11-09",
-  "scope": "25 source-backed saved passages, including 3 harder negatives and 3 cases from 2 deals announced after June 2026. Four uncertain labels. Some sources overlap; not independent observations. Full-length source passages remain to be added.",
+  "scope": "25 source-backed saved passages, including 3 harder negatives and 3 cases from 2 deals announced after June 2026. Five uncertain labels. Some sources overlap; not independent observations. Full-length source passages remain to be added.",
   "documents": [
     {
       "id": "microsoft_openai_2019",
@@ -687,7 +687,7 @@
       "text_file": "texts/nscale_nvidia_warrants.txt",
       "sha256": "020c6e9f798a3e897770890de773c6f4548ba5d6ba2b9a7b3b7e49ad4429d95d",
       "relevant": true,
-      "label_uncertain": false,
+      "label_uncertain": true,
       "source_verified_on": "2026-11-09",
       "source_scope": "Short exact reviewed-ledger span, rechecked against the linked primary source. Publisher context is metadata.",
       "ledger_edge_id": "nvidia__nscale__warrants__20260918",
@@ -708,7 +708,20 @@
           "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
         }
       ],
-      "label_notes": "Disclosed contract ceiling or instrument valuation, not cash paid. Warrants issued in October 2025; this is a September 2026 disclosure and is NOT an out-of-time deal. Value is underlying shares at Series B price, not funding cash. Nscale source overlaps across cases; these are not statistically independent observations."
+      "label_notes": "The exact warrant-receipt span establishes issuer/holder and underlying share value, but not the financing direction. The reviewed ledger uses Nvidia -> Nscale for financial support associated with guarantees; the short saved span alone could instead be read as warrant issuance Nscale -> Nvidia. Keep the ledger-derived direction for audit comparison, flag it uncertain, and exclude it for a strict observable-input benchmark. $60M is underlying share value, not cash paid. Instrument issued in October 2025 and disclosed in September 2026, not an out-of-time deal.",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "unresolved",
+        "reason": "Offline prompt review exposed a mismatch between warrant-transfer direction and the reviewed financial-support convention that is not identifiable from this short span.",
+        "changed_fields": {
+          "label_uncertain": [
+            false,
+            true
+          ]
+        },
+        "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+        "accession_no": "0001193125-26-395475"
+      }
     },
     {
       "id": "negative_ftc_merger_list",

@@ -146,6 +146,7 @@ def parser():
     for command in (run, evaluate):
         command.add_argument("--provider", choices=["ollama", "record", "replay"], default="ollama")
         command.add_argument("--cassette", type=Path)
+        command.add_argument("--prompt-version", choices=["v1", "v2"])
     evaluate.add_argument("--gold", type=Path, default=None)
     evaluate.add_argument("--output", type=Path, default=None)
     evaluate.add_argument(
@@ -158,6 +159,7 @@ def parser():
     evaluate.add_argument("--exclude-uncertain", action="store_true")
     bench = sub.add_parser("bench", help="Preflight, record local models and compare against rules")
     bench.add_argument("--models", nargs="+")
+    bench.add_argument("--prompt-versions", nargs="+", choices=["v1", "v2"])
     bench.add_argument("--exclude-uncertain", action="store_true")
     bench.add_argument("--output", type=Path)
     imp = sub.add_parser(
@@ -211,13 +213,15 @@ def parser():
 def main(argv=None):
     args = parser().parse_args(argv)
     cfg = load(args.config)
+    if getattr(args, "prompt_version", None):
+        cfg["deal_agent"]["prompt_version"] = args.prompt_version
     if args.command == "export-pending":
         from .pending import export
         print(encode(export(cfg)))
         return 0
     if args.command == "bench":
         from .benchmark import benchmark
-        return benchmark(cfg, models=args.models, exclude_uncertain=args.exclude_uncertain, output=args.output)
+        return benchmark(cfg, models=args.models, prompt_versions=args.prompt_versions, exclude_uncertain=args.exclude_uncertain, output=args.output)
     if args.command == "eval":
         # Eval cannot enqueue to production state, even accidentally.
         from .evaluate import evaluate

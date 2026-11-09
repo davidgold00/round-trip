@@ -15,6 +15,9 @@ def load(path: Path | None = None) -> dict:
     cfg = yaml.safe_load(path.read_text())
     cfg["_root"] = path.parent
     agent = cfg["deal_agent"]
+    agent.setdefault("prompt_version", "v1")
+    if agent["prompt_version"] not in {"v1", "v2"}:
+        raise ValueError("prompt_version must be v1 or v2")
     if not 0 < float(cfg["sec"]["max_requests_per_second"]) <= 10:
         raise ValueError("SEC max_requests_per_second must be in (0, 10]")
     if float(agent["polite_delay_seconds"]) < 0.1:

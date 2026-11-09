@@ -18,7 +18,7 @@ from .reconcile import read_csv, reconcile
 from .trace import digest
 from .verify import verify
 
-PROMPTS = Path(__file__).parent / "prompts" / "v1"
+PROMPTS = Path(__file__).parent / "prompts"
 
 
 def chunks(text: str, size: int, overlap: int):
@@ -43,6 +43,10 @@ class Pipeline:
     def __init__(self, cfg, store, trace, provider):
         self.cfg, self.store, self.trace, self.provider = cfg, store, trace, provider
         self.agent = cfg["deal_agent"]
+        self.prompt_version = self.agent.get("prompt_version", "v1")
+        if self.prompt_version not in {"v1", "v2"}:
+            raise ValueError("prompt_version must be v1 or v2")
+        self.prompt_dir = PROMPTS / self.prompt_version
         self.resolver = Resolver.from_csv(
             path_for(cfg, "nodes_file"), self.agent["aliases"]
         )
@@ -66,7 +70,7 @@ class Pipeline:
             )
 
     def prompt(self, name, schema, text, meta, **values):
-        template = (PROMPTS / f"{name}.txt").read_text()
+        template = (self.prompt_dir / f"{name}.txt").read_text()
         result = Template(template).substitute(
             schema=json.dumps(schema.model_json_schema()),
             text=text,
@@ -75,7 +79,7 @@ class Pipeline:
             **values,
         )
         self.trace.event(
-            "prompt", {"version": "v1", "name": name}, {"sha256": digest(template)}
+            "prompt", {"version": self.prompt_version, "name": name}, {"sha256": digest(template)}
         )
         return result
 
