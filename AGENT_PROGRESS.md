@@ -67,3 +67,26 @@
   and committed updated measured reports. Full pytest and validate-only pass.
 - Manual: check all three adjudications and the four remaining ambiguities.
   Legal status, range bounds and payment timing are not settled by extraction.
+
+## 5. Harder cases: partial
+
+- Added 8 source-backed documents: 5 positives checked against reviewed ledger
+  quotes, 3 hard negatives with dollars and two tracked entities. Every saved
+  text has URL, SHA-256, date and scope. Re-read AMD release and Nscale S-1.
+- New positives: AMD/Anthropic equity and chip deployment; Nscale/Anthropic
+  capacity; Nscale/Microsoft capacity; Nvidia/Nscale warrants. Three cases cover
+  two distinct deals announced after June 2026. The warrants are a later
+  disclosure of a 2025 instrument and explicitly NOT an out-of-time deal.
+- Negatives: FTC parallel merger list, parallel merger challenges, and separate
+  Amazon/Microsoft privacy penalties. Non-adjacent spans are explicitly marked.
+- Outstanding: 3 intact multi-paragraph primary-source passages. This environment
+  provides parsed source views but no permitted bulk source download route for
+  preserving/verifying complete original passages. Kept short verified spans;
+  did not synthesize paragraphs or present stitched snippets as full documents.
+  Corpus documentation makes this coverage gap explicit. Local model accuracy
+  and full-document accuracy both remain unmeasured.
+- Reran rules and committed real updated baseline; full pytest and validate-only
+  pass. No reviewed ledger or promotions changed.
+- Manual: add the 3 full source passages before claiming full-document coverage.
+  P5 CI is gated on all preceding items, so item 13 will remain skipped if this
+  gap cannot be completed in this session.

@@ -4,10 +4,10 @@
   "cassette_sha256": null,
   "extractor": "rules",
   "status": "complete",
-  "generated": "2026-11-09T07:06:00.730460+00:00",
-  "run_id": "005e28cbbdc941158a3d911ec72c535f",
+  "generated": "2026-11-09T07:12:03.493817+00:00",
+  "run_id": "d07f1563364d47909fb79081c3ac5c93",
   "model": "original-rules",
-  "manifest_sha256": "951a49eab345833bdb6d149058b02507304811f7ba8dc71f0b991ba8739e42da",
+  "manifest_sha256": "edc03cd882b6d360efa860fbc034f87ce9574697215aaf67e99d633b0bfd3ee2",
   "prompt_hashes": {
     "triage.txt": "474341b44a23ae31058714f9dc4e488115f1a9841f28f91131c4b74582e3e428",
     "extract.txt": "e7de3ceb1ad467deb6935ac7e081f384f161c49b0fd1df71c407de7bddf361e1",
@@ -50,26 +50,26 @@
     "min_entities": 2,
     "confidence_warning_threshold": 0.7
   },
-  "documents": 17,
-  "positives": 12,
-  "negatives": 5,
+  "documents": 25,
+  "positives": 17,
+  "negatives": 8,
   "uncertain": 4,
   "exclude_uncertain": false,
   "metrics": {
     "triage_precision": 1.0,
-    "triage_recall": 0.4166666666666667,
-    "edge_precision": 0.09090909090909091,
-    "edge_recall": 0.08333333333333333,
+    "triage_recall": 0.4117647058823529,
+    "edge_precision": 0.15384615384615385,
+    "edge_recall": 0.11764705882352941,
     "amount_accuracy": 1.0,
     "numeric_amount_accuracy": 1.0,
-    "verification_pass_rate": 0.45454545454545453,
+    "verification_pass_rate": 0.5384615384615384,
     "counts": {
-      "edge_tp": 1,
-      "edge_fp": 10,
-      "edge_fn": 11,
-      "amounts_scored": 1,
-      "numeric_amounts_scored": 1,
-      "predictions": 11
+      "edge_tp": 2,
+      "edge_fp": 11,
+      "edge_fn": 15,
+      "amounts_scored": 2,
+      "numeric_amounts_scored": 2,
+      "predictions": 13
     }
   },
   "label_failures": [],
@@ -721,6 +721,205 @@
     },
     {
       "id": "negative_regulation",
+      "label_uncertain": false,
+      "gold_relevant": false,
+      "triaged_in": false,
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "amd_anthropic_equity_2026",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": true,
+      "expected": [
+        {
+          "source_entity": "AMD",
+          "target_entity": "Anthropic",
+          "deal_type": "equity_investment",
+          "consideration_type": "unknown",
+          "amount_usd": 5000000000.0,
+          "amount_text": "$5 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-07-22",
+          "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+          "evidence_quote": "AMD has committed to make a strategic equity investment of up to $5 billion in Anthropic",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "predicted": [
+        {
+          "deal": {
+            "source_entity": "AMD",
+            "target_entity": "Anthropic",
+            "deal_type": "equity_investment",
+            "consideration_type": "unknown",
+            "amount_usd": 5000000000.0,
+            "amount_text": "$5 billion",
+            "term_or_duration": null,
+            "announced_date": "2026-07-22",
+            "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+            "evidence_quote": "AMD has committed to make a strategic equity investment of up to $5 billion in Anthropic ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": true,
+            "errors": [],
+            "source_node": "AMD",
+            "target_node": "Anthropic",
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "amd_anthropic_chips_2026",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": false,
+      "expected": [
+        {
+          "source_entity": "Anthropic",
+          "target_entity": "AMD",
+          "deal_type": "chip_purchase",
+          "consideration_type": "unknown",
+          "amount_usd": null,
+          "amount_text": "",
+          "term_or_duration": null,
+          "announced_date": "2026-07-22",
+          "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+          "evidence_quote": "Anthropic to deploy up to 2 gigawatts of MI450 Series GPUs in AMD Helios rack-scale solutions",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "nscale_anthropic_2026",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": false,
+      "expected": [
+        {
+          "source_entity": "Anthropic",
+          "target_entity": "Nscale",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 44600000000.0,
+          "amount_text": "$44.6 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-09-18",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+          "evidence_quote": "The Anthropic Services Agreements provide for aggregate payments to us of up to approximately $44.6 billion",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "nscale_microsoft_2026",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": false,
+      "expected": [
+        {
+          "source_entity": "Microsoft",
+          "target_entity": "Nscale",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 43800000000.0,
+          "amount_text": "$43.8 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-09-18",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+          "evidence_quote": "statements of work with Microsoft that provide for payments to us of up to approximately $43.8 billion through December 2033",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "nscale_nvidia_warrants",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": true,
+      "expected": [
+        {
+          "source_entity": "Nvidia",
+          "target_entity": "Nscale",
+          "deal_type": "warrants_or_options",
+          "consideration_type": "unknown",
+          "amount_usd": 60000000.0,
+          "amount_text": "$60,000,000",
+          "term_or_duration": null,
+          "announced_date": "2026-09-18",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+          "evidence_quote": "NVIDIA received warrants to acquire up to 9,476,700 of our Series B preferred shares with an aggregate value of $60,000,000",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "predicted": [
+        {
+          "deal": {
+            "source_entity": "Nscale",
+            "target_entity": "Nvidia",
+            "deal_type": "warrants_or_options",
+            "consideration_type": "unknown",
+            "amount_usd": 60000000.0,
+            "amount_text": "$60,000,000\n",
+            "term_or_duration": null,
+            "announced_date": "2026-09-18",
+            "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+            "evidence_quote": "NVIDIA received warrants to acquire up to 9,476,700 of our Series B preferred shares with an aggregate value of $60,000,000 ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": true,
+            "errors": [],
+            "source_node": "Nscale",
+            "target_node": "Nvidia",
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "negative_ftc_merger_list",
+      "label_uncertain": false,
+      "gold_relevant": false,
+      "triaged_in": false,
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "negative_ftc_merger_challenges",
+      "label_uncertain": false,
+      "gold_relevant": false,
+      "triaged_in": false,
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "negative_ftc_privacy_penalties",
       "label_uncertain": false,
       "gold_relevant": false,
       "triaged_in": false,

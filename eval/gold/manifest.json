@@ -1,7 +1,7 @@
 {
   "version": 1,
   "curated_on": "2026-11-09",
-  "scope": "Attributed source excerpts and instrument supplements; four unresolved document labels. Announced date means first public disclosure date in the cited source, not agreement execution date.",
+  "scope": "25 source-backed saved passages, including 3 harder negatives and 3 cases from 2 deals announced after June 2026. Four uncertain labels. Some sources overlap; not independent observations. Full-length source passages remain to be added.",
   "documents": [
     {
       "id": "microsoft_openai_2019",
@@ -542,6 +542,219 @@
       "label_notes": "Regulatory options and author affiliations, no financial options contract. Three non-adjacent source spans.",
       "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
       "source_verified_on": "2026-11-09"
+    },
+    {
+      "id": "amd_anthropic_equity_2026",
+      "company": "AMD",
+      "published_date": "2026-07-22",
+      "doc_type": "company_release",
+      "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+      "accession_no": "",
+      "text_file": "texts/amd_anthropic_equity_2026.txt",
+      "sha256": "06aee2e38c86d033e70ebe7aa057a1d126b427e95fa7deead5ee55b1129e2364",
+      "relevant": true,
+      "label_uncertain": false,
+      "source_verified_on": "2026-11-09",
+      "source_scope": "Short exact reviewed-ledger span, rechecked against the linked primary source. Publisher context is metadata.",
+      "ledger_edge_id": "amd__anthropic__equity_investment__20260722",
+      "deal_announced_after_2026_06": true,
+      "expected_edges": [
+        {
+          "source_entity": "AMD",
+          "target_entity": "Anthropic",
+          "deal_type": "equity_investment",
+          "consideration_type": "unknown",
+          "amount_usd": 5000000000.0,
+          "amount_text": "$5 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-07-22",
+          "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+          "evidence_quote": "AMD has committed to make a strategic equity investment of up to $5 billion in Anthropic",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "label_notes": "Future strategic commitment, not cash paid. The chip deployment has no disclosed USD value. Two distinct directions from the same release; correlated observations."
+    },
+    {
+      "id": "amd_anthropic_chips_2026",
+      "company": "AMD",
+      "published_date": "2026-07-22",
+      "doc_type": "company_release",
+      "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+      "accession_no": "",
+      "text_file": "texts/amd_anthropic_chips_2026.txt",
+      "sha256": "186728b622d124556c67281a2afe54142674a30164a893bfeea314c2395faebb",
+      "relevant": true,
+      "label_uncertain": false,
+      "source_verified_on": "2026-11-09",
+      "source_scope": "Short exact reviewed-ledger span, rechecked against the linked primary source. Publisher context is metadata.",
+      "ledger_edge_id": "anthropic__amd__purchase_commitment__20260722",
+      "deal_announced_after_2026_06": true,
+      "expected_edges": [
+        {
+          "source_entity": "Anthropic",
+          "target_entity": "AMD",
+          "deal_type": "chip_purchase",
+          "consideration_type": "unknown",
+          "amount_usd": null,
+          "amount_text": "",
+          "term_or_duration": null,
+          "announced_date": "2026-07-22",
+          "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+          "evidence_quote": "Anthropic to deploy up to 2 gigawatts of MI450 Series GPUs in AMD Helios rack-scale solutions",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "label_notes": "Future strategic commitment, not cash paid. The chip deployment has no disclosed USD value. Two distinct directions from the same release; correlated observations."
+    },
+    {
+      "id": "nscale_anthropic_2026",
+      "company": "Nscale",
+      "published_date": "2026-09-18",
+      "doc_type": "S-1",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+      "accession_no": "0001193125-26-395475",
+      "text_file": "texts/nscale_anthropic_2026.txt",
+      "sha256": "f807aa72c6e457441c50106c2811355b05ec5554b8134c85770814333e172c40",
+      "relevant": true,
+      "label_uncertain": false,
+      "source_verified_on": "2026-11-09",
+      "source_scope": "Short exact reviewed-ledger span, rechecked against the linked primary source. Publisher context is metadata.",
+      "ledger_edge_id": "anthropic__nscale__cloud_capacity_contract__20260825",
+      "deal_announced_after_2026_06": true,
+      "expected_edges": [
+        {
+          "source_entity": "Anthropic",
+          "target_entity": "Nscale",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 44600000000.0,
+          "amount_text": "$44.6 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-09-18",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+          "evidence_quote": "The Anthropic Services Agreements provide for aggregate payments to us of up to approximately $44.6 billion",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "label_notes": "Disclosed contract ceiling or instrument valuation, not cash paid. New agreement executed 2026-08-25; cited S-1 published 2026-09-18. Nscale source overlaps across cases; these are not statistically independent observations."
+    },
+    {
+      "id": "nscale_microsoft_2026",
+      "company": "Nscale",
+      "published_date": "2026-09-18",
+      "doc_type": "S-1",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+      "accession_no": "0001193125-26-395475",
+      "text_file": "texts/nscale_microsoft_2026.txt",
+      "sha256": "8495e1c6954a137e9052da64d99220cf635ee5d13c5e8328afb8d4e87c1c9708",
+      "relevant": true,
+      "label_uncertain": false,
+      "source_verified_on": "2026-11-09",
+      "source_scope": "Short exact reviewed-ledger span, rechecked against the linked primary source. Publisher context is metadata.",
+      "ledger_edge_id": "microsoft__nscale__cloud_capacity_contract__20260918",
+      "deal_announced_after_2026_06": false,
+      "expected_edges": [
+        {
+          "source_entity": "Microsoft",
+          "target_entity": "Nscale",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 43800000000.0,
+          "amount_text": "$43.8 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-09-18",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+          "evidence_quote": "statements of work with Microsoft that provide for payments to us of up to approximately $43.8 billion through December 2033",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "label_notes": "Disclosed contract ceiling or instrument valuation, not cash paid. Nscale source overlaps across cases; these are not statistically independent observations."
+    },
+    {
+      "id": "nscale_nvidia_warrants",
+      "company": "Nscale",
+      "published_date": "2026-09-18",
+      "doc_type": "S-1",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+      "accession_no": "0001193125-26-395475",
+      "text_file": "texts/nscale_nvidia_warrants.txt",
+      "sha256": "020c6e9f798a3e897770890de773c6f4548ba5d6ba2b9a7b3b7e49ad4429d95d",
+      "relevant": true,
+      "label_uncertain": false,
+      "source_verified_on": "2026-11-09",
+      "source_scope": "Short exact reviewed-ledger span, rechecked against the linked primary source. Publisher context is metadata.",
+      "ledger_edge_id": "nvidia__nscale__warrants__20260918",
+      "deal_announced_after_2026_06": false,
+      "expected_edges": [
+        {
+          "source_entity": "Nvidia",
+          "target_entity": "Nscale",
+          "deal_type": "warrants_or_options",
+          "consideration_type": "unknown",
+          "amount_usd": 60000000.0,
+          "amount_text": "$60,000,000",
+          "term_or_duration": null,
+          "announced_date": "2026-09-18",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+          "evidence_quote": "NVIDIA received warrants to acquire up to 9,476,700 of our Series B preferred shares with an aggregate value of $60,000,000",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "label_notes": "Disclosed contract ceiling or instrument valuation, not cash paid. Warrants issued in October 2025; this is a September 2026 disclosure and is NOT an out-of-time deal. Value is underlying shares at Series B price, not funding cash. Nscale source overlaps across cases; these are not statistically independent observations."
+    },
+    {
+      "id": "negative_ftc_merger_list",
+      "company": "Nvidia",
+      "published_date": "2025-01-16",
+      "doc_type": "government_report",
+      "source_url": "https://www.ftc.gov/system/files/ftc_gov/pdf/ftc-accomplishments-june-2021-january-2025.pdf",
+      "text_file": "texts/negative_ftc_merger_list.txt",
+      "sha256": "7495c4162ab8a2395ff8e2ebfdb86359b08a7af2c0f81c235e22177389b235f0",
+      "relevant": false,
+      "expected_edges": [],
+      "label_uncertain": false,
+      "label_notes": "Two non-adjacent verbatim list entries on report page 12. Separate blank lines preserve their separation. Neither acquisition has a tracked counterparty; no Nvidia/Microsoft deal is stated.",
+      "source_scope": "Short verbatim excerpt(s), with explicitly separated non-adjacent spans where noted. Not a full document.",
+      "source_verified_on": "2026-11-09",
+      "hard_negative": true
+    },
+    {
+      "id": "negative_ftc_merger_challenges",
+      "company": "Microsoft",
+      "published_date": "2023-04-18",
+      "doc_type": "government_report",
+      "source_url": "https://search.ftc.gov/system/files/ftc_gov/pdf/p210100testimonyfy2024budget.pdf",
+      "text_file": "texts/negative_ftc_merger_challenges.txt",
+      "sha256": "7703a5aebc047b54972ef72880aaff92aa8c041fcbdc41435654f8d1865a2cd1",
+      "relevant": false,
+      "expected_edges": [],
+      "label_uncertain": false,
+      "label_notes": "Complete sentence in footnote 119, page 31 of prepared testimony. Parallel litigation against deals involving untracked targets does not establish a Microsoft/Nvidia financing relationship.",
+      "source_scope": "Short verbatim excerpt(s), with explicitly separated non-adjacent spans where noted. Not a full document.",
+      "source_verified_on": "2026-11-09",
+      "hard_negative": true
+    },
+    {
+      "id": "negative_ftc_privacy_penalties",
+      "company": "Microsoft",
+      "published_date": "2024-05-15",
+      "doc_type": "government_report",
+      "source_url": "https://www.ftc.gov/system/files/ftc_gov/pdf/FTC_Annual_Report_FY2023_5.15.24.pdf",
+      "text_file": "texts/negative_ftc_privacy_penalties.txt",
+      "sha256": "3a0853589797793d9d150f48eb453fd873d4901bac04401650207eb42985d301",
+      "relevant": false,
+      "expected_edges": [],
+      "label_uncertain": false,
+      "label_notes": "Two non-adjacent exact clauses on report pages 16-17. Separate enforcement penalties, no payment or investment between Amazon and Microsoft. Clauses are intentionally short and not complete sentences.",
+      "source_scope": "Short verbatim excerpt(s), with explicitly separated non-adjacent spans where noted. Not a full document.",
+      "source_verified_on": "2026-11-09",
+      "hard_negative": true
     }
   ]
 }
