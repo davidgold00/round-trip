@@ -1,3 +1,6 @@
 Publisher context (metadata): Anthropic
 
 Today, we’re announcing that Amazon will invest up to $4 billion in Anthropic.
+
+Supplemental primary-source excerpt, Amazon 10-Q (0001018724-23-000018); first person refers to Amazon:
+In Q3 2023, we invested $1.25 billion in a note from Anthropic, PBC, which is convertible into equity.

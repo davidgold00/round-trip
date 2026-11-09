@@ -1,7 +1,7 @@
 {
   "version": 1,
   "curated_on": "2026-11-09",
-  "scope": "Attribution-labeled excerpts; not full source documents. Human-check uncertain instrument and payer labels.",
+  "scope": "Attributed source excerpts and instrument supplements; four unresolved document labels. Announced date means first public disclosure date in the cited source, not agreement execution date.",
   "documents": [
     {
       "id": "microsoft_openai_2019",
@@ -59,9 +59,17 @@
         }
       ],
       "label_uncertain": true,
-      "label_notes": "No precise USD amount is stated. Instrument/consideration not detailed; equity label is provisional. Excerpt ends mid-sentence.",
+      "label_notes": "The release states investment but gives neither a precise USD amount nor the legal instrument. Later equity-method accounting does not establish this tranche as equity at announcement. Keep instrument provisional; source reread, not resolved.",
       "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
-      "source_verified_on": "2026-11-09"
+      "source_verified_on": "2026-11-09",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "unresolved",
+        "source_url": "https://openai.com/index/openai-and-microsoft-extend-partnership/",
+        "accession_no": "",
+        "exact_evidence": "This multi-year, multi-billion dollar investment from Microsoft follows their previous investments in 2019 and 2021",
+        "reason": "The release states investment but gives neither a precise USD amount nor the legal instrument. Later equity-method accounting does not establish this tranche as equity at announcement. Keep instrument provisional; source reread, not resolved."
+      }
     },
     {
       "id": "nvidia_openai_2025",
@@ -89,9 +97,17 @@
         }
       ],
       "label_uncertain": true,
-      "label_notes": "Nonbinding staged investment maximum; not $100B paid. Equity instrument is inferred from the announcement context, not this sentence. Human must retain LOI status and [0,100B] range.",
+      "label_notes": "The complete release expressly says letter of intent and staged deployment. It does not specify equity, security class or cash consideration. Keep equity provisional, amount a disclosed ceiling, and human legal-status/range review mandatory.",
       "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
-      "source_verified_on": "2026-11-09"
+      "source_verified_on": "2026-11-09",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "unresolved",
+        "source_url": "https://nvidianews.nvidia.com/news/openai-and-nvidia-announce-strategic-partnership-to-deploy-10gw-of-nvidia-systems",
+        "accession_no": "",
+        "exact_evidence": "NVIDIA intends to invest up to $100 billion in OpenAI progressively as each gigawatt is deployed.",
+        "reason": "The complete release expressly says letter of intent and staged deployment. It does not specify equity, security class or cash consideration. Keep equity provisional, amount a disclosed ceiling, and human legal-status/range review mandatory."
+      }
     },
     {
       "id": "amazon_anthropic_2023",
@@ -100,13 +116,13 @@
       "doc_type": "company_release",
       "source_url": "https://www.anthropic.com/news/anthropic-amazon",
       "text_file": "texts/amazon_anthropic_2023.txt",
-      "sha256": "362ca80aa6f75b8f9256903daafb563f440364ad8396c703408f4bb01c85b2f7",
+      "sha256": "0b2872119363801cf65a8994ea4ffc6f3caab149ebcd8c8c8877aba795dd4fbc",
       "relevant": true,
       "expected_edges": [
         {
           "source_entity": "Amazon",
           "target_entity": "Anthropic",
-          "deal_type": "equity_investment",
+          "deal_type": "debt_or_loan",
           "consideration_type": "unknown",
           "amount_usd": 4000000000.0,
           "amount_text": "$4 billion",
@@ -118,10 +134,38 @@
           "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
         }
       ],
-      "label_uncertain": true,
-      "label_notes": "Minority ownership in broader release; convertible-note mechanics are not specified in this excerpt. Equity vs debt label needs analyst confirmation; this is a cap, not initial cash.",
-      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
-      "source_verified_on": "2026-11-09"
+      "label_uncertain": false,
+      "label_notes": "Corrected equity_investment to debt_or_loan using Amazon SEC disclosure of convertible notes. The original release supplies the $4B announcement cap/new commitment, not fully paid cash or cumulative $8B. Supplemental instrument evidence is included in the model input. Do not add a separate edge for each repeated disclosure of this same commitment.",
+      "source_scope": "Original release excerpt plus a separately attributed SEC instrument excerpt; not a single continuous source passage.",
+      "source_verified_on": "2026-11-09",
+      "supporting_sources": [
+        {
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872423000018/amzn-20230930.htm",
+          "accession_no": "0001018724-23-000018",
+          "company": "Amazon",
+          "doc_type": "10-Q",
+          "exact_evidence": "In Q3 2023, we invested $1.25 billion in a note from Anthropic, PBC, which is convertible into equity.",
+          "evidence_scope": "complete sentence"
+        }
+      ],
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "resolved",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872423000018/amzn-20230930.htm",
+        "accession_no": "0001018724-23-000018",
+        "exact_evidence": "In Q3 2023, we invested $1.25 billion in a note from Anthropic, PBC, which is convertible into equity.",
+        "evidence_scope": "complete sentence",
+        "changed_fields": {
+          "deal_type": [
+            "equity_investment",
+            "debt_or_loan"
+          ],
+          "label_uncertain": [
+            true,
+            false
+          ]
+        }
+      }
     },
     {
       "id": "amazon_anthropic_2024",
@@ -130,13 +174,13 @@
       "doc_type": "company_release",
       "source_url": "https://www.anthropic.com/news/anthropic-amazon-trainium",
       "text_file": "texts/amazon_anthropic_2024.txt",
-      "sha256": "713786b5969e989b87bb93c8b03e236185a92b1e775366b6d3b59ead5b1a4feb",
+      "sha256": "f5211f1d496aa0621c6c54218d4daed2d3ae2f8f23b8f3ed00a28d21878306bf",
       "relevant": true,
       "expected_edges": [
         {
           "source_entity": "Amazon",
           "target_entity": "Anthropic",
-          "deal_type": "equity_investment",
+          "deal_type": "debt_or_loan",
           "consideration_type": "unknown",
           "amount_usd": 4000000000.0,
           "amount_text": "$4 billion",
@@ -148,10 +192,38 @@
           "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
         }
       ],
-      "label_uncertain": true,
-      "label_notes": "The new tranche is $4B, not the cumulative $8B. Instrument provisional; \"our\" is attributed to publisher Anthropic by explicit metadata. Does not label a separate cloud edge from mere provider designation.",
-      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
-      "source_verified_on": "2026-11-09"
+      "label_uncertain": false,
+      "label_notes": "Corrected equity_investment to debt_or_loan using Amazon SEC disclosure of convertible notes. The original release supplies the $4B announcement cap/new commitment, not fully paid cash or cumulative $8B. Supplemental instrument evidence is included in the model input. Do not add a separate edge for each repeated disclosure of this same commitment.",
+      "source_scope": "Original release excerpt plus a separately attributed SEC instrument excerpt; not a single continuous source passage.",
+      "source_verified_on": "2026-11-09",
+      "supporting_sources": [
+        {
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872425000004/amzn-20241231.htm",
+          "accession_no": "0001018724-25-000004",
+          "company": "Amazon",
+          "doc_type": "10-K",
+          "exact_evidence": "In Q4 2024, we entered into an agreement and invested $1.3 billion in a third convertible note",
+          "evidence_scope": "exact opening clause; sentence continues with the additional $2.7 billion commitment"
+        }
+      ],
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "resolved",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872425000004/amzn-20241231.htm",
+        "accession_no": "0001018724-25-000004",
+        "exact_evidence": "In Q4 2024, we entered into an agreement and invested $1.3 billion in a third convertible note",
+        "evidence_scope": "exact opening clause; sentence continues with the additional $2.7 billion commitment",
+        "changed_fields": {
+          "deal_type": [
+            "equity_investment",
+            "debt_or_loan"
+          ],
+          "label_uncertain": [
+            true,
+            false
+          ]
+        }
+      }
     },
     {
       "id": "coreweave_openai_2025",
@@ -239,9 +311,17 @@
         }
       ],
       "label_uncertain": true,
-      "label_notes": "Payer is ambiguous in a three-party arrangement. Could be Microsoft -> Oracle. Quoted speaker is OpenAI CEO in original release. This case needs manual contract review.",
+      "label_notes": "Three-party platform extension, not an explicit OpenAI payment obligation to Oracle. Neither quoted speaker nor capacity recipient establishes the purchaser. OpenAI -> Oracle remains provisional; Microsoft -> Oracle is possible. Do not infer a dollar value.",
       "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
-      "source_verified_on": "2026-11-09"
+      "source_verified_on": "2026-11-09",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "unresolved",
+        "source_url": "https://www.oracle.com/news/announcement/openai-selects-oracle-cloud-infrastructure-to-extend-microsoft-azure-ai-platform-2024-06-11/",
+        "accession_no": "",
+        "exact_evidence": "We are delighted to be working with Microsoft and Oracle.",
+        "reason": "Three-party platform extension, not an explicit OpenAI payment obligation to Oracle. Neither quoted speaker nor capacity recipient establishes the purchaser. OpenAI -> Oracle remains provisional; Microsoft -> Oracle is possible. Do not infer a dollar value."
+      }
     },
     {
       "id": "oracle_openai_2025",
@@ -269,9 +349,17 @@
         }
       ],
       "label_uncertain": true,
-      "label_notes": "Treats capacity recipient as payer; precise contract/payment direction is not explicit. Do not attach the separate $500B Stargate-wide aspiration to this edge.",
+      "label_notes": "Agreement establishes development of capacity, but the release does not identify the legal payer or separate a compute purchase from development obligations. OpenAI -> Oracle compute commitment remains provisional. The $500B program figure is not this bilateral deal amount.",
       "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
-      "source_verified_on": "2026-11-09"
+      "source_verified_on": "2026-11-09",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "unresolved",
+        "source_url": "https://openai.com/index/stargate-advances-with-partnership-with-oracle/",
+        "accession_no": "",
+        "exact_evidence": "Oracle and OpenAI have entered an agreement to develop 4.5 gigawatts of additional Stargate data center capacity in the U.S.",
+        "reason": "Agreement establishes development of capacity, but the release does not identify the legal payer or separate a compute purchase from development obligations. OpenAI -> Oracle compute commitment remains provisional. The $500B program figure is not this bilateral deal amount."
+      }
     },
     {
       "id": "coreweave_meta_2026",
@@ -328,11 +416,26 @@
           "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
         }
       ],
-      "label_uncertain": true,
-      "label_notes": "Two non-adjacent verbatim spans; expected evidence is the second continuous span. Deal date Sept 9 vs filing/announcement Sept 15 needs analyst review. Residual-capacity purchase vs guarantee taxonomy is debatable. No claim $6.3B is unconditional.",
+      "label_uncertain": false,
+      "label_notes": "Form 8-K reports on September 15 a September 9 agreement. announced_date uses public disclosure date, not execution date. NVIDIA is obligated to purchase residual unsold capacity, so compute_purchase_commitment is the extraction type. The $6.3B initial contract value remains conditional, not unconditional cash paid; legal status and amount bounds require human review.",
       "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
       "source_verified_on": "2026-11-09",
-      "accession_no": "0001769628-25-000047"
+      "accession_no": "0001769628-25-000047",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "resolved",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000047/crwv-20250909.htm",
+        "accession_no": "0001769628-25-000047",
+        "exact_evidence": "NVIDIA is obligated to purchase the residual unsold capacity through April 13, 2032",
+        "evidence_scope": "exact contiguous clause in Item 1.01; purchase obligation remains conditional",
+        "changed_fields": {
+          "label_uncertain": [
+            true,
+            false
+          ]
+        },
+        "date_evidence": "Date of Report (date of earliest event reported): September 15, 2025 (September 9, 2025)"
+      }
     },
     {
       "id": "amd_openai_warrant_2025",

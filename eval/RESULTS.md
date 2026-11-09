@@ -1,13 +1,9 @@
 # Deal extraction evaluation
 
-Status: **complete**. Model: `original-rules`.
-Run: `fea65371058942dda9de4623c3fef2b0`. Generated: 2026-11-09T06:53:34.778317+00:00.
+## Rules baseline versus local LLM
 
-Gold corpus: 12 positive and 5 negative documents; 7 uncertain labels. 0 structural label failures.
-
-The corpus contains short, attributed excerpts, not full filings. It is a small smoke benchmark; scores do not establish full-document or out-of-time accuracy. Uncertain labels remain identified in manifest.json.
-
-## Rules baseline
+Gold manifest SHA-256: `951a49eab345833bdb6d149058b02507304811f7ba8dc71f0b991ba8739e42da`.
+Excluded uncertain documents: False.
 
 | Metric | Rules baseline | Local LLM |
 |---|---:|---:|
@@ -19,6 +15,11 @@ The corpus contains short, attributed excerpts, not full filings. It is a small 
 | numeric_amount_accuracy | 100.0% | Not measured |
 | verification_pass_rate | 45.5% | Not measured |
 
-Edge matching is directed entity pair + deal_type, one-to-one per document. All predictions are scored, including failed verification; failures are never filtered to improve precision. Amount accuracy scores matched pairs, including correct nulls; numeric accuracy excludes null gold amounts. Numeric tolerance: max($1, 0.1%). Final verification rate includes repaired candidates.
+All predictions are scored, including failed verification. Directed pair/type matching is one-to-one per document.
+Amount accuracy is conditional on matched edges; report its sample count alongside the percentage.
+This is a small curated corpus, not a representative accuracy estimate. Synthetic playback never produces model metrics.
 
-Excluded uncertain labels: False. A failed model call makes the run incomplete; metrics are withheld rather than treating an unavailable model as zero recall.
+### Rules baseline
+
+Status: complete. Counts: `{"amounts_scored": 1, "edge_fn": 11, "edge_fp": 10, "edge_tp": 1, "numeric_amounts_scored": 1, "predictions": 11}`.
+Run: `005e28cbbdc941158a3d911ec72c535f`. Provider: `ollama`.
