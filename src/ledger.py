@@ -22,6 +22,13 @@ EDGE_FIELDS = [
     "status", "conditions_text", "evidence_tier", "source_url", "accession_no",
     "quote_snippet", "notes",
 ]
+# Optional extraction metadata; legacy fields and metric meanings are unchanged.
+AGENT_FIELDS = [
+    "deal_type", "consideration_type", "amount_usd", "amount_text", "term_or_duration",
+    "announced_date", "evidence_quote", "confidence", "extraction_rationale",
+    "agent_candidate_id", "document_sha256",
+]
+EXTENDED_EDGE_FIELDS = EDGE_FIELDS + AGENT_FIELDS
 BACKLOG_FIELDS = [
     "node", "as_of_date", "metric", "amount_usd_low", "amount_usd_high",
     "evidence_tier", "source_url", "accession_no", "quote_snippet", "notes",
@@ -38,7 +45,7 @@ BASES = {"notional", "per-year", "cumulative", "RPO"}
 
 
 def empty_edges() -> pd.DataFrame:
-    return pd.DataFrame(columns=EDGE_FIELDS)
+    return pd.DataFrame(columns=EXTENDED_EDGE_FIELDS)
 
 
 def load_edges(path: Path | None = None) -> pd.DataFrame:
@@ -46,12 +53,12 @@ def load_edges(path: Path | None = None) -> pd.DataFrame:
     if not path.exists():
         return empty_edges()
     df = pd.read_csv(path, dtype=str, keep_default_na=False)
-    for c in EDGE_FIELDS:
+    for c in EXTENDED_EDGE_FIELDS:
         if c not in df.columns:
             df[c] = ""
     for c in ("amount_usd_low", "amount_usd_high"):
         df[c] = pd.to_numeric(df[c], errors="coerce").fillna(0.0)
-    return df[EDGE_FIELDS]
+    return df[[*EXTENDED_EDGE_FIELDS, *(c for c in df.columns if c not in EXTENDED_EDGE_FIELDS)]]
 
 
 def load_backlog(path: Path | None = None) -> pd.DataFrame:
@@ -71,10 +78,11 @@ def write_edges(df: pd.DataFrame, path: Path | None = None) -> Path:
     path = path or EDGES
     path.parent.mkdir(parents=True, exist_ok=True)
     out = df.copy()
-    for c in EDGE_FIELDS:
+    for c in EXTENDED_EDGE_FIELDS:
         if c not in out.columns:
             out[c] = ""
-    out = out[EDGE_FIELDS].sort_values(["as_of_date", "source_node", "target_node"])
+    out = out[[*EXTENDED_EDGE_FIELDS, *(c for c in out.columns if c not in EXTENDED_EDGE_FIELDS)]].sort_values(["as_of_date", "source_node", "target_node"])
+    out = out.fillna("")
     out.to_csv(path, index=False, quoting=csv.QUOTE_MINIMAL)
     return path
 

@@ -106,3 +106,19 @@ edge lives in `ledger/edges.csv` permanently and is unaffected either way.
 
 `python -m src.news --skip-network` re-tags the stored corpus without touching a
 single feed, which is how the relevance rules were tuned.
+
+
+## Optional deal agent added 2026-11-09
+
+`deal_agent/` is a separate local Ollama extractor with SQLite state, source
+hashes, strict schemas, deterministic checks, reconciliation and explicit human
+review. `make refresh` remains the original rules-only path. Configuration is in
+`config.yaml`; usage and review/publication semantics are in README. CSV optional
+metadata is migrated without changing original financial fields. No candidates
+from this development session have been promoted to the real ledger.
+
+The source-backed smoke corpus has 12 positive and 5 negative excerpts, seven
+uncertain labels and no structural label failures. Model accuracy is unmeasured:
+Ollama is unavailable in the implementation environment. `eval/RESULTS.md`
+records the failed local benchmark attempt; it is not a fabricated score.
+Run the local setup and benchmark commands in README before quoting accuracy.

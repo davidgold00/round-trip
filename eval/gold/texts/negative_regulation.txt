@@ -1,0 +1,7 @@
+Publisher context (metadata): OpenAI
+
+We consider several options to this end
+
+Gillian Hadfield (University of Toronto; Vector Institute; OpenAI)
+
+Lewis Ho (Google DeepMind)

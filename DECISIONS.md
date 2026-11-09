@@ -430,3 +430,25 @@ Format: `[date] [phase] decision -- rationale`
   on grid children, `overflow-wrap: anywhere` in cards, a width cap on the page
   wrappers, and a shorter graph at phone width. -- Screenshots show what a
   renderer did; `scrollWidth` says what the layout is.
+
+* `2026-11-09 Agent` **Optional local Ollama pipeline, separate SQLite state and
+  human review.** All new candidates, including deterministic failures, remain
+  pending. The existing refresh, metric families, stress code and D3 layout are
+  preserved. -- Adds semantic extraction without an automatic publication path.
+* `2026-11-09 Agent` **Optional schema extension preserves the original required
+  columns.** Historical rows gain only known dates, existing quotes and exact
+  disclosed scalars; ranges stay ranges and missing instrument/consideration
+  details are not guessed. -- A metadata migration must not change a finding.
+* `2026-11-09 Agent` **Review explicitly maps extraction types to the legacy
+  taxonomy.** Revenue-share and other instruments require an analyst type choice.
+  -- Prevents a novel label from changing the pre-registered metric families.
+* `2026-11-09 Agent` **An agent UPDATE replaces an explicitly selected row and
+  records immutable before/after audit history.** -- The current estimators sum
+  rows; appending an amount restatement would count both the old and revised deal.
+  Historical snapshots remain unchanged. This is an ingestion/review convention
+  change, not an amendment to the formulas in Part A.
+* `2026-11-09 Agent` **Gold set is 12 positive and 5 negative attributed excerpts,
+  with seven uncertain instrument/payer/classification labels clearly flagged.**
+  -- The small corpus is a smoke benchmark, not a representative accuracy claim.
+  Local model accuracy remains unmeasured until the Ollama benchmark completes;
+  test-provider output is never reported as model performance.

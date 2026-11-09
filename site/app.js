@@ -1151,7 +1151,7 @@ Promise.all([
     `as of ${esc(metrics.as_of)} &middot; analysis, not investment advice`;
   document.getElementById("footNote").innerHTML =
     `Built from SEC EDGAR, company investor relations releases and GDELT. No paid ` +
-    `data, no language model calls. Every figure resolves to ledger rows with a ` +
+    `data. Optional local model extraction is human-reviewed. Every figure resolves to ledger rows with a ` +
     `source link, a verbatim quote and an as-of date. Generated ${esc(metrics.generated)}. ` +
     `This is analysis, not investment advice.`;
   RENDERED.add("headline");

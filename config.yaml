@@ -61,3 +61,55 @@ news:
   embed_model: "sentence-transformers/all-MiniLM-L6-v2"
   similarity_threshold: 0.42
   dedupe_threshold: 0.90
+
+# Optional agentic extractor. Existing make refresh stays rules-only.
+# All model execution is on loopback Ollama; no keys or paid services.
+deal_agent:
+  model: qwen2.5:7b-instruct
+  ollama_url: http://127.0.0.1:11434
+  llm_timeout_seconds: 300
+  num_ctx: 8192
+  chunk_chars: 10000
+  chunk_overlap: 1200
+  min_entities: 2
+  confidence_warning_threshold: 0.70
+  update_match_days: 365
+  initial_since: "2025-01-01"
+  overlap_days: 2
+  polite_delay_seconds: 0.25
+  max_documents_per_run: 100
+  state_db: data/deal_agent/queue.sqlite3
+  raw_dir: data/deal_agent/raw
+  trace_dir: data/deal_agent/traces
+  graph_file: ledger/edges.csv
+  nodes_file: ledger/nodes.csv
+  legacy_queues: [ledger/candidates.csv, ledger/news_candidates.csv]
+  watchlist: [Nvidia, AMD, Oracle, CoreWeave, Microsoft, Amazon, Alphabet, Meta, Broadcom, Nebius]
+  feeds: []
+  # Public publisher RSS examples; uncomment and confirm URLs before running:
+  # feeds:
+  #   - {company: OpenAI, url: "https://openai.com/news/rss.xml"}
+  #   - {company: Nvidia, url: "https://nvidianews.nvidia.com/releases.xml"}
+  #   - {company: Microsoft, url: "https://blogs.microsoft.com/feed/"}
+  keywords: [invest, invests, invested, investing, investment, funding, equity,
+    commitment, committed, purchase, agreement, contract, partnership, loan,
+    debt, financing, warrant, warrants, options, revenue, capacity, billion,
+    million, gigawatt, gigawatts, expanded, expands, amended]
+  # Keys match the existing node names EXACTLY. Values are alternative mentions.
+  # Google resolves to Alphabet; no duplicate Google node is introduced.
+  aliases:
+    Nvidia: [NVIDIA, NVIDIA Corporation, Nvidia Corporation, NVDA]
+    AMD: [Advanced Micro Devices, "Advanced Micro Devices, Inc."]
+    Broadcom: [Broadcom Inc, "Broadcom Inc.", AVGO]
+    Oracle: [Oracle Corporation, ORCL]
+    CoreWeave: ["CoreWeave, Inc.", CRWV]
+    Microsoft: [Microsoft Corporation, Microsoft Corp., MSFT, Azure]
+    Amazon: [Amazon.com, Amazon.com Inc., Amazon Web Services, AWS, AMZN]
+    Alphabet: [Alphabet Inc., Google, Google LLC, Google Cloud, Google DeepMind, GOOGL, GOOG]
+    Meta: [Meta Platforms, "Meta Platforms, Inc.", META]
+    OpenAI: [OpenAI OpCo, "OpenAI OpCo, LLC", OpenAI Global, "OpenAI, L.L.C."]
+    Anthropic: [Anthropic PBC, "Anthropic, PBC"]
+    Nebius: [Nebius Group, NBIS]
+    Nscale: [Nscale Limited, Nscale Global]
+    SoftBank: [SoftBank Group, SoftBank Vision Fund]
+    xAI: [xAI Corp, xAI Holdings, X.AI]

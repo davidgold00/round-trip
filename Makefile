@@ -49,3 +49,14 @@ serve:
 
 clean:
 	rm -rf data/interim/* data/processed/* outputs/*.json site/data/*.json
+
+# Optional local semantic extractor. Publication still requires human review.
+.PHONY: agent agent-review agent-eval
+agent:
+	$(PY) -m deal_agent run
+
+agent-review:
+	$(PY) -m deal_agent review
+
+agent-eval:
+	$(PY) -m deal_agent eval
