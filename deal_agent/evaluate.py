@@ -104,6 +104,8 @@ def evaluate(
 ):
     manifest_path = directory / "manifest.json"
     manifest = json.loads(manifest_path.read_text())
+    from .gold_ledger import check_gold_ledger
+    ledger_check = check_gold_ledger(manifest["documents"], pipeline.cfg, pipeline.resolver)
     records, errors, label_failures = [], [], []
     for item in manifest["documents"]:
         text = (directory / item["text_file"]).read_text()
@@ -176,6 +178,7 @@ def evaluate(
         "uncertain": sum(d["label_uncertain"] for d in manifest["documents"]),
         "exclude_uncertain": exclude_uncertain,
         "metrics": metrics,
+        "ledger_check": ledger_check,
         "label_failures": label_failures,
         "errors": errors,
         "records": records,
@@ -229,6 +232,11 @@ def evaluate(
         lines += ["## Label validation failures", ""] + [
             f"- {e}" for e in label_failures
         ]
+    lines += ["## Reviewed ledger agreement", "",
+              f"{len(ledger_check['matched'])} matched, {len(ledger_check['mismatches'])} mismatches, "
+              f"{len(ledger_check['ambiguous'])} ambiguous, {len(ledger_check['unlinked'])} unlinked gold edges.",
+              "Mismatches are read-only advisories; use --strict-ledger to make them fatal. Neither side is changed.", ""]
+    lines += [f"- {entry}" for entry in ledger_check["mismatches"] + ledger_check["ambiguous"]]
     atomic_write(output, "\n".join(lines).rstrip() + "\n")
     atomic_write(output.with_suffix(".json"), json.dumps(report, indent=2))
     pipeline.trace.event(

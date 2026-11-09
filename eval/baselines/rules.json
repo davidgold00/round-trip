@@ -4,10 +4,10 @@
   "cassette_sha256": null,
   "extractor": "rules",
   "status": "complete",
-  "generated": "2026-11-09T07:12:03.493817+00:00",
-  "run_id": "d07f1563364d47909fb79081c3ac5c93",
+  "generated": "2026-11-09T07:16:17.440862+00:00",
+  "run_id": "62b4d96cdb6a4ec988cf14b8cd9fe6e5",
   "model": "original-rules",
-  "manifest_sha256": "edc03cd882b6d360efa860fbc034f87ce9574697215aaf67e99d633b0bfd3ee2",
+  "manifest_sha256": "92fda0a8c8e5738ffe1f62a12aa1f5fd3a25dc2e2786bd2204bb7b1648aa3aac",
   "prompt_hashes": {
     "triage.txt": "474341b44a23ae31058714f9dc4e488115f1a9841f28f91131c4b74582e3e428",
     "extract.txt": "e7de3ceb1ad467deb6935ac7e081f384f161c49b0fd1df71c407de7bddf361e1",
@@ -71,6 +71,90 @@
       "numeric_amounts_scored": 2,
       "predictions": 13
     }
+  },
+  "ledger_check": {
+    "matched": [
+      {
+        "document": "nvidia_openai_2025",
+        "edge_index": 0,
+        "ledger_edge_id": "nvidia__openai__equity_investment__20250922"
+      },
+      {
+        "document": "coreweave_meta_2026",
+        "edge_index": 0,
+        "ledger_edge_id": "meta__coreweave__cloud_capacity_contract__20260812"
+      },
+      {
+        "document": "amd_openai_warrant_2025",
+        "edge_index": 0,
+        "ledger_edge_id": "amd__openai__warrants__20260204"
+      },
+      {
+        "document": "amd_anthropic_equity_2026",
+        "edge_index": 0,
+        "ledger_edge_id": "amd__anthropic__equity_investment__20260722"
+      },
+      {
+        "document": "amd_anthropic_chips_2026",
+        "edge_index": 0,
+        "ledger_edge_id": "anthropic__amd__purchase_commitment__20260722"
+      },
+      {
+        "document": "nscale_anthropic_2026",
+        "edge_index": 0,
+        "ledger_edge_id": "anthropic__nscale__cloud_capacity_contract__20260825"
+      },
+      {
+        "document": "nscale_microsoft_2026",
+        "edge_index": 0,
+        "ledger_edge_id": "microsoft__nscale__cloud_capacity_contract__20260918"
+      },
+      {
+        "document": "nscale_nvidia_warrants",
+        "edge_index": 0,
+        "ledger_edge_id": "nvidia__nscale__warrants__20260918"
+      }
+    ],
+    "mismatches": [],
+    "ambiguous": [],
+    "unlinked": [
+      {
+        "document": "microsoft_openai_2019",
+        "edge_index": 0
+      },
+      {
+        "document": "microsoft_openai_2023",
+        "edge_index": 0
+      },
+      {
+        "document": "amazon_anthropic_2023",
+        "edge_index": 0
+      },
+      {
+        "document": "amazon_anthropic_2024",
+        "edge_index": 0
+      },
+      {
+        "document": "coreweave_openai_2025",
+        "edge_index": 0
+      },
+      {
+        "document": "amd_openai_chips_2025",
+        "edge_index": 0
+      },
+      {
+        "document": "oracle_openai_2024",
+        "edge_index": 0
+      },
+      {
+        "document": "oracle_openai_2025",
+        "edge_index": 0
+      },
+      {
+        "document": "nvidia_coreweave_2025",
+        "edge_index": 0
+      }
+    ]
   },
   "label_failures": [],
   "errors": [],

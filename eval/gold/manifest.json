@@ -389,7 +389,8 @@
       "label_uncertain": false,
       "label_notes": "Contract maximum/approximate figure; do not automatically add this amount to the prior agreement. Publisher supplies the first-person seller context.",
       "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
-      "source_verified_on": "2026-11-09"
+      "source_verified_on": "2026-11-09",
+      "ledger_edge_id": "meta__coreweave__cloud_capacity_contract__20260812"
     },
     {
       "id": "nvidia_coreweave_2025",
@@ -466,7 +467,8 @@
       "label_notes": "Issuer to warrant beneficiary. Share count and $0.01 exercise price must not be treated as deal value. First-person issuer supplied by publisher context.",
       "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
       "source_verified_on": "2026-11-09",
-      "accession_no": "0001193125-25-230895"
+      "accession_no": "0001193125-25-230895",
+      "ledger_edge_id": "amd__openai__warrants__20260204"
     },
     {
       "id": "negative_frontier_forum",

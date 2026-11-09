@@ -150,6 +150,7 @@ def parser():
         action="store_true",
         help="Validate labels without a model; no accuracy claim",
     )
+    evaluate.add_argument("--strict-ledger", action="store_true", help="Fail on ledger mismatches or ambiguous source matches")
     evaluate.add_argument("--extractor", choices=["llm", "rules"], default="llm")
     evaluate.add_argument("--exclude-uncertain", action="store_true")
     bench = sub.add_parser("bench", help="Preflight, record local models and compare against rules")
@@ -237,6 +238,7 @@ def main(argv=None):
                             "status": report["status"],
                             "metrics": report["metrics"],
                             "label_failures": report["label_failures"],
+                            "ledger_check": report["ledger_check"],
                             "report": str(output),
                         }
                     )
@@ -244,6 +246,7 @@ def main(argv=None):
                 return (
                     1
                     if report["status"] == "incomplete" or report["label_failures"]
+                    or (args.strict_ledger and (report["ledger_check"]["mismatches"] or report["ledger_check"]["ambiguous"]))
                     else 0
                 )
             finally:

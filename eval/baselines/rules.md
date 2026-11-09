@@ -1,7 +1,7 @@
 # Deal extraction evaluation
 
 Status: **complete**. Model: `original-rules`.
-Run: `d07f1563364d47909fb79081c3ac5c93`. Generated: 2026-11-09T07:12:03.493817+00:00.
+Run: `62b4d96cdb6a4ec988cf14b8cd9fe6e5`. Generated: 2026-11-09T07:16:17.440862+00:00.
 
 Gold corpus: 17 positive and 8 negative documents; 4 uncertain labels. 0 structural label failures.
 
@@ -22,3 +22,8 @@ The corpus contains short, attributed excerpts, not full filings. It is a small 
 Edge matching is directed entity pair + deal_type, one-to-one per document. All predictions are scored, including failed verification; failures are never filtered to improve precision. Amount accuracy scores matched pairs, including correct nulls; numeric accuracy excludes null gold amounts. Numeric tolerance: max($1, 0.1%). Final verification rate includes repaired candidates.
 
 Excluded uncertain labels: False. A failed model call makes the run incomplete; metrics are withheld rather than treating an unavailable model as zero recall.
+
+## Reviewed ledger agreement
+
+8 matched, 0 mismatches, 0 ambiguous, 9 unlinked gold edges.
+Mismatches are read-only advisories; use --strict-ledger to make them fatal. Neither side is changed.

@@ -90,3 +90,20 @@
 - Manual: add the 3 full source passages before claiming full-document coverage.
   P5 CI is gated on all preceding items, so item 13 will remain skipped if this
   gap cannot be completed in this session.
+
+## 6. Ledger-derived labels check: done
+
+- Validate-only now compares linked gold positives against reviewed direction
+  and the explicit existing taxonomy mapping. It reports matches, mismatches,
+  ambiguous shared-source matches and unlinked observations separately.
+- Linked ids are explicit for known corresponding edges; URL + unordered pair
+  can discover additional exact-source matches without hiding reversed direction.
+  Different historical tranches or cumulative totals are not assumed identical.
+- Mismatches are read-only advisories by default so the mandatory validation
+  command can still be used while a human adjudicates a conflict; use
+  `--strict-ledger` to fail on mismatches or ambiguous links. No source is edited.
+- Verified full pytest, validate-only and strict-ledger. Tests deliberately
+  reverse a direction, change a type, and reference a missing edge to prove all
+  are reported. Current linked corpus has no mismatches.
+- Manual: explicitly link any additional historical tranche only after confirming
+  it is the same arrangement rather than a subsequent order or cumulative total.
