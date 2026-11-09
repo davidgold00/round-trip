@@ -163,3 +163,16 @@
 - Manual: view News in light/dark and at phone width. Attempted automated visual
   QA, but no Chromium/Firefox binary is installed in this environment; the
   available Playwright package cannot launch. No browser results are claimed.
+
+## 10. README diet: done
+
+- Moved detailed setup, fetching, review, tracing, evaluation and limitations to
+  `docs/DEAL_AGENT.md`, and corrected retired direct-write/auto-publication claims.
+- README now has a short agent section with diagram, measured rules-versus-LLM
+  table, one reproduction command and documentation links. Original README
+  sections match the initial feature commit exactly (verified before editing the agent section).
+- Documented corpus gaps, four remaining uncertain labels, sample counts,
+  record/replay, news input scope and pending snapshot semantics.
+- Verified full pytest, validate-only, diff checks and the original README prefix.
+- Manual: follow the local benchmark and review workflow; real model results and
+  visual browser checks remain pending as already recorded.
