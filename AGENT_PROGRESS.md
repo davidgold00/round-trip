@@ -176,3 +176,15 @@
 - Verified full pytest, validate-only, diff checks and the original README prefix.
 - Manual: follow the local benchmark and review workflow; real model results and
   visual browser checks remain pending as already recorded.
+
+## 11. Interview notes: done
+
+- Appended a plain-English AMD/Anthropic gold-document walkthrough covering
+  triage, structured extraction, quote/USD checks, bounded repair, reconciliation,
+  human review, promotions and publication. Clearly illustrative, not a model run.
+- Added five honest interview questions/answers about evidence of correctness,
+  local models, verifier limits, double counting and the next improvements.
+  Includes actual rules counts/sample-size limits and Not measured LLM accuracy.
+- Verified full pytest and validate-only; checked appended text for em dashes.
+- Manual: run the benchmark before replacing any Not measured statement or
+  describing model/prompt quality in an interview.
