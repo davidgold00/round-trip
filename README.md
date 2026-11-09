@@ -6,7 +6,8 @@ stress tests that dependency, and refreshes itself as new filings and news
 arrive.
 
 Everything runs locally and for free. SEC EDGAR, company investor-relations
-feeds and GDELT. No paid APIs. No language model calls anywhere in the pipeline.
+feeds and GDELT. No paid APIs. The default refresh uses rules; the optional
+`deal_agent` extractor uses a downloaded model on local Ollama, behind human review.
 
 ## The headline
 
@@ -72,7 +73,8 @@ STATE.md       what is done, what is next, known issues
 2. **Extract.** Rules and regex find dollar amounts near counterparty names and
    financing verbs. These are **candidates**, written to
    `ledger/candidates.csv`. They count toward nothing.
-3. **Review.** A human reads the source and promotes the supported ones:
+3. **Review.** A human reads the source and promotes the supported ones.
+   The optional agent has a separate SQLite review queue, described below:
 
    ```bash
    python -m src.review list                 # pending queue, largest first
@@ -161,3 +163,37 @@ It runs inside the GitHub Actions free tier.
 Code is yours to use. The data is public: SEC EDGAR filings, company press
 releases and GDELT metadata. Only headlines, links, dates, publishers and short
 snippets are stored from news sources; article bodies are never fetched.
+
+
+## Local deal extraction agent
+
+The optional local Ollama agent proposes source-backed deals for human review.
+Approval exports reviewed YAML; the original promotions path publishes it.
+`make refresh` retains the original rules path and headline values.
+
+```mermaid
+flowchart TD
+  S["Cached sources"] --> R["Original rules"]
+  S --> A["Local triage, extraction and verification"]
+  R --> B["Same gold corpus and metrics"]
+  A --> B
+  A --> Q["Reconcile and queue"]
+  Q --> H["Human review"]
+  H --> P["Original promotions and audit"]
+  P --> G["Reviewed ledger"]
+```
+
+| Gold benchmark | Rules | Local LLM |
+|---|---:|---:|
+| Edge precision | 15.4% | Not measured |
+| Edge recall | 11.8% | Not measured |
+| Matched amount accuracy | 100% (2 matches) | Not measured |
+
+Reproduce after pulling the configured local model and starting Ollama:
+
+```bash
+make agent-bench
+```
+
+[Full agent guide](docs/DEAL_AGENT.md), [review workflow](docs/AGENT_REVIEW.md),
+and [complete results and counts](eval/RESULTS.md). This is a small excerpt benchmark.

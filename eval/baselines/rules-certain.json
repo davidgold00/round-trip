@@ -1,0 +1,808 @@
+{
+  "synthetic": false,
+  "provider_mode": "rules",
+  "cassette_sha256": null,
+  "extractor": "rules",
+  "status": "complete",
+  "generated": "2026-11-09T07:48:14.306136+00:00",
+  "run_id": "d30705d18c5d484ca010bb3cadd94b90",
+  "model": "original-rules",
+  "manifest_sha256": "a80c6c97b7f64b6744563b000811cefa64e9ce56976f52c8ba60288ed9e15d9c",
+  "prompt_version": null,
+  "prompt_hashes": {},
+  "settings": {
+    "chunk_chars": 10000,
+    "chunk_overlap": 1200,
+    "num_ctx": 8192,
+    "keywords": [
+      "invest",
+      "invests",
+      "invested",
+      "investing",
+      "investment",
+      "funding",
+      "equity",
+      "commitment",
+      "committed",
+      "purchase",
+      "agreement",
+      "contract",
+      "partnership",
+      "loan",
+      "debt",
+      "financing",
+      "warrant",
+      "warrants",
+      "options",
+      "revenue",
+      "capacity",
+      "billion",
+      "million",
+      "gigawatt",
+      "gigawatts",
+      "expanded",
+      "expands",
+      "amended"
+    ],
+    "min_entities": 2,
+    "confidence_warning_threshold": 0.7
+  },
+  "scored_documents": 20,
+  "scored_positives": 12,
+  "scored_negatives": 8,
+  "documents": 25,
+  "positives": 17,
+  "negatives": 8,
+  "uncertain": 5,
+  "exclude_uncertain": true,
+  "metrics": {
+    "triage_precision": 1.0,
+    "triage_recall": 0.4166666666666667,
+    "edge_precision": 0.1,
+    "edge_recall": 0.08333333333333333,
+    "amount_accuracy": 1.0,
+    "numeric_amount_accuracy": 1.0,
+    "verification_pass_rate": 0.5,
+    "counts": {
+      "edge_tp": 1,
+      "edge_fp": 9,
+      "edge_fn": 11,
+      "amounts_scored": 1,
+      "numeric_amounts_scored": 1,
+      "predictions": 10
+    }
+  },
+  "ledger_check": {
+    "matched": [
+      {
+        "document": "nvidia_openai_2025",
+        "edge_index": 0,
+        "ledger_edge_id": "nvidia__openai__equity_investment__20250922"
+      },
+      {
+        "document": "coreweave_meta_2026",
+        "edge_index": 0,
+        "ledger_edge_id": "meta__coreweave__cloud_capacity_contract__20260812"
+      },
+      {
+        "document": "amd_openai_warrant_2025",
+        "edge_index": 0,
+        "ledger_edge_id": "amd__openai__warrants__20260204"
+      },
+      {
+        "document": "amd_anthropic_equity_2026",
+        "edge_index": 0,
+        "ledger_edge_id": "amd__anthropic__equity_investment__20260722"
+      },
+      {
+        "document": "amd_anthropic_chips_2026",
+        "edge_index": 0,
+        "ledger_edge_id": "anthropic__amd__purchase_commitment__20260722"
+      },
+      {
+        "document": "nscale_anthropic_2026",
+        "edge_index": 0,
+        "ledger_edge_id": "anthropic__nscale__cloud_capacity_contract__20260825"
+      },
+      {
+        "document": "nscale_microsoft_2026",
+        "edge_index": 0,
+        "ledger_edge_id": "microsoft__nscale__cloud_capacity_contract__20260918"
+      },
+      {
+        "document": "nscale_nvidia_warrants",
+        "edge_index": 0,
+        "ledger_edge_id": "nvidia__nscale__warrants__20260918"
+      }
+    ],
+    "mismatches": [],
+    "ambiguous": [],
+    "unlinked": [
+      {
+        "document": "microsoft_openai_2019",
+        "edge_index": 0
+      },
+      {
+        "document": "microsoft_openai_2023",
+        "edge_index": 0
+      },
+      {
+        "document": "amazon_anthropic_2023",
+        "edge_index": 0
+      },
+      {
+        "document": "amazon_anthropic_2024",
+        "edge_index": 0
+      },
+      {
+        "document": "coreweave_openai_2025",
+        "edge_index": 0
+      },
+      {
+        "document": "amd_openai_chips_2025",
+        "edge_index": 0
+      },
+      {
+        "document": "oracle_openai_2024",
+        "edge_index": 0
+      },
+      {
+        "document": "oracle_openai_2025",
+        "edge_index": 0
+      },
+      {
+        "document": "nvidia_coreweave_2025",
+        "edge_index": 0
+      }
+    ]
+  },
+  "label_failures": [],
+  "errors": [],
+  "records": [
+    {
+      "id": "microsoft_openai_2019",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": true,
+      "expected": [
+        {
+          "source_entity": "Microsoft",
+          "target_entity": "OpenAI",
+          "deal_type": "equity_investment",
+          "consideration_type": "unknown",
+          "amount_usd": 1000000000.0,
+          "amount_text": "$1 billion",
+          "term_or_duration": null,
+          "announced_date": "2019-07-22",
+          "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+          "evidence_quote": "Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "predicted": [
+        {
+          "deal": {
+            "source_entity": "OpenAI",
+            "target_entity": "Meta",
+            "deal_type": "equity_investment",
+            "consideration_type": "unknown",
+            "amount_usd": 1000000000.0,
+            "amount_text": "$1 billion",
+            "term_or_duration": null,
+            "announced_date": "2019-07-22",
+            "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+            "evidence_quote": "Publisher context (metadata): OpenAI Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits. ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": false,
+            "errors": [
+              "entity absent from document text: Meta"
+            ],
+            "source_node": "OpenAI",
+            "target_node": "Meta",
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        },
+        {
+          "deal": {
+            "source_entity": "OpenAI",
+            "target_entity": "Microsoft",
+            "deal_type": "equity_investment",
+            "consideration_type": "unknown",
+            "amount_usd": 1000000000.0,
+            "amount_text": "$1 billion",
+            "term_or_duration": null,
+            "announced_date": "2019-07-22",
+            "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+            "evidence_quote": "Publisher context (metadata): OpenAI Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits. ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": true,
+            "errors": [],
+            "source_node": "OpenAI",
+            "target_node": "Microsoft",
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        },
+        {
+          "deal": {
+            "source_entity": "OpenAI",
+            "target_entity": "Intel",
+            "deal_type": "equity_investment",
+            "consideration_type": "unknown",
+            "amount_usd": 1000000000.0,
+            "amount_text": "$1 billion",
+            "term_or_duration": null,
+            "announced_date": "2019-07-22",
+            "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+            "evidence_quote": "Publisher context (metadata): OpenAI Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits. ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": false,
+            "errors": [
+              "unknown target entity: Intel"
+            ],
+            "source_node": "OpenAI",
+            "target_node": null,
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "amazon_anthropic_2023",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": true,
+      "expected": [
+        {
+          "source_entity": "Amazon",
+          "target_entity": "Anthropic",
+          "deal_type": "debt_or_loan",
+          "consideration_type": "unknown",
+          "amount_usd": 4000000000.0,
+          "amount_text": "$4 billion",
+          "term_or_duration": null,
+          "announced_date": "2023-09-25",
+          "source_url": "https://www.anthropic.com/news/anthropic-amazon",
+          "evidence_quote": "Today, we\u2019re announcing that Amazon will invest up to $4 billion in Anthropic.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "predicted": [
+        {
+          "deal": {
+            "source_entity": "Anthropic",
+            "target_entity": "Meta",
+            "deal_type": "debt_or_loan",
+            "consideration_type": "unknown",
+            "amount_usd": 4000000000.0,
+            "amount_text": "$4 billion",
+            "term_or_duration": null,
+            "announced_date": "2023-09-25",
+            "source_url": "https://www.anthropic.com/news/anthropic-amazon",
+            "evidence_quote": "Publisher context (metadata): Anthropic Today, we\u2019re announcing that Amazon will invest up to $4 billion in Anthropic. Supplemental primary-source excerpt, Amazon 10-Q (0001018724-23-000018); first person refers to Amazon: In Q3 2023, we invested $1.25 billion in a note from Anthropic, PBC, which is convertible into equity. ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": false,
+            "errors": [
+              "entity absent from document text: Meta"
+            ],
+            "source_node": "Anthropic",
+            "target_node": "Meta",
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        },
+        {
+          "deal": {
+            "source_entity": "Anthropic",
+            "target_entity": "Amazon",
+            "deal_type": "debt_or_loan",
+            "consideration_type": "unknown",
+            "amount_usd": 4000000000.0,
+            "amount_text": "$4 billion",
+            "term_or_duration": null,
+            "announced_date": "2023-09-25",
+            "source_url": "https://www.anthropic.com/news/anthropic-amazon",
+            "evidence_quote": "Publisher context (metadata): Anthropic Today, we\u2019re announcing that Amazon will invest up to $4 billion in Anthropic. Supplemental primary-source excerpt, Amazon 10-Q (0001018724-23-000018); first person refers to Amazon: In Q3 2023, we invested $1.25 billion in a note from Anthropic, PBC, which is convertible into equity. ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": true,
+            "errors": [],
+            "source_node": "Anthropic",
+            "target_node": "Amazon",
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "amazon_anthropic_2024",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": true,
+      "expected": [
+        {
+          "source_entity": "Amazon",
+          "target_entity": "Anthropic",
+          "deal_type": "debt_or_loan",
+          "consideration_type": "unknown",
+          "amount_usd": 4000000000.0,
+          "amount_text": "$4 billion",
+          "term_or_duration": null,
+          "announced_date": "2024-11-22",
+          "source_url": "https://www.anthropic.com/news/anthropic-amazon-trainium",
+          "evidence_quote": "This expanded partnership includes a new $4 billion investment from Amazon and establishes AWS as our primary cloud and training partner.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "predicted": [
+        {
+          "deal": {
+            "source_entity": "Anthropic",
+            "target_entity": "Meta",
+            "deal_type": "debt_or_loan",
+            "consideration_type": "unknown",
+            "amount_usd": 4000000000.0,
+            "amount_text": "$4 billion",
+            "term_or_duration": null,
+            "announced_date": "2024-11-22",
+            "source_url": "https://www.anthropic.com/news/anthropic-amazon-trainium",
+            "evidence_quote": "Publisher context (metadata): Anthropic This expanded partnership includes a new $4 billion investment from Amazon and establishes AWS as our primary cloud and training partner. Supplemental primary-source excerpt, Amazon 10-K (0001018724-25-000004); first person refers to Amazon: In Q4 2024, we entered into an agreement and invested $1.3 billion in a third convertible note ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": false,
+            "errors": [
+              "entity absent from document text: Meta"
+            ],
+            "source_node": "Anthropic",
+            "target_node": "Meta",
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        },
+        {
+          "deal": {
+            "source_entity": "Anthropic",
+            "target_entity": "Amazon",
+            "deal_type": "debt_or_loan",
+            "consideration_type": "unknown",
+            "amount_usd": 4000000000.0,
+            "amount_text": "$4 billion",
+            "term_or_duration": null,
+            "announced_date": "2024-11-22",
+            "source_url": "https://www.anthropic.com/news/anthropic-amazon-trainium",
+            "evidence_quote": "Publisher context (metadata): Anthropic This expanded partnership includes a new $4 billion investment from Amazon and establishes AWS as our primary cloud and training partner. Supplemental primary-source excerpt, Amazon 10-K (0001018724-25-000004); first person refers to Amazon: In Q4 2024, we entered into an agreement and invested $1.3 billion in a third convertible note ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": true,
+            "errors": [],
+            "source_node": "Anthropic",
+            "target_node": "Amazon",
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "coreweave_openai_2025",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": true,
+      "expected": [
+        {
+          "source_entity": "OpenAI",
+          "target_entity": "CoreWeave",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 11900000000.0,
+          "amount_text": "$11.9B",
+          "term_or_duration": null,
+          "announced_date": "2025-03-10",
+          "source_url": "https://www.coreweave.com/news/coreweave-announces-agreement-with-openai-to-deliver-ai-infrastructure",
+          "evidence_quote": "CoreWeave signed an $11.9B deal to provide AI infrastructure for OpenAI, expanding compute capacity for model training.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "predicted": [
+        {
+          "deal": {
+            "source_entity": "Meta",
+            "target_entity": "CoreWeave",
+            "deal_type": "cloud_services_contract",
+            "consideration_type": "unknown",
+            "amount_usd": 11900000000.0,
+            "amount_text": "$11.9B",
+            "term_or_duration": null,
+            "announced_date": "2025-03-10",
+            "source_url": "https://www.coreweave.com/news/coreweave-announces-agreement-with-openai-to-deliver-ai-infrastructure",
+            "evidence_quote": "Publisher context (metadata): CoreWeave CoreWeave signed an $11.9B deal to provide AI infrastructure for OpenAI, expanding compute capacity for model training. ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": false,
+            "errors": [
+              "entity absent from document text: Meta"
+            ],
+            "source_node": "Meta",
+            "target_node": "CoreWeave",
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        },
+        {
+          "deal": {
+            "source_entity": "OpenAI",
+            "target_entity": "CoreWeave",
+            "deal_type": "cloud_services_contract",
+            "consideration_type": "unknown",
+            "amount_usd": 11900000000.0,
+            "amount_text": "$11.9B",
+            "term_or_duration": null,
+            "announced_date": "2025-03-10",
+            "source_url": "https://www.coreweave.com/news/coreweave-announces-agreement-with-openai-to-deliver-ai-infrastructure",
+            "evidence_quote": "Publisher context (metadata): CoreWeave CoreWeave signed an $11.9B deal to provide AI infrastructure for OpenAI, expanding compute capacity for model training. ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": true,
+            "errors": [],
+            "source_node": "OpenAI",
+            "target_node": "CoreWeave",
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "amd_openai_chips_2025",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": false,
+      "expected": [
+        {
+          "source_entity": "OpenAI",
+          "target_entity": "AMD",
+          "deal_type": "chip_purchase",
+          "consideration_type": "unknown",
+          "amount_usd": null,
+          "amount_text": "",
+          "term_or_duration": "multi-year, multi-generation",
+          "announced_date": "2025-10-06",
+          "source_url": "https://ir.amd.com/news-events/press-releases/detail/1260/amd-and-openai-announce-strategic-partnership-to-deploy-6-gigawatts-of-amd-gpus",
+          "evidence_quote": "OpenAI to deploy 6 gigawatts of AMD GPUs based on a multi-year, multi-generation agreement",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "coreweave_meta_2026",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": false,
+      "expected": [
+        {
+          "source_entity": "Meta",
+          "target_entity": "CoreWeave",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 21000000000.0,
+          "amount_text": "$21 billion",
+          "term_or_duration": "through December 2032",
+          "announced_date": "2026-04-09",
+          "source_url": "https://www.coreweave.com/news/coreweave-and-meta-announce-21-billion-expanded-ai-infrastructure-agreement",
+          "evidence_quote": "an expanded, long-term agreement with Meta Platforms, Inc. to provide AI cloud capacity through December 2032 for approximately $21 billion.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "nvidia_coreweave_2025",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": false,
+      "expected": [
+        {
+          "source_entity": "Nvidia",
+          "target_entity": "CoreWeave",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 6300000000.0,
+          "amount_text": "$6.3 billion",
+          "term_or_duration": null,
+          "announced_date": "2025-09-15",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000047/crwv-20250909.htm",
+          "evidence_quote": "which has an initial value of $6.3 billion",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "amd_openai_warrant_2025",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": false,
+      "expected": [
+        {
+          "source_entity": "AMD",
+          "target_entity": "OpenAI",
+          "deal_type": "warrants_or_options",
+          "consideration_type": "unknown",
+          "amount_usd": null,
+          "amount_text": "",
+          "term_or_duration": null,
+          "announced_date": "2025-10-06",
+          "source_url": "https://ir.amd.com/financial-information/sec-filings/content/0001193125-25-230895/d28189d8k.htm",
+          "evidence_quote": "issued to OpenAI OpCo, LLC (\u201cWarrantholder\u201d) a warrant (the \u201cWarrant\u201d) to purchase up to an aggregate of 160 million shares",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "negative_frontier_forum",
+      "label_uncertain": false,
+      "gold_relevant": false,
+      "triaged_in": false,
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "negative_mlcommons",
+      "label_uncertain": false,
+      "gold_relevant": false,
+      "triaged_in": false,
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "negative_stanford_safety",
+      "label_uncertain": false,
+      "gold_relevant": false,
+      "triaged_in": false,
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "negative_triton_users",
+      "label_uncertain": false,
+      "gold_relevant": false,
+      "triaged_in": false,
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "negative_regulation",
+      "label_uncertain": false,
+      "gold_relevant": false,
+      "triaged_in": false,
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "amd_anthropic_equity_2026",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": true,
+      "expected": [
+        {
+          "source_entity": "AMD",
+          "target_entity": "Anthropic",
+          "deal_type": "equity_investment",
+          "consideration_type": "unknown",
+          "amount_usd": 5000000000.0,
+          "amount_text": "$5 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-07-22",
+          "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+          "evidence_quote": "AMD has committed to make a strategic equity investment of up to $5 billion in Anthropic",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "predicted": [
+        {
+          "deal": {
+            "source_entity": "AMD",
+            "target_entity": "Anthropic",
+            "deal_type": "equity_investment",
+            "consideration_type": "unknown",
+            "amount_usd": 5000000000.0,
+            "amount_text": "$5 billion",
+            "term_or_duration": null,
+            "announced_date": "2026-07-22",
+            "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+            "evidence_quote": "AMD has committed to make a strategic equity investment of up to $5 billion in Anthropic ",
+            "confidence": 0.0,
+            "rationale": "direction guessed by family rule; verify before promoting"
+          },
+          "verification": {
+            "passed": true,
+            "errors": [],
+            "source_node": "AMD",
+            "target_node": "Anthropic",
+            "checks": [
+              "verbatim_quote",
+              "USD_amount",
+              "known_nodes",
+              "entities_in_text_or_filer_metadata",
+              "source_url"
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "id": "amd_anthropic_chips_2026",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": false,
+      "expected": [
+        {
+          "source_entity": "Anthropic",
+          "target_entity": "AMD",
+          "deal_type": "chip_purchase",
+          "consideration_type": "unknown",
+          "amount_usd": null,
+          "amount_text": "",
+          "term_or_duration": null,
+          "announced_date": "2026-07-22",
+          "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+          "evidence_quote": "Anthropic to deploy up to 2 gigawatts of MI450 Series GPUs in AMD Helios rack-scale solutions",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "nscale_anthropic_2026",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": false,
+      "expected": [
+        {
+          "source_entity": "Anthropic",
+          "target_entity": "Nscale",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 44600000000.0,
+          "amount_text": "$44.6 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-09-18",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+          "evidence_quote": "The Anthropic Services Agreements provide for aggregate payments to us of up to approximately $44.6 billion",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "nscale_microsoft_2026",
+      "label_uncertain": false,
+      "gold_relevant": true,
+      "triaged_in": false,
+      "expected": [
+        {
+          "source_entity": "Microsoft",
+          "target_entity": "Nscale",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 43800000000.0,
+          "amount_text": "$43.8 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-09-18",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+          "evidence_quote": "statements of work with Microsoft that provide for payments to us of up to approximately $43.8 billion through December 2033",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "predicted": []
+    },
+    {
+      "id": "negative_ftc_merger_list",
+      "label_uncertain": false,
+      "gold_relevant": false,
+      "triaged_in": false,
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "negative_ftc_merger_challenges",
+      "label_uncertain": false,
+      "gold_relevant": false,
+      "triaged_in": false,
+      "expected": [],
+      "predicted": []
+    },
+    {
+      "id": "negative_ftc_privacy_penalties",
+      "label_uncertain": false,
+      "gold_relevant": false,
+      "triaged_in": false,
+      "expected": [],
+      "predicted": []
+    }
+  ]
+}

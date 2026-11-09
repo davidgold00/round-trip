@@ -1,0 +1,6 @@
+Publisher context (metadata): Stanford CRFM
+
+Anthropic: Claude 3 Sonnet
+OpenAI: GPT-4 Turbo
+Google: Gemini 1.5 Flash (001)
+Meta: Llama 3 70b-Chat

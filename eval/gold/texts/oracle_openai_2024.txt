@@ -1,0 +1,3 @@
+Publisher context (metadata): Oracle
+
+We are delighted to be working with Microsoft and Oracle. OCI will extend Azure’s platform and enable OpenAI to continue to scale

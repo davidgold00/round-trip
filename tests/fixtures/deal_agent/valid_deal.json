@@ -1,0 +1,14 @@
+{
+  "source_entity": "NVIDIA Corporation",
+  "target_entity": "OpenAI",
+  "deal_type": "equity_investment",
+  "consideration_type": "cash",
+  "amount_usd": 1000000000.0,
+  "amount_text": "$1 billion",
+  "term_or_duration": null,
+  "announced_date": "2025-09-22",
+  "source_url": "https://publisher.test/deal",
+  "evidence_quote": "NVIDIA will invest $1 billion in OpenAI.",
+  "confidence": 0.9,
+  "rationale": "The source names a directed investment and its amount."
+}

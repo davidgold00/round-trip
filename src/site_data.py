@@ -72,6 +72,10 @@ def build() -> dict:
             "notes": r.notes, "term_start": r.term_start, "term_end": r.term_end,
             "term_assumed": bool(r.term_assumed),
             "amount_undisclosed": float(r.amount_usd_high) == 0.0,
+            "extraction": {k: r.get(k, "") for k in (
+                "deal_type", "consideration_type", "amount_usd", "amount_text",
+                "term_or_duration", "announced_date", "evidence_quote", "confidence",
+                "extraction_rationale", "agent_candidate_id", "document_sha256")},
         })
 
     node_rows = []
@@ -124,6 +128,8 @@ def build() -> dict:
     p = SITE_DATA / "ledger.json"
     p.write_text(json.dumps(payload, default=str))
     LOG.info("wrote %s (%d edges, %d nodes)", p, len(edge_rows), len(node_rows))
+    from deal_agent.pending import export as export_pending
+    export_pending({**cfg, "_root": ROOT}, SITE_DATA)
     return payload
 
 

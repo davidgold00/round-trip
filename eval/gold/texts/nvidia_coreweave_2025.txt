@@ -1,0 +1,5 @@
+Publisher context (metadata): CoreWeave
+
+provides NVIDIA access to any residual unsold cloud computing capacity.
+
+which has an initial value of $6.3 billion

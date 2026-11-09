@@ -24,3 +24,17 @@ data/cache/
 .DS_Store
 **/.DS_Store
 .pytest_cache/
+
+# Local deal extractor state, source text and full model traces
+# Audit CSV/JSONL exports should be copied deliberately if sharing a review.
+data/deal_agent/
+eval/results/
+*.csv.lock
+
+# Evaluation traces and detailed runtime JSON are reproducible local artifacts
+eval/traces/
+eval/RESULTS*.json
+eval/VALIDATION.json
+
+# Detailed evaluation traces are local; cassettes are opt-in versioned files.
+eval/**/traces/
