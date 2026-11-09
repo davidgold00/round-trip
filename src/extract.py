@@ -155,6 +155,11 @@ def extract_from_doc(row: dict, amap: dict[str, str]) -> tuple[list[dict], list[
         return [], [], []
     raw = path.read_bytes()
     text = text_of(raw)
+    return extract_from_text(text, row, amap)
+
+
+def extract_from_text(text: str, row: dict, amap: dict[str, str]):
+    """Run the unchanged candidate rules on already cached plain text."""
     doc_sha = sha1(text)[:12]
     filer = row["node"]
     cands: list[dict] = []

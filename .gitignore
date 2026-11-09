@@ -35,3 +35,6 @@ eval/results/
 eval/traces/
 eval/RESULTS.json
 eval/VALIDATION.json
+
+# Detailed evaluation traces are local; cassettes are opt-in versioned files.
+eval/**/traces/

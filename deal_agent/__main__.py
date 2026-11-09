@@ -147,6 +147,7 @@ def parser():
         action="store_true",
         help="Validate labels without a model; no accuracy claim",
     )
+    evaluate.add_argument("--extractor", choices=["llm", "rules"], default="llm")
     evaluate.add_argument("--exclude-uncertain", action="store_true")
     imp = sub.add_parser(
         "import-file", help="Cache an already downloaded source for an offline run"
@@ -209,12 +210,16 @@ def main(argv=None):
             store = Store(Path(temporary) / "eval.sqlite3")
             try:
                 pipeline = Pipeline(cfg, store, trace, Ollama(cfg["deal_agent"], trace))
+                if args.extractor == "rules":
+                    from .rules import Rules
+                    pipeline = Rules(pipeline)
                 report = evaluate(
                     pipeline,
                     args.gold or cfg["_root"] / "eval/gold",
                     output,
                     validate_only=args.validate_only,
                     exclude_uncertain=args.exclude_uncertain,
+                    extractor=args.extractor,
                 )
                 print(
                     encode(

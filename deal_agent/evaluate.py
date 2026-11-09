@@ -100,6 +100,7 @@ def evaluate(
     *,
     validate_only=False,
     exclude_uncertain=False,
+    extractor="llm",
 ):
     manifest_path = directory / "manifest.json"
     manifest = json.loads(manifest_path.read_text())
@@ -142,6 +143,7 @@ def evaluate(
     )
     metrics = score(records, pipeline.resolver) if records and not errors else None
     report = {
+        "extractor": extractor,
         "status": status,
         "generated": stamp(),
         "run_id": pipeline.trace.run_id,
@@ -184,8 +186,10 @@ def evaluate(
         "The corpus contains short, attributed excerpts, not full filings. It is a small smoke benchmark; "
         "scores do not establish full-document or out-of-time accuracy. Uncertain labels remain identified in manifest.json.",
         "",
-        "| Metric | Result |",
-        "|---|---:|",
+        "## Rules baseline" if extractor == "rules" else "## Local LLM",
+        "",
+        "| Metric | Rules baseline | Local LLM |",
+        "|---|---:|---:|",
     ]
     for metric in (
         "triage_precision",
@@ -197,11 +201,9 @@ def evaluate(
         "verification_pass_rate",
     ):
         value = (metrics or {}).get(metric)
-        lines.append(
-            f"| {metric} | {value:.1%} |"
-            if value is not None
-            else f"| {metric} | Not measured |"
-        )
+        shown = f"{value:.1%}" if value is not None else "Not measured"
+        cells = [shown, "Not measured"] if extractor == "rules" else ["Not measured", shown]
+        lines.append(f"| {metric} | {cells[0]} | {cells[1]} |")
     lines += [
         "",
         "Edge matching is directed entity pair + deal_type, one-to-one per document. "
@@ -221,7 +223,7 @@ def evaluate(
         lines += ["## Label validation failures", ""] + [
             f"- {e}" for e in label_failures
         ]
-    atomic_write(output, "\n".join(lines) + "\n")
+    atomic_write(output, "\n".join(lines).rstrip() + "\n")
     atomic_write(output.with_suffix(".json"), json.dumps(report, indent=2))
     pipeline.trace.event(
         "eval.report", {"manifest_sha256": report["manifest_sha256"]}, report
