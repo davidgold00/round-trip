@@ -128,6 +128,8 @@ def build() -> dict:
     p = SITE_DATA / "ledger.json"
     p.write_text(json.dumps(payload, default=str))
     LOG.info("wrote %s (%d edges, %d nodes)", p, len(edge_rows), len(node_rows))
+    from deal_agent.pending import export as export_pending
+    export_pending({**cfg, "_root": ROOT}, SITE_DATA)
     return payload
 
 

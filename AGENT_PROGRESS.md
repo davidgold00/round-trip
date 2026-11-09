@@ -146,3 +146,20 @@
 - Manual: refresh the original ingestion first; snippets alone often lack the
   evidence required for a useful deal proposal. Use the explicit fallback when
   you want primary document discovery rather than the stored news corpus.
+
+## 9. Pending review panel: done; visual browser check remains manual
+
+- Added a read-only snapshot export with pending count and the latest five
+  candidates: entities, type, original amount text, evidence quote, source link
+  and verification status. Approved/rejected items are excluded. Missing queues
+  are not created; unreadable queues are shown as unavailable rather than zero.
+- Added one card at the top of the existing News tab. Reused the exact current
+  card, list, note and status classes; no stylesheet or other panel was restyled.
+  Candidate strings use DOM text nodes and source links allow HTTP(S) only.
+- `src.site_data` refreshes the snapshot; `python -m deal_agent export-pending`
+  refreshes it without analysis or a model. Snapshot time is displayed.
+- Verified full pytest, validate-only, JavaScript syntax, read-only exporter
+  tests and existing client-side stress parity tests. Metrics match main.
+- Manual: view News in light/dark and at phone width. Attempted automated visual
+  QA, but no Chromium/Firefox binary is installed in this environment; the
+  available Playwright package cannot launch. No browser results are claimed.

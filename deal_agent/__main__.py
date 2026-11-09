@@ -138,6 +138,7 @@ def parser():
     run.add_argument(
         "--no-sec", action="store_true", help="Configured public feeds only"
     )
+    sub.add_parser("export-pending", help="Export a read-only pending dashboard snapshot")
     sub.add_parser("runs", help="Summarise the most recent extraction run")
     evaluate = sub.add_parser(
         "eval", help="Benchmark saved sources offline; only loopback Ollama is used"
@@ -210,6 +211,10 @@ def parser():
 def main(argv=None):
     args = parser().parse_args(argv)
     cfg = load(args.config)
+    if args.command == "export-pending":
+        from .pending import export
+        print(encode(export(cfg)))
+        return 0
     if args.command == "bench":
         from .benchmark import benchmark
         return benchmark(cfg, models=args.models, exclude_uncertain=args.exclude_uncertain, output=args.output)
