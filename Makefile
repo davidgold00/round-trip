@@ -60,3 +60,7 @@ agent-review:
 
 agent-eval:
 	$(PY) -m deal_agent eval
+
+.PHONY: agent-bench
+agent-bench:
+	$(PY) -m deal_agent bench $(AGENT_BENCH_ARGS)

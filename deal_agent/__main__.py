@@ -152,6 +152,10 @@ def parser():
     )
     evaluate.add_argument("--extractor", choices=["llm", "rules"], default="llm")
     evaluate.add_argument("--exclude-uncertain", action="store_true")
+    bench = sub.add_parser("bench", help="Preflight, record local models and compare against rules")
+    bench.add_argument("--models", nargs="+")
+    bench.add_argument("--exclude-uncertain", action="store_true")
+    bench.add_argument("--output", type=Path)
     imp = sub.add_parser(
         "import-file", help="Cache an already downloaded source for an offline run"
     )
@@ -203,6 +207,9 @@ def parser():
 def main(argv=None):
     args = parser().parse_args(argv)
     cfg = load(args.config)
+    if args.command == "bench":
+        from .benchmark import benchmark
+        return benchmark(cfg, models=args.models, exclude_uncertain=args.exclude_uncertain, output=args.output)
     if args.command == "eval":
         # Eval cannot enqueue to production state, even accidentally.
         from .evaluate import evaluate

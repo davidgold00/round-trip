@@ -32,3 +32,15 @@
 - Git's direct push has no credentials here. Published the tested commit through
   the selected GitHub integration and synchronized the local branch to it.
 - Manual: collect and commit a real cassette with a live local benchmark.
+
+## 3. One-command local benchmark: done
+
+- `make agent-bench` preflights Ollama and every selected model, records LLM
+  evaluations, runs rules and writes a combined report with matched corpus and
+  uncertainty policy. `--models MODEL MODEL` compares two local models.
+- Live cassettes are deliberately committable under `eval/cassettes/`.
+  Missing service/model messages include exact setup commands. No remote fallback.
+- Verified full pytest suite and `eval --validate-only`. Preflight, comparison
+  compatibility and unmeasured reporting have offline tests. The actual command
+  exits clearly while Ollama is absent, before overwriting the committed report.
+- Manual: run `make agent-bench` locally. No LLM accuracy was measured here.

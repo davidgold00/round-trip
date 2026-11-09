@@ -427,3 +427,9 @@ URL is not refetched to detect a publisher rewriting it. SEC foreign-issuer form
 PDFs and agreement exhibits other than EX-99.1 are outside this extractor's current
 scope. Metadata URLs/feeds are polled each run; already stored document URLs are
 not downloaded again. Rate limiting is local to this command, not distributed.
+
+### One-command local benchmark
+Run `ollama pull qwen2.5:7b-instruct`, start Ollama, then `make agent-bench`.
+Compare two pulled models: `make agent-bench AGENT_BENCH_ARGS="--models qwen2.5:7b-instruct llama3.1:8b"`.
+The command checks availability, records live calls, scores rules, and writes `eval/RESULTS.md`.
+Keep `eval/cassettes/` recordings to reproduce live runs offline with `eval --provider replay --cassette PATH`.
