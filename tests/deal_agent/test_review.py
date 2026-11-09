@@ -41,18 +41,32 @@ def approval(deal, **overrides):
     )
 
 
-def test_approval_applies_only_after_review_and_audits(runtime, deal_dict):
+def apply_export(reviewer, monkeypatch):
+    from types import SimpleNamespace
+    import src.ledger as ledger
+    import src.review as original
+    monkeypatch.setattr(ledger, "EDGES", reviewer.graph)
+    monkeypatch.setattr(original, "EDGES", reviewer.graph)
+    event = reviewer.store.rows("SELECT * FROM audit ORDER BY id DESC LIMIT 1")[0]
+    path = json.loads(event["payload"])["promotion_path"]
+    original.cmd_batch(SimpleNamespace(path=path))
+    return path
+
+
+def test_approval_applies_only_after_review_and_audits(runtime, deal_dict, monkeypatch):
     reviewer, ident = queued(runtime, deal_dict)
     store = runtime[1]
     before = reviewer.graph.read_bytes()
     reviewer.approve(ident, **approval(deal_dict))
+    assert reviewer.graph.read_bytes() == before
+    apply_export(reviewer, monkeypatch)
     assert reviewer.graph.read_bytes() != before
     assert not store.candidates()
     assert store.candidates("approved")[0]["id"] == ident
     rows = list(csv.DictReader(reviewer.graph.open()))
     assert rows[0]["source_node"] == "Nvidia"
-    assert rows[0]["agent_candidate_id"] == ident
-    assert rows[0]["consideration_type"] == "cash"
+    assert "Test Reviewer" in rows[0]["notes"]
+    assert (reviewer.graph.parent / "promotion_audit.jsonl").exists()
     audit = store.rows("SELECT * FROM audit")[0]
     assert (
         audit["actor"] == "Test Reviewer"
@@ -110,10 +124,11 @@ def test_invalid_approval_leaves_candidate_pending(runtime, deal_dict, overrides
 
 
 def test_update_requires_explicit_target_and_keeps_one_edge(
-    runtime, deal_dict, tmp_path
+    runtime, deal_dict, tmp_path, monkeypatch
 ):
     reviewer, ident = queued(runtime, deal_dict)
     reviewer.approve(ident, **approval(deal_dict))
+    apply_export(reviewer, monkeypatch)
     original = list(csv.DictReader(reviewer.graph.open()))[0]
     # Another source, same deal day/identity: approval must see the current graph.
     new_deal = {**deal_dict, "source_url": "https://publisher.test/update"}
@@ -141,6 +156,7 @@ def test_update_requires_explicit_target_and_keeps_one_edge(
     with pytest.raises(ValueError, match="Duplicate"):
         reviewer.approve(ident2, **approval(new_deal))
     reviewer.approve(ident2, **approval(new_deal), target_edge=original["edge_id"])
+    apply_export(reviewer, monkeypatch)
     assert len(list(csv.DictReader(reviewer.graph.open()))) == 1
     event = reviewer.store.rows("SELECT * FROM audit ORDER BY id DESC LIMIT 1")[0]
     assert event["action"] == "update"
@@ -184,10 +200,11 @@ def test_crash_after_replace_finalises_only_prepared_review(
 
 
 def test_explicit_new_same_day_contract_gets_distinct_stable_id(
-    runtime, deal_dict, tmp_path
+    runtime, deal_dict, tmp_path, monkeypatch
 ):
     reviewer, ident = queued(runtime, deal_dict)
     reviewer.approve(ident, **approval(deal_dict))
+    apply_export(reviewer, monkeypatch)
     text = deal_dict["evidence_quote"] + " A separate contract."
     meta = {
         "company": "Nvidia",
@@ -204,6 +221,45 @@ def test_explicit_new_same_day_contract_gets_distinct_stable_id(
     reviewer.store.propose(document_id, separate, {}, {})
     ident2 = reviewer.store.candidates()[0]["id"]
     reviewer.approve(ident2, **approval(separate), new_edge=True)
+    apply_export(reviewer, monkeypatch)
     rows = list(csv.DictReader(reviewer.graph.open()))
     assert len(rows) == len({row["edge_id"] for row in rows}) == 2
     assert rows[-1]["edge_id"].endswith(ident2[2:10])
+
+
+def test_export_rejects_stale_ledger_or_edited_promotion(runtime, deal_dict, monkeypatch):
+    from pathlib import Path
+    from types import SimpleNamespace
+    import src.review as original
+    import yaml
+    reviewer, ident = queued(runtime, deal_dict)
+    reviewer.approve(ident, **approval(deal_dict))
+    event = reviewer.store.rows("SELECT * FROM audit")[0]
+    path = Path(json.loads(event["payload"])["promotion_path"])
+    monkeypatch.setattr(original, "EDGES", reviewer.graph)
+    before = reviewer.graph.read_bytes()
+    reviewer.graph.write_bytes(before + b"\n")
+    with pytest.raises(SystemExit, match="ledger changed"):
+        original.cmd_batch(SimpleNamespace(path=path))
+    reviewer.graph.write_bytes(before)
+    doc = yaml.safe_load(path.read_text())
+    doc["edges"][0]["amount_usd_high"] = 123
+    path.write_text(yaml.safe_dump(doc))
+    with pytest.raises(SystemExit, match="was edited"):
+        original.cmd_batch(SimpleNamespace(path=path))
+    assert reviewer.graph.read_bytes() == before
+
+
+def test_stale_approval_reopens_with_new_export_and_preserves_old(runtime, deal_dict, monkeypatch):
+    from pathlib import Path
+    reviewer, ident = queued(runtime, deal_dict)
+    reviewer.approve(ident, **approval(deal_dict))
+    original = Path(json.loads(reviewer.store.rows("SELECT payload FROM audit")[0]["payload"])["promotion_path"])
+    before = original.read_bytes()
+    reviewer.reopen(ident, "Ledger changed before application")
+    reviewer.approve(ident, **approval(deal_dict))
+    latest = Path(json.loads(reviewer.store.rows("SELECT payload FROM audit ORDER BY id DESC LIMIT 1")[0]["payload"])["promotion_path"])
+    assert latest != original and original.read_bytes() == before
+    apply_export(reviewer, monkeypatch)
+    with pytest.raises(ValueError, match="already applied"):
+        reviewer.reopen(ident, "Cannot reuse an applied approval")

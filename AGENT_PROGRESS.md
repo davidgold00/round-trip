@@ -107,3 +107,23 @@
   are reported. Current linked corpus has no mismatches.
 - Manual: explicitly link any additional historical tranche only after confirming
   it is the same arrangement rather than a subsequent order or cumulative total.
+
+## 7. Single review/promotion path: done via adapter
+
+- Retired the agent's direct ledger writer. Approval exports a one-edge promotions
+  YAML plus immutable SQLite before/after audit, and leaves the ledger unchanged.
+- Apply with the original `src.review batch`; it adds an append-only application
+  audit for agent exports and refuses altered rows or a ledger changed since
+  review. Original promotions retain their previous behavior.
+- Approval no longer auto-rebuilds a dashboard. Apply the YAML, then `publish`.
+  Approved queue status means reviewed/exported, not published. Rich metadata
+  stays in the audit; canonical published rows use the original 17 fields.
+- Appended the integration decision to DECISIONS.md. Existing promotions and
+  financial ledger untouched. Tests use temporary ledgers only and exercise
+  both the adapter and actual original batch function, including updates,
+  distinct same-day contracts, stale reviews and crash recovery.
+- Verified full pytest and validate-only. Manual: use the documented review ->
+  original batch -> publish workflow. Never apply development fixtures to ledger.
+- Stale exported approvals can be explicitly reopened with a reason. Each new
+  export has a revision suffix; previous YAML/audit is preserved. Applied
+  approvals cannot be reopened. Canonical workflow: `docs/AGENT_REVIEW.md`.

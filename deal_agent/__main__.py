@@ -174,7 +174,7 @@ def parser():
     )
     review.add_argument(
         "action",
-        choices=["list", "show", "approve", "edit", "reject", "audit"],
+        choices=["list", "show", "approve", "edit", "reject", "audit", "reopen"],
         nargs="?",
     )
     review.add_argument("candidate_id", nargs="?")
@@ -200,7 +200,7 @@ def parser():
     review.add_argument(
         "--no-publish",
         action="store_true",
-        help="Batch approvals; run publish once afterwards",
+        help="Compatibility flag: approvals only export YAML; apply it with src.review batch",
     )
     return ap
 
@@ -318,8 +318,8 @@ def main(argv=None):
                         )
                         else 0
                     )
-                if applied and not args.no_publish:
-                    publish(cfg, trace)
+                if applied:
+                    print("Apply the exported promotions with src.review batch, then run deal_agent publish.")
             elif args.action == "list":
                 for row in store.candidates():
                     print(
@@ -345,6 +345,8 @@ def main(argv=None):
 
                         atomic_write(args.json, json.dumps(candidate["deal"], indent=2))
                         print(f"Editable deal JSON saved to {args.json}")
+                elif args.action == "reopen":
+                    review.reopen(args.candidate_id, args.reason)
                 elif args.action == "reject":
                     if not args.reason:
                         raise ValueError("--reason is required")
@@ -377,8 +379,7 @@ def main(argv=None):
                         term_start=args.term_start,
                         term_end=args.term_end,
                     )
-                    if not args.no_publish:
-                        publish(cfg, trace)
+                    print("Approval exports a reviewed YAML; apply it with src.review batch before publishing.")
             return 0
         if args.command == "run":
             with lock(path_for(cfg, "state_db").with_suffix(".run.lock")):

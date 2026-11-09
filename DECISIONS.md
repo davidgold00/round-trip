@@ -452,3 +452,22 @@ Format: `[date] [phase] decision -- rationale`
   -- The small corpus is a smoke benchmark, not a representative accuracy claim.
   Local model accuracy remains unmeasured until the Ollama benchmark completes;
   test-provider output is never reported as model performance.
+
+## Agent review integration, 2026-11-09
+
+Agent approval now exports one reviewed promotions YAML and records an immutable
+SQLite approval audit. It does not write the ledger or trigger publication.
+Apply that YAML with the existing `python -m src.review batch PATH`, then rebuild
+with `python -m deal_agent publish`. The existing promotion mechanism writes an
+append-only `ledger/promotion_audit.jsonl` application event for agent batches.
+The YAML includes hashes of the approved row and ledger at review time, so an
+edited export or stale review is refused before publication. Re-review a stale
+approval against the current ledger; do not remove the guard fields.
+
+This adapter is the least invasive unification. SQLite retains chunk checkpoints,
+verification failures, edits, rejections and crash recovery, while the legacy CSV
+queues retain their established behavior. Both workflows now publish through the
+same promotions mechanism. Existing promotions and the reviewed financial ledger
+are unchanged. The earlier direct agent CSV writer is retired. Rich extraction
+metadata remains in the approval audit; the promotions row uses the original
+17 fields. An approved SQLite status means reviewed/exported, not published.

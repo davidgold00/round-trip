@@ -1,14 +1,12 @@
-"""The only agent module allowed to publish a human-approved ledger change."""
+"""Review proposals and export audited approvals to the existing promotions path."""
 
 from __future__ import annotations
 
-import csv
-import io
 import json
 import math
 from pathlib import Path
 
-from src.ledger import EDGE_FIELDS, EXTENDED_EDGE_FIELDS, validate
+from src.ledger import EDGE_FIELDS, validate
 from src.review import check_row
 from src.util import edge_id
 
@@ -21,21 +19,27 @@ from .trace import digest, stamp
 from .verify import verify, whitespace
 
 
-def csv_text(rows: list[dict]) -> str:
-    handle = io.StringIO(newline="")
-    fields = list(
-        dict.fromkeys([*EXTENDED_EDGE_FIELDS, *(key for row in rows for key in row)])
-    )
-    writer = csv.DictWriter(handle, fieldnames=fields, lineterminator="\n")
-    writer.writeheader()
-    writer.writerows(rows)
-    return handle.getvalue()
-
-
 def recover(store, graph: Path):
     """Recover an interrupted approval without publishing an unreviewed change."""
     for event in store.rows("SELECT * FROM audit WHERE state='prepared' ORDER BY id"):
         payload = json.loads(event["payload"])
+        if "promotion_path" in payload:
+            path = Path(payload["promotion_path"])
+            if path.exists() and digest(path.read_bytes()) != payload["promotion_sha256"]:
+                raise RuntimeError("Interrupted approval conflicts with edited promotions YAML")
+            applied = path.exists()
+            store.db.execute("BEGIN IMMEDIATE")
+            try:
+                if applied:
+                    store.db.execute("UPDATE candidates SET status='approved' WHERE id=?", (event["candidate_id"],))
+                store.db.execute("UPDATE audit SET state=? WHERE id=?", ("applied" if applied else "aborted", event["id"]))
+                store.db.execute("COMMIT")
+            except Exception:
+                store.db.execute("ROLLBACK")
+                raise
+            continue
+        # Compatibility: recognize a completed approval from the previous direct
+        # writer, but never perform a new write through that retired path.
         current = digest(graph.read_bytes())
         if str(graph.resolve()) != payload["graph_path"]:
             raise RuntimeError("Prepared approval belongs to another graph path")
@@ -184,6 +188,27 @@ class Review:
             "review.reject", {"candidate": candidate_id}, {"reason": reason}
         )
 
+    def reopen(self, candidate_id, reason):
+        if not reason.strip():
+            raise ValueError("Record a reason for re-review")
+        rows = [r for r in self.store.candidates("approved") if r["id"] == candidate_id]
+        if not rows:
+            raise ValueError("Only an exported approval can be reopened")
+        application_audit = self.graph.parent / "promotion_audit.jsonl"
+        if application_audit.exists() and any(
+            json.loads(line).get("candidate_id") == candidate_id
+            for line in application_audit.read_text().splitlines() if line.strip()
+        ):
+            raise ValueError("Approval already applied; create and review a new update candidate")
+        self.store.db.execute("BEGIN IMMEDIATE")
+        try:
+            self.audit(candidate_id, "reopen", {"before": rows[0], "reason": reason})
+            self.store.db.execute("UPDATE candidates SET status='pending' WHERE id=?", (candidate_id,))
+            self.store.db.execute("COMMIT")
+        except Exception:
+            self.store.db.execute("ROLLBACK")
+            raise
+
     def approve(
         self,
         candidate_id,
@@ -330,32 +355,39 @@ class Review:
             if problems:
                 raise ValueError("Ledger validation failed: " + "; ".join(problems))
             before = self.graph.read_bytes()
-            after = csv_text(updated)
-            payload = {
-                "candidate": row,
-                "before": previous,
-                "after": exported,
-                "reason": reason,
-                "reconcile": rec,
-                "graph_path": str(self.graph.resolve()),
-                "before_hash": digest(before),
-                "after_hash": digest(after),
-                "publication": "run publish after approval",
+            import yaml
+
+            # Export only the established fields consumed by src.review.batch.
+            # Rich extraction metadata and before/after review remain in the audit.
+            approved = {key: exported[key] for key in EDGE_FIELDS}
+            revision = len(self.store.rows("SELECT id FROM audit WHERE candidate_id=? AND action IN ('approve','update')", (candidate_id,))) + 1
+            promotion_path = path_for(self.cfg, "state_db").parent / "promotions" / f"{candidate_id}-r{revision}.yaml"
+            metadata = {
+                "candidate_id": candidate_id, "actor": self.actor,
+                "reviewed_at": stamp(), "document_sha256": row["document_id"],
+                "graph_before_sha256": digest(before),
+                "approved_edges_sha256": digest(encode([approved])),
+                "operation": "update" if target_edge else "new",
             }
-            # A committed intent plus atomic replacement is recoverable even if
-            # the process dies between the CSV and SQLite commits.
-            event_id = self.audit(
-                candidate_id,
-                "update" if target_edge else "approve",
-                payload,
-                "prepared",
-            )
+            promotion_text = yaml.safe_dump({"agent_review": metadata, "edges": [approved]},
+                                            sort_keys=False, allow_unicode=True)
+            if promotion_path.exists():
+                raise ValueError("An approval export already exists; inspect its audit before retrying")
+            payload = {
+                "candidate": row, "before": previous, "after": exported,
+                "reason": reason, "reconcile": rec,
+                "graph_path": str(self.graph.resolve()), "before_hash": digest(before),
+                "promotion_path": str(promotion_path.resolve()),
+                "promotion_sha256": digest(promotion_text),
+                "publication": "Reviewed export only. Apply with python -m src.review batch PATH, then publish.",
+            }
+            event_id = self.audit(candidate_id, "update" if target_edge else "approve", payload, "prepared")
             if digest(self.graph.read_bytes()) != digest(before):
-                raise RuntimeError(
-                    "Graph changed during review; re-review against current data"
-                )
-            self.trace.call(
-                "review.apply_graph", payload, lambda: atomic_write(self.graph, after)
-            )
+                raise RuntimeError("Graph changed during review; re-review against current data")
+            self.trace.call("review.export_promotion", metadata,
+                            lambda: atomic_write(promotion_path, promotion_text))
             recover(self.store, self.graph)
+            print(f"Reviewed promotion exported: {promotion_path}")
+            print(f"Apply: python -m src.review batch {promotion_path}")
+            print("Then: python -m deal_agent publish")
             return event_id
