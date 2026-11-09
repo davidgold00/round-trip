@@ -130,6 +130,8 @@ def parser():
     run = sub.add_parser(
         "run", help="Fetch, triage, extract, verify, reconcile and propose ONLY"
     )
+    run.add_argument("--source", choices=["auto", "news", "fetch"], default="auto")
+    run.add_argument("--news-corpus", type=Path)
     run.add_argument(
         "--no-fetch", action="store_true", help="Process already stored documents only"
     )
@@ -387,17 +389,19 @@ def main(argv=None):
                 stats = {}
                 try:
                     if not args.no_fetch:
-                        stats.update(
-                            fetch(
-                                cfg, store, trace, pipeline.resolver, no_sec=args.no_sec
-                            )
-                        )
+                        corpus = args.news_corpus or cfg["_root"] / cfg["deal_agent"].get("news_corpus", "data/interim/news_items.csv")
+                        if args.source == "news" or (args.source == "auto" and corpus.is_file()):
+                            from .news_input import import_news
+                            stats.update(import_news(cfg, store, trace, pipeline.resolver, corpus))
+                        else:
+                            stats.update(fetch(cfg, store, trace, pipeline.resolver, no_sec=args.no_sec))
+                            stats["input_source"] = "fetch"
                     else:
                         stats["docs_fetched"] = 0
                     stats.update(pipeline.run_documents())
                     status = (
                         "partial"
-                        if stats.get("fetch_errors", 0) or stats["document_errors"]
+                        if stats.get("fetch_errors", 0) or stats.get("import_errors", 0) or stats["document_errors"]
                         else "complete"
                     )
                     store.finish(trace.run_id, stats, status)

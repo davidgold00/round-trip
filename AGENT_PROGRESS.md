@@ -127,3 +127,22 @@
 - Stale exported approvals can be explicitly reopened with a reason. Each new
   export has a revision suffix; previous YAML/audit is preserved. Applied
   approvals cannot be reopened. Canonical workflow: `docs/AGENT_REVIEW.md`.
+
+## 8. Reuse existing ingestion: done
+
+- `run` defaults to the original stored `news_items.csv` when present. It imports
+  financing-flagged items without HTTP and reuses full cached SEC text when the
+  original filings index points to a local file. Otherwise it labels title and
+  snippet scope explicitly, with conservative evidence tier and publisher context.
+- `--source news --news-corpus PATH` selects a corpus explicitly; `--source fetch`
+  preserves the agent fetcher as fallback. Auto falls back only if no corpus is
+  present, so an empty valid corpus does not trigger duplicate network work.
+  `--no-fetch` still processes only documents already in SQLite.
+- Source identities and document hashes make repeated imports idempotent. A stored
+  full primary document is not downgraded to a snippet. No unseen article body is
+  inferred from its URL. Malformed rows are recorded as import issues.
+- Verified full pytest and validate-only. Tests run ingestion -> extraction ->
+  pending queue without network, reuse a cached full filing and check idempotency.
+- Manual: refresh the original ingestion first; snippets alone often lack the
+  evidence required for a useful deal proposal. Use the explicit fallback when
+  you want primary document discovery rather than the stored news corpus.

@@ -78,6 +78,7 @@ deal_agent:
   overlap_days: 2
   polite_delay_seconds: 0.25
   max_documents_per_run: 100
+  news_corpus: data/interim/news_items.csv
   state_db: data/deal_agent/queue.sqlite3
   raw_dir: data/deal_agent/raw
   trace_dir: data/deal_agent/traces
