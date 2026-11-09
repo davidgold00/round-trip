@@ -141,8 +141,14 @@ def evaluate(
     status = (
         "labels_only" if validate_only else ("incomplete" if errors else "complete")
     )
-    metrics = score(records, pipeline.resolver) if records and not errors else None
+    synthetic = getattr(pipeline.provider, "synthetic", False)
+    if synthetic and not validate_only and not errors:
+        status = "synthetic_test_only"
+    metrics = score(records, pipeline.resolver) if records and not errors and not synthetic else None
     report = {
+        "synthetic": synthetic,
+        "provider_mode": getattr(pipeline.provider, "mode", "ollama"),
+        "cassette_sha256": getattr(pipeline.provider, "cassette_sha256", None),
         "extractor": extractor,
         "status": status,
         "generated": stamp(),

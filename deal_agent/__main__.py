@@ -14,7 +14,7 @@ from .config import load, path_for
 from .fetch import fetch, text_of
 from .io import lock
 from .pipeline import Pipeline
-from .provider import Ollama
+from .provider import make_provider
 from .store import Store, encode
 from .trace import Trace, digest
 
@@ -140,6 +140,9 @@ def parser():
     evaluate = sub.add_parser(
         "eval", help="Benchmark saved sources offline; only loopback Ollama is used"
     )
+    for command in (run, evaluate):
+        command.add_argument("--provider", choices=["ollama", "record", "replay"], default="ollama")
+        command.add_argument("--cassette", type=Path)
     evaluate.add_argument("--gold", type=Path, default=None)
     evaluate.add_argument("--output", type=Path, default=None)
     evaluate.add_argument(
@@ -209,7 +212,7 @@ def main(argv=None):
         with tempfile.TemporaryDirectory(prefix="roundtrip-eval-") as temporary:
             store = Store(Path(temporary) / "eval.sqlite3")
             try:
-                pipeline = Pipeline(cfg, store, trace, Ollama(cfg["deal_agent"], trace))
+                pipeline = Pipeline(cfg, store, trace, make_provider(cfg["deal_agent"], trace, getattr(args, "provider", "ollama"), getattr(args, "cassette", None)))
                 if args.extractor == "rules":
                     from .rules import Rules
                     pipeline = Rules(pipeline)
@@ -253,7 +256,7 @@ def main(argv=None):
         if args.command == "publish":
             publish(cfg, trace)
             return 0
-        pipeline = Pipeline(cfg, store, trace, Ollama(cfg["deal_agent"], trace))
+        pipeline = Pipeline(cfg, store, trace, make_provider(cfg["deal_agent"], trace, getattr(args, "provider", "ollama"), getattr(args, "cassette", None)))
         if args.command == "import-file":
             from datetime import date
             from urllib.parse import urlparse

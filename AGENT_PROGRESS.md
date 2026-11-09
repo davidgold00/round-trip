@@ -17,3 +17,18 @@
 - Baseline counts: 1 true positive, 10 false positives, 11 false negatives.
   Edge precision 9.1%, recall 8.3%; amount accuracy 100% on just ONE match.
   This is a warning about sample size, not evidence of reliable amount parsing.
+
+## 2. Record/replay provider: done
+
+- Added strict sequential cassettes with exact prompt/schema/options/model hashes,
+  every live response including raw Ollama metadata, and recorded exceptions.
+  Replay has no network fallback and refuses changed prompts or settings.
+- `eval` and `run` accept `--provider record|replay --cassette PATH`.
+  Recording refuses existing files; real cassettes can be committed explicitly.
+- A two-document cassette is explicitly synthetic test data. Its first extraction
+  has an incorrect amount, then a verified repair. Synthetic eval metrics are
+  always withheld. Tests cover queue insertion, retry history and idempotency.
+- Verified full pytest suite and `eval --validate-only`, no model or network.
+- Git's direct push has no credentials here. Published the tested commit through
+  the selected GitHub integration and synchronized the local branch to it.
+- Manual: collect and commit a real cassette with a live local benchmark.
