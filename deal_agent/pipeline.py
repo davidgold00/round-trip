@@ -69,6 +69,10 @@ class Pipeline:
             )
 
     def prompt(self, name, schema, text, meta, **values):
+        # Store paths and fetch timestamps are local bookkeeping, not source evidence.
+        fields = ("source_url", "company", "published_date", "doc_type", "accession_no",
+                  "evidence_tier", "source_scope", "date_scope", "ingestion_item_id")
+        meta = {key: meta[key] for key in fields if key in meta}
         template = (self.prompt_dir / f"{name}.txt").read_text()
         result = Template(template).substitute(
             schema=json.dumps(schema.model_json_schema()),
@@ -302,7 +306,7 @@ class Pipeline:
             meta = json.loads(row["meta"])
             text = self.trace.call(
                 "document.read",
-                {"path": row["text_path"]},
+                {"document": row["id"], "source_url": meta["source_url"]},
                 lambda: Path(row["text_path"]).read_text(),
                 summarize=lambda value: {
                     "sha256": digest(value),

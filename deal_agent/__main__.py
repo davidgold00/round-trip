@@ -142,6 +142,9 @@ def parser():
         "--no-sec", action="store_true", help="Configured public feeds only"
     )
     sub.add_parser("export-pending", help="Export a read-only pending dashboard snapshot")
+    sub.add_parser("demo", help="Replay a recorded source in an isolated, offline queue")
+    explain = sub.add_parser("explain", help="Explain one pending or reviewed candidate from its trace")
+    explain.add_argument("candidate_id")
     sub.add_parser("inbox", help="List pending filings, news and agent proposals together")
     sub.add_parser("runs", help="Summarise the most recent extraction run")
     evaluate = sub.add_parser(
@@ -226,6 +229,14 @@ def main(argv=None):
         if "cloud" in args.model.lower():
             raise ValueError("Choose a downloaded local model")
         cfg["deal_agent"]["model"] = args.model
+    if args.command == "demo":
+        from .demo import demo
+        demo()
+        return 0
+    if args.command == "explain":
+        from .explain import load_story, render
+        print(render(load_story(cfg, args.candidate_id)))
+        return 0
     if args.command == "inbox":
         from .pending import inbox
         for item in inbox(cfg):

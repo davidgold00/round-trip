@@ -51,50 +51,40 @@ def dollars(text: str) -> set[Decimal]:
 def verify(
     deal: Deal, text: str, resolver, source_url: str, company: str | None = None
 ) -> dict:
-    errors = []
+    details = {}
+
+    def record(name, failures, applicable=True):
+        details[name] = {"result": ("skip" if not applicable else "fail" if failures else "pass"),
+                         "errors": failures}
+
     quote = whitespace(deal.evidence_quote)
-    if not quote or quote not in whitespace(text):
-        errors.append(
-            "evidence_quote is not verbatim in source (whitespace normalisation only)"
-        )
-    source, target = (
-        resolver.resolve(deal.source_entity),
-        resolver.resolve(deal.target_entity),
-    )
+    record("verbatim_quote", [] if quote and quote in whitespace(text) else
+           ["evidence_quote is not verbatim in source (whitespace normalisation only)"])
+    source, target = resolver.resolve(deal.source_entity), resolver.resolve(deal.target_entity)
+    node_errors = []
     if not source:
-        errors.append(f"unknown source entity: {deal.source_entity}")
+        node_errors.append(f"unknown source entity: {deal.source_entity}")
     if not target:
-        errors.append(f"unknown target entity: {deal.target_entity}")
+        node_errors.append(f"unknown target entity: {deal.target_entity}")
     if source and source == target:
-        errors.append("source and target resolve to the same node")
-    if deal.source_url != source_url:
-        errors.append("source_url differs from fetched document URL")
-    # A known filing author supplies the first-person "we" context. Other
-    # counterparties must appear in the source; metadata never creates nodes.
+        node_errors.append("source and target resolve to the same node")
+    record("known_nodes", node_errors)
+    record("source_url", [] if deal.source_url == source_url else
+           ["source_url differs from fetched document URL"])
     mentioned = resolver.mentioned(text)
     publisher = resolver.resolve(company or "")
     if publisher:
         mentioned.add(publisher)
-    for canonical in (source, target):
-        if canonical and canonical not in mentioned:
-            errors.append(f"entity absent from document text: {canonical}")
+    record("entities_in_text_or_filer_metadata", [f"entity absent from document text: {node}"
+           for node in (source, target) if node and node not in mentioned])
+    money_errors = []
     if deal.amount_usd is not None:
         if Decimal(str(deal.amount_usd)) not in dollars(quote):
-            errors.append(
-                "amount_usd does not appear as an explicit USD amount in evidence_quote"
-            )
+            money_errors.append("amount_usd does not appear as an explicit USD amount in evidence_quote")
         if not deal.amount_text or whitespace(deal.amount_text) not in quote:
-            errors.append("amount_text is missing from evidence_quote")
-    return {
-        "passed": not errors,
-        "errors": errors,
-        "source_node": source,
-        "target_node": target,
-        "checks": [
-            "verbatim_quote",
-            "USD_amount",
-            "known_nodes",
-            "entities_in_text_or_filer_metadata",
-            "source_url",
-        ],
-    }
+            money_errors.append("amount_text is missing from evidence_quote")
+    record("USD_amount", money_errors, applicable=deal.amount_usd is not None)
+    errors = [error for check in details.values() for error in check["errors"]]
+    return {"passed": not errors, "errors": errors, "source_node": source, "target_node": target,
+            "checks": ["verbatim_quote", "USD_amount", "known_nodes", "entities_in_text_or_filer_metadata", "source_url"],
+            "details": details}
