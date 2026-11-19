@@ -29,55 +29,56 @@ def edge_key(edge, resolver):
     )
 
 
+def align_edges(expected, predicted, resolver):
+    """Pair predictions with distinct gold edges, preferring the nearest amount."""
+    available = defaultdict(list)
+    for prediction in predicted:
+        available[edge_key(prediction["deal"], resolver)].append(prediction)
+    for gold in expected:
+        choices = available[edge_key(gold, resolver)]
+        if not choices:
+            yield gold, None
+            continue
+
+        def distance(prediction):
+            a, b = prediction["deal"]["amount_usd"], gold["amount_usd"]
+            if a is None or b is None:
+                return 0 if a is b else math.inf
+            return abs(a - b)
+
+        best = min(range(len(choices)), key=lambda i: distance(choices[i]))
+        yield gold, choices.pop(best)
+    for remaining in available.values():
+        for prediction in remaining:
+            yield None, prediction
+
+
 def score(records: list[dict], resolver, tolerance=0.001) -> dict:
     triage_tp = triage_fp = triage_fn = edge_tp = edge_fp = edge_fn = 0
-    matched = amount_correct = numeric_count = numeric_correct = passes = (
-        predictions
-    ) = 0
+    matched = amount_correct = numeric_count = numeric_correct = passes = predictions = 0
     for row in records:
-        expected, predicted = row["expected"], row["predicted"]
         triage_tp += bool(row["gold_relevant"] and row["triaged_in"])
         triage_fp += bool(not row["gold_relevant"] and row["triaged_in"])
         triage_fn += bool(row["gold_relevant"] and not row["triaged_in"])
-        gold_by, pred_by = defaultdict(list), defaultdict(list)
-        for edge in expected:
-            gold_by[edge_key(edge, resolver)].append(edge)
-        for edge in predicted:
-            pred_by[edge_key(edge["deal"], resolver)].append(edge)
-            predictions += 1
-            passes += edge["verification"]["passed"]
-        for key in gold_by.keys() | pred_by.keys():
-            gold, pred = gold_by[key], pred_by[key]
-            # One-to-one matching within pair/type. Do NOT allow a single edge
-            # to satisfy multiple tranches or count duplicate predictions as TP.
-            # Prefer equal amounts for deterministic assignment within that key.
-            available = list(pred)
-            for target in gold:
-                if not available:
-                    edge_fn += 1
-                    continue
-
-                def error(item):
-                    a, b = item["deal"]["amount_usd"], target["amount_usd"]
-                    if a is None or b is None:
-                        return 0 if a is b else math.inf
-                    return abs(a - b)
-
-                index = min(range(len(available)), key=lambda i: error(available[i]))
-                chosen = available.pop(index)
-                edge_tp += 1
-                matched += 1
-                a, b = chosen["deal"]["amount_usd"], target["amount_usd"]
-                correct = (a is None and b is None) or (
-                    a is not None
-                    and b is not None
-                    and abs(a - b) <= max(1, abs(b) * tolerance)
-                )
-                amount_correct += correct
-                if b is not None:
-                    numeric_count += 1
-                    numeric_correct += correct
-            edge_fp += len(available)
+        for gold, prediction in align_edges(row["expected"], row["predicted"], resolver):
+            if prediction:
+                predictions += 1
+                passes += prediction["verification"]["passed"]
+            if gold is None:
+                edge_fp += 1
+                continue
+            if prediction is None:
+                edge_fn += 1
+                continue
+            edge_tp += 1
+            matched += 1
+            a, b = prediction["deal"]["amount_usd"], gold["amount_usd"]
+            correct = (a is None and b is None) or (
+                a is not None and b is not None and abs(a - b) <= max(1, abs(b) * tolerance))
+            amount_correct += correct
+            if b is not None:
+                numeric_count += 1
+                numeric_correct += correct
     return {
         "triage_precision": ratio(triage_tp, triage_tp + triage_fp),
         "triage_recall": ratio(triage_tp, triage_tp + triage_fn),
