@@ -1,27 +1,22 @@
-# Round-Trip AI: Who Is Financing Their Own Customers?
+# Round-Trip AI
 
-A living research dashboard that quantifies how much AI infrastructure supplier
-backlog depends on counterparties whose funding traces back to the supplier,
-stress tests that dependency, and refreshes itself as new filings and news
-arrive.
+**How much of an AI supplier's backlog comes from customers it helped finance?** Across 38 reviewed relationships, the central estimate is **$46.7 billion out of $2.72 trillion, or 1.72%**. The lower and upper financing assumptions give **1.39% to 18.22%** against the same backlog denominator. The evidence snapshot is October 5, 2026.
 
-Everything runs locally and for free. SEC EDGAR, company investor-relations
-feeds and GDELT. No paid APIs. The default refresh uses rules; the optional
-`deal_agent` extractor uses a downloaded model on local Ollama, behind human review.
+A seller can invest in a customer that then contracts to buy its chips or cloud capacity. This project follows both payments. Its local deal agent reads filings and company releases, proposes who pays whom, quotes the evidence and sends each proposal to a reviewer. Only reviewed ledger entries contribute to the dashboard.
 
-## The headline
+> **Start here**
+>
+> **60 seconds** · Read the headline above and follow the [system diagram](#how-the-system-works).
+>
+> **10 minutes** · Use the [interview walkthrough](docs/WALKTHROUGH.md) and run `make demo` after setup.
+>
+> **Deep dive** · Follow the [numbered reading order](docs/README.md) from source data to evaluation and design decisions.
 
-> Roughly **1.7%** (range 1.4% to 18.2%) of disclosed backlog depends on a
-> counterparty whose funding traces back to the seller.
+The largest uncertainty is disclosure. Filings identify a customer for only 20.7% of the $2.72 trillion denominator. A zero measured relationship can mean the counterparty was never named.
 
-That figure is computed over the **20.7%** of this backlog universe that any
-filing ties to a named customer. The other **79.3%** names nobody, so the
-headline is a floor on what is visible, not a measurement of what exists. Oracle
-alone discloses $664 billion of remaining performance obligations and names no
-customer anywhere in its filings.
+## How the system works
 
-As of 2026-10-05, from 38 verified ledger edges: 28 from SEC filings, 10 from
-company releases, none from media reports or rumour.
+The rules extractor and local model propose candidates. A person reads the evidence before any change enters the ledger. The dashboard reads the resulting exposure and stress outputs.
 
 ## Run it
 
@@ -163,37 +158,3 @@ It runs inside the GitHub Actions free tier.
 Code is yours to use. The data is public: SEC EDGAR filings, company press
 releases and GDELT metadata. Only headlines, links, dates, publishers and short
 snippets are stored from news sources; article bodies are never fetched.
-
-
-## Local deal extraction agent
-
-The optional local Ollama agent proposes source-backed deals for human review.
-Approval exports reviewed YAML; the original promotions path publishes it.
-`make refresh` retains the original rules path and headline values.
-
-```mermaid
-flowchart TD
-  S["Cached sources"] --> R["Original rules"]
-  S --> A["Local triage, extraction and verification"]
-  R --> B["Same gold corpus and metrics"]
-  A --> B
-  A --> Q["Reconcile and queue"]
-  Q --> H["Human review"]
-  H --> P["Original promotions and audit"]
-  P --> G["Reviewed ledger"]
-```
-
-| Gold benchmark | Rules | Local LLM |
-|---|---:|---:|
-| Edge precision | 15.4% | Not measured |
-| Edge recall | 11.8% | Not measured |
-| Matched amount accuracy | 100% (2 matches) | Not measured |
-
-Reproduce after pulling the configured local model and starting Ollama:
-
-```bash
-make agent-bench
-```
-
-[Full agent guide](docs/DEAL_AGENT.md), [review workflow](docs/AGENT_REVIEW.md),
-and [complete results and counts](eval/RESULTS.md). This is a small excerpt benchmark.
