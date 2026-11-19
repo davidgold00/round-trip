@@ -147,6 +147,8 @@ def parser():
         command.add_argument("--provider", choices=["ollama", "record", "replay"], default="ollama")
         command.add_argument("--cassette", type=Path)
         command.add_argument("--prompt-version", choices=["v1", "v2"])
+    evaluate.add_argument("--split", choices=["dev", "test"])
+    evaluate.add_argument("--model", help="Downloaded local Ollama model")
     evaluate.add_argument("--gold", type=Path, default=None)
     evaluate.add_argument("--output", type=Path, default=None)
     evaluate.add_argument(
@@ -158,6 +160,7 @@ def parser():
     evaluate.add_argument("--extractor", choices=["llm", "rules"], default="llm")
     evaluate.add_argument("--exclude-uncertain", action="store_true")
     bench = sub.add_parser("bench", help="Preflight, record local models and compare against rules")
+    bench.add_argument("--split", choices=["dev"], default="dev")
     bench.add_argument("--models", nargs="+")
     bench.add_argument("--prompt-versions", nargs="+", choices=["v1", "v2"])
     bench.add_argument("--exclude-uncertain", action="store_true")
@@ -215,13 +218,17 @@ def main(argv=None):
     cfg = load(args.config)
     if getattr(args, "prompt_version", None):
         cfg["deal_agent"]["prompt_version"] = args.prompt_version
+    if getattr(args, "model", None):
+        if "cloud" in args.model.lower():
+            raise ValueError("Choose a downloaded local model")
+        cfg["deal_agent"]["model"] = args.model
     if args.command == "export-pending":
         from .pending import export
         print(encode(export(cfg)))
         return 0
     if args.command == "bench":
         from .benchmark import benchmark
-        return benchmark(cfg, models=args.models, prompt_versions=args.prompt_versions, exclude_uncertain=args.exclude_uncertain, output=args.output)
+        return benchmark(cfg, models=args.models, prompt_versions=args.prompt_versions, exclude_uncertain=args.exclude_uncertain, output=args.output, split=args.split)
     if args.command == "eval":
         # Eval cannot enqueue to production state, even accidentally.
         from .evaluate import evaluate
@@ -242,6 +249,7 @@ def main(argv=None):
                     validate_only=args.validate_only,
                     exclude_uncertain=args.exclude_uncertain,
                     extractor=args.extractor,
+                    split=args.split or ("dev" if not args.validate_only and not args.gold else None),
                 )
                 print(
                     encode(

@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import json
 import math
+import time
 from collections import defaultdict
 from pathlib import Path
 
@@ -101,12 +102,18 @@ def evaluate(
     validate_only=False,
     exclude_uncertain=False,
     extractor="llm",
+    split=None,
 ):
     manifest_path = directory / "manifest.json"
     manifest = json.loads(manifest_path.read_text())
+    if split:
+        from .splits import partitions
+        members = set(partitions(directory, manifest["documents"])[split])
+        manifest["documents"] = [d for d in manifest["documents"] if d["id"] in members]
     from .gold_ledger import check_gold_ledger
     ledger_check = check_gold_ledger(manifest["documents"], pipeline.cfg, pipeline.resolver)
     records, errors, label_failures = [], [], []
+    elapsed = 0.0
     for item in manifest["documents"]:
         text = (directory / item["text_file"]).read_text()
         if digest(text) != item["sha256"]:
@@ -128,10 +135,16 @@ def evaluate(
         if exclude_uncertain and item.get("label_uncertain"):
             continue
         # No labels, ids or expected entity pairs are sent to the model.
+        started = time.perf_counter()
         result = pipeline.process_text(text, meta)
+        seconds = time.perf_counter() - started
+        elapsed += seconds
         records.append(
             {
                 "id": item["id"],
+                "input_sha256": item["sha256"],
+                "seconds": seconds,
+                "verification_attempts": result.get("verification_attempts", []),
                 "label_uncertain": item["label_uncertain"],
                 "gold_relevant": item["relevant"],
                 "triaged_in": result["relevant"],
@@ -147,7 +160,14 @@ def evaluate(
     if synthetic and not validate_only and not errors:
         status = "synthetic_test_only"
     metrics = score(records, pipeline.resolver) if records and not errors and not synthetic else None
+    parse_events = [json.loads(line) for line in pipeline.trace.path.read_text().splitlines()
+                    if '.parse"' in line]
+    parse_events = [e for e in parse_events if e["stage"].endswith(".parse")]
     report = {
+        "split": split,
+        "seconds_per_document": elapsed / len(records) if records else None,
+        "parse_calls": len(parse_events),
+        "parse_failures": sum("error_type" in e["outputs"] for e in parse_events),
         "synthetic": synthetic,
         "provider_mode": getattr(pipeline.provider, "mode", "ollama"),
         "cassette_sha256": getattr(pipeline.provider, "cassette_sha256", None),

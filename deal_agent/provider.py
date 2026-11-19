@@ -75,9 +75,14 @@ class Recorder:
         self.model, self.synthetic = provider.model, synthetic
         if self.path.exists():
             raise ValueError(f"Cassette already exists: {self.path}. Choose a new path.")
-        self.data = {"version": 1, "synthetic": synthetic, "model": self.model,
+        self.data = {"version": 1, "run_id": getattr(getattr(provider, "trace", None), "run_id", None), "synthetic": synthetic, "model": self.model,
                      "description": "Synthetic test data, not model output" if synthetic else "Live local Ollama requests and responses",
                      "calls": []}
+
+    @property
+    def cassette_sha256(self):
+        from .trace import digest
+        return digest(self.path.read_bytes()) if self.path.exists() else None
 
     def generate(self, prompt, schema, stage):
         import json

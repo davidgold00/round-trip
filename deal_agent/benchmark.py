@@ -42,7 +42,7 @@ def preflight(agent, models):
 
 def comparison(reports, output):
     """Refuse unlike corpora or label policies; keep failed runs visibly unmeasured."""
-    keys = {(r["manifest_sha256"], r["exclude_uncertain"]) for r in reports}
+    keys = {(r["manifest_sha256"], r["exclude_uncertain"], r.get("split")) for r in reports}
     if len(keys) != 1:
         raise ValueError("Cannot compare different gold corpora or uncertainty policies")
     columns = ["Rules baseline" if r["extractor"] == "rules" else
@@ -72,7 +72,7 @@ def comparison(reports, output):
     atomic_write(output.with_suffix(".json"), json.dumps({"reports": reports}, indent=2) + "\n")
 
 
-def benchmark(cfg, *, models=None, prompt_versions=None, exclude_uncertain=False, output=None):
+def benchmark(cfg, *, models=None, prompt_versions=None, exclude_uncertain=False, output=None, split="dev"):
     models = models or [cfg["deal_agent"]["model"]]
     if len(set(models)) != len(models):
         raise ValueError("Choose distinct models for comparison")
@@ -101,16 +101,16 @@ def benchmark(cfg, *, models=None, prompt_versions=None, exclude_uncertain=False
                 if extractor == "rules":
                     pipeline = Rules(pipeline)
                 reports.append(evaluate(pipeline, root / "eval/gold", directory / f"{name}.md",
-                                        extractor=extractor, exclude_uncertain=exclude_uncertain))
+                                        extractor=extractor, exclude_uncertain=exclude_uncertain, split=split))
             finally:
                 store.close()
-    comparison(reports, output or root / "eval/RESULTS.md")
+    comparison(reports, output or root / "eval/RESULTS-dev.md")
     for report in reports:
         metrics = report.get("metrics") or {}
         value = metrics.get("edge_precision")
         recall = metrics.get("edge_recall")
         print(f"{report['extractor']} {report['model']}: " +
               (f"edge precision {value:.1%}, recall {recall:.1%}" if value is not None else "Not measured"))
-    print(f"Combined report: {output or root / 'eval/RESULTS.md'}")
+    print(f"Combined report: {output or root / 'eval/RESULTS-dev.md'}")
     print(f"Committable live cassettes: {root / 'eval/cassettes' / stamp}")
     return 1 if any(r["status"] != "complete" or r["label_failures"] for r in reports) else 0
