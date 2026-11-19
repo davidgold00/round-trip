@@ -263,3 +263,36 @@ def test_stale_approval_reopens_with_new_export_and_preserves_old(runtime, deal_
     apply_export(reviewer, monkeypatch)
     with pytest.raises(ValueError, match="already applied"):
         reviewer.reopen(ident, "Cannot reuse an applied approval")
+
+
+def test_feedback_retains_correction_and_excludes_reopened_approval(runtime, deal_dict, tmp_path):
+    from deal_agent.feedback import current_examples, sync_examples
+    review, ident = queued(runtime, deal_dict)
+    edit = tmp_path / "edit.json"
+    edit.write_text(json.dumps({**deal_dict, "rationale": "Analyst corrected the instrument description."}))
+    review.edit(ident, edit, "Correct rationale")
+    review.approve(ident, **approval(deal_dict))
+    path = sync_examples(review.cfg, review.store)
+    entry, = current_examples(path)
+    assert entry["correction"]["rationale"] != entry["proposal"]["rationale"]
+    assert entry["evidence_quote"] == deal_dict["evidence_quote"]
+    initial = path.read_bytes()
+    review.reopen(ident, "Review terms")
+    assert path.read_bytes().startswith(initial) and current_examples(path) == []
+    review.reject(ident, "Wrong counterparty")
+    assert current_examples(path)[0]["decision"] == "reject"
+    assert len(path.read_text().splitlines()) == 3
+
+
+def test_holdout_review_is_audited_but_cannot_feed_dev(runtime, deal_dict):
+    from deal_agent.config import ROOT
+    from deal_agent.feedback import current_examples, sync_examples
+    directory = ROOT / "eval/gold"
+    before = (directory / "splits.json").read_bytes()
+    ids = set(json.loads(before)["test"])
+    doc = next(d for d in json.loads((directory/"manifest.json").read_text())["documents"] if d["id"] in ids)
+    review, ident = queued(runtime, {**deal_dict, "source_url": doc["source_url"]+"?utm_source=test"})
+    review.reject(ident, "Test-source exclusion")
+    assert review.store.rows("SELECT action FROM audit") == [{"action":"reject"}]
+    assert current_examples(sync_examples(review.cfg, review.store)) == []
+    assert (directory / "splits.json").read_bytes() == before

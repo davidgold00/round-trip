@@ -19,6 +19,9 @@ from .trace import digest, stamp
 from .verify import verify, whitespace
 
 
+from .feedback import sync_examples
+
+
 def recover(store, graph: Path):
     """Recover an interrupted approval without publishing an unreviewed change."""
     for event in store.rows("SELECT * FROM audit WHERE state='prepared' ORDER BY id"):
@@ -79,6 +82,7 @@ class Review:
         # operation with queue state. This never applies a new graph mutation.
         with lock(self.graph.with_suffix(".csv.lock")):
             recover(self.store, self.graph)
+        sync_examples(self.cfg, self.store)
 
     def candidate(self, candidate_id):
         for row in self.store.candidates():
@@ -184,6 +188,7 @@ class Review:
         except Exception:
             self.store.db.execute("ROLLBACK")
             raise
+        sync_examples(self.cfg, self.store)
         self.trace.event(
             "review.reject", {"candidate": candidate_id}, {"reason": reason}
         )
@@ -208,6 +213,8 @@ class Review:
         except Exception:
             self.store.db.execute("ROLLBACK")
             raise
+
+        sync_examples(self.cfg, self.store)
 
     def approve(
         self,
@@ -387,6 +394,7 @@ class Review:
             self.trace.call("review.export_promotion", metadata,
                             lambda: atomic_write(promotion_path, promotion_text))
             recover(self.store, self.graph)
+            sync_examples(self.cfg, self.store)
             print(f"Reviewed promotion exported: {promotion_path}")
             print(f"Apply: python -m src.review batch {promotion_path}")
             print("Then: python -m deal_agent publish")

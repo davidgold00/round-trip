@@ -28,3 +28,11 @@ An applied approval cannot be reopened; a later restatement needs a new reviewed
 candidate. Failed verification requires an edit and successful recheck first.
 Rich extraction metadata remains in SQLite audit; promotion rows use the original
 ledger fields. Existing filing/news queues and promotion files are unchanged.
+
+## Feedback from a decision
+
+1. An approval or rejection records its source, evidence, reason and any edit in the SQLite audit.
+2. Review projects eligible decisions into `data/deal_agent/reviewed-examples.jsonl`.
+3. When review restarts it repairs the file from applied audit events without duplicating examples.
+4. A reopened approval becomes ineligible until the next decision. Read the latest state with `current_examples`.
+5. Frozen test URLs, source hashes and exact evidence quotes are excluded. Eligible examples can be curated for future development runs.
