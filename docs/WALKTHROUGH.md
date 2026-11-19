@@ -100,3 +100,18 @@
 - The evidence base still needs full filing passages and more independent deals. Repeated excerpts from one S-1 add information about that filing without supplying another independent company.
 
 **Show this.** Open the [prior adjudication record](history/AGENT_PROGRESS.md), [gold notes](../eval/gold/README.md) and [traced example](TRACE_EXAMPLE.md).
+
+## Design tradeoffs
+
+| Choice | Alternative considered | Reason in the project | Cost | Source |
+|---|---|---|---|---|
+| Loopback Ollama | Hosted inference | Keep source text local and allow runs without API keys | Model download, RAM and CPU time | [Provider and preflight](../deal_agent/provider.py) |
+| Plain Python orchestration | Agent framework | Each stage, retry and side effect is explicit and can be tested independently | The repository owns orchestration and recovery | [Pipeline](../deal_agent/pipeline.py) |
+| Deterministic evidence checks | Ask the model to certify its own answer | Recheck copied words, known entities and explicit USD against the cached source | A true quote can still refer to the wrong instrument | [Verifier](../deal_agent/verify.py) |
+| One bounded repair | Retry until a check passes | Retain initial failures and prevent a repair from exchanging an unresolved deal for a different one | Some fixable candidates remain pending | [Repair implementation](../deal_agent/pipeline.py) |
+| Human promotion gate | Publish verified model output automatically | A person must decide status, legal identity and conservative dollar bounds | Analyst review limits throughput | [Review integration](../DECISIONS.md#agent-review-integration-2026-11-09) |
+| Shared application mechanism | A second ledger writer for the agent | Original and agent reviews need the same stale-state and update protections | Approval, application and publication are separate operations | [Dated decision](../DECISIONS.md#agent-review-integration-2026-11-09) |
+| Freeze source groups | Repeatedly compare on all excerpts | Protect the final comparison from later tuning and same-source leakage | Only ten passages are available for held-out scoring | [Prospective rule](history/NIGHT3.md#selection-rule-recorded-before-scoring) |
+| Record exact responses | Require a live model for every demonstration | Reconstruct the real output, check request identity and replay offline | Recordings take space and change when prompts change | [Record and replay](../deal_agent/provider.py) |
+| Original rules baseline | Report a model score in isolation | Measure the incremental value of model extraction on identical inputs | A fixed taxonomy mapping is required | [Rules adapter](../deal_agent/rules.py) |
+| Three provenance readings | Report one exact financing fraction | Private funding denominators are incomplete and disclosure is uneven | The range is wide | [Pre-registered provenance](../DECISIONS.md#a5-funding-provenance-matrix-f-and-the-three-bounds) |
