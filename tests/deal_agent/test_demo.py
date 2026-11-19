@@ -23,3 +23,14 @@ def test_demo_and_explanation_offline(tmp_path):
     assert f"Raw {example['model']} extract response:" in story
     assert "Human review: pending" in story and "USD_amount:" in story
     assert [p.read_bytes() if p.exists() else None for p in paths] == before
+
+
+def test_written_trace_matches_explain():
+    from deal_agent.config import load
+    from deal_agent.explain import load_story, render
+    sample = json.loads((ROOT/"eval/example/document.json").read_text())
+    text = (ROOT/"docs/TRACE_EXAMPLE.md").read_text()
+    assert "```text\n"+render(load_story(load(),sample["candidate_id"]))+"\n```" in text
+    real_lines = set((ROOT/"eval/example/trace.jsonl").read_text().splitlines())
+    for block in text.split("```jsonl\n")[1:]:
+        assert set(block.split("\n```",1)[0].splitlines()) <= real_lines
