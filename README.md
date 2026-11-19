@@ -16,7 +16,24 @@ The largest uncertainty is disclosure. Filings identify a customer for only 20.7
 
 ## How the system works
 
-The rules extractor and local model propose candidates. A person reads the evidence before any change enters the ledger. The dashboard reads the resulting exposure and stress outputs.
+```mermaid
+flowchart TD
+    S["SEC EDGAR, company IR and GDELT"] --> R["Filing rules and news tags"]
+    S --> A["Local deal agent"]
+    R --> V["Verify source in human review"]
+    A --> C["Check quote, amount and entities"]
+    C --> Q["Review inbox"]
+    V --> Q
+    Q --> H["Reviewer approves a sourced change"]
+    H --> P["Promotion and audit"]
+    P --> L["Reviewed ledger"]
+    L --> M["Exposure metrics"]
+    L --> T["Stress test"]
+    M --> D["Dashboard"]
+    T --> D
+```
+
+Open the combined worklist with `python -m deal_agent inbox`. Filing and news candidates live in CSV. Agent proposals live in SQLite and carry machine verification and repair history. Both routes require a human decision.
 
 ## Run it
 

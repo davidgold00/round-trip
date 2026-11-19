@@ -139,6 +139,7 @@ def parser():
         "--no-sec", action="store_true", help="Configured public feeds only"
     )
     sub.add_parser("export-pending", help="Export a read-only pending dashboard snapshot")
+    sub.add_parser("inbox", help="List pending filings, news and agent proposals together")
     sub.add_parser("runs", help="Summarise the most recent extraction run")
     evaluate = sub.add_parser(
         "eval", help="Benchmark saved sources offline; only loopback Ollama is used"
@@ -222,6 +223,11 @@ def main(argv=None):
         if "cloud" in args.model.lower():
             raise ValueError("Choose a downloaded local model")
         cfg["deal_agent"]["model"] = args.model
+    if args.command == "inbox":
+        from .pending import inbox
+        for item in inbox(cfg):
+            print(f"{item['id']}  {item['source']} -> {item['target']}  |  {item['inspect']}")
+        return 0
     if args.command == "export-pending":
         from .pending import export
         print(encode(export(cfg)))

@@ -21,12 +21,12 @@ def snapshot(cfg, limit=5):
         connection = sqlite3.connect(path.resolve().as_uri() + "?mode=ro", uri=True, timeout=2)
         try:
             result["pending_count"] = connection.execute("SELECT count(*) FROM candidates WHERE status='pending'").fetchone()[0]
-            for deal_json, check_json, created in connection.execute(
-                "SELECT deal,verification,created FROM candidates WHERE status='pending' ORDER BY created DESC,id DESC LIMIT ?", (limit,)
+            for candidate_id, deal_json, check_json, created in connection.execute(
+                "SELECT id,deal,verification,created FROM candidates WHERE status='pending' ORDER BY created DESC,id DESC LIMIT ?", (limit,)
             ):
                 deal, checked = json.loads(deal_json), json.loads(check_json)
                 result["items"].append({
-                    "source_entity": deal["source_entity"], "target_entity": deal["target_entity"],
+                    "id": candidate_id, "source_entity": deal["source_entity"], "target_entity": deal["target_entity"],
                     "deal_type": deal["deal_type"], "amount_text": deal["amount_text"],
                     "evidence_quote": deal["evidence_quote"][:600], "source_url": deal["source_url"],
                     "verification_status": "passed" if checked.get("passed") else "failed",
@@ -45,3 +45,23 @@ def export(cfg, directory=None):
     payload = snapshot(cfg)
     atomic_write(directory / "pending_agent.json", json.dumps(payload, indent=2) + "\n")
     return payload
+
+def inbox(cfg):
+    """Read both storage formats without creating a database or exporting a file."""
+    from .reconcile import read_csv
+
+    result = []
+    for name in cfg["deal_agent"]["legacy_queues"]:
+        for row in read_csv(cfg["_root"] / name):
+            if row.get("review_status") == "pending":
+                key = row["candidate_id"]
+                result.append({"id": key, "source": row["source_node"], "target": row["target_node"],
+                               "inspect": f"python -m src.review show {key}"})
+    pending = snapshot(cfg, limit=-1)
+    if not pending["available"]:
+        raise RuntimeError(pending["note"])
+    for row in pending["items"]:
+        key = row["id"]
+        result.append({"id": key, "source": row["source_entity"], "target": row["target_entity"],
+                       "inspect": f"python -m deal_agent review show {key}"})
+    return result
