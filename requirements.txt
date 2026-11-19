@@ -8,3 +8,5 @@ lxml==6.1.1
 scikit-learn==1.8.0
 pytest==8.4.2
 # Optional local news embeddings remain opt-in; TF-IDF needs no downloaded model.
+# Test-only CommonMark parsing for the repository-wide local-link check.
+markdown-it-py==4.0.0

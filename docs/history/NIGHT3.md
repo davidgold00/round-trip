@@ -15,3 +15,7 @@ Choose a completed, real Ollama configuration on dev by directed edge F1, breaki
 ## A0. Frozen partitions and benchmark inputs
 
 The freeze uses seed 20261119, ten positive and five negative dev passages (three uncertain), seven positive and three negative test passages (two uncertain). Shared releases, the Nscale filing excerpts and the AMD/OpenAI filing/announcement stay on one side. No new Python dependency. Ollama and downloaded weights are local setup dependencies outside Git.
+
+## Reading and review changes
+
+A4 records applied human decisions, corrections and reopened approvals in an idempotent local feedback projection. Exact held-out sources are filtered before future development use. B1 to B3 supply a single entry point, one read-only inbox across both queue formats and a numbered guide. The original decision log and historical methodology are preserved. Markdown-it-py and its small URL parser are used only for CommonMark link validation, so fenced examples and reference links are interpreted the same way as rendered links.
