@@ -131,12 +131,16 @@ class Replay:
         from .trace import digest
         self.cfg, self.trace = dict(cfg), trace
         self.path = Path(path)
-        self.data = json.loads(self.path.read_text())
+        import gzip
+        contents = self.path.read_bytes()
+        if self.path.suffix == ".gz":
+            contents = gzip.decompress(contents)
+        self.data = json.loads(contents)
         if self.data.get("version") != 1 or type(self.data.get("synthetic")) is not bool:
             raise ValueError("Unsupported cassette or missing synthetic provenance flag")
         self.model = self.data["model"]
         self.synthetic = self.data["synthetic"]
-        self.cassette_sha256 = digest(self.path.read_bytes())
+        self.cassette_sha256 = digest(contents)
         if self.model != cfg["model"]:
             raise ValueError("Cassette model does not match configured model")
         self.position = 0
