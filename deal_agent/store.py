@@ -1,4 +1,7 @@
-"""SQLite state and review queue. No publication methods live in this module."""
+"""Persist source identities, jobs, checkpoints, proposals and immutable review events.
+Fetch and extraction write to SQLite transactions; review records operator decisions.
+Expose the pending worklist and audit trail independently of the financial ledger.
+"""
 
 from __future__ import annotations
 

@@ -1,4 +1,7 @@
-"""One YAML file: use the repository's existing config.yaml."""
+"""Load paths, prompts, models and extraction constraints from project YAML.
+The CLI supplies the configuration path; defaults resolve beside that file.
+Return validated loopback and chunk settings to the agent components.
+"""
 
 from __future__ import annotations
 

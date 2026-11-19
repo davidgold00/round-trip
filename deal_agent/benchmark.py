@@ -1,4 +1,7 @@
-"""One-command local benchmark with reusable recordings and comparable reports."""
+"""Compare rules and local Ollama configurations on the same development passages.
+Create a fresh evaluation store and recording for each model and prompt pair.
+Pass the resulting reports to the comparison writer.
+"""
 from __future__ import annotations
 
 from copy import deepcopy

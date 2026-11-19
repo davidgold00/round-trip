@@ -1,4 +1,7 @@
-"""Reuse the original ingestion corpus without fetching another feed or article."""
+"""Import the original news corpus and reuse cached primary filing bodies.
+The news monitor supplies stored titles, snippets, dates and source URLs.
+Persist attributable evidence for the proposal pipeline.
+"""
 from __future__ import annotations
 
 import csv

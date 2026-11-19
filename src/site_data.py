@@ -1,8 +1,6 @@
-"""Assemble the JSON the static dashboard reads.
-
-Everything the page shows must be traceable to ledger rows, so the graph, the
-supplier cards and the ledger explorer all carry the edge ids, quotes, URLs and
-as-of dates with them.
+"""Assemble reviewed financial data for the static dashboard.
+Load the ledger, backlog and configuration and attach source evidence and edge IDs.
+Write site JSON, including the separate read-only pending snapshot.
 """
 from __future__ import annotations
 

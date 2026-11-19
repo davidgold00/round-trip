@@ -1,6 +1,6 @@
-"""SEC EDGAR client: declared User-Agent, <=5 req/s, disk cache, retries, logging.
-
-No paid APIs. No LLM calls. Everything here hits sec.gov only.
+"""Retrieve and cache public SEC data with contact identification and rate limits.
+Ingestion, news monitoring and auditing request resources through this client.
+Return source bytes or decoded filing metadata to the caller.
 """
 from __future__ import annotations
 

@@ -1,4 +1,7 @@
-"""Strict wire schemas. Model output is data, never executable instructions."""
+"""Define the strict triage and deal schemas used at the model boundary.
+Decode generated JSON and reject invalid values, extra fields and duplicate keys.
+Send typed proposals to verification and publishable type mappings to review.
+"""
 
 from __future__ import annotations
 

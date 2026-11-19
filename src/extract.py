@@ -1,11 +1,6 @@
-"""Rule and regex candidate-edge extractor.
-
-Reads cached filing text, finds dollar amounts sitting near counterparty names
-and financing verbs, and writes CANDIDATES ONLY to ledger/candidates.csv.
-
-Nothing here ever writes to ledger/edges.csv. Promotion is a separate, manual
-step via `python -m src.review`, which requires a quote. Enforced by
-tests/test_no_autopromote.py.
+"""Find possible financing and purchase relationships in cached filing text.
+Ingestion supplies the filing index; entity aliases and verb rules identify candidates.
+Write the filing review queue and supporting evidence tables.
 """
 from __future__ import annotations
 

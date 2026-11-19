@@ -1,4 +1,7 @@
-"""Ledger I/O, validation, and the TCV normalisation used by every metric."""
+"""Read, validate and persist the reviewed network and backlog tables.
+Review supplies approved rows under the existing direction and evidence conventions.
+Metrics, stress and dashboard export consume these common representations.
+"""
 from __future__ import annotations
 
 import csv

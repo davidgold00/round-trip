@@ -1,16 +1,6 @@
-"""Candidate review CLI. The ONLY path from candidate to ledger.
-
-    python -m src.review list                 show pending candidates
-    python -m src.review show <candidate_id>  print the full context window
-    python -m src.review promote <id> --quote "..." [overrides]
-    python -m src.review reject  <id> --reason "..."
-    python -m src.review batch ledger/promotions.yaml
-    python -m src.review verify               re-run ledger validation
-
-Every promotion requires a quote of fewer than 25 words. A T1 promotion
-requires an accession number. Nothing is ever promoted automatically:
-`src/extract.py` cannot write to edges.csv, and this module refuses a promotion
-without a quote.
+"""Inspect filing and news candidates and apply reviewed promotions.
+The CSV queues and reviewed YAML supply evidence, bounds and explicit update targets.
+Validated approvals enter the ledger used by metrics and stress.
 """
 from __future__ import annotations
 

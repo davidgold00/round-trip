@@ -1,7 +1,6 @@
-"""Incremental SEC submissions + EX-99.1 discovery, and configured RSS/Atom.
-
-Persist discovery jobs BEFORE advancing cursors. A failed download remains queued
-regardless of the next scan date; no latest-run watermark can hide a failure.
+"""Discover SEC filings, exhibits and configured publisher feeds incrementally.
+Persist discovery jobs before advancing cursors so failed downloads can retry.
+Save hashed source bytes and normalized text for the extraction pipeline.
 """
 
 from __future__ import annotations

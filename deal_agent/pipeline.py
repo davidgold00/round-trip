@@ -1,7 +1,6 @@
-"""Explicit orchestration: fetch -> chunk -> triage -> extract -> verify -> reconcile -> propose.
-
-This module never writes the approved ledger or dashboard. It only reads those
-inputs and writes SQLite candidates, raw documents and traces.
+"""Orchestrate chunking, triage, extraction, verification and bounded repair.
+Read cached documents and local provider responses; compare them with reviewed rows.
+Write pending proposals, processing checkpoints and a trace for human review.
 """
 
 from __future__ import annotations

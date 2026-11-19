@@ -1,4 +1,7 @@
-"""Read-only static snapshot of the local pending queue, never ledger input."""
+"""Expose read-only views of proposals waiting for human review.
+Read the local SQLite queue and the configured legacy candidate tables.
+Supply the dashboard snapshot and the combined command-line inbox.
+"""
 from __future__ import annotations
 
 import json

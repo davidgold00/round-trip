@@ -1,19 +1,6 @@
-"""Phase 3: cascade stress test, Monte Carlo, and a second-method cross-check.
-
-Pre-registered in DECISIONS.md A.9. Pure local computation.
-
-Model
------
-A funding shock hits buyer j: its new external funding falls by `x`. Its ability
-to honour commitments scales by `1 - passthrough * x`. Suppliers lose the
-corresponding share of backlog. A supplier that loses revenue reduces its own
-outbound funding and purchases by `capacity_to_invest` times its revenue loss
-rate, which re-shocks the buyers it was financing. Iterate to a fixed point.
-
-Cross-checked against two independent methods:
-  * Eisenberg-Noe style proportional clearing on the commitment network.
-  * DebtRank adapted to commitments.
-Disagreements are reported, not reconciled away.
+"""Simulate how a funding shortfall propagates through purchase commitments.
+Build the network from the reviewed ledger and configured shock assumptions.
+Export scenario, Monte Carlo and cross-check results for the dashboard.
 """
 from __future__ import annotations
 

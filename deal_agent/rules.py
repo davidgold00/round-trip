@@ -1,8 +1,6 @@
-"""Thin, label-blind adapter for the original candidate extractor.
-
-The $50M floor, first-money match, verb order and guessed direction are retained.
-News tagging produces relevance flags, not directed edges, so it is not unioned
-into edge predictions. This baseline measures the original extraction rules.
+"""Adapt the original rules extractor to the label-blind evaluation interface.
+Keep its amount floor, verb priority and directions when extracting saved source text.
+Map types and verify each proposal before passing it to the common scorer.
 """
 from types import SimpleNamespace
 

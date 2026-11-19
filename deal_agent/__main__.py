@@ -1,4 +1,7 @@
-"""CLI entry point; run `python -m deal_agent --help`."""
+"""Dispatch local extraction, benchmarking and review commands.
+Parse the operator command and load the repository configuration.
+Connect the provider, trace and store to the requested workflow.
+"""
 
 from __future__ import annotations
 

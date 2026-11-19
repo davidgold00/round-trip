@@ -1,16 +1,6 @@
-"""Phase 4: news and funding monitor. All free sources, terms-compliant.
-
-Sources
-  * SEC EDGAR 8-K Atom feeds, one per seed CIK.
-  * Company IR / newsroom RSS where the publisher offers one.
-  * GDELT DOC 2.0 API (free, no key).
-
-Storage policy: headline, link, date, publisher and a short snippet only. Full
-article text is never fetched or stored.
-
-Tagging: keyword rules plus semantic similarity. Similarity uses a LOCAL
-sentence-transformers model if one is installed, otherwise TF-IDF cosine. No
-LLM API is called anywhere.
+"""Collect and tag potential financing news from EDGAR, IR feeds and GDELT.
+The feed clients and accumulated corpus supply titles, snippets and URLs.
+Write the news worklist and dashboard feed reused by the local deal agent.
 """
 from __future__ import annotations
 

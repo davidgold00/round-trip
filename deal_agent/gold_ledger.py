@@ -1,4 +1,7 @@
-"""Read-only agreement checks against reviewed ledger direction and taxonomy."""
+"""Compare gold edge annotations with linked reviewed ledger records.
+Evaluation supplies the annotated corpus and the resolver supplies canonical names.
+Return matches, ambiguities and conflicts for the validation report.
+"""
 from .models import LEGACY_TYPE
 from .reconcile import read_csv
 from .config import path_for

@@ -1,10 +1,6 @@
-"""Phase 1 ingestion: SEC submissions, XBRL companyfacts, and filing text.
-
-SEC EDGAR only. Rate limited, cached, retried. Writes:
-  data/interim/xbrl_facts.csv     tidy XBRL observations for the concepts we need
-  data/interim/filings_index.csv  one row per retrieved filing document
-  data/raw/filings/*              cached raw documents
-  outputs/coverage.md             what was found and what is missing
+"""Acquire SEC submissions, filing text and XBRL facts for tracked companies.
+The SEC client retrieves and caches source bytes under the configured rate limit.
+The filing index and normalized facts feed extraction and backlog research.
 """
 from __future__ import annotations
 

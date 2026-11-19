@@ -1,4 +1,7 @@
-"""The only implemented LLM backend: downloaded models on local Ollama."""
+"""Generate structured responses on loopback Ollama or replay exact recordings.
+The pipeline supplies a prompt, schema and stage with fixed generation options.
+Return raw text for validation and preserve the original reply when recording.
+"""
 
 from __future__ import annotations
 

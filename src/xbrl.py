@@ -1,4 +1,7 @@
-"""XBRL companyfacts parsing: pull the specific concepts the metrics need."""
+"""Normalize financial facts and period identifiers from SEC companyfacts.
+Ingestion supplies issuer filings and the concepts used in backlog research.
+Return observations for the interim XBRL table and subsequent analysis.
+"""
 from __future__ import annotations
 
 from typing import Any

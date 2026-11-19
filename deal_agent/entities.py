@@ -1,4 +1,7 @@
-"""Exact alias resolution to existing nodes; never create nodes automatically."""
+"""Resolve issuer names, aliases and ticker symbols to existing ledger nodes.
+The node CSV and configured aliases supply the canonical vocabulary.
+Triage, verification, scoring and reconciliation share the resolver.
+"""
 
 from __future__ import annotations
 

@@ -1,4 +1,7 @@
-"""Append-only JSONL for every model, HTTP, storage and deterministic stage call."""
+"""Record inputs, outputs, duration and run identity as append-only JSON lines.
+Model calls and deterministic stages report their execution here.
+Evaluation, explanation and review can reconstruct what a particular run did.
+"""
 
 from __future__ import annotations
 

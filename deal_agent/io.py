@@ -1,4 +1,7 @@
-"""Portable exclusive locks and durable atomic file replacement."""
+"""Provide exclusive file locks and atomic text replacement.
+Review, recording and export call these helpers around durable writes.
+Readers see complete files; interrupted work can be reconciled from audit state.
+"""
 
 import os
 import tempfile

@@ -1,4 +1,7 @@
-"""Strict deterministic checks. Only whitespace is normalised in evidence."""
+"""Check each structured proposal against the saved source and canonical companies.
+The pipeline supplies the proposed deal, original text and source attribution.
+Return explicit findings for a bounded retry, the pending queue and human review.
+"""
 
 from __future__ import annotations
 

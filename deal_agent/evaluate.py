@@ -1,4 +1,7 @@
-"""Offline benchmark: identical extraction path, held-out labels used only for scoring."""
+"""Score proposed relationships against the selected source-backed gold passages.
+The real extraction path supplies predictions without receiving expected labels.
+Write per-document evidence and aggregate metrics for comparison.
+"""
 
 from __future__ import annotations
 

@@ -1,4 +1,7 @@
-"""Conservative, explainable relationship matching; no fuzzy automatic updates."""
+"""Classify a proposed relationship as new, an update or a duplicate.
+Compare canonical direction, type, source, date and amount with existing records.
+Return the classification and matched ID to the queue and reviewer.
+"""
 
 from __future__ import annotations
 

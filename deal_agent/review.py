@@ -1,4 +1,7 @@
-"""Review proposals and export audited approvals to the existing promotions path."""
+"""Recheck and record human decisions on pending local proposals.
+Read candidate evidence, current ledger rows and the immutable review audit.
+Export approved terms to the existing promotion path and eligible examples to feedback.
+"""
 
 from __future__ import annotations
 
