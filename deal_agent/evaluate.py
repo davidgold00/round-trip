@@ -138,9 +138,11 @@ def evaluate(
         if exclude_uncertain and item.get("label_uncertain"):
             continue
         # No labels, ids or expected entity pairs are sent to the model.
+        cached_seconds = getattr(pipeline.provider, "replayed_seconds", 0.0)
         started = time.perf_counter()
         result = pipeline.process_text(text, meta)
-        seconds = time.perf_counter() - started
+        seconds = (time.perf_counter() - started
+                   + getattr(pipeline.provider, "replayed_seconds", 0.0) - cached_seconds)
         elapsed += seconds
         records.append(
             {

@@ -19,3 +19,7 @@ The freeze uses seed 20261119, ten positive and five negative dev passages (thre
 ## Reading and review changes
 
 A4 records applied human decisions, corrections and reopened approvals in an idempotent local feedback projection. Exact held-out sources are filtered before future development use. B1 to B3 supply a single entry point, one read-only inbox across both queue formats and a numbered guide. The original decision log and historical methodology are preserved. Markdown-it-py and its small URL parser are used only for CommonMark link validation, so fenced examples and reference links are interpreted the same way as rendered links.
+
+The operator authorized publishing completed feature-branch commits during this session. The existing PR remains open. The development benchmark was interrupted after six Qwen calls. Exact-prefix recovery preserves the original run ID and responses and continues on loopback Ollama. Each published commit tree is checked against the locally tested tree.
+
+Confidence ordering requires increasing observed precision across populated bins and at least five distinct source documents in both the lowest and highest occupied bins. Otherwise retain chronological review. This gate was set before compiling model reliability tables.

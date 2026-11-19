@@ -47,3 +47,5 @@ make agent-bench AGENT_BENCH_ARGS="--models qwen2.5:7b-instruct llama3.1:8b --pr
 ```
 
 Use dev for new comparisons. Read the [published results](../eval/RESULTS.md), [gold source notes](../eval/gold/README.md), [freeze](../eval/gold/splits.json) and [selection rule](history/NIGHT3.md#selection-rule-recorded-before-scoring).
+
+An interrupted development benchmark can continue with the same arguments plus `--resume TIMESTAMP`, using the directory name under `eval/results/`. Matching completed configurations are reused. An unfinished configuration replays its exact successful prefix, then records fresh local calls. Timing includes the recorded inference duration for reused calls. A changed request or an error in the prefix stops recovery.

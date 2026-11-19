@@ -72,3 +72,23 @@ def test_synthetic_results_cannot_be_model_metrics(runtime, tmp_path):
     pipe.provider.synthetic = True
     report = evaluate(pipe, ROOT / "eval/gold", tmp_path / "synthetic.md")
     assert report["synthetic"] and report["metrics"] is None
+
+
+def test_resume_reuses_exact_prefix_before_extending_real_recording(runtime, tmp_path):
+    from types import SimpleNamespace
+    cfg, _, trace, _ = runtime
+    # Exercise the recovery format with an isolated fake service; no scores are produced.
+    replies = iter(["first", "second"])
+    live = SimpleNamespace(model=cfg["deal_agent"]["model"], trace=trace,
+                           last_response={"total_duration": 2_000_000_000},
+                           generate=lambda *args: next(replies))
+    path = tmp_path / "record.json"
+    writer = Recorder(live, cfg["deal_agent"], path)
+    writer.generate("a", {}, "triage")
+    resumed = Recorder(live, cfg["deal_agent"], path, resume=True)
+    with pytest.raises(RuntimeError, match="mismatch"):
+        resumed.generate("changed", {}, "triage")
+    assert resumed.generate("a", {}, "triage") == "first"
+    assert resumed.replayed_seconds == 2
+    assert resumed.generate("b", {}, "extract") == "second"
+    assert len(json.loads(path.read_text())["calls"]) == 2

@@ -75,7 +75,7 @@ def comparison(reports, output):
     atomic_write(output.with_suffix(".json"), json.dumps({"reports": reports}, indent=2) + "\n")
 
 
-def benchmark(cfg, *, models=None, prompt_versions=None, exclude_uncertain=False, output=None, split="dev"):
+def benchmark(cfg, *, models=None, prompt_versions=None, exclude_uncertain=False, output=None, split="dev", resume=None):
     models = models or [cfg["deal_agent"]["model"]]
     if len(set(models)) != len(models):
         raise ValueError("Choose distinct models for comparison")
@@ -85,6 +85,10 @@ def benchmark(cfg, *, models=None, prompt_versions=None, exclude_uncertain=False
     preflight(cfg["deal_agent"], models)
     root = cfg["_root"]
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
+    if resume:
+        if not re.fullmatch(r"[0-9]{8}T[0-9]{12}Z", resume) or not (root / "eval/results" / resume).is_dir():
+            raise ValueError("Supply an existing development benchmark directory name")
+        stamp = resume
     directory = root / "eval/results" / stamp
     reports = []
     for extractor, model, version in [("rules", models[0], "v1"), *[("llm", m, v) for m in models for v in prompt_versions]]:
@@ -92,13 +96,30 @@ def benchmark(cfg, *, models=None, prompt_versions=None, exclude_uncertain=False
         current["deal_agent"]["model"] = model
         current["deal_agent"]["prompt_version"] = version
         name = "rules" if extractor == "rules" else re.sub(r"[^A-Za-z0-9_.-]", "_", model) + "-" + version
-        trace = Trace(directory / "traces", model)
         cassette = root / "eval/cassettes" / stamp / f"{name}.json"
+        report_path = directory / f"{name}.json"
+        if resume and report_path.exists():
+            old = json.loads(report_path.read_text())
+            from .trace import digest
+            if (old["split"] != split or old["exclude_uncertain"] != exclude_uncertain
+                    or old["manifest_sha256"] != digest((root/"eval/gold/manifest.json").read_bytes())
+                    or old["status"] != "complete" or (extractor == "llm" and
+                    (old["cassette_sha256"] != digest(cassette.read_bytes())
+                     or old["prompt_hashes"] != {p.name: digest(p.read_bytes()) for p in
+                        (Path(__file__).parent / "prompts" / version).glob("*.txt")}))):
+                raise ValueError(f"Cannot reuse a different or incomplete benchmark: {name}")
+            reports.append(old)
+            continue
+        prior = json.loads(cassette.read_text()) if resume and cassette.exists() else {}
+        trace_dir = directory / "traces"
+        if prior:
+            trace_dir = trace_dir / datetime.now(timezone.utc).strftime("resume-%H%M%S%f")
+        trace = Trace(trace_dir, model, run_id=prior.get("run_id"))
         with tempfile.TemporaryDirectory(prefix="roundtrip-bench-") as td:
             store = Store(Path(td) / "queue.sqlite3")
             try:
                 provider = make_provider(current["deal_agent"], trace,
-                                         "record" if extractor == "llm" else "ollama",
+                                         ("resume" if prior else "record") if extractor == "llm" else "ollama",
                                          cassette if extractor == "llm" else None)
                 pipeline = Pipeline(current, store, trace, provider)
                 if extractor == "rules":

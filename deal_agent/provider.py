@@ -72,10 +72,18 @@ class Recorder:
     """Record every request, raw Ollama response and failure; never overwrite."""
     mode = "record"
 
-    def __init__(self, provider, cfg, path, *, synthetic=False):
+    def __init__(self, provider, cfg, path, *, synthetic=False, resume=False):
         from pathlib import Path
         self.provider, self.cfg, self.path = provider, dict(cfg), Path(path)
         self.model, self.synthetic = provider.model, synthetic
+        self.prefix = None
+        self.replayed_seconds = 0.0
+        if self.path.exists() and resume:
+            self.prefix = Replay(cfg, self.path, provider.trace)
+            self.data = self.prefix.data
+            if self.prefix.synthetic or any("error" in call for call in self.data["calls"]):
+                raise ValueError("Can only resume a clean prefix of genuine local responses")
+            return
         if self.path.exists():
             raise ValueError(f"Cassette already exists: {self.path}. Choose a new path.")
         self.data = {"version": 1, "run_id": getattr(getattr(provider, "trace", None), "run_id", None), "synthetic": synthetic, "model": self.model,
@@ -92,6 +100,12 @@ class Recorder:
         from .io import atomic_write
         from .store import encode
         from .trace import digest
+        if self.prefix and self.prefix.position < len(self.prefix.data["calls"]):
+            response = self.prefix.generate(prompt, schema, stage)
+            saved = self.prefix.data["calls"][self.prefix.position-1]["ollama_response"]
+            self.replayed_seconds += saved["total_duration"] / 1e9
+            return response
+        self.prefix = None
         request = request_payload(self.cfg, prompt, schema, stage)
         entry = {"request": request, "request_sha256": digest(encode(request))}
         try:
@@ -147,9 +161,9 @@ class Replay:
 
 
 def make_provider(cfg, trace, mode="ollama", cassette=None):
-    if mode in {"record", "replay"} and cassette is None:
+    if mode in {"record", "replay", "resume"} and cassette is None:
         raise ValueError("--cassette is required for recording or replay")
     if mode == "replay":
         return Replay(cfg, cassette, trace)
     live = Ollama(cfg, trace)
-    return Recorder(live, cfg, cassette) if mode == "record" else live
+    return Recorder(live, cfg, cassette, resume=mode == "resume") if mode in {"record", "resume"} else live

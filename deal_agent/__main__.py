@@ -168,6 +168,7 @@ def parser():
     evaluate.add_argument("--exclude-uncertain", action="store_true")
     bench = sub.add_parser("bench", help="Preflight, record local models and compare against rules")
     bench.add_argument("--split", choices=["dev"], default="dev")
+    bench.add_argument("--resume", help="Resume a development recording at its last exact successful call")
     bench.add_argument("--models", nargs="+")
     bench.add_argument("--prompt-versions", nargs="+", choices=["v1", "v2"])
     bench.add_argument("--exclude-uncertain", action="store_true")
@@ -248,7 +249,7 @@ def main(argv=None):
         return 0
     if args.command == "bench":
         from .benchmark import benchmark
-        return benchmark(cfg, models=args.models, prompt_versions=args.prompt_versions, exclude_uncertain=args.exclude_uncertain, output=args.output, split=args.split)
+        return benchmark(cfg, models=args.models, prompt_versions=args.prompt_versions, exclude_uncertain=args.exclude_uncertain, output=args.output, split=args.split, resume=args.resume)
     if args.command == "eval":
         # Eval cannot enqueue to production state, even accidentally.
         from .evaluate import evaluate
