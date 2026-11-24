@@ -52,3 +52,9 @@ def test_relative_markdown_links_resolve():
                                      and unquote(url.fragment) not in anchors(dest)):
                 errors.append(f"{name}: {link}")
     assert not errors, "\n".join(errors)
+
+
+def test_static_interview_sources_are_current():
+    from deal_agent.guide import assets
+    for name, body in assets().items():
+        assert (ROOT / name).read_text() == body, f"Run make guide to rebuild {name}"

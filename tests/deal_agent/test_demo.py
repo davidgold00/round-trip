@@ -18,7 +18,7 @@ def test_demo_and_explanation_offline(tmp_path):
         return subprocess.run(["make",*args,f"PY={sys.executable}"],cwd=ROOT,env=env,check=True,
                               capture_output=True,text=True,timeout=120).stdout
     output = make("demo")
-    assert example["candidate_id"] in output and "News > Pending review" in output
+    assert example["candidate_id"] in output and "Review & news > Recorded example" in output
     story = make("explain", "ID="+example["candidate_id"])
     assert f"Raw {example['model']} extract response:" in story
     assert "Human review: pending" in story and "USD_amount:" in story

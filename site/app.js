@@ -90,24 +90,16 @@ function renderHeadline() {
   const m = S.metrics, L = S.ledger;
   const eco = m.ecosystem;
   const c = eco.CENTRAL.rte, lo = eco.RANGE.min, hi = eco.RANGE.max;
-  document.getElementById("heroFigure").textContent = pct(c);
-  document.getElementById("heroRange").innerHTML =
-    `range <strong>${pct(lo)}</strong> to <strong>${pct(hi)}</strong> &middot; ` +
-    (eco.RANGE.ordered ? "" : `<span class="pill cond" title="LOWER exceeds CENTRAL for at least one supplier">readings not nested</span> &middot; `) +
-    `${usd(eco.CENTRAL.backlog_at_risk)} of ${usd(eco.CENTRAL.backlog_total)} of disclosed backlog`;
+  document.getElementById("heroFigure").textContent = pct(c, 2);
   document.getElementById("heroSentence").innerHTML =
-    `Roughly <strong>${pct(c)}</strong> (range ${pct(lo)} to ${pct(hi)}) of disclosed ` +
-    `backlog depends on a counterparty whose funding traces back to the seller.`;
+    `<strong>${usd(eco.CENTRAL.backlog_at_risk)}</strong> of ${usd(eco.CENTRAL.backlog_total)} in disclosed backlog traces to customers their suppliers helped finance.`;
+  document.getElementById("heroRange").textContent =
+    `Lower to upper estimate · ${pct(lo, 2)} to ${pct(hi, 2)}` + (eco.RANGE.ordered ? "" : " · readings overlap");
   const cov = m.coverage;
   document.getElementById("heroCaveat").innerHTML =
-    `That percentage is computed over the <strong>${pct(cov.named_share_weighted)}</strong> ` +
-    `of this backlog universe that any filing ties to a named customer. The other ` +
-    `<strong>${pct(cov.unattributable_weighted)}</strong> names nobody, so the headline is a ` +
-    `floor on what is visible, not a measurement of what exists.`;
-  document.getElementById("heroAsOf").innerHTML =
-    `As of ${esc(m.as_of)} &middot; ${L.counts.edges} ledger edges, tier gate ` +
-    `${esc(m.tier_gate.join(" and "))} &middot; T3 sensitivity: ` +
-    `${pct(m.sensitivity_T3.ecosystem.CENTRAL.rte)} central`;
+    `Disclosures leave <strong>${pct(cov.unattributable_weighted)}</strong> of backlog without a named buyer. Only the identifiable share can contribute to the numerator.`;
+  document.getElementById("heroAsOf").textContent =
+    `Evidence through ${m.as_of} · ${L.counts.edges} reviewed relationships · ${m.tier_gate.join(" and ")}`;
 
   const contributing = [];
   m.suppliers.forEach(s => {
@@ -297,7 +289,7 @@ function renderGraphControls() {
   const fams = S.ledger.families;
   const shortFam = S.ledger.families_short || fams;
   document.getElementById("familyToggles").innerHTML = Object.keys(fams).map(k =>
-    `<button class="btn" data-fam="${k}" aria-pressed="true">${esc(shortFam[k] || fams[k])}</button>`).join("");
+    `<button class="btn" data-fam="${k}" aria-pressed="${G.fams.has(k)}">${esc(shortFam[k] || fams[k])}</button>`).join("");
   document.querySelectorAll("[data-fam]").forEach(b => b.onclick = () => {
     const f = b.dataset.fam;
     if (G.fams.has(f)) G.fams.delete(f); else G.fams.add(f);
@@ -325,6 +317,7 @@ function setView(v) {
 
 function drawGraph() {
   const edges = visibleEdges();
+  document.getElementById("edgeDetail").replaceChildren();
   const el = d3.select("#graph");
   el.selectAll("*").remove();
   if (G.sim) { G.sim.stop(); G.sim = null; }
@@ -347,7 +340,7 @@ function drawGraph() {
   const defs = el.append("defs");
   Object.entries(FAM_VAR).forEach(([k, v]) => {
     defs.append("marker").attr("id", "arw-" + k).attr("viewBox", "0 0 10 10")
-      .attr("refX", 9).attr("refY", 5).attr("markerWidth", 5).attr("markerHeight", 5)
+      .attr("markerUnits", "userSpaceOnUse").attr("refX", 9).attr("refY", 5).attr("markerWidth", 11).attr("markerHeight", 11)
       .attr("orient", "auto-start-reverse")
       .append("path").attr("d", "M0,1L9,5L0,9z").attr("fill", css(v));
   });
@@ -355,7 +348,7 @@ function drawGraph() {
   if (G.view === "sankey") { drawSankey(g, edges, names, W, H, width); return; }
 
   const nodes = names.map(n => ({ id: n, meta: meta.get(n) || {} }));
-  const links = edges.map(e => ({ ...e, sourceId: e.source, targetId: e.target }));
+  const links = edges.map(e => ({ ...e, record: e, sourceId: e.source, targetId: e.target }));
   const byId = new Map(nodes.map(n => [n.id, n]));
   links.forEach(l => { l.source = byId.get(l.sourceId); l.target = byId.get(l.targetId); });
 
@@ -366,9 +359,7 @@ function drawGraph() {
     .attr("stroke-dasharray", d => d.conditional ? "6 5" : null)
     .attr("marker-end", d => `url(#arw-${d.family})`)
     .attr("tabindex", 0);
-  hoverable(link, edgeTipHtml);
-  link.on("click", (ev, d) => selectEdge(d));
-  link.on("keydown", (ev, d) => { if (ev.key === "Enter" || ev.key === " ") { ev.preventDefault(); selectEdge(d); } });
+  bindGraphEdges(link, d => d.record);
 
   const node = g.append("g").selectAll("g").data(nodes).join("g").attr("class", "node")
     .attr("tabindex", 0);
@@ -384,6 +375,7 @@ function drawGraph() {
     commitments out ${usd(d.meta.demand_out)} &middot; backlog in ${usd(d.meta.demand_in)}<br>
     ${d.meta.cik ? "CIK " + esc(d.meta.cik) : "no SEC filings"}`);
 
+  bindGraphNodes(node, d => d.id);
   node.on("mouseenter", (ev, d) => link.classed("dim", l => l.sourceId !== d.id && l.targetId !== d.id))
       .on("mouseleave", () => link.classed("dim", false));
 
@@ -414,7 +406,10 @@ function drawGraph() {
       link.attr("d", d => {
         const dx = d.target.x - d.source.x, dy = d.target.y - d.source.y;
         const dr = Math.hypot(dx, dy) * 1.9 || 1;
-        return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x},${d.target.y}`;
+        const length = Math.hypot(dx, dy) || 1;
+        const m = d.target.meta;
+        const inset = nodeR((m.funding_out || 0) + (m.demand_in || 0) + (m.funding_in || 0) + (m.demand_out || 0)) + 3;
+        return `M${d.source.x},${d.source.y}A${dr},${dr} 0 0,1 ${d.target.x - dx / length * inset},${d.target.y - dy / length * inset}`;
       });
       node.attr("transform", d => `translate(${d.x},${d.y})`);
     });
@@ -458,18 +453,21 @@ function drawSankey(g, edges, names, W, H, width) {
     .attr("d", d => {
       const a = pos.get(d.source), b = pos.get(d.target);
       const mx = (a.x + b.x) / 2;
-      return `M${a.x},${a.y}C${mx},${a.y} ${mx},${b.y} ${b.x},${b.y}`;
+      const dx = b.x - a.x;
+      const endX = b.x - Math.sign(dx) * 10;
+      const endY = dx ? b.y : b.y - Math.sign(b.y - a.y) * 10;
+      return `M${a.x},${a.y}C${mx},${a.y} ${mx},${b.y} ${endX},${endY}`;
     })
     .attr("stroke", d => css(FAM_VAR[d.family]))
     .attr("stroke-width", d => d.amount_undisclosed ? 1 : width(d.weighted_central))
     .attr("stroke-dasharray", d => d.conditional ? "6 5" : null)
     .attr("marker-end", d => `url(#arw-${d.family})`)
     .attr("tabindex", 0);
-  hoverable(link, edgeTipHtml);
-  link.on("click", (ev, d) => selectEdge(d));
+  bindGraphEdges(link, d => d);
   const meta = new Map(S.ledger.nodes.map(n => [n.node, n]));
   const node = g.append("g").selectAll("g").data(names).join("g").attr("class", "node")
     .attr("transform", n => `translate(${pos.get(n).x},${pos.get(n).y})`);
+  bindGraphNodes(node, name => name);
   node.append("circle").attr("r", 7)
     .attr("fill", n => (meta.get(n) || {}).is_private ? css("--text-muted") : css("--series-1"));
   node.append("text")
@@ -480,6 +478,30 @@ function drawSankey(g, edges, names, W, H, width) {
   ["Funders", "Labs and intermediaries", "Sellers"].forEach((t, i) => {
     g.append("text").attr("class", "axislabel").attr("x", xs[i]).attr("y", 16)
       .attr("text-anchor", "middle").text(t);
+  });
+}
+
+function activateGraph(selection, label, action) {
+  selection.attr("role", "button").attr("tabindex", 0).attr("aria-label", label)
+    .on("click", (_, d) => action(d))
+    .on("keydown", (event, d) => {
+      if (event.key === "Enter" || event.key === " ") { event.preventDefault(); action(d); }
+    });
+}
+
+function bindGraphEdges(links, record) {
+  hoverable(links, d => edgeTipHtml(record(d)));
+  activateGraph(links, d => `${record(d).source} pays ${record(d).target}. Show evidence`,
+    d => selectEdge(record(d)));
+}
+
+function bindGraphNodes(nodes, name) {
+  activateGraph(nodes, d => `Show evidence for ${name(d)}`, d => {
+    const company = name(d);
+    const detail = document.getElementById("edgeDetail");
+    detail.innerHTML = sourceList(visibleEdges().filter(e => e.source === company || e.target === company),
+      `Reviewed relationships involving ${company} under these filters`);
+    detail.scrollIntoView({block: "nearest"});
   });
 }
 
@@ -636,7 +658,13 @@ function barChart(sel, data, fmt, colourVar) {
 }
 
 /* ================= STRESS LAB ================= */
-const SL = { net: null, scenario: null, custom: false };
+const SL = { scenario: null, initial: null, baseline: null };
+const stressInputs = { sShock: "Funding shock", sPass: "Pass-through", sCap: "Capacity to invest",
+  sLoi: "LOI weight", sCond: "Conditional weight", sBound: "Bound" };
+
+function stressValues() {
+  return Object.fromEntries(Object.keys(stressInputs).map(id => [id, document.getElementById(id).value]));
+}
 
 function renderStress() {
   const sc = S.stress.scenarios;
@@ -646,7 +674,7 @@ function renderStress() {
     `<button class="btn" data-sc="__custom" aria-pressed="false">Custom</button>`;
   document.querySelectorAll("[data-sc]").forEach(b => b.onclick = () => applyScenario(b.dataset.sc));
   ["sShock", "sPass", "sCap", "sLoi", "sCond"].forEach(id =>
-    document.getElementById(id).oninput = () => { SL.custom = true; runStress(); });
+    document.getElementById(id).oninput = runStress);
   document.getElementById("sBound").onchange = () => runStress();
   document.getElementById("mcDraws").textContent =
     (S.stress.monte_carlo.draws || 0).toLocaleString();
@@ -654,15 +682,25 @@ function renderStress() {
   renderTornado();
   renderMethodTable();
   document.getElementById("baselineNote").innerHTML = esc(S.stress.baseline_no_shock.note);
-  applyScenario(Object.keys(sc)[0]);
+  if (SL.scenario === null) applyScenario(Object.keys(sc)[0]);
+  else {
+    document.querySelector(`[data-sc="${SL.scenario}"]`).setAttribute("aria-pressed", "true");
+    runStress();
+  }
 }
 
 function applyScenario(key) {
   document.querySelectorAll("[data-sc]").forEach(b =>
     b.setAttribute("aria-pressed", b.dataset.sc === key));
-  if (key === "__custom") { SL.custom = true; SL.scenario = null; runStress(); return; }
+  SL.scenario = key;
+  if (key === "__custom") {
+    SL.initial = stressValues();
+    SL.baseline = null;
+    runStress();
+    return;
+  }
   const p = S.stress.scenarios[key];
-  SL.scenario = key; SL.custom = false;
+  document.getElementById("sBound").value = "central";
   const vals = Object.values(p.shock);
   const mean = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
   document.getElementById("sShock").value = Math.round(mean * 100);
@@ -671,13 +709,16 @@ function applyScenario(key) {
   const sw = S.ledger.status_weights;
   document.getElementById("sLoi").value = Math.round(sw.LOI_nonbinding.central * 100);
   document.getElementById("sCond").value = Math.round(sw.conditional.central * 100);
+  SL.initial = stressValues();
+  SL.baseline = p.cascade.ecosystem_at_risk_share;
   runStress();
 }
 
 function currentShock() {
   const x = +document.getElementById("sShock").value / 100;
-  if (SL.scenario && !SL.custom) {
+  if (SL.scenario !== "__custom") {
     const base = S.stress.scenarios[SL.scenario].shock;
+    if (document.getElementById("sShock").value === SL.initial.sShock) return base;
     const vals = Object.values(base);
     const mean = vals.length ? vals.reduce((a, b) => a + b, 0) / vals.length : 0;
     if (mean > 0) {
@@ -713,16 +754,28 @@ function runStress() {
   const shock = currentShock();
   const res = Cascade.cascade(net, shock, pass, cap,
     L.config.stress.fixed_point_tol, L.config.stress.max_iter);
+  if (SL.baseline === null) SL.baseline = res.ecosystem_at_risk_share;
+  const values = stressValues();
+  const changes = Object.entries(stressInputs).filter(([id]) => values[id] !== SL.initial[id])
+    .map(([id, label]) => {
+      const unit = id === "sBound" ? "" : "%";
+      return `${label} ${SL.initial[id]}${unit} → ${values[id]}${unit}`;
+    });
+  const delta = 100 * (res.ecosystem_at_risk_share - SL.baseline);
+  const scenario = S.stress.scenarios[SL.scenario];
+  document.getElementById("stressComparison").textContent =
+    `${scenario ? scenario.description : "Custom shock to private labs."} Starting modeled risk ${pct(SL.baseline, 2)}. ` +
+    (changes.length ? changes.join(" · ") + `. Modeled risk ${pct(res.ecosystem_at_risk_share, 2)} (${delta > 0 ? "+" : ""}${delta.toFixed(2)} pp).` : "Showing the starting assumptions.");
   const en = Cascade.eisenbergNoe(net, shock, pass);
   const dr = Cascade.debtRank(net, shock);
 
   document.getElementById("stressTiles").innerHTML = [
-    { k: "Backlog at risk", v: pct(res.ecosystem_at_risk_share),
+    { k: "Backlog at risk", v: pct(res.ecosystem_at_risk_share, 2),
       n: usd(res.ecosystem_at_risk_usd) },
-    { k: "Fixed point", v: res.iterations + " iters",
+    { k: "Fixed point", v: res.iterations + (res.iterations === 1 ? " iteration" : " iterations"),
       n: res.converged ? "converged, residual < 1e-9" : "did not converge" },
     { k: "Eisenberg-Noe", v: pct(en.ecosystem_at_risk_share),
-      n: "minus its no-shock baseline " + pct(S.stress.baseline_no_shock.eisenberg_noe) },
+      n: "Reference no-shock baseline " + pct(S.stress.baseline_no_shock.eisenberg_noe) },
     { k: "DebtRank", v: pct(dr.ecosystem_at_risk_share), n: dr.rounds + " propagation rounds" },
   ].map(t => `<div class="tile"><p class="k">${esc(t.k)}</p><div class="v">${esc(t.v)}</div>
     <div class="n">${esc(t.n)}</div></div>`).join("");
@@ -853,40 +906,46 @@ function renderMethodTable() {
 function renderPending() {
   const pending = S.pending || { available: false, items: [] };
   const count = document.getElementById("pendingAgentCount");
-  count.textContent = pending.available
-    ? `${pending.pending_count} pending agent candidates in this snapshot. These are unverified and excluded from every published metric.`
-    : "Pending review snapshot unavailable.";
+  count.textContent = !pending.available ? "Queue unavailable. Check the local database and run python -m deal_agent export-pending."
+    : pending.pending_count ? `${pending.pending_count} pending. Human approval and application are required for publication.`
+    : "No pending agent proposals in this snapshot.";
   document.getElementById("pendingAgentNote").textContent =
-    (pending.generated ? `Exported ${pending.generated}. ` : "") + (pending.note || "");
+    pending.generated ? `Snapshot date · ${pending.generated.slice(0, 10)}` : "";
   const container = document.getElementById("pendingAgentItems");
-  container.replaceChildren();
-  if (!(pending.items || []).length) return;
-  const list = document.createElement("ul");
-  list.className = "tight";
-  pending.items.forEach(item => {
-    const row = document.createElement("li");
-    const title = document.createElement("strong");
-    title.textContent = `${item.source_entity} → ${item.target_entity}`;
-    row.append(title, document.createTextNode(` · ${item.deal_type} · ${item.amount_text || "No disclosed amount"} `));
-    const status = document.createElement("span");
-    status.className = "pill " + (item.verification_status === "passed" ? "def" : "cond");
-    status.textContent = `Verification ${item.verification_status}; pending human review`;
-    row.append(status);
-    const quote = document.createElement("p");
-    quote.className = "note";
-    quote.textContent = item.evidence_quote;
-    row.append(quote);
-    try {
-      const url = new URL(item.source_url);
-      if (["http:", "https:"].includes(url.protocol)) {
-        const link = document.createElement("a");
-        link.href = url.href; link.target = "_blank"; link.rel = "noopener noreferrer";
-        link.textContent = "Source"; row.append(link);
-      }
-    } catch (_) { /* Invalid links remain plain evidence text. */ }
-    list.append(row);
-  });
-  container.append(list);
+  container.replaceChildren(...(pending.items || []).map(item => candidateCard(item)));
+  if (S.example) document.getElementById("recordedAgentItem").replaceChildren(candidateCard(S.example, true));
+}
+
+function candidateCard(item, example = false) {
+  const card = document.createElement("article");
+  card.className = "proposal";
+  const add = (tag, content, cls) => {
+    const el = document.createElement(tag);
+    el.textContent = content;
+    if (cls) el.className = cls;
+    card.append(el);
+    return el;
+  };
+  add("h3", `${item.source_entity} → ${item.target_entity}`);
+  add("p", `${item.deal_type.replaceAll("_", " ")} · ${item.amount_reading || item.amount_text || "No USD value proposed"}`);
+  add("blockquote", item.evidence_quote);
+  try {
+    const url = new URL(item.source_url);
+    if (["http:", "https:"].includes(url.protocol)) {
+      const link = add("a", `Read disclosure · ${url.hostname}`);
+      link.href = url.href; link.target = "_blank"; link.rel = "noopener noreferrer";
+    }
+  } catch (_) { /* Keep the quoted evidence if the source URL is unavailable. */ }
+  add("p", `Verification ${item.verification_status}` +
+    ((item.failed_checks || []).length ? " · " + item.failed_checks.join(" · ") : ""), "check");
+  if (item.classification) add("p", `${item.classification} · ${item.reconciliation_reason}` +
+    (item.match_id ? ` Compare ${item.match_queue || "record"} ${item.match_id} before treating this as a replacement.` : ""));
+  if (example) {
+    add("p", "Recorded replay · The model repeated “one billion” during repair. A reviewer must correct the amount text and check whether later cumulative funding already includes this investment.");
+    const trace = add("a", "Inspect the recorded calls and checks");
+    trace.href = "guide/trace.txt";
+  } else add("code", `make explain ID=${item.id}`);
+  return card;
 }
 
 function renderNews() {
@@ -1131,8 +1190,14 @@ function show(name) {
   PANELS.forEach(p => {
     document.getElementById("panel-" + p).classList.toggle("active", p === name);
     document.getElementById("tab-" + p).setAttribute("aria-selected", String(p === name));
+    document.getElementById("tab-" + p).tabIndex = p === name ? 0 : -1;
   });
-  if (!RENDERED.has(name)) {
+  const activeTab = document.getElementById("tab-" + name);
+  const strip = activeTab.parentElement;
+  const tabBox = activeTab.getBoundingClientRect(), stripBox = strip.getBoundingClientRect();
+  if (tabBox.left < stripBox.left) strip.scrollLeft += tabBox.left - stripBox.left;
+  else if (tabBox.right > stripBox.right) strip.scrollLeft += tabBox.right - stripBox.right;
+  if (S.ledger && !RENDERED.has(name)) {
     RENDERED.add(name);
     try {
       if (name === "graph") { renderGraphControls(); drawGraph(); }
@@ -1148,6 +1213,17 @@ function show(name) {
 }
 PANELS.forEach(p => { document.getElementById("tab-" + p).onclick = () => show(p); });
 
+document.querySelector(".tabs").addEventListener("keydown", event => {
+  const index = PANELS.indexOf(event.target.id.replace("tab-", ""));
+  if (index < 0) return;
+  const keys = {ArrowRight: (index + 1) % PANELS.length, ArrowLeft: (index + PANELS.length - 1) % PANELS.length,
+    Home: 0, End: PANELS.length - 1};
+  if (!(event.key in keys)) return;
+  event.preventDefault();
+  const name = PANELS[keys[event.key]];
+  show(name); document.getElementById("tab-" + name).focus();
+});
+
 (function theme() {
   const key = "rt-theme";
   const saved = (() => { try { return localStorage.getItem(key); } catch (e) { return null; } })();
@@ -1158,6 +1234,7 @@ PANELS.forEach(p => { document.getElementById("tab-" + p).onclick = () => show(p
       : (matchMedia("(prefers-color-scheme: dark)").matches ? "light" : "dark"));
     document.documentElement.setAttribute("data-theme", next);
     try { localStorage.setItem(key, next); } catch (e) { /* private mode */ }
+    if (!S.ledger) return;
     RENDERED.clear();
     const active = PANELS.find(p => document.getElementById("panel-" + p).classList.contains("active"));
     RENDERED.add("headline");
@@ -1170,6 +1247,7 @@ let resizeTimer;
 addEventListener("resize", () => {
   clearTimeout(resizeTimer);
   resizeTimer = setTimeout(() => {
+    if (!S.ledger) return;
     const active = PANELS.find(p => document.getElementById("panel-" + p).classList.contains("active"));
     RENDERED.delete(active);
     renderHeadline();
@@ -1185,7 +1263,10 @@ Promise.all([
   fetch("data/news.json").then(r => r.json()).catch(() => ({ counts: {}, items: [], review_queue: [] })),
   fetch("data/history.json").then(r => r.json()).catch(() => ({ vintages: [] })),
   fetch("data/pending_agent.json").then(r => r.json()).catch(() => ({ available: false, items: [] })),
-]).then(([ledger, metrics, stress, news, history, pending]) => {
+  fetch("data/recorded_example.json").then(r => r.json()).catch(() => null),
+]).then(([ledger, metrics, stress, news, history, pending, example]) => {
+  S.example = example;
+  document.getElementById("recordedExample").hidden = !example;
   S.ledger = ledger; S.metrics = metrics; S.stress = stress; S.news = news; S.history = history; S.pending = pending;
   document.getElementById("subline").innerHTML =
     `${ledger.counts.edges} verified edges from SEC filings and company releases &middot; ` +
@@ -1201,7 +1282,7 @@ Promise.all([
   show(PANELS.includes(hash) ? hash : "headline");
 }).catch(err => {
   document.getElementById("subline").textContent =
-    "Could not load data. Run `make refresh` first, then `make serve`.";
+    "Dashboard data unavailable. Serve the committed site with make serve and reload.";
   console.error(err);
 });
 })();

@@ -1,6 +1,6 @@
 # Round-Trip AI
 
-**How much of an AI supplier's backlog comes from customers it helped finance?** Across 38 reviewed relationships, the central estimate is **$46.7 billion out of $2.72 trillion, or 1.72%**. The lower and upper financing assumptions give **1.39% to 18.22%** against the same backlog denominator. The evidence snapshot is October 5, 2026.
+**How much of an AI supplier's backlog comes from customers it helped finance?** Across 38 reviewed relationships, the central estimate is **$46.7 billion out of $2.72 trillion, or 1.72%**. The lower and upper financing assumptions give **1.39% to 18.22%** across the bound-specific backlog denominators. The evidence snapshot is October 5, 2026.
 
 A seller can invest in a customer that then contracts to buy its chips or cloud capacity. This project follows both payments. Its local deal agent reads filings and company releases, proposes who pays whom, quotes the evidence and sends each proposal to a reviewer. Only reviewed ledger entries contribute to the dashboard.
 
@@ -8,11 +8,11 @@ A seller can invest in a customer that then contracts to buy its chips or cloud 
 >
 > **60 seconds** · Read the headline above and follow the [system diagram](#how-the-system-works).
 >
-> **10 minutes** · Use the [interview walkthrough](docs/WALKTHROUGH.md) and run `make demo` after setup.
+> **5 minutes** · Use the [interview walkthrough](docs/WALKTHROUGH.md) and run `make demo` after setup.
 >
 > **Deep dive** · Follow the [numbered reading order](docs/README.md) from source data to evaluation and design decisions.
 
-The largest uncertainty is disclosure. Filings identify a customer for only 20.7% of the $2.72 trillion denominator. A zero measured relationship can mean the counterparty was never named.
+The largest uncertainty is disclosure. The coverage calculation weights suppliers by their high backlog estimates. Only 20.7% ties to a named buyer. A zero measured relationship can mean the counterparty was never named.
 
 ## How the system works
 
@@ -37,11 +37,37 @@ Open the combined worklist with `python -m deal_agent inbox`. Filing and news ca
 
 ## Run it
 
+Use Python 3.12, Git with the project history, and Make. Set up a virtual environment once.
+The pinned dependencies require internet access on first installation or an existing wheel cache.
+
 ```bash
-make setup                 # install dependencies
-cp .env.example .env       # then put your own name and email in it
-make refresh               # ingest, extract, tag news, rebuild, snapshot, diff
-make serve                 # dashboard at http://localhost:8765
+python3.12 -m venv .venv
+source .venv/bin/activate
+make setup
+```
+
+**Offline interview.** The dashboard ships with its reviewed data. The three-call replay uses a temporary queue.
+
+```bash
+make demo
+make explain ID=a_81cddd0804260229a87a
+make serve
+```
+
+Open `http://127.0.0.1:8765`. The [five-minute walkthrough](docs/WALKTHROUGH.md#five-minutes) uses Headline, Money flow, Review & news and Stress lab.
+
+**Local inference.** Start Ollama, download the desired model once, then run the development benchmark. The model receives only saved public-source passages and their metadata on loopback.
+
+```bash
+ollama pull llama3.2:3b
+make agent-bench AGENT_BENCH_ARGS="--models llama3.2:3b --prompt-versions v1 --output eval/results/local.md"
+```
+
+**Networked refresh.** Configure your own SEC contact before acquiring new filings or news.
+
+```bash
+cp .env.example .env
+make refresh
 ```
 
 `SEC_USER_AGENT` must be set to a real contact string of the form

@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Development evaluation · Round-Trip AI</title><link rel="stylesheet" href="../styles.css">
+<main class="reading"><a href="../index.html">← Research dashboard</a><h1>Development evaluation</h1>
+<table>
+<thead>
+<tr>
+<th>Configuration</th>
+<th style="text-align:right">Edge precision</th>
+<th style="text-align:right">Edge recall</th>
+<th style="text-align:right">Verification pass</th>
+<th style="text-align:right">Parse failures / calls</th>
+<th style="text-align:right">Seconds / passage</th>
+<th style="text-align:right">Passages</th>
+<th>Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Original rules</td>
+<td style="text-align:right">8.3% (1/12)</td>
+<td style="text-align:right">10.0% (1/10)</td>
+<td style="text-align:right">50.0% (6/12)</td>
+<td style="text-align:right">n/a (rules)</td>
+<td style="text-align:right">0.001</td>
+<td style="text-align:right">15</td>
+<td><span><code>12ea4134fa2e47fbb91c936e524724dd</code></span> · <span>cassette</span></td>
+</tr>
+</tbody>
+</table>
+<p>All scores include failed verification and uncertain labels. Time is local extraction and checking per saved passage. For a resumed prefix, it includes recorded inference time. Raw model responses and deterministic rules observations have different cassette formats.</p>
+</main></html>

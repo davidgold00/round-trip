@@ -5,22 +5,32 @@
 **Point to make.** The dashboard measures how much supplier backlog can be traced to a customer that supplier also financed.
 
 - Follow both arrows. An investment goes from seller to customer. A capacity purchase goes from customer back to seller.
-- The central reading is $46.7 billion of $2.72 trillion across 38 reviewed relationships, or 1.72%. The assumptions put it between 1.39% and 18.22% against the same denominator.
+- The central reading is $46.7 billion of $2.72 trillion across 38 reviewed relationships, or 1.72%. The assumptions put it between 1.39% and 18.22% across the financing and backlog assumptions.
 - Most backlog is anonymous. Only 20.7% of the denominator ties to named customers. The local model adds proposed relationships for a person to inspect.
 
 **Show this.** Open the Headline panel and the [system diagram](../README.md#how-the-system-works).
 
 ## Five minutes
 
-**Point to make.** A model's proposal and a published dollar amount travel through different decisions.
+From the checkout with its Python environment active, run the following commands. Open `http://127.0.0.1:8765` after the last command.
 
-- Open the cached Microsoft disclosure. The local model identifies a payer, recipient, instrument and amount. The schema constrains their form. It cannot decide whether the surrounding sentence supports them.
-- Compare the original words with the output. In the recorded case the numeric value is right. The model's amount text is “one billion” and the source says “$1 billion”. Its single repair repeats that error.
-- Show the checks for verbatim evidence, explicit USD, the source URL and both canonical entities. Failed proposals still reach the reviewer with failure history. The resulting pending candidate changes zero ledger rows.
-- Evaluate on source-grouped passages. The original rules found one of ten dev edges and returned twelve proposals. Compare the local model with that same baseline using the recorded dev and held-out tables. Read the numerator and denominator out loud.
-- A reviewer checks contract identity, legal status, bounds and source before publication. A funding row can change how existing customer purchases are attributed.
+```bash
+make demo
+make explain ID=a_81cddd0804260229a87a
+make serve
+```
 
-**Show this.** Run `make demo`, then open the [source trace](TRACE_EXAMPLE.md) and [held-out comparison](../eval/RESULTS.md).
+**0:00–1:00 · Headline.** “How much supplier backlog comes from customers the supplier helped finance? The October 5, 2026 snapshot attributes $46.7 billion of $2.718 trillion to that relationship, or 1.72%. The range is 1.39–18.22%. The largest limitation is that 79.3% of backlog has no named buyer in the coverage calculation.” Click Show sources. In Money flow, select a company or an arrow to read a reviewed quote.
+
+**1:00–2:00 · Review & news → Recorded example.** Read the OpenAI release: “Microsoft is investing $1 billion in OpenAI”. The recorded local Qwen 7B model proposed Microsoft → OpenAI, an equity investment. The source establishes the financial direction. The reviewer still has to establish the instrument and whether subsequent cumulative disclosures cover the same dollars.
+
+**2:00–3:00 · Inspect the failure.** In the explanation, compare the source’s “$1 billion” with the model’s “one billion”. The number was right. The amount phrase failed the verbatim check, and the single repair repeated it. The proposal remained pending. The terminal shows the raw responses and each machine check. [Recorded evidence and checks](TRACE_EXAMPLE.md)
+
+**3:00–4:00 · Development evidence.** Count a match only when the payer, recipient and instrument agree. All proposals count, including failed checks. On fifteen dev passages the original rules found one of ten edges and returned eleven extras. The small-model v1 run found two and returned fifteen extras. Read the selected model’s row in the [development scorecard](../eval/RESULTS-dev.md). These passages overlap in source and do not measure full-filing accuracy.
+
+**4:00–5:00 · Stress lab.** Choose the 50% lab funding shock. Move pass-through from 60% to 80% and read the change in modeled backlog at risk. The control changes how a funding shortfall affects purchases. A real approval would export a reviewed promotion. Applying it would add or replace an identified ledger row. Publication would recalculate funding shares and stress results. This recorded candidate contributed zero published dollars.
+
+**Short answers.** Local inference sends structured requests to a downloaded model on loopback. Offline replay matches each request to recorded output. A machine check can catch a misquoted amount while accepting a reversed payer. Analysts compare obligations and tranches before applying updates. The next test is a separately labeled set of full filings with multi-party obligations and near-miss negatives. A failed attempt or a lower dev score belongs in the comparison. Reviewer time savings have not been measured.
 
 ## Fifteen minutes
 

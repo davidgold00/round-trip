@@ -1,0 +1,68 @@
+Candidate a_81cddd0804260229a87a
+Source: OpenAI | 2019-07-22 | https://openai.com/index/microsoft-invests-in-and-partners-with-openai/
+Source text SHA-256: abf67d748d22f6de0345617f2a9d59bcfb14779d8c8eadede02e734f8185ddc3
+Evidence: Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits.
+Recorded local inference run: a64e32868cb44af7931521fef23a1237
+Keyword triage: admitted; companies Microsoft, OpenAI; terms investing, billion.
+triage prompt v1 | template 474341b44a23ae31058714f9dc4e488115f1a9841f28f91131c4b74582e3e428
+Raw qwen2.5:7b-instruct triage response:
+{
+  "relevant": true,
+  "reason": "The passage describes a financial relationship between Microsoft and OpenAI, specifically an investment of $1 billion, which fits the criteria of a deal as defined."
+}
+Model triage: The passage describes a financial relationship between Microsoft and OpenAI, specifically an investment of $1 billion, which fits the criteria of a deal as defined.
+extract prompt v1 | template e7de3ceb1ad467deb6935ac7e081f384f161c49b0fd1df71c407de7bddf361e1
+Raw qwen2.5:7b-instruct extract response:
+{
+  "edges": [
+    {
+      "source_entity": "Microsoft",
+      "target_entity": "OpenAI",
+      "deal_type": "equity_investment",
+      "consideration_type": "cash",
+      "amount_usd": 1000000000,
+      "amount_text": "one billion",
+      "term_or_duration": null,
+      "announced_date": "2019-07-22",
+      "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+      "evidence_quote": "Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits.",
+      "confidence": 1,
+      "rationale": "Directly stated in the passage."
+    }
+  ]
+}
+verify: failed
+  verbatim_quote: pass
+  known_nodes: pass
+  source_url: pass
+  entities_in_text_or_filer_metadata: pass
+  USD_amount: fail | amount_text is missing from evidence_quote
+retry prompt v1 | template 1989d18a64d447638c8d2623af75ce05e34710fd71241242ff228e74321c7f89
+Raw qwen2.5:7b-instruct retry response:
+{
+  "edges": [
+    {
+      "source_entity": "Microsoft",
+      "target_entity": "OpenAI",
+      "deal_type": "equity_investment",
+      "consideration_type": "cash",
+      "amount_usd": 1000000000.0,
+      "amount_text": "one billion",
+      "term_or_duration": null,
+      "announced_date": "2019-07-22",
+      "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+      "evidence_quote": "Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits.",
+      "confidence": 1.0,
+      "rationale": "Directly stated in the passage."
+    }
+  ]
+}
+verify.retry: failed
+  verbatim_quote: pass
+  known_nodes: pass
+  source_url: pass
+  entities_in_text_or_filer_metadata: pass
+  USD_amount: fail | amount_text is missing from evidence_quote
+Reconcile: NEW | No same-direction, same-type deal with shared source/date or unique expansion antecedent
+Human review: pending
+Ledger and dashboard effect: no applied promotion. Eligible funding enters OpenAI's documented funding denominator and the funding network used by stress. A duplicate adds no new dollars.

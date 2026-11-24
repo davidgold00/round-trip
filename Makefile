@@ -1,4 +1,5 @@
 PY := python3
+PORT ?= 8765
 .DEFAULT_GOAL := help
 
 .PHONY: help setup ingest extract build stress news refresh test serve audit clean
@@ -6,8 +7,8 @@ PY := python3
 help:
 	@echo "Run"
 	@echo "  demo          replay a real extraction offline in a temporary queue"
-	@echo "  serve         serve the dashboard on localhost:8765"
-	@echo "  refresh       run the original acquisition and analysis pipeline"
+	@echo "  serve         serve the dashboard on 127.0.0.1:$(PORT)"
+	@echo "  refresh       networked acquisition and analysis (requires SEC_USER_AGENT)"
 	@echo "  ingest        cache SEC filings and company facts"
 	@echo "  extract       regenerate the filing candidate queue"
 	@echo "  news          collect and tag EDGAR, company and news items"
@@ -24,10 +25,14 @@ help:
 	@echo "Develop"
 	@echo "  setup         install the pinned Python dependencies"
 	@echo "  test          run the test suite, including refresh parity"
-	@echo "  links         check local Markdown links and section anchors"
+	@echo "  guide         rebuild static interview evidence from the canonical sources"
+	@echo "  links         check local Markdown links, anchors and interview assets"
 	@echo "  clean         delete generated interim data and exports"
 
-.PHONY: demo explain links
+.PHONY: demo explain links guide
+guide:
+	@$(PY) -m deal_agent.guide
+
 demo:
 	@$(PY) -m deal_agent demo
 
@@ -58,7 +63,7 @@ news:
 	$(PY) -m src.news
 
 refresh:
-	$(PY) -m src.refresh
+	$(PY) -m src.refresh $(REFRESH_ARGS)
 
 test:
 	$(PY) -m pytest tests/ -q
@@ -67,8 +72,8 @@ audit:
 	$(PY) -m src.audit
 
 serve:
-	@echo "Dashboard at http://localhost:8765  (ctrl-c to stop)"
-	@cd site && $(PY) -m http.server 8765
+	@echo "Dashboard at http://127.0.0.1:$(PORT)  (ctrl-c to stop)"
+	@cd site && $(PY) -m http.server $(PORT) --bind 127.0.0.1
 
 clean:
 	rm -rf data/interim/* data/processed/* outputs/*.json site/data/*.json

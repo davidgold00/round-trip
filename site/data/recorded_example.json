@@ -1,0 +1,18 @@
+{
+  "id": "a_81cddd0804260229a87a",
+  "source_entity": "Microsoft",
+  "target_entity": "OpenAI",
+  "deal_type": "equity_investment",
+  "amount_text": "one billion",
+  "amount_reading": "$1 billion",
+  "evidence_quote": "Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits.",
+  "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+  "verification_status": "failed",
+  "failed_checks": [
+    "amount_text is missing from evidence_quote"
+  ],
+  "classification": "NEW",
+  "match_id": null,
+  "match_queue": null,
+  "reconciliation_reason": "No same-direction, same-type deal with shared source/date or unique expansion antecedent"
+}

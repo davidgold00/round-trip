@@ -11,7 +11,7 @@ from pathlib import Path
 import pytest
 
 from src.ledger import load_backlog, load_edges
-from src.site_data import build as build_site
+from src import site_data
 from src.stress import build_network, cascade, debt_rank, eisenberg_noe, scenario_library
 from src.util import ROOT, load_config
 
@@ -20,14 +20,19 @@ TOL = 1e-9
 
 
 @pytest.fixture(scope="module")
-def payloads():
+def payloads(tmp_path_factory):
     if NODE is None:
         pytest.skip("node not available")
     e, b = load_edges(), load_backlog()
     if e.empty:
         pytest.skip("no ledger yet")
     cfg = load_config()
-    site = build_site()
+    work = tmp_path_factory.mktemp("parity-dashboard")
+    with pytest.MonkeyPatch.context() as patch:
+        patch.setattr(site_data, "ROOT", work)
+        patch.setattr(site_data, "SITE_DATA", work)
+        site_data.build()
+    site = work / "ledger.json"
     return cfg, e, b, site
 
 
@@ -39,12 +44,12 @@ def run_js(script: str) -> dict:
     return json.loads(out.stdout)
 
 
-def js_driver(bound: str, shock: dict, passthrough: float, capacity: float,
+def js_driver(site: Path, bound: str, shock: dict, passthrough: float, capacity: float,
               loi=None, conditional=None) -> dict:
     return f"""
 const C = require('./site/cascade.js');
 const fs = require('fs');
-const ledger = JSON.parse(fs.readFileSync('./site/data/ledger.json','utf8'));
+const ledger = JSON.parse(fs.readFileSync({json.dumps(str(site))},'utf8'));
 const net = C.buildNetwork(ledger.edges, ledger.backlog_rows, {{
   bound: {json.dumps(bound)},
   tiers: ledger.config.tiers.headline_allowed,
@@ -68,7 +73,7 @@ console.log(JSON.stringify({{
 def test_network_construction_matches(payloads):
     cfg, e, b, site = payloads
     pynet = build_network(e, b, cfg, "central")
-    js = run_js(js_driver("central", {}, 0.6, 0.5))
+    js = run_js(js_driver(site, "central", {}, 0.6, 0.5))
     assert js["nodes"] == pynet.nodes
     assert js["suppliers"] == pynet.suppliers
     assert sorted(js["buyers"]) == sorted(pynet.buyers)
@@ -83,7 +88,7 @@ def test_cascade_matches_on_every_bound(payloads, bound):
     shock = {"OpenAI": 0.5, "Anthropic": 0.5}
     pynet = build_network(e, b, cfg, bound)
     py = cascade(pynet, shock, 0.6, 0.5, tol=1e-9, max_iter=200)
-    js = run_js(js_driver(bound, shock, 0.6, 0.5))["cascade"]
+    js = run_js(js_driver(site, bound, shock, 0.6, 0.5))["cascade"]
     assert js["converged"] == py["converged"]
     assert js["iterations"] == py["iterations"]
     assert js["ecosystem_at_risk_share"] == pytest.approx(
@@ -97,7 +102,7 @@ def test_all_scenario_presets_match(payloads):
     pynet = build_network(e, b, cfg, "central")
     sc = scenario_library(pynet, cfg)
     for key, p in sc.items():
-        js = run_js(js_driver("central", p["shock"], p["passthrough"],
+        js = run_js(js_driver(site, "central", p["shock"], p["passthrough"],
                               p["capacity_to_invest"]))
         assert js["cascade"]["ecosystem_at_risk_share"] == pytest.approx(
             p["cascade"]["ecosystem_at_risk_share"], abs=TOL), f"cascade mismatch on {key}"
@@ -115,7 +120,7 @@ def test_slider_overrides_match(payloads):
         pynet = build_network(e, b, cfg, "central", loi_weight=loi,
                               conditional_weight=cond)
         py = cascade(pynet, shock, pt, cap, tol=1e-9, max_iter=200)
-        js = run_js(js_driver("central", shock, pt, cap, loi=loi,
+        js = run_js(js_driver(site, "central", shock, pt, cap, loi=loi,
                               conditional=cond))["cascade"]
         assert js["ecosystem_at_risk_share"] == pytest.approx(
             py["ecosystem_at_risk_share"], abs=TOL)

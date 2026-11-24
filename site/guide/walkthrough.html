@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Five-minute walkthrough · Round-Trip AI</title><link rel="stylesheet" href="../styles.css">
+<main class="reading"><a href="../index.html">← Research dashboard</a><h1>Five-minute walkthrough</h1>
+<p>From the checkout with its Python environment active, run the following commands. Open <code>http://127.0.0.1:8765</code> after the last command.</p>
+<pre><code class="language-bash">make demo
+make explain ID=a_81cddd0804260229a87a
+make serve
+</code></pre>
+<p><strong>0:00–1:00 · Headline.</strong> “How much supplier backlog comes from customers the supplier helped finance? The October 5, 2026 snapshot attributes $46.7 billion of $2.718 trillion to that relationship, or 1.72%. The range is 1.39–18.22%. The largest limitation is that 79.3% of backlog has no named buyer in the coverage calculation.” Click Show sources. In Money flow, select a company or an arrow to read a reviewed quote.</p>
+<p><strong>1:00–2:00 · Review &amp; news → Recorded example.</strong> Read the OpenAI release: “Microsoft is investing $1 billion in OpenAI”. The recorded local Qwen 7B model proposed Microsoft → OpenAI, an equity investment. The source establishes the financial direction. The reviewer still has to establish the instrument and whether subsequent cumulative disclosures cover the same dollars.</p>
+<p><strong>2:00–3:00 · Inspect the failure.</strong> In the explanation, compare the source’s “$1 billion” with the model’s “one billion”. The number was right. The amount phrase failed the verbatim check, and the single repair repeated it. The proposal remained pending. The terminal shows the raw responses and each machine check. <a href="trace.txt">Recorded evidence and checks</a></p>
+<p><strong>3:00–4:00 · Development evidence.</strong> Count a match only when the payer, recipient and instrument agree. All proposals count, including failed checks. On fifteen dev passages the original rules found one of ten edges and returned eleven extras. The small-model v1 run found two and returned fifteen extras. Read the selected model’s row in the <a href="development.html">development scorecard</a>. These passages overlap in source and do not measure full-filing accuracy.</p>
+<p><strong>4:00–5:00 · Stress lab.</strong> Choose the 50% lab funding shock. Move pass-through from 60% to 80% and read the change in modeled backlog at risk. The control changes how a funding shortfall affects purchases. A real approval would export a reviewed promotion. Applying it would add or replace an identified ledger row. Publication would recalculate funding shares and stress results. This recorded candidate contributed zero published dollars.</p>
+<p><strong>Short answers.</strong> Local inference sends structured requests to a downloaded model on loopback. Offline replay matches each request to recorded output. A machine check can catch a misquoted amount while accepting a reversed payer. Analysts compare obligations and tranches before applying updates. The next test is a separately labeled set of full filings with multi-party obligations and near-miss negatives. A failed attempt or a lower dev score belongs in the comparison. Reviewer time savings have not been measured.</p>
+</main></html>

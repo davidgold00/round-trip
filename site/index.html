@@ -12,7 +12,7 @@
 <header class="top">
   <div class="inner">
     <button class="themebtn" id="themebtn" type="button" aria-label="Switch colour theme">Theme</button>
-    <h1>Round-Trip AI: Who Is Financing Their Own Customers?</h1>
+    <h1>Round-Trip AI</h1>
     <p class="sub" id="subline">Loading ledger&hellip;</p>
     <nav class="tabs" role="tablist" aria-label="Sections">
       <button role="tab" id="tab-headline"   aria-selected="true"  aria-controls="panel-headline">Headline</button>
@@ -20,9 +20,9 @@
       <button role="tab" id="tab-suppliers"  aria-selected="false" aria-controls="panel-suppliers">Suppliers</button>
       <button role="tab" id="tab-cycles"     aria-selected="false" aria-controls="panel-cycles">Cycles</button>
       <button role="tab" id="tab-stress"     aria-selected="false" aria-controls="panel-stress">Stress lab</button>
-      <button role="tab" id="tab-news"       aria-selected="false" aria-controls="panel-news">News</button>
+      <button role="tab" id="tab-news"       aria-selected="false" aria-controls="panel-news">Review &amp; news</button>
       <button role="tab" id="tab-ledger"     aria-selected="false" aria-controls="panel-ledger">Ledger</button>
-      <button role="tab" id="tab-method"     aria-selected="false" aria-controls="panel-method">Methodology</button>
+      <button role="tab" id="tab-method"     aria-selected="false" aria-controls="panel-method">How it works</button>
     </nav>
   </div>
 </header>
@@ -32,10 +32,10 @@
 <!-- ================= HEADLINE ================= -->
 <section class="panel active" id="panel-headline" role="tabpanel" aria-labelledby="tab-headline">
   <div class="card hero">
-    <h2>Ecosystem round-trip exposure</h2>
+    <h2>Supplier-financed backlog</h2>
     <div class="figure" id="heroFigure">loading</div>
-    <p class="range" id="heroRange"></p>
     <p class="sentence" id="heroSentence"></p>
+    <p class="range" id="heroRange"></p>
     <p class="caveat" id="heroCaveat"></p>
     <p class="asof" id="heroAsOf"></p>
     <details class="sources"><summary>Show sources</summary>
@@ -108,7 +108,7 @@
         <span class="note">Drawn hairline. Real agreements, no dollar figure.</span>
       </div>
     </div>
-    <svg id="graph" role="img" aria-label="Directed graph of funding and demand edges"></svg>
+    <svg id="graph" role="group" aria-label="Directed graph of funding and demand edges"></svg>
     <div class="legend" id="graphLegend"></div>
     <div id="edgeDetail" style="margin-top:14px"></div>
   </div>
@@ -144,8 +144,7 @@
 <section class="panel" id="panel-stress" role="tabpanel" aria-labelledby="tab-stress">
   <div class="card">
     <h2>Stress lab</h2>
-    <p class="lede">Recomputes in your browser. The engine is a line-for-line port
-      of the Python model and is tested against it for equality on every preset.</p>
+    <p class="lede">Choose a funding shock and vary how much of it reaches suppliers. The modeled result is the share of backlog at risk.</p>
     <div class="controls">
       <div class="control" style="flex:1 1 100%">
         <label>Scenario preset</label>
@@ -182,6 +181,7 @@
         </select>
       </div>
     </div>
+    <p class="scenario-compare" id="stressComparison" aria-live="polite"></p>
     <div class="tiles" id="stressTiles"></div>
     <div style="margin-top:16px"><div id="stressChart"></div></div>
     <div class="legend" id="stressLegend"></div>
@@ -223,6 +223,9 @@
     <p class="lede" id="pendingAgentCount" aria-live="polite">Loading pending candidates&hellip;</p>
     <div id="pendingAgentItems"></div>
     <p class="note" id="pendingAgentNote"></p>
+    <details id="recordedExample"><summary>Recorded example · Microsoft → OpenAI</summary>
+      <div id="recordedAgentItem"></div>
+    </details>
   </div>
   <div class="card">
     <h2>Candidate edge review queue</h2>
@@ -284,7 +287,15 @@
 <!-- ================= METHOD ================= -->
 <section class="panel" id="panel-method" role="tabpanel" aria-labelledby="tab-method">
   <div class="card">
-    <h2>What is being measured</h2>
+    <h2>From disclosure to published estimate</h2>
+    <p>Local Ollama screens a saved passage, proposes a payment direction and quotes its evidence.
+      Python checks the quote, entities, source URL and any USD figure. A failed check gets one repair.
+      A reviewer decides whether the obligation is new, incremental, or already in the ledger.
+      Approval produces a reviewed file. Applying it and rebuilding the dashboard publishes the change.</p>
+    <p><a href="guide/walkthrough.html">Five-minute walkthrough</a> ·
+      <a href="guide/trace.txt">Recorded candidate and checks</a> ·
+      <a href="guide/development.html">Measured development results</a></p>
+    <h3>What is being measured</h3>
     <p>The question is narrow on purpose. For each seller of AI infrastructure,
       what share of its own disclosed backlog is owed by a customer whose funding
       traces back to that same seller? Not "is there a bubble", not "is the

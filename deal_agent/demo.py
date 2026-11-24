@@ -58,7 +58,9 @@ def demo():
             if stats["document_errors"] or player.position != len(player.data["calls"]):
                 raise ValueError("Incomplete demo playback")
             candidates = store.candidates()
-            row = next((c for c in candidates if c["id"] == example.get("candidate_id")), candidates[0])
+            row = next((c for c in candidates if c["id"] == example["candidate_id"]), None)
+            if row is None:
+                raise ValueError("Recorded example did not reproduce its candidate ID")
             snapshot = export(cfg, work/"dashboard")
             if snapshot["pending_count"] != len(candidates):
                 raise ValueError("Dashboard export differs from demo queue")
@@ -66,7 +68,7 @@ def demo():
             story["model"] = agent["model"]
             story["origin_run_id"] = example["origin_run_id"]
             print(f"Pending candidate {row['id']}: {row['deal']['source_entity']} to {row['deal']['target_entity']}.")
-            print("Dashboard location: News > Pending review. The demo queue is temporary.")
+            print("Dashboard location: Review & news > Recorded example. The demo queue is temporary.")
             return story
         finally:
             store.close()

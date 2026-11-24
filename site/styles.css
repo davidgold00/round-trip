@@ -272,3 +272,27 @@ footer.foot { color: var(--text-muted); font-size: 0.78rem; padding: 26px 0 0;
   border-top: 1px solid var(--border); margin-top: 26px; }
 .srOnly { position: absolute; width: 1px; height: 1px; overflow: hidden;
   clip: rect(0 0 0 0); white-space: nowrap; }
+
+:focus-visible { outline: 3px solid var(--series-1); outline-offset: 3px; }
+.hero { border-top: 3px solid var(--series-1); padding: clamp(20px, 3vw, 36px); }
+.hero h2 { font-weight: 600; color: var(--text-secondary); }
+.hero .figure { font-variant-numeric: tabular-nums; margin: 8px 0; }
+.hero .sentence { max-width: 52ch; font-size: clamp(1.05rem, 2vw, 1.3rem); }
+.hero .asof, .axislabel, .note { color: var(--text-secondary); }
+svg .axislabel { fill: var(--text-secondary); }
+.hero .caveat { margin-bottom: 12px; }
+.scenario-compare, .proposal blockquote { border-left: 3px solid var(--series-1); padding: 6px 12px; margin: 12px 0; }
+.scenario-compare { background: var(--page); }
+.proposal { padding: 12px 0; border-top: 1px solid var(--border); }
+.proposal h3 { margin: 0; font-size: 1.1rem; }
+.proposal p { margin: 6px 0; }
+.proposal .check { font-weight: 600; }
+.proposal blockquote { font-family: Georgia, serif; font-size: 1.1rem; }
+.proposal code { overflow-wrap: anywhere; }
+#recordedExample summary { cursor: pointer; font-weight: 600; }
+#recordedExample { padding-top: 8px; }
+
+.reading { max-width: 78ch; margin: 32px auto; padding: 0 20px 60px; overflow-wrap: anywhere; }
+.reading h1 { margin-top: 18px; font-size: 2rem; }
+.reading pre { overflow-x: auto; background: var(--surface-1); border: 1px solid var(--border); padding: 14px; }
+.reading table { display: block; overflow-x: auto; }
