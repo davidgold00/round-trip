@@ -10,6 +10,7 @@ from .entities import Resolver
 from .evaluate import align_edges, edge_key
 from .io import atomic_write
 from .reporting import display_name, rate
+from .verify import instrument_advisory
 
 
 def category(key, others, row, prediction=None):
@@ -30,8 +31,10 @@ def category(key, others, row, prediction=None):
 
 
 def verification_category(error):
-    if "amount" in error:
-        return "amount misread"
+    if "amount_text" in error:
+        return "amount wording absent from quote"
+    if "amount_usd" in error:
+        return "unsupported numeric amount"
     if "verbatim" in error:
         return "non-verbatim quote"
     if "entity" in error or "node" in error:
@@ -102,6 +105,14 @@ def write():
             for label in ("below 0.70","0.70 to <0.90","0.90 to 1.00"):
                 values=bins.get(label,[])
                 lines.append(f"| {label} | {rate(sum(x[0] for x in values),len(values))} | {len(set(x[1] for x in values))} |")
+        uncertain = [row for row in r["records"] if row["label_uncertain"]]
+        warnings = [bool(gold) for row in r["records"]
+                    for gold, prediction in align_edges(row["expected"], row["predicted"], resolver)
+                    if prediction and instrument_advisory(prediction["deal"])]
+        lines += ["", f"{len(uncertain)} passages have uncertain labels. They are included above.",
+                  f"The review-only convertible-note advisory flags {len(warnings)} of "
+                  f"{r['metrics']['counts']['predictions']} saved proposals, including {warnings.count(False)} "
+                  "directed pair/type errors. It changes zero predictions and zero verification decisions."]
         lines.append("")
     lines += ["## What to investigate","",
               "The rules adapter guesses financial direction. It also matches Meta inside the editorial word `metadata` and Intel inside `intelligence`; the exact-node verifier catches those proposals. A missing positive on which rules proposed nothing is a triage miss at the rules stage. The short excerpts provide little evidence about full-document chunk boundaries. Use the model-specific rows above to choose a prompt or verifier experiment.",""]

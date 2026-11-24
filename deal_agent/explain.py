@@ -86,6 +86,10 @@ def render(story):
         lines.extend("  "+message for message in checked["errors"])
         if not events:
             lines.append("Original stage trace unavailable for this candidate.")
+    from .verify import instrument_advisory
+    advisory = instrument_advisory(d)
+    if advisory:
+        lines.append("Instrument review: " + advisory)
     rec=story["reconcile"]
     lines.append(f"Reconcile: {rec['classification']} | {rec['reason']}"+(f" | {rec['match_id']}" if rec.get("match_id") else ""))
     lines.append("Human review: "+story["status"])

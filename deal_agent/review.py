@@ -146,6 +146,10 @@ class Review:
         print(
             encode({**row, "current_verification": checked, "current_reconcile": rec})
         )
+        from .verify import instrument_advisory
+        advisory = instrument_advisory(row["deal"])
+        if advisory:
+            print("Instrument review:", advisory)
         print("Evidence:", row["deal"]["evidence_quote"])
         print("Source:", row["deal"]["source_url"])
 

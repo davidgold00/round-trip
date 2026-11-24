@@ -48,6 +48,16 @@ def dollars(text: str) -> set[Decimal]:
     return result
 
 
+def instrument_advisory(deal):
+    """Flag a proposed equity instrument when the quote describes a convertible note."""
+    if deal["deal_type"] != "equity_investment":
+        return None
+    quote = whitespace(deal["evidence_quote"])
+    if re.search(r"\bconvertible(?: senior)? notes?\b|\bnotes?\b[^.!?]{0,160}\bconvertible into equity\b", quote, re.I):
+        return "The quote describes a convertible note. Check whether the funding instrument is debt before conversion."
+    return None
+
+
 def verify(
     deal: Deal, text: str, resolver, source_url: str, company: str | None = None
 ) -> dict:

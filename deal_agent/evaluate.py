@@ -159,6 +159,10 @@ def evaluate(
             }
         )
         errors.extend({"id": item["id"], "error": error} for error in result["errors"])
+    provider = pipeline.provider
+    if (not validate_only and getattr(provider, "mode", None) == "replay"
+            and provider.position != len(provider.data["calls"])):
+        errors.append({"error": "Evaluation ended with unused recorded calls"})
     status = (
         "labels_only" if validate_only else ("incomplete" if errors else "complete")
     )

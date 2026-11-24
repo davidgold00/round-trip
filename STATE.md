@@ -12,6 +12,12 @@ The genuine recording is one excerpt from run `a64e32868cb44af7931521fef23a1237`
 
 Compare Qwen 2.5 7B Instruct v1 and v2 and Llama 3.1 8B v1 against the original rules on the same 15 development excerpts. All inference uses downloaded weights on loopback Ollama. Apply the existing selection and complexity rules before opening a model test report. Recover rules test counts by grouping the original predictions. Keep the split and labels frozen. For the stored news run use the selected configuration and retain only pending proposals.
 
+## Verified workflow
+
+Offline replay reproduced the documented candidate and both failed amount checks. A disposable analyst queue refused approval before correction. An explicit edit and approval exported a YAML. Applying it twice produced one disposable ledger change and one application event. Publication was exercised separately on the original 38 reviewed rows and reproduced the ecosystem figures. All nine dashboard tabs loaded at 1440px and 390px in light and dark modes. The How it works panel explains the full-backlog denominator and links both the 2019 source and the later cumulative funding disclosure.
+
+Qwen v1 development run `a64e32868cb44af7931521fef23a1237` resumed from its three available calls. The other 21 calls were generated locally using the same model tag and request settings. The original host's model digest was unavailable. All 24 saved requests replayed and reproduced the directed-edge counts. The rules test slice recovered from [the original 25-excerpt records](eval/baselines/rules.json) found 1 of 7 labeled edges, with 1 proposal and 1 verification pass.
+
 ## Privacy audit
 
 The editable reviewer examples and PR description contained an operator identifier. These were replaced with a reviewer alias. The CLI now defaults to a neutral alias, and raw benchmark recordings and local application audit logs are ignored. SEC contact examples use a reserved domain. The committed demo request and response bytes required no redaction.
