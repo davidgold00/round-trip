@@ -296,3 +296,40 @@ def test_holdout_review_is_audited_but_cannot_feed_dev(runtime, deal_dict):
     assert review.store.rows("SELECT action FROM audit") == [{"action":"reject"}]
     assert current_examples(sync_examples(review.cfg, review.store)) == []
     assert (directory / "splits.json").read_bytes() == before
+
+
+def test_reopened_export_cannot_be_applied_even_with_same_ledger(runtime, deal_dict, monkeypatch):
+    from pathlib import Path
+    from types import SimpleNamespace
+    import src.review as original
+    reviewer, ident = queued(runtime, deal_dict)
+    reviewer.approve(ident, **approval(deal_dict))
+    prior = reviewer.store.rows("SELECT payload FROM audit")[0]
+    path = Path(json.loads(prior["payload"])["promotion_path"])
+    reviewer.reopen(ident, "Reconsider bounds")
+    monkeypatch.setattr(original, "EDGES", reviewer.graph)
+    before = reviewer.graph.read_bytes()
+    with pytest.raises(SystemExit, match="reopened"):
+        original.cmd_batch(SimpleNamespace(path=path))
+    assert reviewer.graph.read_bytes() == before
+
+
+def test_interrupted_application_finishes_audit_without_reapplying(runtime, deal_dict, monkeypatch):
+    import src.review as original
+    from types import SimpleNamespace
+    reviewer, ident = queued(runtime, deal_dict)
+    reviewer.approve(ident, **approval(deal_dict))
+    record = original.record_promotion_event
+    def interrupt(graph, event):
+        if event["event"] == "applied":
+            raise OSError("interrupted after ledger replacement")
+        record(graph, event)
+    monkeypatch.setattr(original, "record_promotion_event", interrupt)
+    with pytest.raises(OSError, match="interrupted"):
+        apply_export(reviewer, monkeypatch)
+    written = reviewer.graph.read_bytes()
+    monkeypatch.setattr(original, "record_promotion_event", record)
+    path = apply_export(reviewer, monkeypatch)
+    original.cmd_batch(SimpleNamespace(path=path))
+    assert reviewer.graph.read_bytes() == written
+    assert [e["event"] for e in original.promotion_events(reviewer.graph)] == ["prepared", "applied"]

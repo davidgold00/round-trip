@@ -6,10 +6,12 @@ from __future__ import annotations
 
 import argparse
 import csv
-import hashlib
 import json
 import sys
 import textwrap
+import tempfile
+import os
+from datetime import datetime, timezone
 from pathlib import Path
 
 import yaml
@@ -91,7 +93,7 @@ def check_row(row: dict) -> None:
     check_quote(row.get("quote_snippet", ""))
 
 
-def append_edge(row: dict) -> None:
+def updated_edges(row: dict):
     for k in EDGE_FIELDS:
         row.setdefault(k, "")
     if not row.get("edge_id"):
@@ -108,6 +110,11 @@ def append_edge(row: dict) -> None:
         import pandas as pd
         df = pd.concat([df, pd.DataFrame([{k: row[k] for k in EDGE_FIELDS}])],
                        ignore_index=True)
+    return df
+
+
+def append_edge(row: dict) -> None:
+    df = updated_edges(row)
     write_edges(df)
     LOG.info("ledger now holds %d edges (added/updated %s)", len(df), row["edge_id"])
 
@@ -176,8 +183,9 @@ def _mark(cid: str, status: str, reason: str, quote: str = "") -> dict | None:
 
 def cmd_promote(args) -> None:
     check_quote(args.quote)
-    row = _mark(args.candidate_id, "promoted", args.reason or "verified against source text",
-                args.quote)
+    row = next((r for r in read_candidates() if r["candidate_id"] == args.candidate_id), None)
+    if row is None:
+        raise SystemExit(f"no candidate {args.candidate_id}")
     for field in ("source_node", "target_node", "edge_type", "status", "amount_basis",
                   "evidence_tier", "term_start", "term_end", "conditions_text", "notes"):
         val = getattr(args, field, None)
@@ -189,11 +197,66 @@ def cmd_promote(args) -> None:
         row["amount_usd_high"] = args.amount_high
     row["quote_snippet"] = args.quote
     append_edge(row)
+    _mark(args.candidate_id, "promoted", args.reason or "verified against source text", args.quote)
 
 
 def cmd_reject(args) -> None:
     _mark(args.candidate_id, "rejected", args.reason)
     LOG.info("rejected %s: %s", args.candidate_id, args.reason)
+
+
+def promotion_events(graph):
+    path = graph.parent / "promotion_audit.jsonl"
+    return [json.loads(line) for line in path.read_text().splitlines() if line.strip()] if path.exists() else []
+
+
+def record_promotion_event(graph, event):
+    from deal_agent.io import atomic_write
+    path = graph.parent / "promotion_audit.jsonl"
+    prior = path.read_text() if path.exists() else ""
+    atomic_write(path, prior + json.dumps(event, ensure_ascii=False, sort_keys=True) + "\n")
+
+
+def apply_agent_review(doc, raw):
+    from deal_agent.io import lock
+    from deal_agent.trace import digest
+    review = doc["agent_review"]
+    edges = doc.get("edges", [])
+    if digest(json.dumps(edges, ensure_ascii=False, sort_keys=True, default=str)) != review["approved_edges_sha256"]:
+        raise SystemExit("refused: reviewed agent promotion was edited; re-review it")
+    if len(edges) != 1 or doc.get("backlog") or doc.get("rejections") or edges[0].get("from_candidate"):
+        raise SystemExit("refused: an agent approval must contain exactly one reviewed edge")
+    check_row(edges[0])
+    approval = digest(raw)
+    with lock(EDGES.with_suffix(".csv.lock")):
+        events = [e for e in promotion_events(EDGES) if e.get("promotion_sha256") == approval]
+        if any(e.get("event") == "reopened" for e in events):
+            raise SystemExit("refused: this approval was reopened; review the current revision")
+        if any(e.get("event", "applied") == "applied" for e in events):
+            print("This approval was already applied.")
+            return
+        current = digest(EDGES.read_bytes())
+        prepared = next((e for e in events if e.get("event") == "prepared"), None)
+        if prepared and current == prepared["graph_after_sha256"]:
+            event = prepared
+        else:
+            if current != review["graph_before_sha256"]:
+                raise SystemExit("refused: ledger changed since agent review; re-review against current ledger")
+            frame = updated_edges(dict(edges[0]))
+            problems = validate(frame)
+            if problems:
+                raise SystemExit("refused: " + ", ".join(problems))
+            with tempfile.TemporaryDirectory(dir=EDGES.parent) as stage:
+                candidate = write_edges(frame, Path(stage) / "edges.csv")
+                event = {**review, "promotion_sha256": approval,
+                         "graph_after_sha256": digest(candidate.read_bytes()), "edge_ids": [edges[0]["edge_id"]]}
+                if prepared and event["graph_after_sha256"] != prepared["graph_after_sha256"]:
+                    raise SystemExit("refused: staged ledger differs from the interrupted application")
+                if not prepared:
+                    record_promotion_event(EDGES, {**event, "event": "prepared"})
+                os.replace(candidate, EDGES)
+        record_promotion_event(EDGES, {**event, "event": "applied", "applied_at": datetime.now(timezone.utc).isoformat()})
+        print("Applied one reviewed edge. Run python -m deal_agent publish to rebuild the dashboard.")
 
 
 def cmd_batch(args) -> None:
@@ -204,19 +267,10 @@ def cmd_batch(args) -> None:
     promoted; entries without it are manual additions, which still require a
     source_url, a quote and (for T1) an accession number.
     """
-    doc = yaml.safe_load(Path(args.path).read_text()) or {}
-    agent_review = doc.get("agent_review")
-    if agent_review:
-        # Agent approvals use the same promotion path, with an extra stale-review
-        # guard. Ordinary historical promotions retain their original behavior.
-        encoded = json.dumps(doc.get("edges", []), ensure_ascii=False, sort_keys=True, default=str)
-        if hashlib.sha256(encoded.encode()).hexdigest() != agent_review["approved_edges_sha256"]:
-            raise SystemExit("refused: reviewed agent promotion was edited; re-review it")
-        if hashlib.sha256(EDGES.read_bytes()).hexdigest() != agent_review["graph_before_sha256"]:
-            raise SystemExit("refused: ledger changed since agent review; re-review against current ledger")
-        if len(doc.get("edges", [])) != 1 or doc.get("backlog") or doc.get("rejections"):
-            raise SystemExit("refused: an agent approval must contain exactly one reviewed edge")
-        check_row(doc["edges"][0])
+    raw = Path(args.path).read_bytes()
+    doc = yaml.safe_load(raw) or {}
+    if doc.get("agent_review"):
+        return apply_agent_review(doc, raw)
     n_edges = n_back = n_rej = 0
     for entry in doc.get("edges", []):
         cid = entry.pop("from_candidate", None)
@@ -234,16 +288,6 @@ def cmd_batch(args) -> None:
     LOG.info("batch applied: %d edges, %d backlog rows, %d rejections",
              n_edges, n_back, n_rej)
     cmd_verify(args)
-    if agent_review:
-        # The YAML is the reviewed decision; this append-only event records its
-        # actual application through the established promotion mechanism.
-        from datetime import datetime, timezone
-        event = {**agent_review, "applied_at": datetime.now(timezone.utc).isoformat(),
-                 "promotion_sha256": hashlib.sha256(Path(args.path).read_bytes()).hexdigest(),
-                 "graph_after_sha256": hashlib.sha256(EDGES.read_bytes()).hexdigest(),
-                 "edge_ids": [entry["edge_id"] for entry in doc["edges"]]}
-        with (EDGES.parent / "promotion_audit.jsonl").open("a", encoding="utf-8") as handle:
-            handle.write(json.dumps(event, ensure_ascii=False, sort_keys=True) + "\n")
 
 
 def cmd_verify(args) -> None:

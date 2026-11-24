@@ -10,7 +10,7 @@ import math
 from pathlib import Path
 
 from src.ledger import EDGE_FIELDS, validate
-from src.review import check_row
+from src.review import check_row, promotion_events, record_promotion_event
 from src.util import edge_id
 
 from .config import path_for
@@ -199,23 +199,28 @@ class Review:
     def reopen(self, candidate_id, reason):
         if not reason.strip():
             raise ValueError("Record a reason for re-review")
-        rows = [r for r in self.store.candidates("approved") if r["id"] == candidate_id]
-        if not rows:
-            raise ValueError("Only an exported approval can be reopened")
-        application_audit = self.graph.parent / "promotion_audit.jsonl"
-        if application_audit.exists() and any(
-            json.loads(line).get("candidate_id") == candidate_id
-            for line in application_audit.read_text().splitlines() if line.strip()
-        ):
-            raise ValueError("Approval already applied; create and review a new update candidate")
-        self.store.db.execute("BEGIN IMMEDIATE")
-        try:
-            self.audit(candidate_id, "reopen", {"before": rows[0], "reason": reason})
-            self.store.db.execute("UPDATE candidates SET status='pending' WHERE id=?", (candidate_id,))
-            self.store.db.execute("COMMIT")
-        except Exception:
-            self.store.db.execute("ROLLBACK")
-            raise
+        with lock(self.graph.with_suffix(".csv.lock")):
+            rows = [r for r in self.store.candidates("approved") if r["id"] == candidate_id]
+            if not rows:
+                raise ValueError("Only an exported approval can be reopened")
+            approvals = self.store.rows(
+                "SELECT payload FROM audit WHERE candidate_id=? AND action IN ('approve','update') "
+                "AND state='applied' ORDER BY id DESC LIMIT 1", (candidate_id,))
+            checksum = json.loads(approvals[0]["payload"]).get("promotion_sha256") if approvals else None
+            events = [e for e in promotion_events(self.graph) if e.get("candidate_id") == candidate_id]
+            if any(e.get("event", "applied") in {"applied", "prepared"} for e in events):
+                raise ValueError("Approval already applied or application in progress; finish application before re-review")
+            if checksum and not any(e.get("promotion_sha256") == checksum for e in events):
+                record_promotion_event(self.graph, {"event": "reopened", "candidate_id": candidate_id,
+                                                    "promotion_sha256": checksum})
+            self.store.db.execute("BEGIN IMMEDIATE")
+            try:
+                self.audit(candidate_id, "reopen", {"before": rows[0], "reason": reason})
+                self.store.db.execute("UPDATE candidates SET status='pending' WHERE id=?", (candidate_id,))
+                self.store.db.execute("COMMIT")
+            except Exception:
+                self.store.db.execute("ROLLBACK")
+                raise
 
         sync_examples(self.cfg, self.store)
 

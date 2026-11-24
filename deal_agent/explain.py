@@ -37,7 +37,7 @@ def load_story(cfg, ident):
                     reviews=[dict(r) for r in con.execute("SELECT actor,action,created,payload FROM audit WHERE candidate_id=? AND state='applied' ORDER BY id",(ident,))])
                 audit = path_for(cfg, "graph_file").parent / "promotion_audit.jsonl"
                 story["applied"] = [e for e in (json.loads(l) for l in audit.read_text().splitlines() if l.strip())
-                                    if e.get("candidate_id") == ident] if audit.exists() else []
+                                    if e.get("candidate_id") == ident and e.get("event", "applied") == "applied"] if audit.exists() else []
                 return story
     sample = ROOT / "eval/example/story.json"
     if sample.is_file():

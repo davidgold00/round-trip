@@ -124,7 +124,7 @@ require an explicit NEW decision and receive stable distinct edge ids.
 If the ledger changed before application, batch refuses the stale review.
 Use `python -m deal_agent review reopen ID --actor analyst --reason "..."`,
 then review the candidate again. A new revision preserves the old YAML and audit.
-An applied approval cannot be reopened; a later restatement needs a new reviewed
+Application refuses a reopened export, and rerunning an applied export reports the existing decision. An applied approval cannot be reopened; a later restatement needs a new reviewed
 candidate. Failed verification requires an edit and successful recheck first.
 Rich extraction metadata remains in SQLite audit; promotion rows use the original
 ledger fields. Existing filing/news queues and promotion files are unchanged.
@@ -143,7 +143,7 @@ The publication quote must be a verbatim substring of verified evidence and 1 to
 to existing nodes. Unknown USD remains `[0,0]`; finite bounds cannot exceed the
 verified disclosed amount. Use `--basis per-year` only with explicit term dates.
 Review must establish legal status, conditions, amount basis and announcement date.
-Local reviewer identity is attribution, not authentication. Do not concurrently
+Use a public-safe alias with `--actor` or export `ROUNDTRIP_REVIEWER` in the shell. The default is `local-reviewer`. Do not concurrently
 edit the ledger or run separate review processes; inspect stale locks before removal.
 
 NEW is a proposal, not proof no related arrangement exists. UPDATE/DUPLICATE need
