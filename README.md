@@ -1,26 +1,39 @@
-# Round-Trip AI: Who Is Financing Their Own Customers?
+# Round-Trip AI
 
-A living research dashboard that quantifies how much AI infrastructure supplier
-backlog depends on counterparties whose funding traces back to the supplier,
-stress tests that dependency, and refreshes itself as new filings and news
-arrive.
+**How much of an AI supplier's backlog comes from customers it helped finance?** Across 38 reviewed relationships, the central estimate is **$46.7 billion out of $2.72 trillion, or 1.72%**. The lower and upper financing assumptions give **1.39% to 18.22%** against the same backlog denominator. The evidence snapshot is October 5, 2026.
 
-Everything runs locally and for free. SEC EDGAR, company investor-relations
-feeds and GDELT. No paid APIs. No language model calls anywhere in the pipeline.
+A seller can invest in a customer that then contracts to buy its chips or cloud capacity. This project follows both payments. Its local deal agent reads filings and company releases, proposes who pays whom, quotes the evidence and sends each proposal to a reviewer. Only reviewed ledger entries contribute to the dashboard.
 
-## The headline
+> **Start here**
+>
+> **60 seconds** · Read the headline above and follow the [system diagram](#how-the-system-works).
+>
+> **10 minutes** · Use the [interview walkthrough](docs/WALKTHROUGH.md) and run `make demo` after setup.
+>
+> **Deep dive** · Follow the [numbered reading order](docs/README.md) from source data to evaluation and design decisions.
 
-> Roughly **1.7%** (range 1.4% to 18.2%) of disclosed backlog depends on a
-> counterparty whose funding traces back to the seller.
+The largest uncertainty is disclosure. Filings identify a customer for only 20.7% of the $2.72 trillion denominator. A zero measured relationship can mean the counterparty was never named.
 
-That figure is computed over the **20.7%** of this backlog universe that any
-filing ties to a named customer. The other **79.3%** names nobody, so the
-headline is a floor on what is visible, not a measurement of what exists. Oracle
-alone discloses $664 billion of remaining performance obligations and names no
-customer anywhere in its filings.
+## How the system works
 
-As of 2026-10-05, from 38 verified ledger edges: 28 from SEC filings, 10 from
-company releases, none from media reports or rumour.
+```mermaid
+flowchart TD
+    S["SEC EDGAR, company IR and GDELT"] --> R["Filing rules and news tags"]
+    S --> A["Local deal agent"]
+    R --> V["Verify source in human review"]
+    A --> C["Check quote, amount and entities"]
+    C --> Q["Review inbox"]
+    V --> Q
+    Q --> H["Reviewer approves a sourced change"]
+    H --> P["Promotion and audit"]
+    P --> L["Reviewed ledger"]
+    L --> M["Exposure metrics"]
+    L --> T["Stress test"]
+    M --> D["Dashboard"]
+    T --> D
+```
+
+Open the combined worklist with `python -m deal_agent inbox`. Filing and news candidates live in CSV. Agent proposals live in SQLite and carry machine verification and repair history. Both routes require a human decision.
 
 ## Run it
 
@@ -72,7 +85,8 @@ STATE.md       what is done, what is next, known issues
 2. **Extract.** Rules and regex find dollar amounts near counterparty names and
    financing verbs. These are **candidates**, written to
    `ledger/candidates.csv`. They count toward nothing.
-3. **Review.** A human reads the source and promotes the supported ones:
+3. **Review.** A human reads the source and promotes the supported ones.
+   The optional agent has a separate SQLite review queue, described below:
 
    ```bash
    python -m src.review list                 # pending queue, largest first

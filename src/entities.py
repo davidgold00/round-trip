@@ -1,8 +1,6 @@
-"""Seed entities and programmatic CIK/ticker resolution from SEC data.
-
-The seed list is a set of HYPOTHESES about where round-trip structures might
-exist. Nothing here is evidence. Additional nodes are discovered from filings
-during ingestion and appended to ledger/nodes.csv with a reason.
+"""Define the tracked companies and naming conventions for the rules pipeline.
+Seed and ledger node records supply names, aliases and filing identifiers.
+Ingestion, extraction and dashboard export reuse this vocabulary.
 """
 from __future__ import annotations
 

@@ -1,0 +1,5 @@
+Publisher context (metadata): OpenAI
+
+The following is a joint announcement and effort with Anthropic, Google, and Microsoft.
+
+Demonstrate strong commitment to frontier model safety

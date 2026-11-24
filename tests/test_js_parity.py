@@ -11,7 +11,6 @@ from pathlib import Path
 import pytest
 
 from src.ledger import load_backlog, load_edges
-from src.site_data import build as build_site
 from src.stress import build_network, cascade, debt_rank, eisenberg_noe, scenario_library
 from src.util import ROOT, load_config
 
@@ -27,8 +26,7 @@ def payloads():
     if e.empty:
         pytest.skip("no ledger yet")
     cfg = load_config()
-    site = build_site()
-    return cfg, e, b, site
+    return cfg, e, b
 
 
 def run_js(script: str) -> dict:
@@ -66,7 +64,7 @@ console.log(JSON.stringify({{
 
 
 def test_network_construction_matches(payloads):
-    cfg, e, b, site = payloads
+    cfg, e, b = payloads
     pynet = build_network(e, b, cfg, "central")
     js = run_js(js_driver("central", {}, 0.6, 0.5))
     assert js["nodes"] == pynet.nodes
@@ -79,7 +77,7 @@ def test_network_construction_matches(payloads):
 
 @pytest.mark.parametrize("bound", ["low", "central", "high"])
 def test_cascade_matches_on_every_bound(payloads, bound):
-    cfg, e, b, site = payloads
+    cfg, e, b = payloads
     shock = {"OpenAI": 0.5, "Anthropic": 0.5}
     pynet = build_network(e, b, cfg, bound)
     py = cascade(pynet, shock, 0.6, 0.5, tol=1e-9, max_iter=200)
@@ -93,7 +91,7 @@ def test_cascade_matches_on_every_bound(payloads, bound):
 
 
 def test_all_scenario_presets_match(payloads):
-    cfg, e, b, site = payloads
+    cfg, e, b = payloads
     pynet = build_network(e, b, cfg, "central")
     sc = scenario_library(pynet, cfg)
     for key, p in sc.items():
@@ -109,7 +107,7 @@ def test_all_scenario_presets_match(payloads):
 
 def test_slider_overrides_match(payloads):
     """LOI and conditional weight sliders must reweight exactly as Python does."""
-    cfg, e, b, site = payloads
+    cfg, e, b = payloads
     shock = {"OpenAI": 0.5}
     for loi, cond, pt, cap in [(0.05, 0.25, 0.3, 0.2), (0.60, 0.80, 0.9, 0.8)]:
         pynet = build_network(e, b, cfg, "central", loi_weight=loi,

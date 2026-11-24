@@ -1,0 +1,148 @@
+{
+  "deal": {
+    "amount_text": "one billion",
+    "amount_usd": 1000000000.0,
+    "announced_date": "2019-07-22",
+    "confidence": 1.0,
+    "consideration_type": "cash",
+    "deal_type": "equity_investment",
+    "evidence_quote": "Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits.",
+    "rationale": "Directly stated in the passage.",
+    "source_entity": "Microsoft",
+    "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+    "target_entity": "OpenAI",
+    "term_or_duration": null
+  },
+  "verification": {
+    "checks": [
+      "verbatim_quote",
+      "USD_amount",
+      "known_nodes",
+      "entities_in_text_or_filer_metadata",
+      "source_url"
+    ],
+    "details": {
+      "USD_amount": {
+        "errors": [
+          "amount_text is missing from evidence_quote"
+        ],
+        "result": "fail"
+      },
+      "entities_in_text_or_filer_metadata": {
+        "errors": [],
+        "result": "pass"
+      },
+      "known_nodes": {
+        "errors": [],
+        "result": "pass"
+      },
+      "source_url": {
+        "errors": [],
+        "result": "pass"
+      },
+      "verbatim_quote": {
+        "errors": [],
+        "result": "pass"
+      }
+    },
+    "errors": [
+      "amount_text is missing from evidence_quote"
+    ],
+    "history": {
+      "retry": {
+        "deal": {
+          "amount_text": "one billion",
+          "amount_usd": 1000000000.0,
+          "announced_date": "2019-07-22",
+          "confidence": 1.0,
+          "consideration_type": "cash",
+          "deal_type": "equity_investment",
+          "evidence_quote": "Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits.",
+          "rationale": "Directly stated in the passage.",
+          "source_entity": "Microsoft",
+          "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+          "target_entity": "OpenAI",
+          "term_or_duration": null
+        },
+        "verification": {
+          "checks": [
+            "verbatim_quote",
+            "USD_amount",
+            "known_nodes",
+            "entities_in_text_or_filer_metadata",
+            "source_url"
+          ],
+          "details": {
+            "USD_amount": {
+              "errors": [
+                "amount_text is missing from evidence_quote"
+              ],
+              "result": "fail"
+            },
+            "entities_in_text_or_filer_metadata": {
+              "errors": [],
+              "result": "pass"
+            },
+            "known_nodes": {
+              "errors": [],
+              "result": "pass"
+            },
+            "source_url": {
+              "errors": [],
+              "result": "pass"
+            },
+            "verbatim_quote": {
+              "errors": [],
+              "result": "pass"
+            }
+          },
+          "errors": [
+            "amount_text is missing from evidence_quote"
+          ],
+          "passed": false,
+          "source_node": "Microsoft",
+          "target_node": "OpenAI"
+        }
+      }
+    },
+    "passed": false,
+    "source_node": "Microsoft",
+    "target_node": "OpenAI"
+  },
+  "reconcile": {
+    "classification": "NEW",
+    "match_id": null,
+    "reason": "No same-direction, same-type deal with shared source/date or unique expansion antecedent",
+    "related_ids": [
+      "microsoft__openai__equity_investment__20251029",
+      "c_42eafa33d99cb9",
+      "c_16bddfbf4114ba",
+      "c_1f1a0e1c724a15",
+      "c_7e0eedcee762a2",
+      "c_7d7810545e45f4",
+      "c_ab45c8380c84ed",
+      "c_4ae914f888c8eb",
+      "c_4660623ccfb760",
+      "c_b711018ebc94dc",
+      "c_a84e177f8eff54",
+      "c_1444b22a10bc14",
+      "c_6a3193c0b04ef7",
+      "c_f97e71ff6e571e"
+    ]
+  },
+  "meta": {
+    "company": "OpenAI",
+    "doc_type": "company_release",
+    "published_date": "2019-07-22",
+    "raw_sha256": "abf67d748d22f6de0345617f2a9d59bcfb14779d8c8eadede02e734f8185ddc3",
+    "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+    "text_sha256": "abf67d748d22f6de0345617f2a9d59bcfb14779d8c8eadede02e734f8185ddc3"
+  },
+  "id": "a_81cddd0804260229a87a",
+  "document_id": "abf67d748d22f6de0345617f2a9d59bcfb14779d8c8eadede02e734f8185ddc3",
+  "status": "pending",
+  "reviews": [],
+  "applied": [],
+  "model": "qwen2.5:7b-instruct",
+  "origin_run_id": "a64e32868cb44af7931521fef23a1237"
+}

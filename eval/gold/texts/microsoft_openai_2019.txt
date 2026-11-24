@@ -1,0 +1,3 @@
+Publisher context (metadata): OpenAI
+
+Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits.

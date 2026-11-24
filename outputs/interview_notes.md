@@ -132,3 +132,90 @@ the answer more than any parameter in the model; an OpenAI or Anthropic S-1 with
 a real funding table; and the Nvidia and OpenAI letter of intent converting to a
 signed, sized investment, since it is the largest single row in the ledger and
 it is still non-binding.
+
+## Deal agent
+
+The agent is a proposal tool around the existing research pipeline. It reads
+saved source text, asks a downloaded local model for structured relationships,
+checks the evidence, compares the proposal with reviewed rows and leaves the
+decision to a person. It does not change the financial metric definitions.
+
+An illustrative walkthrough uses `amd_anthropic_equity_2026` in the gold set.
+AMD's July 22, 2026 release says: "AMD has committed to make a strategic equity
+investment of up to $5 billion in Anthropic". This is an explanation of the
+intended stages, not a claim that a local model successfully extracted it here.
+Ollama was unavailable, so that model run has not been measured.
+
+Triage first sees two tracked entities and investment language. A local model
+would then decide whether the passage describes a financial relationship. This
+release does. A list of Microsoft and Nvidia acquisition challenges, or separate
+Amazon and Microsoft fines, does not establish a deal between those companies
+merely because it contains their names and dollar figures.
+
+Extraction asks for one structured proposal: AMD funds Anthropic, the instrument
+is an equity investment, and the disclosed ceiling is $5 billion. The amount is
+not proof that money has already changed hands. Consideration remains unknown
+when the passage does not specify it. The gold label is kept away from the model;
+it is used only to score the returned proposal.
+
+Verification first checks the JSON schema and resolves the entities to existing
+nodes. The verbatim-quote check catches a paraphrase or invented words that are
+absent from the stored source, allowing only whitespace normalization. The amount
+check catches, for example, a proposed $50 billion when the quote says $5 billion.
+Share counts, gigawatts, valuations and exercise prices should not become a deal
+amount. The checks do not establish the payer, legal enforceability or whether
+a particular figure belongs to this instrument. Those are separate human questions.
+
+A failed candidate gets one bounded repair attempt. A repair cannot switch the
+known entity pair or deal type to evade the failure. The original failure stays
+in the trace and candidate history, and an unrepaired failure stays visible in
+the pending queue. A synthetic two-document cassette tests that control flow;
+it is clearly marked as test data and does not produce accuracy numbers.
+
+Reconciliation then compares the proposal with the reviewed ledger and pending
+items. This AMD investment is already reviewed, so a matching proposal should be
+flagged as a duplicate or for closer inspection, not counted as another $5 billion.
+For an expansion, a person must decide whether the figure is incremental or
+cumulative and explicitly choose an existing update target or a separate new deal.
+
+Review displays the source, quote, verification and reconciliation. A person
+chooses legal status, conservative bounds, a short publication quote and rationale.
+Approval exports promotions YAML and an immutable review audit; it leaves the
+ledger unchanged. The original `src.review batch` command applies the reviewed
+YAML, records its application and refuses a stale review. `deal_agent publish`
+then rebuilds the existing metrics, stress test and dashboard. Pending proposals
+are shown separately and never contribute to headline figures.
+
+**How do you know it works?** I separate execution correctness from extraction
+quality. Tests cover schema/evidence checks, bounded repair, replay, deduplication,
+review and promotion safeguards, and equality with main's headline after the
+original refresh path. The real rules baseline has 15.4% edge precision and
+11.8% recall on the current corpus. Amount accuracy is 100% on just two matched
+edges, which is too little to generalize. Local LLM accuracy is Not measured.
+`make agent-bench` records a local run and produces a side-by-side comparison.
+The corpus is small, correlated, partly uncertain, and still lacks three full
+multi-paragraph passages. Passing code tests is not evidence of model accuracy.
+
+**Why a local model?** It keeps inference off hosted services, requires no paid
+API, and makes prompts, settings and recordings inspectable. It also makes the
+setup slower and dependent on local hardware. Local deployment is a practical
+constraint and reproducibility choice, not a claim that the model is more accurate.
+
+**What does the verifier miss?** A sentence can be copied perfectly while the
+payer is reversed, a conditional maximum is treated as cash paid, or a dollar
+figure is assigned to the wrong instrument. Verification helps reject unsupported
+text, but cannot replace reading the contract and choosing conservative bounds.
+
+**How do you avoid counting the same deal twice?** Source hashes and chunk
+checkpoints prevent repeat processing, candidate identities prevent duplicate
+queue insertion, and reconciliation surfaces reviewed matches. A human still
+chooses whether a later disclosure is an update, another tranche or an unrelated
+contract. Updates target an explicit existing row through the original promotions
+mechanism; the agent never adds a restatement on top of the old total automatically.
+
+**What would you improve next?** Add the missing full primary-source passages,
+resolve remaining payer/instrument ambiguities, and run the recorded local
+rules-versus-model benchmark with and without uncertain cases. Compare models
+and prompt versions on the same saved corpus. Prompt v2 is an experiment to test,
+not evidence of improvement. I would inspect errors by source and financial role
+before expanding the fetcher or making stronger quality claims.

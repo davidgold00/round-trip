@@ -1,0 +1,3 @@
+Publisher context (metadata): MLCommons
+
+MLPerf Client represents a collaboration among technology leaders, including AMD, Intel, Microsoft, NVIDIA, Qualcomm Technologies, Inc., and top PC OEMs.

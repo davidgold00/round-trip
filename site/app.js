@@ -4,7 +4,7 @@
 (function () {
 "use strict";
 
-const S = { ledger: null, metrics: null, stress: null, news: null, history: null };
+const S = { ledger: null, metrics: null, stress: null, news: null, history: null, pending: null };
 const tip = document.getElementById("tip");
 const css = (v) => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
 const FAM_VAR = { ownership: "--series-1", credit: "--series-2", demand: "--series-3" };
@@ -850,7 +850,47 @@ function renderMethodTable() {
 }
 
 /* ================= NEWS ================= */
+function renderPending() {
+  const pending = S.pending || { available: false, items: [] };
+  const count = document.getElementById("pendingAgentCount");
+  count.textContent = pending.available
+    ? `${pending.pending_count} pending agent candidates in this snapshot. These are unverified and excluded from every published metric.`
+    : "Pending review snapshot unavailable.";
+  document.getElementById("pendingAgentNote").textContent =
+    (pending.generated ? `Exported ${pending.generated}. ` : "") + (pending.note || "");
+  const container = document.getElementById("pendingAgentItems");
+  container.replaceChildren();
+  if (!(pending.items || []).length) return;
+  const list = document.createElement("ul");
+  list.className = "tight";
+  pending.items.forEach(item => {
+    const row = document.createElement("li");
+    const title = document.createElement("strong");
+    title.textContent = `${item.source_entity} → ${item.target_entity}`;
+    row.append(title, document.createTextNode(` · ${item.deal_type} · ${item.amount_text || "No disclosed amount"} `));
+    const status = document.createElement("span");
+    status.className = "pill " + (item.verification_status === "passed" ? "def" : "cond");
+    status.textContent = `Verification ${item.verification_status}; pending human review`;
+    row.append(status);
+    const quote = document.createElement("p");
+    quote.className = "note";
+    quote.textContent = item.evidence_quote;
+    row.append(quote);
+    try {
+      const url = new URL(item.source_url);
+      if (["http:", "https:"].includes(url.protocol)) {
+        const link = document.createElement("a");
+        link.href = url.href; link.target = "_blank"; link.rel = "noopener noreferrer";
+        link.textContent = "Source"; row.append(link);
+      }
+    } catch (_) { /* Invalid links remain plain evidence text. */ }
+    list.append(row);
+  });
+  container.append(list);
+}
+
 function renderNews() {
+  renderPending();
   const n = S.news;
   document.getElementById("newsLede").textContent =
     `${n.counts.total} items held. ${n.counts.flagged} flagged as financing-relevant. ` +
@@ -1144,14 +1184,15 @@ Promise.all([
   fetch("data/stress.json").then(r => r.json()),
   fetch("data/news.json").then(r => r.json()).catch(() => ({ counts: {}, items: [], review_queue: [] })),
   fetch("data/history.json").then(r => r.json()).catch(() => ({ vintages: [] })),
-]).then(([ledger, metrics, stress, news, history]) => {
-  S.ledger = ledger; S.metrics = metrics; S.stress = stress; S.news = news; S.history = history;
+  fetch("data/pending_agent.json").then(r => r.json()).catch(() => ({ available: false, items: [] })),
+]).then(([ledger, metrics, stress, news, history, pending]) => {
+  S.ledger = ledger; S.metrics = metrics; S.stress = stress; S.news = news; S.history = history; S.pending = pending;
   document.getElementById("subline").innerHTML =
     `${ledger.counts.edges} verified edges from SEC filings and company releases &middot; ` +
     `as of ${esc(metrics.as_of)} &middot; analysis, not investment advice`;
   document.getElementById("footNote").innerHTML =
     `Built from SEC EDGAR, company investor relations releases and GDELT. No paid ` +
-    `data, no language model calls. Every figure resolves to ledger rows with a ` +
+    `data. Optional local model extraction is human-reviewed. Every figure resolves to ledger rows with a ` +
     `source link, a verbatim quote and an as-of date. Generated ${esc(metrics.generated)}. ` +
     `This is analysis, not investment advice.`;
   RENDERED.add("headline");

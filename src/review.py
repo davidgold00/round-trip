@@ -1,21 +1,13 @@
-"""Candidate review CLI. The ONLY path from candidate to ledger.
-
-    python -m src.review list                 show pending candidates
-    python -m src.review show <candidate_id>  print the full context window
-    python -m src.review promote <id> --quote "..." [overrides]
-    python -m src.review reject  <id> --reason "..."
-    python -m src.review batch ledger/promotions.yaml
-    python -m src.review verify               re-run ledger validation
-
-Every promotion requires a quote of fewer than 25 words. A T1 promotion
-requires an accession number. Nothing is ever promoted automatically:
-`src/extract.py` cannot write to edges.csv, and this module refuses a promotion
-without a quote.
+"""Inspect filing and news candidates and apply reviewed promotions.
+The CSV queues and reviewed YAML supply evidence, bounds and explicit update targets.
+Validated approvals enter the ledger used by metrics and stress.
 """
 from __future__ import annotations
 
 import argparse
 import csv
+import hashlib
+import json
 import sys
 import textwrap
 from pathlib import Path
@@ -213,6 +205,18 @@ def cmd_batch(args) -> None:
     source_url, a quote and (for T1) an accession number.
     """
     doc = yaml.safe_load(Path(args.path).read_text()) or {}
+    agent_review = doc.get("agent_review")
+    if agent_review:
+        # Agent approvals use the same promotion path, with an extra stale-review
+        # guard. Ordinary historical promotions retain their original behavior.
+        encoded = json.dumps(doc.get("edges", []), ensure_ascii=False, sort_keys=True, default=str)
+        if hashlib.sha256(encoded.encode()).hexdigest() != agent_review["approved_edges_sha256"]:
+            raise SystemExit("refused: reviewed agent promotion was edited; re-review it")
+        if hashlib.sha256(EDGES.read_bytes()).hexdigest() != agent_review["graph_before_sha256"]:
+            raise SystemExit("refused: ledger changed since agent review; re-review against current ledger")
+        if len(doc.get("edges", [])) != 1 or doc.get("backlog") or doc.get("rejections"):
+            raise SystemExit("refused: an agent approval must contain exactly one reviewed edge")
+        check_row(doc["edges"][0])
     n_edges = n_back = n_rej = 0
     for entry in doc.get("edges", []):
         cid = entry.pop("from_candidate", None)
@@ -230,6 +234,16 @@ def cmd_batch(args) -> None:
     LOG.info("batch applied: %d edges, %d backlog rows, %d rejections",
              n_edges, n_back, n_rej)
     cmd_verify(args)
+    if agent_review:
+        # The YAML is the reviewed decision; this append-only event records its
+        # actual application through the established promotion mechanism.
+        from datetime import datetime, timezone
+        event = {**agent_review, "applied_at": datetime.now(timezone.utc).isoformat(),
+                 "promotion_sha256": hashlib.sha256(Path(args.path).read_bytes()).hexdigest(),
+                 "graph_after_sha256": hashlib.sha256(EDGES.read_bytes()).hexdigest(),
+                 "edge_ids": [entry["edge_id"] for entry in doc["edges"]]}
+        with (EDGES.parent / "promotion_audit.jsonl").open("a", encoding="utf-8") as handle:
+            handle.write(json.dumps(event, ensure_ascii=False, sort_keys=True) + "\n")
 
 
 def cmd_verify(args) -> None:

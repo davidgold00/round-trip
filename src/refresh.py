@@ -1,8 +1,6 @@
-"""`make refresh`: pull, extract, tag, rebuild, snapshot, and diff.
-
-Order matters. Ingestion and news come first so the extractor and the metrics
-see the newest data; snapshots and the changelog come last so they describe what
-actually shipped.
+"""Orchestrate the original rules-based refresh and snapshot comparison.
+Run ingestion, candidate extraction and news tagging before reading the reviewed ledger.
+Rebuild exposure, stress, dashboard data and the run changelog.
 """
 from __future__ import annotations
 

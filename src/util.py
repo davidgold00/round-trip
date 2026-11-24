@@ -1,4 +1,7 @@
-"""Shared helpers: config loading, .env loading, paths, logging, slugs."""
+"""Share paths, configuration, contact settings and logging across research commands.
+Read repository configuration and environment overrides at the boundaries.
+Supply common identifiers and locations to ingestion, analysis and publication.
+"""
 from __future__ import annotations
 
 import datetime as _dt

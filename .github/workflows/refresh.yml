@@ -3,7 +3,7 @@
 # To enable:
 #   1. Uncomment the `schedule` block below.
 #   2. Add a repository secret named SEC_USER_AGENT containing a real contact
-#      string of the form "Your Name your.email@domain.com". The SEC requires
+#      string of the form "Your Name operator@example.invalid". The SEC requires
 #      automated clients to identify themselves, and the pipeline refuses to run
 #      without it.
 #

@@ -4,17 +4,40 @@ PY := python3
 .PHONY: help setup ingest extract build stress news refresh test serve audit clean
 
 help:
-	@echo "Round-Trip AI targets:"
-	@echo "  make setup    install python deps"
-	@echo "  make ingest   pull SEC submissions + XBRL companyfacts + filing text (cached)"
-	@echo "  make extract  regenerate ledger/candidates.csv from cached filing text"
-	@echo "  make build    compute exposure metrics -> outputs/ + site/data/"
-	@echo "  make stress   run cascade stress test + monte carlo -> outputs/"
-	@echo "  make news     pull EDGAR atom / GDELT / RSS, tag, dedupe"
-	@echo "  make refresh  ingest + extract + news + build + stress + site data + snapshot + changelog"
-	@echo "  make test     run the test suite"
-	@echo "  make audit    re-verify a random sample of 20 ledger edges"
-	@echo "  make serve    serve the static dashboard at http://localhost:8765"
+	@echo "Run"
+	@echo "  demo          replay a real extraction offline in a temporary queue"
+	@echo "  serve         serve the dashboard on localhost:8765"
+	@echo "  refresh       run the original acquisition and analysis pipeline"
+	@echo "  ingest        cache SEC filings and company facts"
+	@echo "  extract       regenerate the filing candidate queue"
+	@echo "  news          collect and tag EDGAR, company and news items"
+	@echo "  build         compute exposure metrics"
+	@echo "  stress        compute cascade scenarios and sensitivity"
+	@echo "Agent"
+	@echo "  agent         propose deals from locally stored news or configured feeds"
+	@echo "  agent-review  inspect and decide on pending proposals"
+	@echo "  explain ID=…  show one candidate's trace and review outcome"
+	@echo "Evaluate"
+	@echo "  agent-eval    run local inference on development passages"
+	@echo "  agent-bench   record a model and prompt comparison on development"
+	@echo "  audit         recheck a sample of reviewed sources"
+	@echo "Develop"
+	@echo "  setup         install the pinned Python dependencies"
+	@echo "  test          run the test suite, including refresh parity"
+	@echo "  links         check local Markdown links and section anchors"
+	@echo "  clean         delete generated interim data and exports"
+
+.PHONY: demo explain links
+demo:
+	@$(PY) -m deal_agent demo
+
+export ID
+explain:
+	@test -n "$$ID" || { echo "Usage: make explain ID=<candidate_id>"; exit 2; }
+	@$(PY) -m deal_agent explain "$$ID"
+
+links:
+	@$(PY) -m pytest -q tests/test_markdown_links.py
 
 setup:
 	$(PY) -m pip install -r requirements.txt
@@ -49,3 +72,18 @@ serve:
 
 clean:
 	rm -rf data/interim/* data/processed/* outputs/*.json site/data/*.json
+
+# Optional local semantic extractor. Publication still requires human review.
+.PHONY: agent agent-review agent-eval
+agent:
+	$(PY) -m deal_agent run
+
+agent-review:
+	$(PY) -m deal_agent review
+
+agent-eval:
+	$(PY) -m deal_agent eval
+
+.PHONY: agent-bench
+agent-bench:
+	$(PY) -m deal_agent bench $(AGENT_BENCH_ARGS)

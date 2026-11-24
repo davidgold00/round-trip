@@ -1,0 +1,3 @@
+Publisher context (metadata): CoreWeave
+
+CoreWeave signed an $11.9B deal to provide AI infrastructure for OpenAI, expanding compute capacity for model training.

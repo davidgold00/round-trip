@@ -1,13 +1,6 @@
-"""Phase 2: exposure metrics.
-
-Implements DECISIONS.md Part A exactly:
-  A.4 backlog dependency matrix D
-  A.5 funding provenance bounds LOWER / CENTRAL / UPPER
-  A.6 multi-hop provenance via damped Leontief inverse
-  A.7 headline Round-Trip Exposure
-  A.8 structure: SCCs, Johnson cycles with bottlenecks, PageRank, betweenness
-
-Pure local computation. No network, no LLM.
+"""Calculate backlog dependency, funding provenance and round-trip exposure.
+Read reviewed edges, disclosed backlog and the pre-registered weights.
+Produce the bounded estimates, coverage and network structure for the dashboard.
 """
 from __future__ import annotations
 

@@ -1,0 +1,3 @@
+Publisher context (metadata): AMD
+
+OpenAI to deploy 6 gigawatts of AMD GPUs based on a multi-year, multi-generation agreement

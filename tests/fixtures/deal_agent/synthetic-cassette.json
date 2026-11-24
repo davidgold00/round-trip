@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "synthetic": true,
+  "model": "qwen2.5:7b-instruct",
+  "description": "Synthetic test data, not model output",
+  "calls": [
+    {
+      "request_sha256": "34bbd1bd25289c8e9cd8e0acb100d8241d32f6f95544ae9a362689ed4506d2f4",
+      "response": "{\"relevant\": true, \"reason\": \"Synthetic test data, not model output\"}",
+      "stage": "triage"
+    },
+    {
+      "request_sha256": "ff971a2d66b6e91cd658da42ce16583f1e54956db6e73527e4eaf2dc9b0e38a7",
+      "response": "{\"edges\": [{\"source_entity\": \"Nvidia\", \"target_entity\": \"OpenAI\", \"deal_type\": \"equity_investment\", \"consideration_type\": \"unknown\", \"amount_usd\": 123456789.0, \"amount_text\": \"$100 billion\", \"term_or_duration\": null, \"announced_date\": \"2025-09-22\", \"source_url\": \"https://nvidianews.nvidia.com/news/openai-and-nvidia-announce-strategic-partnership-to-deploy-10gw-of-nvidia-systems\", \"evidence_quote\": \"To support the partnership, NVIDIA intends to invest up to $100 billion in OpenAI progressively as each gigawatt is deployed.\", \"confidence\": 1.0, \"rationale\": \"Synthetic test data, not model output\"}]}",
+      "stage": "extract"
+    },
+    {
+      "request_sha256": "e7e621bd170912289aee08ce5a2cd245e84cdc4d850d45c2fb461a8c5990fdf2",
+      "response": "{\"edges\": [{\"source_entity\": \"Nvidia\", \"target_entity\": \"OpenAI\", \"deal_type\": \"equity_investment\", \"consideration_type\": \"unknown\", \"amount_usd\": 100000000000.0, \"amount_text\": \"$100 billion\", \"term_or_duration\": null, \"announced_date\": \"2025-09-22\", \"source_url\": \"https://nvidianews.nvidia.com/news/openai-and-nvidia-announce-strategic-partnership-to-deploy-10gw-of-nvidia-systems\", \"evidence_quote\": \"To support the partnership, NVIDIA intends to invest up to $100 billion in OpenAI progressively as each gigawatt is deployed.\", \"confidence\": 1.0, \"rationale\": \"Synthetic test data, not model output\"}]}",
+      "stage": "retry"
+    },
+    {
+      "request_sha256": "787ae768f43117b5da81fe7a337a453237c554ef22965ecf85fdb56df7e7c405",
+      "response": "{\"relevant\": true, \"reason\": \"Synthetic test data, not model output\"}",
+      "stage": "triage"
+    },
+    {
+      "request_sha256": "6ab531d246b038d8c54730d920b9f477031ca112344bc64d2e3202e570f43e84",
+      "response": "{\"edges\": [{\"source_entity\": \"Microsoft\", \"target_entity\": \"OpenAI\", \"deal_type\": \"equity_investment\", \"consideration_type\": \"unknown\", \"amount_usd\": 1000000000.0, \"amount_text\": \"$1 billion\", \"term_or_duration\": null, \"announced_date\": \"2019-07-22\", \"source_url\": \"https://openai.com/index/microsoft-invests-in-and-partners-with-openai/\", \"evidence_quote\": \"Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits.\", \"confidence\": 1.0, \"rationale\": \"Synthetic test data, not model output\"}]}",
+      "stage": "extract"
+    }
+  ]
+}

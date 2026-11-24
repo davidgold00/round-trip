@@ -82,3 +82,47 @@ only via `python -m src.review`.
 
 `edges_YYYYMMDD.csv` plus `metrics_YYYYMMDD.json` written by `make refresh`.
 These are the vintage history that drives the dashboard's trend panel.
+
+## Optional deal-agent columns (backward compatible)
+
+`EDGE_FIELDS` remains the original required 17-column contract for callers.
+`AGENT_FIELDS` / `EXTENDED_EDGE_FIELDS` define the optional extension, and the
+reader/writer preserve unknown extra columns. Missing optional values load blank.
+The committed migration preserves every original field in all 38 rows. It copies
+`as_of_date` to `announced_date`, `quote_snippet` to `evidence_quote`, and an exact,
+positive low==high figure to `amount_usd`. It leaves ranged/undisclosed scalar
+amounts blank, sets consideration to unknown, and invents no deal subtype, term,
+model confidence or rationale for manually curated historical rows.
+
+| field | meaning |
+|---|---|
+| deal_type | Rich extraction enum; see README mapping to legacy edge_type |
+| consideration_type | cash / equity / compute_credits / mixed / unknown |
+| amount_usd | Extracted explicit USD scalar; CSV blank means null, ranges remain in legacy low/high |
+| amount_text | Verbatim amount wording; empty if unstated |
+| term_or_duration | Verbatim duration wording, or blank |
+| announced_date | Extracted announcement date (ISO) |
+| evidence_quote | Continuous verbatim sentence(s) / excerpt from stored source |
+| confidence | Local model confidence, 0..1; blank on legacy rows |
+| extraction_rationale | One-line source-grounded rationale |
+| agent_candidate_id | Links an approved row to the local SQLite queue |
+| document_sha256 | SHA-256 of the exact saved text used for verification |
+
+The agent queue is **not** another approved ledger: it lives in local,
+gitignored `data/deal_agent/queue.sqlite3`. `documents`, `jobs` and `chunks` hold
+content identities, every source's metadata, raw hashes and checkpoints;
+`candidates` stores the full extraction plus verification/history/reconciliation;
+`issues`, `runs` and `audit` hold failures, counters and human changes.
+
+Only `python -m deal_agent review` may apply an agent candidate. UPDATE requires
+an explicit target row and stores its previous contents in an immutable audit
+payload before replacement. This is a deliberate exception to the original
+append-observation convention: appending a second financial row for a restatement
+would double-count it in the current metrics. It does not rewrite old snapshots.
+NEW remains a distinct row. `src.review` continues to support the old queues;
+do not use the two review programs concurrently on the same ledger.
+
+A reviewer who explicitly chooses a distinct NEW contract on the same day may
+produce an edge id with a stable candidate suffix after the usual date slug.
+This preserves distinct tranches without changing old ids or double-counting
+updates. No consumer should infer contract identity solely from the date slug.

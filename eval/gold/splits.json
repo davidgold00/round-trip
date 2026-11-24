@@ -1,0 +1,35 @@
+{
+  "version": 1,
+  "seed": 20261119,
+  "unit": "source URL; the paired AMD/OpenAI announcement and filing also share one group",
+  "dev": [
+    "amazon_anthropic_2023",
+    "amazon_anthropic_2024",
+    "coreweave_openai_2025",
+    "microsoft_openai_2019",
+    "negative_frontier_forum",
+    "negative_ftc_merger_challenges",
+    "negative_ftc_merger_list",
+    "negative_ftc_privacy_penalties",
+    "negative_mlcommons",
+    "nscale_anthropic_2026",
+    "nscale_microsoft_2026",
+    "nscale_nvidia_warrants",
+    "nvidia_coreweave_2025",
+    "nvidia_openai_2025",
+    "oracle_openai_2025"
+  ],
+  "test": [
+    "amd_anthropic_chips_2026",
+    "amd_anthropic_equity_2026",
+    "amd_openai_chips_2025",
+    "amd_openai_warrant_2025",
+    "coreweave_meta_2026",
+    "microsoft_openai_2023",
+    "negative_regulation",
+    "negative_stanford_safety",
+    "negative_triton_users",
+    "oracle_openai_2024"
+  ],
+  "test_records_sha256": "6cdd1ad731b24b5e2127077c4c0c5bc7961874c23f7caade3681375b95486cec"
+}

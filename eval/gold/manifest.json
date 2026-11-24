@@ -1,0 +1,775 @@
+{
+  "version": 1,
+  "curated_on": "2026-11-09",
+  "scope": "25 source-backed saved passages, including 3 harder negatives and 3 cases from 2 deals announced after June 2026. Five uncertain labels. Some sources overlap; not independent observations. Full-length source passages remain to be added.",
+  "documents": [
+    {
+      "id": "microsoft_openai_2019",
+      "company": "OpenAI",
+      "published_date": "2019-07-22",
+      "doc_type": "company_release",
+      "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+      "text_file": "texts/microsoft_openai_2019.txt",
+      "sha256": "abf67d748d22f6de0345617f2a9d59bcfb14779d8c8eadede02e734f8185ddc3",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "Microsoft",
+          "target_entity": "OpenAI",
+          "deal_type": "equity_investment",
+          "consideration_type": "unknown",
+          "amount_usd": 1000000000.0,
+          "amount_text": "$1 billion",
+          "term_or_duration": null,
+          "announced_date": "2019-07-22",
+          "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+          "evidence_quote": "Microsoft is investing $1 billion in OpenAI to support us building artificial general intelligence (AGI) with widely distributed economic benefits.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": false,
+      "label_notes": "Stated commitment, not proof that the entire sum was cash. Consideration unknown; legal status is outside extraction gold.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09"
+    },
+    {
+      "id": "microsoft_openai_2023",
+      "company": "OpenAI",
+      "published_date": "2023-01-23",
+      "doc_type": "company_release",
+      "source_url": "https://openai.com/index/openai-and-microsoft-extend-partnership/",
+      "text_file": "texts/microsoft_openai_2023.txt",
+      "sha256": "07de34c6375797dfffde7d6c4a9a7bc48d8c764f73216855918091db88ea6d9e",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "Microsoft",
+          "target_entity": "OpenAI",
+          "deal_type": "equity_investment",
+          "consideration_type": "unknown",
+          "amount_usd": null,
+          "amount_text": "multi-billion dollar",
+          "term_or_duration": "multi-year",
+          "announced_date": "2023-01-23",
+          "source_url": "https://openai.com/index/openai-and-microsoft-extend-partnership/",
+          "evidence_quote": "This multi-year, multi-billion dollar investment from Microsoft follows their previous investments in 2019 and 2021",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": true,
+      "label_notes": "The release states investment but gives neither a precise USD amount nor the legal instrument. Later equity-method accounting does not establish this tranche as equity at announcement. Keep instrument provisional; source reread, not resolved.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "unresolved",
+        "source_url": "https://openai.com/index/openai-and-microsoft-extend-partnership/",
+        "accession_no": "",
+        "exact_evidence": "This multi-year, multi-billion dollar investment from Microsoft follows their previous investments in 2019 and 2021",
+        "reason": "The release states investment but gives neither a precise USD amount nor the legal instrument. Later equity-method accounting does not establish this tranche as equity at announcement. Keep instrument provisional; source reread, not resolved."
+      }
+    },
+    {
+      "id": "nvidia_openai_2025",
+      "company": "Nvidia",
+      "published_date": "2025-09-22",
+      "doc_type": "company_release",
+      "source_url": "https://nvidianews.nvidia.com/news/openai-and-nvidia-announce-strategic-partnership-to-deploy-10gw-of-nvidia-systems",
+      "text_file": "texts/nvidia_openai_2025.txt",
+      "sha256": "6863a32996c91e8ca04a7592612471926bbfe3f4b8057ff868aa40f80c00403a",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "Nvidia",
+          "target_entity": "OpenAI",
+          "deal_type": "equity_investment",
+          "consideration_type": "unknown",
+          "amount_usd": 100000000000.0,
+          "amount_text": "$100 billion",
+          "term_or_duration": null,
+          "announced_date": "2025-09-22",
+          "source_url": "https://nvidianews.nvidia.com/news/openai-and-nvidia-announce-strategic-partnership-to-deploy-10gw-of-nvidia-systems",
+          "evidence_quote": "To support the partnership, NVIDIA intends to invest up to $100 billion in OpenAI progressively as each gigawatt is deployed.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": true,
+      "label_notes": "The complete release expressly says letter of intent and staged deployment. It does not specify equity, security class or cash consideration. Keep equity provisional, amount a disclosed ceiling, and human legal-status/range review mandatory.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "unresolved",
+        "source_url": "https://nvidianews.nvidia.com/news/openai-and-nvidia-announce-strategic-partnership-to-deploy-10gw-of-nvidia-systems",
+        "accession_no": "",
+        "exact_evidence": "NVIDIA intends to invest up to $100 billion in OpenAI progressively as each gigawatt is deployed.",
+        "reason": "The complete release expressly says letter of intent and staged deployment. It does not specify equity, security class or cash consideration. Keep equity provisional, amount a disclosed ceiling, and human legal-status/range review mandatory."
+      }
+    },
+    {
+      "id": "amazon_anthropic_2023",
+      "company": "Anthropic",
+      "published_date": "2023-09-25",
+      "doc_type": "company_release",
+      "source_url": "https://www.anthropic.com/news/anthropic-amazon",
+      "text_file": "texts/amazon_anthropic_2023.txt",
+      "sha256": "0b2872119363801cf65a8994ea4ffc6f3caab149ebcd8c8c8877aba795dd4fbc",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "Amazon",
+          "target_entity": "Anthropic",
+          "deal_type": "debt_or_loan",
+          "consideration_type": "unknown",
+          "amount_usd": 4000000000.0,
+          "amount_text": "$4 billion",
+          "term_or_duration": null,
+          "announced_date": "2023-09-25",
+          "source_url": "https://www.anthropic.com/news/anthropic-amazon",
+          "evidence_quote": "Today, we’re announcing that Amazon will invest up to $4 billion in Anthropic.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": false,
+      "label_notes": "Corrected equity_investment to debt_or_loan using Amazon SEC disclosure of convertible notes. The original release supplies the $4B announcement cap/new commitment, not fully paid cash or cumulative $8B. Supplemental instrument evidence is included in the model input. Do not add a separate edge for each repeated disclosure of this same commitment.",
+      "source_scope": "Original release excerpt plus a separately attributed SEC instrument excerpt; not a single continuous source passage.",
+      "source_verified_on": "2026-11-09",
+      "supporting_sources": [
+        {
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872423000018/amzn-20230930.htm",
+          "accession_no": "0001018724-23-000018",
+          "company": "Amazon",
+          "doc_type": "10-Q",
+          "exact_evidence": "In Q3 2023, we invested $1.25 billion in a note from Anthropic, PBC, which is convertible into equity.",
+          "evidence_scope": "complete sentence"
+        }
+      ],
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "resolved",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872423000018/amzn-20230930.htm",
+        "accession_no": "0001018724-23-000018",
+        "exact_evidence": "In Q3 2023, we invested $1.25 billion in a note from Anthropic, PBC, which is convertible into equity.",
+        "evidence_scope": "complete sentence",
+        "changed_fields": {
+          "deal_type": [
+            "equity_investment",
+            "debt_or_loan"
+          ],
+          "label_uncertain": [
+            true,
+            false
+          ]
+        }
+      }
+    },
+    {
+      "id": "amazon_anthropic_2024",
+      "company": "Anthropic",
+      "published_date": "2024-11-22",
+      "doc_type": "company_release",
+      "source_url": "https://www.anthropic.com/news/anthropic-amazon-trainium",
+      "text_file": "texts/amazon_anthropic_2024.txt",
+      "sha256": "f5211f1d496aa0621c6c54218d4daed2d3ae2f8f23b8f3ed00a28d21878306bf",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "Amazon",
+          "target_entity": "Anthropic",
+          "deal_type": "debt_or_loan",
+          "consideration_type": "unknown",
+          "amount_usd": 4000000000.0,
+          "amount_text": "$4 billion",
+          "term_or_duration": null,
+          "announced_date": "2024-11-22",
+          "source_url": "https://www.anthropic.com/news/anthropic-amazon-trainium",
+          "evidence_quote": "This expanded partnership includes a new $4 billion investment from Amazon and establishes AWS as our primary cloud and training partner.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": false,
+      "label_notes": "Corrected equity_investment to debt_or_loan using Amazon SEC disclosure of convertible notes. The original release supplies the $4B announcement cap/new commitment, not fully paid cash or cumulative $8B. Supplemental instrument evidence is included in the model input. Do not add a separate edge for each repeated disclosure of this same commitment.",
+      "source_scope": "Original release excerpt plus a separately attributed SEC instrument excerpt; not a single continuous source passage.",
+      "source_verified_on": "2026-11-09",
+      "supporting_sources": [
+        {
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872425000004/amzn-20241231.htm",
+          "accession_no": "0001018724-25-000004",
+          "company": "Amazon",
+          "doc_type": "10-K",
+          "exact_evidence": "In Q4 2024, we entered into an agreement and invested $1.3 billion in a third convertible note",
+          "evidence_scope": "exact opening clause; sentence continues with the additional $2.7 billion commitment"
+        }
+      ],
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "resolved",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1018724/000101872425000004/amzn-20241231.htm",
+        "accession_no": "0001018724-25-000004",
+        "exact_evidence": "In Q4 2024, we entered into an agreement and invested $1.3 billion in a third convertible note",
+        "evidence_scope": "exact opening clause; sentence continues with the additional $2.7 billion commitment",
+        "changed_fields": {
+          "deal_type": [
+            "equity_investment",
+            "debt_or_loan"
+          ],
+          "label_uncertain": [
+            true,
+            false
+          ]
+        }
+      }
+    },
+    {
+      "id": "coreweave_openai_2025",
+      "company": "CoreWeave",
+      "published_date": "2025-03-10",
+      "doc_type": "company_release",
+      "source_url": "https://www.coreweave.com/news/coreweave-announces-agreement-with-openai-to-deliver-ai-infrastructure",
+      "text_file": "texts/coreweave_openai_2025.txt",
+      "sha256": "ef20fdfefa7752c8fa21e601e5203598aa2120fa8de88503a5f1b31ac2171878",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "OpenAI",
+          "target_entity": "CoreWeave",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 11900000000.0,
+          "amount_text": "$11.9B",
+          "term_or_duration": null,
+          "announced_date": "2025-03-10",
+          "source_url": "https://www.coreweave.com/news/coreweave-announces-agreement-with-openai-to-deliver-ai-infrastructure",
+          "evidence_quote": "CoreWeave signed an $11.9B deal to provide AI infrastructure for OpenAI, expanding compute capacity for model training.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": false,
+      "label_notes": "Buyer to seller. Saved excerpt is publisher summary. Full release states maximum contract value. Issuance of stock elsewhere in release is deliberately outside this excerpt and these labels.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09"
+    },
+    {
+      "id": "amd_openai_chips_2025",
+      "company": "AMD",
+      "published_date": "2025-10-06",
+      "doc_type": "company_release",
+      "source_url": "https://ir.amd.com/news-events/press-releases/detail/1260/amd-and-openai-announce-strategic-partnership-to-deploy-6-gigawatts-of-amd-gpus",
+      "text_file": "texts/amd_openai_chips_2025.txt",
+      "sha256": "57f13bfbba70c5ff402b8e4220d2920f5e56a9df0eceb0fe4dba92b9139dda96",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "OpenAI",
+          "target_entity": "AMD",
+          "deal_type": "chip_purchase",
+          "consideration_type": "unknown",
+          "amount_usd": null,
+          "amount_text": "",
+          "term_or_duration": "multi-year, multi-generation",
+          "announced_date": "2025-10-06",
+          "source_url": "https://ir.amd.com/news-events/press-releases/detail/1260/amd-and-openai-announce-strategic-partnership-to-deploy-6-gigawatts-of-amd-gpus",
+          "evidence_quote": "OpenAI to deploy 6 gigawatts of AMD GPUs based on a multi-year, multi-generation agreement",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": false,
+      "label_notes": "Six gigawatts is capacity, not USD. Only chip leg occurs in this excerpt; the warrant is in a separate primary-source case.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09"
+    },
+    {
+      "id": "oracle_openai_2024",
+      "company": "Oracle",
+      "published_date": "2024-06-11",
+      "doc_type": "company_release",
+      "source_url": "https://www.oracle.com/news/announcement/openai-selects-oracle-cloud-infrastructure-to-extend-microsoft-azure-ai-platform-2024-06-11/",
+      "text_file": "texts/oracle_openai_2024.txt",
+      "sha256": "ee1fa1ae47e0594c85c88ea78d0a464e8442909a0522aa364382e605099c1de6",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "OpenAI",
+          "target_entity": "Oracle",
+          "deal_type": "cloud_services_contract",
+          "consideration_type": "unknown",
+          "amount_usd": null,
+          "amount_text": "",
+          "term_or_duration": null,
+          "announced_date": "2024-06-11",
+          "source_url": "https://www.oracle.com/news/announcement/openai-selects-oracle-cloud-infrastructure-to-extend-microsoft-azure-ai-platform-2024-06-11/",
+          "evidence_quote": "We are delighted to be working with Microsoft and Oracle. OCI will extend Azure’s platform and enable OpenAI to continue to scale",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": true,
+      "label_notes": "Three-party platform extension, not an explicit OpenAI payment obligation to Oracle. Neither quoted speaker nor capacity recipient establishes the purchaser. OpenAI -> Oracle remains provisional; Microsoft -> Oracle is possible. Do not infer a dollar value.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "unresolved",
+        "source_url": "https://www.oracle.com/news/announcement/openai-selects-oracle-cloud-infrastructure-to-extend-microsoft-azure-ai-platform-2024-06-11/",
+        "accession_no": "",
+        "exact_evidence": "We are delighted to be working with Microsoft and Oracle.",
+        "reason": "Three-party platform extension, not an explicit OpenAI payment obligation to Oracle. Neither quoted speaker nor capacity recipient establishes the purchaser. OpenAI -> Oracle remains provisional; Microsoft -> Oracle is possible. Do not infer a dollar value."
+      }
+    },
+    {
+      "id": "oracle_openai_2025",
+      "company": "OpenAI",
+      "published_date": "2025-07-22",
+      "doc_type": "company_release",
+      "source_url": "https://openai.com/index/stargate-advances-with-partnership-with-oracle/",
+      "text_file": "texts/oracle_openai_2025.txt",
+      "sha256": "d7e1da30ce8adec229c15cb3a5bb137c87ec130b7dc27462cac61301e760526d",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "OpenAI",
+          "target_entity": "Oracle",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": null,
+          "amount_text": "",
+          "term_or_duration": null,
+          "announced_date": "2025-07-22",
+          "source_url": "https://openai.com/index/stargate-advances-with-partnership-with-oracle/",
+          "evidence_quote": "Oracle and OpenAI have entered an agreement to develop 4.5 gigawatts of additional Stargate data center capacity in the U.S.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": true,
+      "label_notes": "Agreement establishes development of capacity, but the release does not identify the legal payer or separate a compute purchase from development obligations. OpenAI -> Oracle compute commitment remains provisional. The $500B program figure is not this bilateral deal amount.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "unresolved",
+        "source_url": "https://openai.com/index/stargate-advances-with-partnership-with-oracle/",
+        "accession_no": "",
+        "exact_evidence": "Oracle and OpenAI have entered an agreement to develop 4.5 gigawatts of additional Stargate data center capacity in the U.S.",
+        "reason": "Agreement establishes development of capacity, but the release does not identify the legal payer or separate a compute purchase from development obligations. OpenAI -> Oracle compute commitment remains provisional. The $500B program figure is not this bilateral deal amount."
+      }
+    },
+    {
+      "id": "coreweave_meta_2026",
+      "company": "CoreWeave",
+      "published_date": "2026-04-09",
+      "doc_type": "company_release",
+      "source_url": "https://www.coreweave.com/news/coreweave-and-meta-announce-21-billion-expanded-ai-infrastructure-agreement",
+      "text_file": "texts/coreweave_meta_2026.txt",
+      "sha256": "76de08d683e3f1efc8f28f3b8aab879f5ff9f9eb41c29107183c13439e6a268b",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "Meta",
+          "target_entity": "CoreWeave",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 21000000000.0,
+          "amount_text": "$21 billion",
+          "term_or_duration": "through December 2032",
+          "announced_date": "2026-04-09",
+          "source_url": "https://www.coreweave.com/news/coreweave-and-meta-announce-21-billion-expanded-ai-infrastructure-agreement",
+          "evidence_quote": "an expanded, long-term agreement with Meta Platforms, Inc. to provide AI cloud capacity through December 2032 for approximately $21 billion.",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": false,
+      "label_notes": "Contract maximum/approximate figure; do not automatically add this amount to the prior agreement. Publisher supplies the first-person seller context.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09",
+      "ledger_edge_id": "meta__coreweave__cloud_capacity_contract__20260812"
+    },
+    {
+      "id": "nvidia_coreweave_2025",
+      "company": "CoreWeave",
+      "published_date": "2025-09-15",
+      "doc_type": "8-K",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000047/crwv-20250909.htm",
+      "text_file": "texts/nvidia_coreweave_2025.txt",
+      "sha256": "9cae3586d9d3d47efd2409e1b4b3bd1e652b88c5d3eab6281be4d09c01e99610",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "Nvidia",
+          "target_entity": "CoreWeave",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 6300000000.0,
+          "amount_text": "$6.3 billion",
+          "term_or_duration": null,
+          "announced_date": "2025-09-15",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000047/crwv-20250909.htm",
+          "evidence_quote": "which has an initial value of $6.3 billion",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": false,
+      "label_notes": "Form 8-K reports on September 15 a September 9 agreement. announced_date uses public disclosure date, not execution date. NVIDIA is obligated to purchase residual unsold capacity, so compute_purchase_commitment is the extraction type. The $6.3B initial contract value remains conditional, not unconditional cash paid; legal status and amount bounds require human review.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09",
+      "accession_no": "0001769628-25-000047",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "resolved",
+        "source_url": "https://www.sec.gov/Archives/edgar/data/1769628/000176962825000047/crwv-20250909.htm",
+        "accession_no": "0001769628-25-000047",
+        "exact_evidence": "NVIDIA is obligated to purchase the residual unsold capacity through April 13, 2032",
+        "evidence_scope": "exact contiguous clause in Item 1.01; purchase obligation remains conditional",
+        "changed_fields": {
+          "label_uncertain": [
+            true,
+            false
+          ]
+        },
+        "date_evidence": "Date of Report (date of earliest event reported): September 15, 2025 (September 9, 2025)"
+      }
+    },
+    {
+      "id": "amd_openai_warrant_2025",
+      "company": "AMD",
+      "published_date": "2025-10-06",
+      "doc_type": "8-K",
+      "source_url": "https://ir.amd.com/financial-information/sec-filings/content/0001193125-25-230895/d28189d8k.htm",
+      "text_file": "texts/amd_openai_warrant_2025.txt",
+      "sha256": "00805a8782d487c6952f511428b01da777077afcdeb67c0ef32fdc9e6fc52228",
+      "relevant": true,
+      "expected_edges": [
+        {
+          "source_entity": "AMD",
+          "target_entity": "OpenAI",
+          "deal_type": "warrants_or_options",
+          "consideration_type": "unknown",
+          "amount_usd": null,
+          "amount_text": "",
+          "term_or_duration": null,
+          "announced_date": "2025-10-06",
+          "source_url": "https://ir.amd.com/financial-information/sec-filings/content/0001193125-25-230895/d28189d8k.htm",
+          "evidence_quote": "issued to OpenAI OpCo, LLC (“Warrantholder”) a warrant (the “Warrant”) to purchase up to an aggregate of 160 million shares",
+          "confidence": 1.0,
+          "rationale": "Gold label from the attributed excerpt; see label_notes for uncertainties."
+        }
+      ],
+      "label_uncertain": false,
+      "label_notes": "Issuer to warrant beneficiary. Share count and $0.01 exercise price must not be treated as deal value. First-person issuer supplied by publisher context.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09",
+      "accession_no": "0001193125-25-230895",
+      "ledger_edge_id": "amd__openai__warrants__20260204"
+    },
+    {
+      "id": "negative_frontier_forum",
+      "company": "OpenAI",
+      "published_date": "2023-07-26",
+      "doc_type": "company_release",
+      "source_url": "https://openai.com/index/frontier-model-forum/",
+      "text_file": "texts/negative_frontier_forum.txt",
+      "sha256": "a298ecc2e2aab8c34273a26f7bf7e7c52fbda9cf0b86a5b975769ba048430fa8",
+      "relevant": false,
+      "expected_edges": [],
+      "label_uncertain": false,
+      "label_notes": "Industry safety body and commitment, no financial relationship in these spans.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09"
+    },
+    {
+      "id": "negative_mlcommons",
+      "company": "MLCommons",
+      "published_date": "2024-12-11",
+      "doc_type": "company_release",
+      "source_url": "https://mlcommons.org/2024/12/mlc-mlperf-client-v0-5/",
+      "text_file": "texts/negative_mlcommons.txt",
+      "sha256": "977f9fe3045d9748cf79419d110b8a01c87f9672458520c52f857ae73a1a1120",
+      "relevant": false,
+      "expected_edges": [],
+      "label_uncertain": false,
+      "label_notes": "Benchmark consortium participants, no payment or financing.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09"
+    },
+    {
+      "id": "negative_stanford_safety",
+      "company": "Stanford CRFM",
+      "published_date": "2024-11-08",
+      "doc_type": "company_release",
+      "source_url": "https://crfm.stanford.edu/2024/11/08/helm-safety.html",
+      "text_file": "texts/negative_stanford_safety.txt",
+      "sha256": "f8c0375a87ffd288ed94a89b6adb0c5e0459716872d7c8ee443a29ee7555d07a",
+      "relevant": false,
+      "expected_edges": [],
+      "label_uncertain": false,
+      "label_notes": "Row labels from a safety benchmark coverage table, no deal.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09"
+    },
+    {
+      "id": "negative_triton_users",
+      "company": "Nvidia",
+      "published_date": "2024-08-28",
+      "doc_type": "company_release",
+      "source_url": "https://developer.nvidia.com/blog/nvidia-triton-inference-server-achieves-outstanding-performance-in-mlperf-inference-4-1-benchmarks/",
+      "text_file": "texts/negative_triton_users.txt",
+      "sha256": "9dc412a9de097efeaf02680e8873f5b0f7ba230e4d48c5f49505c712cc14edc3",
+      "relevant": false,
+      "expected_edges": [],
+      "label_uncertain": false,
+      "label_notes": "Users of open-source software are not evidence of a paid cloud contract.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09"
+    },
+    {
+      "id": "negative_regulation",
+      "company": "OpenAI",
+      "published_date": "2023-07-06",
+      "doc_type": "company_release",
+      "source_url": "https://openai.com/index/frontier-ai-regulation/",
+      "text_file": "texts/negative_regulation.txt",
+      "sha256": "f5c729f9378a6fd2522ae7eff44e805db8da960957acafc36c78f9803831b71a",
+      "relevant": false,
+      "expected_edges": [],
+      "label_uncertain": false,
+      "label_notes": "Regulatory options and author affiliations, no financial options contract. Three non-adjacent source spans.",
+      "source_scope": "Short verbatim excerpt(s); publisher context is explicit metadata, not part of the quoted evidence.",
+      "source_verified_on": "2026-11-09"
+    },
+    {
+      "id": "amd_anthropic_equity_2026",
+      "company": "AMD",
+      "published_date": "2026-07-22",
+      "doc_type": "company_release",
+      "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+      "accession_no": "",
+      "text_file": "texts/amd_anthropic_equity_2026.txt",
+      "sha256": "06aee2e38c86d033e70ebe7aa057a1d126b427e95fa7deead5ee55b1129e2364",
+      "relevant": true,
+      "label_uncertain": false,
+      "source_verified_on": "2026-11-09",
+      "source_scope": "Short exact reviewed-ledger span, rechecked against the linked primary source. Publisher context is metadata.",
+      "ledger_edge_id": "amd__anthropic__equity_investment__20260722",
+      "deal_announced_after_2026_06": true,
+      "expected_edges": [
+        {
+          "source_entity": "AMD",
+          "target_entity": "Anthropic",
+          "deal_type": "equity_investment",
+          "consideration_type": "unknown",
+          "amount_usd": 5000000000.0,
+          "amount_text": "$5 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-07-22",
+          "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+          "evidence_quote": "AMD has committed to make a strategic equity investment of up to $5 billion in Anthropic",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "label_notes": "Future strategic commitment, not cash paid. The chip deployment has no disclosed USD value. Two distinct directions from the same release; correlated observations."
+    },
+    {
+      "id": "amd_anthropic_chips_2026",
+      "company": "AMD",
+      "published_date": "2026-07-22",
+      "doc_type": "company_release",
+      "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+      "accession_no": "",
+      "text_file": "texts/amd_anthropic_chips_2026.txt",
+      "sha256": "186728b622d124556c67281a2afe54142674a30164a893bfeea314c2395faebb",
+      "relevant": true,
+      "label_uncertain": false,
+      "source_verified_on": "2026-11-09",
+      "source_scope": "Short exact reviewed-ledger span, rechecked against the linked primary source. Publisher context is metadata.",
+      "ledger_edge_id": "anthropic__amd__purchase_commitment__20260722",
+      "deal_announced_after_2026_06": true,
+      "expected_edges": [
+        {
+          "source_entity": "Anthropic",
+          "target_entity": "AMD",
+          "deal_type": "chip_purchase",
+          "consideration_type": "unknown",
+          "amount_usd": null,
+          "amount_text": "",
+          "term_or_duration": null,
+          "announced_date": "2026-07-22",
+          "source_url": "https://ir.amd.com/news-events/press-releases/detail/1292/amd-and-anthropic-announce-strategic-partnership-to-deploy-up-to-2-gigawatts-of-amd-instinct-mi450-series-gpus",
+          "evidence_quote": "Anthropic to deploy up to 2 gigawatts of MI450 Series GPUs in AMD Helios rack-scale solutions",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "label_notes": "Future strategic commitment, not cash paid. The chip deployment has no disclosed USD value. Two distinct directions from the same release; correlated observations."
+    },
+    {
+      "id": "nscale_anthropic_2026",
+      "company": "Nscale",
+      "published_date": "2026-09-18",
+      "doc_type": "S-1",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+      "accession_no": "0001193125-26-395475",
+      "text_file": "texts/nscale_anthropic_2026.txt",
+      "sha256": "f807aa72c6e457441c50106c2811355b05ec5554b8134c85770814333e172c40",
+      "relevant": true,
+      "label_uncertain": false,
+      "source_verified_on": "2026-11-09",
+      "source_scope": "Short exact reviewed-ledger span, rechecked against the linked primary source. Publisher context is metadata.",
+      "ledger_edge_id": "anthropic__nscale__cloud_capacity_contract__20260825",
+      "deal_announced_after_2026_06": true,
+      "expected_edges": [
+        {
+          "source_entity": "Anthropic",
+          "target_entity": "Nscale",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 44600000000.0,
+          "amount_text": "$44.6 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-09-18",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+          "evidence_quote": "The Anthropic Services Agreements provide for aggregate payments to us of up to approximately $44.6 billion",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "label_notes": "Disclosed contract ceiling or instrument valuation, not cash paid. New agreement executed 2026-08-25; cited S-1 published 2026-09-18. Nscale source overlaps across cases; these are not statistically independent observations."
+    },
+    {
+      "id": "nscale_microsoft_2026",
+      "company": "Nscale",
+      "published_date": "2026-09-18",
+      "doc_type": "S-1",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+      "accession_no": "0001193125-26-395475",
+      "text_file": "texts/nscale_microsoft_2026.txt",
+      "sha256": "8495e1c6954a137e9052da64d99220cf635ee5d13c5e8328afb8d4e87c1c9708",
+      "relevant": true,
+      "label_uncertain": false,
+      "source_verified_on": "2026-11-09",
+      "source_scope": "Short exact reviewed-ledger span, rechecked against the linked primary source. Publisher context is metadata.",
+      "ledger_edge_id": "microsoft__nscale__cloud_capacity_contract__20260918",
+      "deal_announced_after_2026_06": false,
+      "expected_edges": [
+        {
+          "source_entity": "Microsoft",
+          "target_entity": "Nscale",
+          "deal_type": "compute_purchase_commitment",
+          "consideration_type": "unknown",
+          "amount_usd": 43800000000.0,
+          "amount_text": "$43.8 billion",
+          "term_or_duration": null,
+          "announced_date": "2026-09-18",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+          "evidence_quote": "statements of work with Microsoft that provide for payments to us of up to approximately $43.8 billion through December 2033",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "label_notes": "Disclosed contract ceiling or instrument valuation, not cash paid. Nscale source overlaps across cases; these are not statistically independent observations."
+    },
+    {
+      "id": "nscale_nvidia_warrants",
+      "company": "Nscale",
+      "published_date": "2026-09-18",
+      "doc_type": "S-1",
+      "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+      "accession_no": "0001193125-26-395475",
+      "text_file": "texts/nscale_nvidia_warrants.txt",
+      "sha256": "020c6e9f798a3e897770890de773c6f4548ba5d6ba2b9a7b3b7e49ad4429d95d",
+      "relevant": true,
+      "label_uncertain": true,
+      "source_verified_on": "2026-11-09",
+      "source_scope": "Short exact reviewed-ledger span, rechecked against the linked primary source. Publisher context is metadata.",
+      "ledger_edge_id": "nvidia__nscale__warrants__20260918",
+      "deal_announced_after_2026_06": false,
+      "expected_edges": [
+        {
+          "source_entity": "Nvidia",
+          "target_entity": "Nscale",
+          "deal_type": "warrants_or_options",
+          "consideration_type": "unknown",
+          "amount_usd": 60000000.0,
+          "amount_text": "$60,000,000",
+          "term_or_duration": null,
+          "announced_date": "2026-09-18",
+          "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+          "evidence_quote": "NVIDIA received warrants to acquire up to 9,476,700 of our Series B preferred shares with an aggregate value of $60,000,000",
+          "confidence": 1.0,
+          "rationale": "Source-backed gold label, checked against reviewed ledger direction and legacy type."
+        }
+      ],
+      "label_notes": "The exact warrant-receipt span establishes issuer/holder and underlying share value, but not the financing direction. The reviewed ledger uses Nvidia -> Nscale for financial support associated with guarantees; the short saved span alone could instead be read as warrant issuance Nscale -> Nvidia. Keep the ledger-derived direction for audit comparison, flag it uncertain, and exclude it for a strict observable-input benchmark. $60M is underlying share value, not cash paid. Instrument issued in October 2025 and disclosed in September 2026, not an out-of-time deal.",
+      "label_review": {
+        "reviewed_on": "2026-11-09",
+        "outcome": "unresolved",
+        "reason": "Offline prompt review exposed a mismatch between warrant-transfer direction and the reviewed financial-support convention that is not identifiable from this short span.",
+        "changed_fields": {
+          "label_uncertain": [
+            false,
+            true
+          ]
+        },
+        "source_url": "https://www.sec.gov/Archives/edgar/data/2110365/000119312526395475/ck0002110365-20260918.htm",
+        "accession_no": "0001193125-26-395475"
+      }
+    },
+    {
+      "id": "negative_ftc_merger_list",
+      "company": "Nvidia",
+      "published_date": "2025-01-16",
+      "doc_type": "government_report",
+      "source_url": "https://www.ftc.gov/system/files/ftc_gov/pdf/ftc-accomplishments-june-2021-january-2025.pdf",
+      "text_file": "texts/negative_ftc_merger_list.txt",
+      "sha256": "7495c4162ab8a2395ff8e2ebfdb86359b08a7af2c0f81c235e22177389b235f0",
+      "relevant": false,
+      "expected_edges": [],
+      "label_uncertain": false,
+      "label_notes": "Two non-adjacent verbatim list entries on report page 12. Separate blank lines preserve their separation. Neither acquisition has a tracked counterparty; no Nvidia/Microsoft deal is stated.",
+      "source_scope": "Short verbatim excerpt(s), with explicitly separated non-adjacent spans where noted. Not a full document.",
+      "source_verified_on": "2026-11-09",
+      "hard_negative": true
+    },
+    {
+      "id": "negative_ftc_merger_challenges",
+      "company": "Microsoft",
+      "published_date": "2023-04-18",
+      "doc_type": "government_report",
+      "source_url": "https://search.ftc.gov/system/files/ftc_gov/pdf/p210100testimonyfy2024budget.pdf",
+      "text_file": "texts/negative_ftc_merger_challenges.txt",
+      "sha256": "7703a5aebc047b54972ef72880aaff92aa8c041fcbdc41435654f8d1865a2cd1",
+      "relevant": false,
+      "expected_edges": [],
+      "label_uncertain": false,
+      "label_notes": "Complete sentence in footnote 119, page 31 of prepared testimony. Parallel litigation against deals involving untracked targets does not establish a Microsoft/Nvidia financing relationship.",
+      "source_scope": "Short verbatim excerpt(s), with explicitly separated non-adjacent spans where noted. Not a full document.",
+      "source_verified_on": "2026-11-09",
+      "hard_negative": true
+    },
+    {
+      "id": "negative_ftc_privacy_penalties",
+      "company": "Microsoft",
+      "published_date": "2024-05-15",
+      "doc_type": "government_report",
+      "source_url": "https://www.ftc.gov/system/files/ftc_gov/pdf/FTC_Annual_Report_FY2023_5.15.24.pdf",
+      "text_file": "texts/negative_ftc_privacy_penalties.txt",
+      "sha256": "3a0853589797793d9d150f48eb453fd873d4901bac04401650207eb42985d301",
+      "relevant": false,
+      "expected_edges": [],
+      "label_uncertain": false,
+      "label_notes": "Two non-adjacent exact clauses on report pages 16-17. Separate enforcement penalties, no payment or investment between Amazon and Microsoft. Clauses are intentionally short and not complete sentences.",
+      "source_scope": "Short verbatim excerpt(s), with explicitly separated non-adjacent spans where noted. Not a full document.",
+      "source_verified_on": "2026-11-09",
+      "hard_negative": true
+    }
+  ]
+}

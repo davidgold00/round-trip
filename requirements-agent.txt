@@ -1,0 +1,5 @@
+# Minimal extraction/eval runtime. Review/publish uses the existing project too.
+requests==2.32.5
+PyYAML==6.0.3
+beautifulsoup4==4.13.5
+pydantic==2.12.4

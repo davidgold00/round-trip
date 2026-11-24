@@ -1,12 +1,6 @@
-"""Self-audit: re-verify a random sample of ledger edges against their sources.
-
-Mechanical checks run here. The quote is searched for, verbatim and normalised,
-in the cached document the row cites. A row whose quote cannot be found in its
-own source is a hard failure and is reported as one.
-
-What this cannot check mechanically is whether the quote SUPPORTS the amount,
-the direction and the status recorded. Those are recorded as review prompts and
-answered by the analyst in outputs/audit.md.
+"""Recheck a sample of reviewed relationships against their evidence.
+The ledger supplies quotes and URLs; the SEC client supplies source text.
+The audit report records retrieval failures and evidence discrepancies.
 """
 from __future__ import annotations
 
@@ -31,7 +25,7 @@ CACHE = ROOT / "data" / "raw" / "audit"
 def normalise(s: str) -> str:
     s = s.replace("’", "'").replace("‘", "'")
     s = s.replace("“", '"').replace("”", '"')
-    s = s.replace("–", "-").replace("—", "-").replace("\xa0", " ")
+    s = s.replace("–", "-").replace("\u2014", "-").replace("\xa0", " ")
     return re.sub(r"\s+", " ", s).strip().lower()
 
 

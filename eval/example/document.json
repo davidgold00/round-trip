@@ -1,0 +1,20 @@
+{
+  "gold_id": "microsoft_openai_2019",
+  "source_file": "eval/gold/texts/microsoft_openai_2019.txt",
+  "sha256": "abf67d748d22f6de0345617f2a9d59bcfb14779d8c8eadede02e734f8185ddc3",
+  "metadata": {
+    "source_url": "https://openai.com/index/microsoft-invests-in-and-partners-with-openai/",
+    "company": "OpenAI",
+    "published_date": "2019-07-22",
+    "doc_type": "company_release"
+  },
+  "prompt_version": "v1",
+  "model": "qwen2.5:7b-instruct",
+  "origin_run_id": "a64e32868cb44af7931521fef23a1237",
+  "call_indexes": [
+    0,
+    1,
+    2
+  ],
+  "candidate_id": "a_81cddd0804260229a87a"
+}
