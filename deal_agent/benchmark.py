@@ -13,6 +13,7 @@ from datetime import datetime, timezone
 
 import requests
 
+from .config import PROMPT_VERSIONS, prompt_templates
 from .evaluate import evaluate
 from .io import atomic_write
 from .pipeline import Pipeline
@@ -80,8 +81,8 @@ def benchmark(cfg, *, models=None, prompt_versions=None, exclude_uncertain=False
     if len(set(models)) != len(models):
         raise ValueError("Choose distinct models for comparison")
     prompt_versions = prompt_versions or [cfg["deal_agent"].get("prompt_version", "v1")]
-    if len(set(prompt_versions)) != len(prompt_versions) or any(v not in {"v1", "v2"} for v in prompt_versions):
-        raise ValueError("Choose distinct prompt versions from v1 and v2")
+    if len(set(prompt_versions)) != len(prompt_versions) or any(v not in PROMPT_VERSIONS for v in prompt_versions):
+        raise ValueError("Choose distinct supported prompt versions")
     preflight(cfg["deal_agent"], models)
     root = cfg["_root"]
     stamp = datetime.now(timezone.utc).strftime("%Y%m%dT%H%M%S%fZ")
@@ -105,8 +106,8 @@ def benchmark(cfg, *, models=None, prompt_versions=None, exclude_uncertain=False
                     or old["manifest_sha256"] != digest((root/"eval/gold/manifest.json").read_bytes())
                     or old["status"] != "complete" or (extractor == "llm" and
                     (old["cassette_sha256"] != digest(cassette.read_bytes())
-                     or old["prompt_hashes"] != {p.name: digest(p.read_bytes()) for p in
-                        (Path(__file__).parent / "prompts" / version).glob("*.txt")}))):
+                     or old["prompt_hashes"] != {f"{stage}.txt": digest(template) for stage, template in
+                        prompt_templates(version).items()}))):
                 raise ValueError(f"Cannot reuse a different or incomplete benchmark: {name}")
             reports.append(old)
             continue

@@ -60,3 +60,13 @@ def test_benchmark_model_prompt_cross_product_isolated(runtime, tmp_path, monkey
     assert len({path for mode,path in providers if mode=="record"}) == 4
     assert cfg["deal_agent"]["model"] != "one:7b" and cfg["deal_agent"]["prompt_version"] == "v1"
     assert len(json.loads(output.with_suffix('.json').read_text())["reports"]) == 5
+
+
+def test_extraction_ablations_change_only_the_recorded_extract_template():
+    from deal_agent.config import prompt_templates
+    base = prompt_templates("v1")
+    for version, parts in [("roles", ["roles"]), ("span", ["span"]), ("roles-span", ["roles", "span"])]:
+        edited = prompt_templates(version)
+        assert (edited["triage"], edited["retry"]) == (base["triage"], base["retry"])
+        additions = "\n".join((ROOT / f"deal_agent/prompts/{p}.txt").read_text().strip() for p in parts)
+        assert edited["extract"].replace(additions + "\n", "") == base["extract"]

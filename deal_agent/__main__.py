@@ -13,7 +13,7 @@ import sys
 import tempfile
 from pathlib import Path
 
-from .config import load, path_for
+from .config import PROMPT_VERSIONS, load, path_for
 from .fetch import fetch, text_of
 from .io import lock
 from .pipeline import Pipeline
@@ -153,7 +153,7 @@ def parser():
     for command in (run, evaluate):
         command.add_argument("--provider", choices=["ollama", "record", "replay"], default="ollama")
         command.add_argument("--cassette", type=Path)
-        command.add_argument("--prompt-version", choices=["v1", "v2"])
+        command.add_argument("--prompt-version", choices=PROMPT_VERSIONS)
     evaluate.add_argument("--split", choices=["dev", "test"])
     evaluate.add_argument("--model", help="Downloaded local Ollama model")
     evaluate.add_argument("--gold", type=Path, default=None)
@@ -170,7 +170,7 @@ def parser():
     bench.add_argument("--split", choices=["dev"], default="dev")
     bench.add_argument("--resume", help="Resume a development recording at its last exact successful call")
     bench.add_argument("--models", nargs="+")
-    bench.add_argument("--prompt-versions", nargs="+", choices=["v1", "v2"])
+    bench.add_argument("--prompt-versions", nargs="+", choices=PROMPT_VERSIONS)
     bench.add_argument("--exclude-uncertain", action="store_true")
     bench.add_argument("--output", type=Path)
     imp = sub.add_parser(

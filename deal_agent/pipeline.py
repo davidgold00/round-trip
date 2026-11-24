@@ -10,15 +10,12 @@ import re
 from pathlib import Path
 from string import Template
 
-from .config import path_for
+from .config import path_for, prompt_templates
 from .entities import Resolver
 from .models import Extraction, Triage, parse_json
 from .reconcile import read_csv, reconcile
 from .trace import digest
 from .verify import verify
-
-PROMPTS = Path(__file__).parent / "prompts"
-
 
 def chunks(text: str, size: int, overlap: int):
     """Word-boundary chunks; no prefix truncation of long filings."""
@@ -43,9 +40,7 @@ class Pipeline:
         self.cfg, self.store, self.trace, self.provider = cfg, store, trace, provider
         self.agent = cfg["deal_agent"]
         self.prompt_version = self.agent.get("prompt_version", "v1")
-        if self.prompt_version not in {"v1", "v2"}:
-            raise ValueError("prompt_version must be v1 or v2")
-        self.prompt_dir = PROMPTS / self.prompt_version
+        self.templates = prompt_templates(self.prompt_version)
         self.resolver = Resolver.from_csv(
             path_for(cfg, "nodes_file"), self.agent["aliases"]
         )
@@ -73,7 +68,7 @@ class Pipeline:
         fields = ("source_url", "company", "published_date", "doc_type", "accession_no",
                   "evidence_tier", "source_scope", "date_scope", "ingestion_item_id")
         meta = {key: meta[key] for key in fields if key in meta}
-        template = (self.prompt_dir / f"{name}.txt").read_text()
+        template = self.templates[name]
         result = Template(template).substitute(
             schema=json.dumps(schema.model_json_schema()),
             text=text,

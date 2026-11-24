@@ -1,0 +1,1 @@
+Select the continuous source sentence that establishes this particular obligation. Copy the amount phrase directly from that sentence, including any cap or floor. Distinguish the current tranche, the cumulative amount and an unrelated figure. When the sentence supplies no USD price for this obligation, use null and an empty amount_text.

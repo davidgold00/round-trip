@@ -13,14 +13,33 @@ import yaml
 ROOT = Path(__file__).resolve().parent.parent
 
 
+PROMPT_VERSIONS = ("v1", "v2", "roles", "span", "roles-span")
+
+
+def prompt_templates(version):
+    """Assemble effective stage templates so reports hash precisely what ran."""
+    if version not in PROMPT_VERSIONS:
+        raise ValueError(f"Unknown prompt_version: {version}")
+    directory = ROOT / "deal_agent/prompts"
+    base = version if version in ("v1", "v2") else "v1"
+    templates = {stage: (directory / base / f"{stage}.txt").read_text()
+                 for stage in ("triage", "extract", "retry")}
+    if version != base:
+        additions = [(directory / f"{part}.txt").read_text().strip()
+                     for part in version.split("-")]
+        templates["extract"] = templates["extract"].replace(
+            "<document>", "\n".join(additions) + "\n<document>")
+    return templates
+
+
 def load(path: Path | None = None) -> dict:
     path = (path or ROOT / "config.yaml").resolve()
     cfg = yaml.safe_load(path.read_text())
     cfg["_root"] = path.parent
     agent = cfg["deal_agent"]
     agent.setdefault("prompt_version", "v1")
-    if agent["prompt_version"] not in {"v1", "v2"}:
-        raise ValueError("prompt_version must be v1 or v2")
+    if agent["prompt_version"] not in PROMPT_VERSIONS:
+        raise ValueError("Unknown prompt_version")
     if not 0 < float(cfg["sec"]["max_requests_per_second"]) <= 10:
         raise ValueError("SEC max_requests_per_second must be in (0, 10]")
     if float(agent["polite_delay_seconds"]) < 0.1:

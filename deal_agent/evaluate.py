@@ -11,6 +11,7 @@ import time
 from collections import defaultdict
 from pathlib import Path
 
+from .config import prompt_templates
 from .io import atomic_write
 from .models import Deal, parse_json
 from .trace import digest, stamp
@@ -184,10 +185,9 @@ def evaluate(
         "model": pipeline.provider.model,
         "manifest_sha256": digest(manifest_path.read_bytes()),
         "prompt_version": pipeline.agent.get("prompt_version", "v1") if extractor == "llm" else None,
-        "prompt_hashes": {
-            p.name: digest(p.read_bytes())
-            for p in ((Path(__file__).parent / "prompts" / pipeline.agent.get("prompt_version", "v1")).glob("*.txt") if extractor == "llm" else [])
-        },
+        "prompt_hashes": ({f"{stage}.txt": digest(template) for stage, template in
+                           prompt_templates(pipeline.agent.get("prompt_version", "v1")).items()}
+                          if extractor == "llm" else {}),
         "settings": {
             k: pipeline.agent[k]
             for k in (
