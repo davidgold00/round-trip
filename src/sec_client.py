@@ -17,7 +17,7 @@ from .util import ROOT, ensure_dirs, get_logger, load_config, load_env, sha1
 
 LOG = get_logger("sec")
 
-PLACEHOLDERS = {"", "your name your@email.com", "name email", "changeme",
+PLACEHOLDERS = {"", "your name operator@example.invalid", "name email", "changeme",
                 "you@example.com", "your-email@example.com"}
 
 
@@ -56,7 +56,7 @@ def resolve_user_agent() -> str:
     cfg = load_config()
     key = cfg["sec"]["user_agent_env"]
     ua = (os.environ.get(key) or "").strip().strip('"').strip("'")
-    if ua.lower() in PLACEHOLDERS or "@" not in ua:
+    if ua.lower() in PLACEHOLDERS or ua.lower().startswith("your name ") or "@" not in ua:
         raise MissingUserAgentError(
             f"{key} is unset or not a usable contact string. SEC requires a "
             f"declared User-Agent of the form 'Name email@domain'. Set it in "

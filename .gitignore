@@ -38,3 +38,9 @@ eval/VALIDATION.json
 
 # Detailed evaluation traces are local; cassettes are opt-in versioned files.
 eval/**/traces/
+
+# Keep machine-local recordings and application audit records private.
+eval/cassettes/
+ledger/promotion_audit.jsonl
+.env.*
+!.env.example

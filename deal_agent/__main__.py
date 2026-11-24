@@ -6,7 +6,7 @@ Connect the provider, trace and store to the requested workflow.
 from __future__ import annotations
 
 import argparse
-import getpass
+import os
 import json
 import subprocess
 import sys
@@ -196,8 +196,8 @@ def parser():
     review.add_argument("candidate_id", nargs="?")
     review.add_argument(
         "--actor",
-        default=getpass.getuser(),
-        help="Reviewer identity recorded in immutable audit",
+        default=os.environ.get("ROUNDTRIP_REVIEWER", "local-reviewer"),
+        help="Public-safe reviewer alias recorded in the audit (or set ROUNDTRIP_REVIEWER)",
     )
     review.add_argument(
         "--json", type=Path, help="Replacement deal JSON for edit (deal fields only)"

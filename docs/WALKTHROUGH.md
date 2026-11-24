@@ -4,7 +4,7 @@
 
 **Point to make.** The dashboard measures how much supplier backlog can be traced to a customer that supplier also financed.
 
-- [DAVID: why I chose this problem]
+- When a supplier invests in a customer, that customer may spend some of the funding back with the supplier.
 - Follow both arrows. An investment goes from seller to customer. A capacity purchase goes from customer back to seller.
 - The central reading is $46.7 billion of $2.72 trillion across 38 reviewed relationships, or 1.72%. The assumptions put it between 1.39% and 18.22% against the same denominator.
 - Most backlog is anonymous. Only 20.7% of the denominator ties to named customers. The local model adds proposed relationships for a person to inspect.
