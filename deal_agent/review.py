@@ -143,11 +143,19 @@ class Review:
 
     def show(self, row):
         checked, rec = self.current_check(row)
-        print(
-            encode({**row, "current_verification": checked, "current_reconcile": rec})
-        )
-        print("Evidence:", row["deal"]["evidence_quote"])
-        print("Source:", row["deal"]["source_url"])
+        from .pending import amount_reading
+        deal = row["deal"]
+        print(f"{row['id']}  {deal['source_entity']} → {deal['target_entity']}  ({deal['deal_type']})")
+        print(f"Amount: {amount_reading(deal)} | model text: {deal['amount_text'] or 'empty'}")
+        print("Proposed evidence:", deal["evidence_quote"])
+        print("Source:", deal["source_url"])
+        print("Verification:", "passed" if checked["passed"] else "failed")
+        for failure in checked["errors"]:
+            print("  " + failure)
+        print("Reconciliation:", rec["classification"], "|", rec["reason"])
+        if rec.get("match_id"):
+            print("Compare with:", rec.get("match_queue", "record"), rec["match_id"])
+        print("Record:", encode({**row, "current_verification": checked, "current_reconcile": rec}))
 
     def audit(self, candidate_id, action, payload, state="applied"):
         return self.store.db.execute(

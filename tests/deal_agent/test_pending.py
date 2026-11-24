@@ -26,3 +26,15 @@ def test_missing_queue_is_not_created(runtime):
     assert not path.exists()
     assert snapshot(cfg)["pending_count"] == 0
     assert not path.exists()
+
+
+def test_review_amount_keeps_qualification_and_full_evidence(deal_dict):
+    from deal_agent.pending import review_item
+    quote = "NVIDIA intends to invest up to $1 billion in OpenAI."
+    deal = {**deal_dict, "evidence_quote": quote + " " + "Context. " * 80}
+    checked = {"passed": False, "errors": ["amount_text is missing from evidence_quote"]}
+    rec = {"classification": "UPDATE", "reason": "Compare tranche and total.", "match_id": "prior", "match_queue": "graph"}
+    item = review_item("sample", deal, checked, rec)
+    assert item["amount_reading"] == "up to $1 billion"
+    assert item["evidence_quote"] == deal["evidence_quote"]
+    assert item["failed_checks"] == checked["errors"] and item["match_id"] == "prior"
