@@ -90,9 +90,9 @@ function renderHeadline() {
   const m = S.metrics, L = S.ledger;
   const eco = m.ecosystem;
   const c = eco.CENTRAL.rte, lo = eco.RANGE.min, hi = eco.RANGE.max;
-  document.getElementById("heroFigure").textContent = pct(c);
+  document.getElementById("heroFigure").textContent = pct(c, 2);
   document.getElementById("heroRange").innerHTML =
-    `range <strong>${pct(lo)}</strong> to <strong>${pct(hi)}</strong> &middot; ` +
+    `range <strong>${pct(lo, 2)}</strong> to <strong>${pct(hi, 2)}</strong> &middot; ` +
     (eco.RANGE.ordered ? "" : `<span class="pill cond" title="LOWER exceeds CENTRAL for at least one supplier">readings not nested</span> &middot; `) +
     `${usd(eco.CENTRAL.backlog_at_risk)} of ${usd(eco.CENTRAL.backlog_total)} of disclosed backlog`;
   document.getElementById("heroSentence").innerHTML =
@@ -100,10 +100,9 @@ function renderHeadline() {
     `backlog depends on a counterparty whose funding traces back to the seller.`;
   const cov = m.coverage;
   document.getElementById("heroCaveat").innerHTML =
-    `That percentage is computed over the <strong>${pct(cov.named_share_weighted)}</strong> ` +
-    `of this backlog universe that any filing ties to a named customer. The other ` +
-    `<strong>${pct(cov.unattributable_weighted)}</strong> names nobody, so the headline is a ` +
-    `floor on what is visible, not a measurement of what exists.`;
+    `The denominator includes all disclosed supplier backlog in this snapshot. Filings tie ` +
+    `<strong>${pct(cov.named_share_weighted)}</strong> to a named customer. The remaining ` +
+    `<strong>${pct(cov.unattributable_weighted)}</strong> has no named customer for tracing financing.`;
   document.getElementById("heroAsOf").innerHTML =
     `As of ${esc(m.as_of)} &middot; ${L.counts.edges} ledger edges, tier gate ` +
     `${esc(m.tier_gate.join(" and "))} &middot; T3 sensitivity: ` +
@@ -1125,7 +1124,7 @@ function renderMethod() {
 }
 
 /* ================= TABS AND THEME ================= */
-const PANELS = ["headline", "graph", "suppliers", "cycles", "stress", "news", "ledger", "method"];
+const PANELS = ["headline", "how", "graph", "suppliers", "cycles", "stress", "news", "ledger", "method"];
 const RENDERED = new Set();
 function show(name) {
   PANELS.forEach(p => {

@@ -8,7 +8,7 @@ A seller can invest in a customer that then contracts to buy its chips or cloud 
 >
 > **60 seconds** · Read the headline above and follow the [system diagram](#how-the-system-works).
 >
-> **10 minutes** · Use the [interview walkthrough](docs/WALKTHROUGH.md) and run `make demo` after setup.
+> **5 minutes** · Open **How it works** on the dashboard. Follow the [interview walkthrough](docs/WALKTHROUGH.md#five-minutes) from one disclosure to the review decision.
 >
 > **Deep dive** · Follow the [numbered reading order](docs/README.md) from source data to evaluation and design decisions.
 
@@ -37,20 +37,27 @@ Open the combined worklist with `python -m deal_agent inbox`. Filing and news ca
 
 ## Run it
 
+From a full Git checkout, use Python 3.12 and GNU Make. Install once in an isolated environment. The refresh parity test also reads an earlier Git commit. Install Node.js to include the browser/Python stress parity tests.
+
 ```bash
-make setup                 # install dependencies
-cp .env.example .env       # then put your own name and email in it
-make refresh               # ingest, extract, tag news, rebuild, snapshot, diff
-make serve                 # dashboard at http://localhost:8765
+python3.12 -m venv .venv
+. .venv/bin/activate
+make setup
+make demo
+make explain ID=a_81cddd0804260229a87a
+make serve
 ```
 
-`SEC_USER_AGENT` must be set to a real contact string of the form
-`Name email@domain`, which is what the SEC requires of automated clients. The
-pipeline hard-fails with a clear message if it is missing or a placeholder.
+Open [the How it works panel](http://localhost:8765/#how). The dashboard files are bundled. Demo, explain, inbox, tests and serving work offline after setup. The demo uses a temporary queue and the saved Qwen recording. It shows the 2019 OpenAI release, the failed amount-text check and the unsuccessful repair.
 
-A full `make refresh` from a cold cache takes about fifteen minutes, most of it
-downloading filings at the SEC's five-requests-per-second limit. Afterwards the
-cache makes it far quicker.
+| Task | Requirements |
+|---|---|
+| See pending evidence | `python -m deal_agent inbox` prints the inspection command for each candidate. |
+| Rebuild financial outputs | `python -m deal_agent publish` computes from the local reviewed ledger. |
+| Run the local model | Start Ollama and download the desired weights. `python -m deal_agent run --source news` reads the stored corpus and leaves proposals pending. |
+| Update the public sources | Copy `.env.example` to `.env`, set your SEC contact locally, then run `make refresh`. This fetches filings and news and rebuilds the snapshot. |
+
+One reviewed example illustrates why review matters. Microsoft disclosed $13 billion of total funding commitments to OpenAI. The demo finds an older $1 billion announcement. Adding both without checking whether the total includes the earlier investment could double count it. [Microsoft filing](https://www.sec.gov/Archives/edgar/data/789019/000119312525256321/msft-20250930.htm)
 
 ### Other targets
 
@@ -112,18 +119,9 @@ STATE.md       what is done, what is next, known issues
    figure on the page resolves to the ledger rows that produced it, with a
    source link, a verbatim quote and an as-of date.
 
-## Deploying free on GitHub Pages
+## Serving the dashboard
 
-The dashboard is a static directory with no build step and no runtime
-dependencies beyond a locally vendored copy of D3.
-
-1. Push the repository to GitHub.
-2. Settings, Pages, Source: **Deploy from a branch**. Branch `main`,
-   folder `/site`.
-3. The dashboard appears at `https://<user>.github.io/<repo>/`.
-
-`site/data/*.json` is committed, so Pages serves the latest numbers without
-running anything. To keep it current, enable the daily workflow below.
+`make serve` serves `site/` locally. A static host can serve that same directory. A GitHub Pages deployment would need to publish the contents of `site/` through a Pages workflow or a supported publishing source.
 
 ### Optional daily refresh
 

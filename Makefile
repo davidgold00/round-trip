@@ -6,15 +6,15 @@ PY := python3
 help:
 	@echo "Run"
 	@echo "  demo          replay a real extraction offline in a temporary queue"
-	@echo "  serve         serve the dashboard on localhost:8765"
-	@echo "  refresh       run the original acquisition and analysis pipeline"
+	@echo "  serve         serve the bundled dashboard offline on localhost:8765"
+	@echo "  refresh       fetch public sources and run the analysis pipeline"
 	@echo "  ingest        cache SEC filings and company facts"
 	@echo "  extract       regenerate the filing candidate queue"
 	@echo "  news          collect and tag EDGAR, company and news items"
 	@echo "  build         compute exposure metrics"
 	@echo "  stress        compute cascade scenarios and sensitivity"
 	@echo "Agent"
-	@echo "  agent         propose deals from locally stored news or configured feeds"
+	@echo "  agent         use local Ollama to propose deals from stored news or configured feeds"
 	@echo "  agent-review  inspect and decide on pending proposals"
 	@echo "  explain ID=…  show one candidate's trace and review outcome"
 	@echo "Evaluate"
@@ -68,7 +68,7 @@ audit:
 
 serve:
 	@echo "Dashboard at http://localhost:8765  (ctrl-c to stop)"
-	@cd site && $(PY) -m http.server 8765
+	@cd site && $(PY) -m http.server 8765 --bind 127.0.0.1
 
 clean:
 	rm -rf data/interim/* data/processed/* outputs/*.json site/data/*.json

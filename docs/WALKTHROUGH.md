@@ -13,15 +13,18 @@
 
 ## Five minutes
 
-**Point to make.** A model's proposal and a published dollar amount travel through different decisions.
+Start `make serve` in a second terminal. Keep the [How it works panel](http://localhost:8765/#how) open next to the shell.
 
-- Open the cached Microsoft disclosure. The local model identifies a payer, recipient, instrument and amount. The schema constrains their form. It cannot decide whether the surrounding sentence supports them.
-- Compare the original words with the output. In the recorded case the numeric value is right. The model's amount text is “one billion” and the source says “$1 billion”. Its single repair repeats that error.
-- Show the checks for verbatim evidence, explicit USD, the source URL and both canonical entities. Failed proposals still reach the reviewer with failure history. The resulting pending candidate changes zero ledger rows.
-- Evaluate on source-grouped passages. The original rules found one of ten dev edges and returned twelve proposals. Compare the local model with that same baseline using the recorded dev and held-out tables. Read the numerator and denominator out loud.
-- A reviewer checks contract identity, legal status, bounds and source before publication. A funding row can change how existing customer purchases are attributed.
+| Time | What to show | What to say |
+|---|---|---|
+| 0:00–0:45 | Headline | The central estimate attributes $46.7B of $2.72T in disclosed supplier backlog to customers with financing traceable to the seller. That is 1.72%. Only 20.7% of backlog has a named customer, so much of the denominator cannot be attributed. |
+| 0:45–1:30 | How it works → read the OpenAI release | Microsoft invested in OpenAI. The supply-side question is how much customer spending later goes back to a funder. The model proposes the funding arrow. |
+| 1:30–2:30 | `make demo` | This replays a local Qwen recording against the cached release. It proposes Microsoft → OpenAI, equity investment, $1 billion. The source establishes an investment. The reviewer still needs evidence for the precise instrument. |
+| 2:30–3:30 | `make explain ID=a_81cddd0804260229a87a` | The quote, source URL and entities pass. The model says “one billion” where the source says “$1 billion”. Find the same failure under both `verify` and `verify.retry`. Reconciliation says NEW and review says pending. |
+| 3:30–4:30 | How it works → open the linked Microsoft filing | The reviewed ledger already contains $13B in total funding commitments. NEW means the matching rule found no same transaction. A reviewer must resolve overlap, legal status and amount bounds. Approval exports a YAML, application changes the ledger, and publication rebuilds the metrics and dashboard. |
+| 4:30–5:00 | Return to Headline | An eligible new funding row can change the share of customer purchases attributed back to a supplier. A duplicate contributes zero additional dollars. The recorded proposal remains pending and contributes zero. |
 
-**Show this.** Run `make demo`, then open the [source trace](TRACE_EXAMPLE.md) and [held-out comparison](../eval/RESULTS.md).
+[Original source, responses and checks](TRACE_EXAMPLE.md) · [Benchmark counts](../eval/RESULTS.md) · [Review commands](04-deal-agent.md#human-review-and-publication)
 
 ## Fifteen minutes
 

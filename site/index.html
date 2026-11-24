@@ -16,6 +16,7 @@
     <p class="sub" id="subline">Loading ledger&hellip;</p>
     <nav class="tabs" role="tablist" aria-label="Sections">
       <button role="tab" id="tab-headline"   aria-selected="true"  aria-controls="panel-headline">Headline</button>
+      <button role="tab" id="tab-how" aria-selected="false" aria-controls="panel-how">How it works</button>
       <button role="tab" id="tab-graph"      aria-selected="false" aria-controls="panel-graph">Money flow</button>
       <button role="tab" id="tab-suppliers"  aria-selected="false" aria-controls="panel-suppliers">Suppliers</button>
       <button role="tab" id="tab-cycles"     aria-selected="false" aria-controls="panel-cycles">Cycles</button>
@@ -76,6 +77,32 @@
     <p class="lede">Specific, checkable gaps. The headline is a floor on what is
       visible, not a measurement of what exists.</p>
     <div id="cannotSee"></div>
+  </div>
+</section>
+
+<section class="panel" id="panel-how" role="tabpanel" aria-labelledby="tab-how">
+  <div class="card">
+    <h2>Follow one investment from disclosure to review</h2>
+    <p class="lede">Microsoft → OpenAI · July 22, 2019 · Recorded local Qwen extraction</p>
+    <blockquote>“Microsoft is investing $1 billion in OpenAI”</blockquote>
+    <p><a href="https://openai.com/index/microsoft-invests-in-and-partners-with-openai/">Read the OpenAI disclosure</a></p>
+    <h3>What the model proposed</h3>
+    <p>Microsoft paid OpenAI. Qwen proposed an equity investment of $1 billion.
+      <code>make demo</code> replays all three local model responses in a temporary queue.</p>
+    <h3>What the verifier found</h3>
+    <p>The quotation, named entities and source URL passed. The amount field read
+      “one billion” while the quote contained “$1 billion”. The repair repeated the mismatch.</p>
+    <p><code>make explain ID=a_81cddd0804260229a87a</code></p>
+    <h3>What the reviewer decides</h3>
+    <p>Reconciliation classified it as NEW. Microsoft later disclosed $13 billion of total
+      funding commitments to OpenAI. The reviewer must check whether that total includes the
+      earlier investment and confirm its instrument before approving any amount.</p>
+    <p><a href="https://www.sec.gov/Archives/edgar/data/789019/000119312525256321/msft-20250930.htm">Read Microsoft's filing</a></p>
+    <h3>How a decision reaches the headline</h3>
+    <p>Approval exports reviewed terms. Applying the export updates the ledger.
+      Publication rebuilds exposure and stress from the ledger. A new funding row could
+      change Microsoft's share of OpenAI's documented funding. This example remains
+      pending and contributes zero dollars to the headline.</p>
   </div>
 </section>
 
