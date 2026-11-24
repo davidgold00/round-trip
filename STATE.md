@@ -8,6 +8,10 @@ The feature tip at `27b4b05` contained all 27 commits beyond main at `ceedd24`. 
 
 The genuine recording is one excerpt from run `a64e32868cb44af7931521fef23a1237`. It includes triage, extraction and one unsuccessful repair. The full six-call interrupted prefix described in the night notes was absent. The committed development report scored only rules. The older all-25 rules run already contains predictions for every current test excerpt. No completed model benchmark, model test score or dated corpus model run was present. [Development evidence](eval/RESULTS-dev.md) · [Original selection rule](docs/history/NIGHT3.md#selection-rule-recorded-before-scoring)
 
+## Release evaluation protocol
+
+Compare Qwen 2.5 7B Instruct v1 and v2 and Llama 3.1 8B v1 against the original rules on the same 15 development excerpts. All inference uses downloaded weights on loopback Ollama. Apply the existing selection and complexity rules before opening a model test report. Recover rules test counts by grouping the original predictions. Keep the split and labels frozen. For the stored news run use the selected configuration and retain only pending proposals.
+
 ## Privacy audit
 
 The editable reviewer examples and PR description contained an operator identifier. These were replaced with a reviewer alias. The CLI now defaults to a neutral alias, and raw benchmark recordings and local application audit logs are ignored. SEC contact examples use a reserved domain. The committed demo request and response bytes required no redaction.
