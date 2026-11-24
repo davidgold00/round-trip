@@ -187,3 +187,18 @@ def test_filing_company_metadata_supplies_first_person_context(runtime, deal_dic
     result = pipe.run_documents()
     assert result["candidates_proposed"] == 1
     assert result["verification_pass_rate"] == 1
+
+
+def test_missing_source_stays_retryable(runtime, deal_dict):
+    cfg, store, _, factory = runtime
+    pipe = factory([{"relevant": True, "reason": "investment"}, {"edges": [deal_dict]}])
+    save(store, cfg, deal_dict)
+    path = Path(store.rows("SELECT text_path FROM documents")[0]["text_path"])
+    original = path.read_bytes()
+    path.unlink()
+    assert pipe.run_documents()["document_errors"] == 1
+    assert not pipe.provider.calls
+    assert store.rows("SELECT state FROM documents")[0]["state"] == "error"
+    path.write_bytes(original)
+    assert pipe.run_documents()["candidates_proposed"] == 1
+    assert pipe.run_documents()["docs_processed"] == 0

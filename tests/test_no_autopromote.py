@@ -63,3 +63,18 @@ def test_promotion_rejects_t4_and_t1_without_accession():
         review.check_row({**base, "evidence_tier": "T1", "accession_no": ""})
     review.check_row({**base, "evidence_tier": "T1", "accession_no": "0000-00-0"})
     review.check_row({**base, "evidence_tier": "T2", "accession_no": ""})
+
+
+def test_missing_cached_filing_preserves_queue_and_evidence(tmp_path, monkeypatch):
+    import pytest
+
+    monkeypatch.setattr(extract, "ROOT", tmp_path)
+    monkeypatch.setattr(extract, "INTERIM", tmp_path)
+    monkeypatch.setattr(extract, "LEDGER", tmp_path)
+    (tmp_path / "filings_index.csv").write_text("local_path\nmissing.html\n")
+    files = [tmp_path / name for name in ("candidates.csv", "backlog_sentences.csv", "concentration_sentences.csv")]
+    for path in files:
+        path.write_text("saved evidence\n")
+    with pytest.raises(SystemExit, match="Missing 1 of 1"):
+        extract.run()
+    assert all(path.read_text() == "saved evidence\n" for path in files)

@@ -304,17 +304,23 @@ class Pipeline:
             "SELECT * FROM documents WHERE state != 'processed' ORDER BY id"
         ):
             meta = json.loads(row["meta"])
-            text = self.trace.call(
-                "document.read",
-                {"document": row["id"], "source_url": meta["source_url"]},
-                lambda: Path(row["text_path"]).read_text(),
-                summarize=lambda value: {
-                    "sha256": digest(value),
-                    "characters": len(value),
-                },
-            )
-            if digest(text) != row["id"]:
-                raise ValueError(f"Stored source text hash mismatch: {row['id']}")
+            try:
+                text = self.trace.call(
+                    "document.read",
+                    {"document": row["id"], "source_url": meta["source_url"]},
+                    lambda: Path(row["text_path"]).read_text(),
+                    summarize=lambda value: {
+                        "sha256": digest(value),
+                        "characters": len(value),
+                    },
+                )
+                if digest(text) != row["id"]:
+                    raise ValueError(f"Stored source text hash mismatch: {row['id']}")
+            except OSError as exc:
+                stats["document_errors"] += 1
+                self.store.issue(self.trace.run_id, row["id"], "document.read", str(exc))
+                self.store.db.execute("UPDATE documents SET state='error' WHERE id=?", (row["id"],))
+                continue
             result = self.process_text(text, meta, row["id"])
             stats["docs_processed"] += 1
             stats["docs_triaged_in"] += int(result["relevant"])

@@ -11,7 +11,7 @@ from pathlib import Path
 
 from .entities import alias_map
 from .ingest import text_of
-from .util import ROOT, ensure_dirs, get_logger, load_config, sha1, slug
+from .util import ROOT, ensure_dirs, get_logger, sha1, slug
 
 LOG = get_logger("extract")
 
@@ -146,8 +146,8 @@ def find_aliases(text: str, amap: dict[str, str], self_node: str) -> list[tuple[
 
 def extract_from_doc(row: dict, amap: dict[str, str]) -> tuple[list[dict], list[dict], list[dict]]:
     path = ROOT / row["local_path"] if row.get("local_path") else None
-    if not path or not path.exists():
-        return [], [], []
+    if path is None:
+        raise ValueError("Filing metadata is missing its cache path")
     raw = path.read_bytes()
     text = text_of(raw)
     return extract_from_text(text, row, amap)
@@ -219,15 +219,23 @@ def extract_from_text(text: str, row: dict, amap: dict[str, str]):
 
 
 def run(max_docs: int | None = None) -> dict:
-    cfg = load_config()
     ensure_dirs(LEDGER, INTERIM)
     idx_path = INTERIM / "filings_index.csv"
     if not idx_path.exists():
         raise SystemExit("run `make ingest` first: no data/interim/filings_index.csv")
     with open(idx_path) as fh:
         rows = [r for r in csv.DictReader(fh) if r.get("local_path")]
-    if max_docs:
+    if not rows:
+        LOG.warning("Empty filing index. Kept the existing queue and evidence tables.")
+        return {"docs": 0, "skipped": True}
+    if max_docs is not None:
+        if max_docs <= 0:
+            raise ValueError("max_docs must be positive")
         rows = rows[:max_docs]
+    missing = sum(not (ROOT / row["local_path"]).is_file() for row in rows)
+    if missing:
+        raise SystemExit(f"Missing {missing} of {len(rows)} indexed filing bodies. "
+                         "Run make ingest before rebuilding the queue. Existing files were kept.")
     amap = alias_map()
 
     all_c: list[dict] = []
@@ -236,9 +244,8 @@ def run(max_docs: int | None = None) -> dict:
     for i, row in enumerate(rows, 1):
         try:
             c, k, b = extract_from_doc(row, amap)
-        except Exception as exc:  # a malformed doc must not kill the run
-            LOG.warning("extract failed on %s %s: %s", row["node"], row["accession_no"], exc)
-            continue
+        except Exception as exc:
+            raise RuntimeError(f"Could not read {row['accession_no']}. Existing files were kept.") from exc
         all_c.extend(c)
         all_conc.extend(k)
         all_back.extend(b)
@@ -260,8 +267,10 @@ def run(max_docs: int | None = None) -> dict:
             c["review_reason"] = p.get("review_reason", "")
             c["quote_snippet"] = p.get("quote_snippet", "")
         merged[c["candidate_id"]] = c
+    selected = {row["accession_no"] for row in rows}
     for cid, p in prior.items():
-        if cid not in merged and p.get("review_status") in ("promoted", "rejected"):
+        if cid not in merged and (p.get("review_status") in ("promoted", "rejected")
+                                  or (max_docs and p.get("accession_no") not in selected)):
             merged[cid] = {k: p.get(k, "") for k in CAND_FIELDS}
 
     out = sorted(merged.values(), key=lambda r: (-float(r["amount_usd_high"] or 0),
@@ -274,6 +283,9 @@ def run(max_docs: int | None = None) -> dict:
     LOG.info("wrote %d candidates -> %s", len(out), cpath)
 
     def dump(path: Path, rows_: list[dict]) -> None:
+        if max_docs and path.is_file():
+            with path.open(newline="") as existing:
+                rows_.extend(r for r in csv.DictReader(existing) if r.get("accession_no") not in selected)
         if not rows_:
             path.write_text("")
             return

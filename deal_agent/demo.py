@@ -49,16 +49,21 @@ def demo():
         store = Store(path_for(cfg,"state_db"))
         try:
             player = Replay(agent, source/"cassette.json", trace)
+            if player.data["run_id"] != example["origin_run_id"]:
+                raise ValueError("Recording and example identify different runs")
             if player.synthetic:
                 raise ValueError("Interview demo requires a real local model recording")
             print(f"Offline replay of {agent['model']} {agent['prompt_version']}, run {example['origin_run_id']}.", flush=True)
+            print(text.strip(), flush=True)
             pipe = Pipeline(cfg, store, trace, player)
             store.save_document(example["metadata"], text.encode(), text, work/"raw")
             stats = pipe.run_documents()
             if stats["document_errors"] or player.position != len(player.data["calls"]):
                 raise ValueError("Incomplete demo playback")
             candidates = store.candidates()
-            row = next((c for c in candidates if c["id"] == example.get("candidate_id")), candidates[0])
+            if [row["id"] for row in candidates] != [example["candidate_id"]]:
+                raise ValueError("Replay produced a different candidate set from the saved example")
+            row = candidates[0]
             snapshot = export(cfg, work/"dashboard")
             if snapshot["pending_count"] != len(candidates):
                 raise ValueError("Dashboard export differs from demo queue")
@@ -66,7 +71,8 @@ def demo():
             story["model"] = agent["model"]
             story["origin_run_id"] = example["origin_run_id"]
             print(f"Pending candidate {row['id']}: {row['deal']['source_entity']} to {row['deal']['target_entity']}.")
-            print("Dashboard location: News > Pending review. The demo queue is temporary.")
+            print("Review status: pending in the temporary queue. Published ledger changes: 0.")
+            print(f"Follow the saved decision trail: make explain ID={row['id']}")
             return story
         finally:
             store.close()

@@ -18,7 +18,7 @@ def test_demo_and_explanation_offline(tmp_path):
         return subprocess.run(["make",*args,f"PY={sys.executable}"],cwd=ROOT,env=env,check=True,
                               capture_output=True,text=True,timeout=120).stdout
     output = make("demo")
-    assert example["candidate_id"] in output and "News > Pending review" in output
+    assert example["candidate_id"] in output and "Published ledger changes: 0" in output
     story = make("explain", "ID="+example["candidate_id"])
     assert f"Raw {example['model']} extract response:" in story
     assert "Human review: pending" in story and "USD_amount:" in story
@@ -34,3 +34,12 @@ def test_written_trace_matches_explain():
     real_lines = set((ROOT/"eval/example/trace.jsonl").read_text().splitlines())
     for block in text.split("```jsonl\n")[1:]:
         assert set(block.split("\n```",1)[0].splitlines()) <= real_lines
+
+
+def test_live_playback_renders_the_documented_decision():
+    from deal_agent.config import load
+    from deal_agent.demo import demo
+    from deal_agent.explain import load_story, render
+
+    replay = demo()
+    assert render(replay) == render(load_story(load(), replay["id"]))
