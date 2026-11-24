@@ -38,3 +38,12 @@ eval/VALIDATION.json
 
 # Detailed evaluation traces are local; cassettes are opt-in versioned files.
 eval/**/traces/
+
+# Private operator configuration, inference checkpoints and reviewer exports
+.env.*
+!.env.example
+eval/cassettes/
+*.sqlite3*
+*.sqlite
+ledger/promotion_audit.jsonl
+ledger/agent_promotions/

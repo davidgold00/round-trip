@@ -105,7 +105,7 @@ use the project's existing promotions mechanism. No model writes the ledger.
 
 1. Run `python -m deal_agent review list` and inspect a candidate with
    `python -m deal_agent review show ID`.
-2. Run `python -m deal_agent review --actor "David Gold"` for interactive
+2. Run `python -m deal_agent review --actor "reviewer-01"` for interactive
    edit/reject/approve. Read the original source and choose the publication quote,
    legal status, amount bounds and rationale. Approval exports a YAML and records
    its path in the immutable review audit. It does not change the ledger.
@@ -122,7 +122,7 @@ updates that row rather than appending a second copy. Distinct same-day contract
 require an explicit NEW decision and receive stable distinct edge ids.
 
 If the ledger changed before application, batch refuses the stale review.
-Use `python -m deal_agent review reopen ID --actor "David Gold" --reason "..."`,
+Use `python -m deal_agent review reopen ID --actor "reviewer-01" --reason "..."`,
 then review the candidate again. A new revision preserves the old YAML and audit.
 An applied approval cannot be reopened; a later restatement needs a new reviewed
 candidate. Failed verification requires an edit and successful recheck first.
@@ -133,8 +133,8 @@ Noninteractive review actions are also available:
 
 ```bash
 python -m deal_agent review show CANDIDATE_ID --json /tmp/deal-edit.json
-python -m deal_agent review edit CANDIDATE_ID --json /tmp/deal-edit.json --actor "David Gold" --reason "Corrected payer from source"
-python -m deal_agent review reject CANDIDATE_ID --actor "David Gold" --reason "Already reviewed"
+python -m deal_agent review edit CANDIDATE_ID --json /tmp/deal-edit.json --actor "reviewer-01" --reason "Corrected payer from source"
+python -m deal_agent review reject CANDIDATE_ID --actor "reviewer-01" --reason "Already reviewed"
 python -m deal_agent review audit
 ```
 

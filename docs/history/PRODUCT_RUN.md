@@ -1,0 +1,15 @@
+# Local product run
+
+Integration base `27b4b05730e2179fddf08aceb9e20ce64f1c062a` is the head of PR #1. Main at inspection was `ceedd24d4d4a3d10486041996879ca2e6b2bb186`. An isolated worktree on `codex/local-product-refinement` preserves a divergent local feature head at `94298cf`. Its five unpublished commits include a different freeze and 49-document corpus. Do not cherry-pick its split into this comparison.
+
+The published freeze has 15 dev passages and ten reserved for test. The previous all-corpus rules scores predate that freeze. The dev rules run and three-call Qwen v1 example have recordings. The local checkout also held eight traces and a labels-only latest report with no completed live score. The six-call prefix described in the night-three notes was unavailable here. No post-freeze test score was found in the two branches, PR description/discussion, or project artifacts inspected. The integration owner owns the final score and merge.
+
+## Experiment checkpoint
+
+Use the [prospective selection rule](NIGHT3.md#selection-rule-recorded-before-scoring). Benchmark original rules and downloaded Llama 3.2 3B v1 on all 15 dev passages. Apple M3, eight CPU cores, 8 GiB unified memory. Installed alternatives include Qwen 1.5B and 7B, Phi 3.5, and Llama 3.1 8B. The historical Qwen example took about 324 seconds for three calls. This run uses loopback Ollama, temperature 0, seed 42 and 8,192 context tokens. The first small-model triage calls took about 2–3 seconds and an extraction about 10 seconds. Raw progress is local under `eval/results/` and `eval/cassettes/`. Resume only the corresponding directory with the original model and prompt. The first live run ID is `28c1703818f84c469a786e85feb1dd63`.
+
+## Publication audit
+
+The project environment file contains operator-specific SEC configuration and stays local. The tracked example uses placeholders. Current instructions use an audit alias. New reviews default to a neutral alias and accept `ROUNDTRIP_REVIEWER` or `--actor`. New commits use a project pseudonym. The local database, raw traces, unrestricted cassettes and application audit stay outside version control.
+
+Reachable earlier commits contain an operator identity in author/committer metadata and examples of named reviewers. These examples also occur in the public PR description and its historical diff. A scan checked reachable blobs, including compressed evidence, for the configured contact, home paths and common credential patterns. The tracked snapshot contained no match for the configured contact. The public repository reported zero Actions runs, zero Actions artifacts, zero releases and Pages disabled. Historical cleanup and hosted edits require a separate owner decision.

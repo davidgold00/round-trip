@@ -100,7 +100,7 @@ Use stored ingestion, then review candidates:
 ```bash
 python -m deal_agent run --source news
 python -m deal_agent review list
-python -m deal_agent review --actor "David Gold"
+python -m deal_agent review --actor "reviewer-01"
 ```
 
 Approval exports a reviewed YAML and prints its path; it does not write the ledger.
@@ -113,7 +113,7 @@ python -m deal_agent export-pending
 ```
 
 `run --source fetch` explicitly selects the fallback fetcher. For a stale export,
-use `review reopen ID --actor "David Gold" --reason "..."`, then review again;
+use `review reopen ID --actor "reviewer-01" --reason "..."`, then review again;
 old exports/audits are retained. Applied approvals cannot be reopened.
 See `docs/AGENT_REVIEW.md` and `docs/DEAL_AGENT.md` for the full workflow.
 
